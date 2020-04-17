@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>anduryl.io &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code.html">Code documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>anduryl.io</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for anduryl.io</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
+
+<div class="viewcode-block" id="ProjectIO"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO">[docs]</a><span class="k">class</span> <span class="nc">ProjectIO</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    IO class for anduryl project</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        project : anduryl.main.Project</span>
+<span class="sd">            Project class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
+
+<div class="viewcode-block" id="ProjectIO.to_file"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO.to_file">[docs]</a>    <span class="k">def</span> <span class="nf">to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves project to file, calls the save function dependend</span>
+<span class="sd">        on the path extension</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str</span>
+<span class="sd">            Path to save file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.dtt&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_excalibur</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Extension &quot;.{os.path.splitext(path)[-1]}&quot; not recognized. Expected &quot;.dtt&quot; or &quot;.json&quot;.&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectIO.to_excalibur"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO.to_excalibur">[docs]</a>    <span class="k">def</span> <span class="nf">to_excalibur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dttfile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save to Excalibur format</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dttfile : str</span>
+<span class="sd">            .dtt file for excalibur. .rls file is derived from the name by replacing the extension</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get rls filename</span>
+        <span class="n">rlsfile</span> <span class="o">=</span> <span class="n">dttfile</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.dtt&#39;</span><span class="p">,</span> <span class="s1">&#39;.rls&#39;</span><span class="p">)</span>
+        <span class="c1"># Save</span>
+        <span class="n">write_excalibur</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="n">dttfile</span><span class="p">,</span> <span class="n">rlsfile</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectIO.to_json"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save project to json</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str</span>
+<span class="sd">            Path to json file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Filename should end with .json&#39;</span><span class="p">)</span>
+        <span class="c1"># Save</span>
+        <span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectIO.load_file"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO.load_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads file given a file name. The load function of</span>
+<span class="sd">        excalbur or json is called based on the extension.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str</span>
+<span class="sd">            Path to file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.dtt&#39;</span><span class="p">):</span>
+            <span class="c1"># Load project</span>
+            <span class="n">rlsfile</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.dtt&#39;</span><span class="p">,</span> <span class="s1">&#39;.rls&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">rlsfile</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_excalibur</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">rlsfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Could not find the matching .rls file for the opened .dtt file (</span><span class="si">{path}</span><span class="s1">).&#39;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.rls&#39;</span><span class="p">):</span>
+            <span class="c1"># If rls file is tried to be opened, replace extension</span>
+            <span class="n">dttfile</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.rls&#39;</span><span class="p">,</span> <span class="s1">&#39;.dtt&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dttfile</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_excalibur</span><span class="p">(</span><span class="n">dttfile</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Could not find the matching .dtt file for the opened .rls file (</span><span class="si">{path}</span><span class="s1">).&#39;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Extension &quot;.{os.path.splitext(path)[-1]}&quot; not recognized. Expected &quot;.dtt&quot; or &quot;.json&quot;.&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectIO.load_excalibur"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO.load_excalibur">[docs]</a>    <span class="k">def</span> <span class="nf">load_excalibur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dttfile</span><span class="p">,</span> <span class="n">rlsfile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load Excalibur file format</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dttfile : str</span>
+<span class="sd">            Path to.dtt file</span>
+<span class="sd">        rlsfile : str</span>
+<span class="sd">            Path to .rls file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">outdict</span> <span class="o">=</span> <span class="n">read_excalibur</span><span class="p">(</span><span class="n">dttfile</span><span class="p">,</span> <span class="n">rlsfile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">outdict</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ProjectIO.load_json"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO.load_json">[docs]</a>    <span class="k">def</span> <span class="nf">load_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load json file format</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str</span>
+<span class="sd">            Path to .json file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">outdict</span> <span class="o">=</span> <span class="n">read_json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">outdict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectIO.add_data"><a class="viewcode-back" href="../../io.html#anduryl.io.ProjectIO.add_data">[docs]</a>    <span class="k">def</span> <span class="nf">add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outdict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds data to project from loaded dictionary</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        outdict : dictionary</span>
+<span class="sd">            Dictionary with loaded input data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Get data for determining shape</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">rls</span><span class="p">)</span> <span class="k">for</span> <span class="n">rls</span> <span class="ow">in</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="s1">&#39;realization&#39;</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;assessments&#39;</span><span class="p">]</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span>
+            <span class="n">nexperts</span><span class="o">=</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">nseed</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span>
+            <span class="n">ntarget</span><span class="o">=</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span>
+            <span class="n">nquantiles</span><span class="o">=</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Get experts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;experts&#39;</span><span class="p">][</span><span class="s1">&#39;ids&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;experts&#39;</span><span class="p">][</span><span class="s1">&#39;ids&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">names</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;experts&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">[:]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">)))</span>
+        
+        <span class="c1"># Add questions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">ids</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="s1">&#39;ids&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">realizations</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="s1">&#39;realization&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="s1">&#39;scale&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">questions</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="s1">&#39;question&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Add assessments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">arr</span>
+        
+        <span class="c1"># Add quantiles and probabilies per bin</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">[:]</span>
+        <span class="n">quants</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;quantiles&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">quants</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">calculate_binprobs</span><span class="p">()</span>
+
+        <span class="c1"># Add results</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">settings</span> <span class="ow">in</span> <span class="n">outdict</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">add_results_from_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="write_excalibur"><a class="viewcode-back" href="../../io.html#anduryl.io.write_excalibur">[docs]</a><span class="k">def</span> <span class="nf">write_excalibur</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">dttfile</span><span class="p">,</span> <span class="n">rlsfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to write project experts, items and assessments</span>
+<span class="sd">    to .dtt and .rls files.</span>
+
+<span class="sd">    Results are not writen to the file. Expert names are also</span>
+<span class="sd">    not saved.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    project : Project instance</span>
+<span class="sd">        Project with experts, items and assessments</span>
+<span class="sd">    dttfile : str</span>
+<span class="sd">        Path to .dtt file</span>
+<span class="sd">    rlsfile : str</span>
+<span class="sd">        Path to .rls file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Check if paths exists</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span><span class="n">dttfile</span><span class="p">,</span> <span class="n">rlsfile</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Directory {os.path.dirname(path)} does not exist.&#39;</span><span class="p">)</span>
+
+    <span class="n">quantiles</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">nquantiles</span><span class="p">,</span> <span class="n">nitems</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">nexperts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">)</span>
+
+    <span class="c1"># Get ID&#39;s with max string length</span>
+    <span class="n">expertids</span> <span class="o">=</span> <span class="p">[</span><span class="n">expid</span><span class="p">[:</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">expid</span><span class="p">),</span> <span class="mi">8</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">expid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">]</span>
+    <span class="n">itemids</span> <span class="o">=</span> <span class="p">[</span><span class="n">itemid</span><span class="p">[:</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">itemid</span><span class="p">),</span> <span class="mi">14</span><span class="p">)]</span> <span class="k">for</span> <span class="n">itemid</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">ids</span><span class="p">]</span>
+
+    <span class="n">assessments</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="n">assessments</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">assessments</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">999.5</span>
+
+    <span class="c1"># dtt</span>
+    <span class="n">quantiles_str</span> <span class="o">=</span> <span class="s1">&#39;  &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">f</span><span class="s1">&#39;{int(round(100*quantile)):2d}&#39;</span> <span class="k">for</span> <span class="n">quantile</span> <span class="ow">in</span> <span class="n">quantiles</span><span class="p">])</span>
+    <span class="n">dtttext</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;* CLASS ASCII OUTPUT FILE. NQ= {len(quantiles):3d}   QU=  &#39;</span><span class="o">+</span><span class="n">quantiles_str</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+    <span class="c1"># Construct format for line without and with question</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39; </span><span class="si">{:4d}</span><span class="s1"> </span><span class="si">{:&gt;8s}</span><span class="s1"> </span><span class="si">{:4d}</span><span class="s1"> </span><span class="si">{:&gt;14s}</span><span class="s1"> </span><span class="si">{:&gt;3s}</span><span class="s1"> &#39;</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">quantiles</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">questionline</span> <span class="o">=</span> <span class="s1">&#39; </span><span class="si">{:4d}</span><span class="s1"> </span><span class="si">{:&gt;8s}</span><span class="s1"> </span><span class="si">{:4d}</span><span class="s1"> </span><span class="si">{:&gt;14s}</span><span class="s1"> </span><span class="si">{:&gt;3s}</span><span class="s1"> &#39;</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">quantiles</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{:&gt;173s}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span>
+
+
+    <span class="k">for</span> <span class="n">iexp</span><span class="p">,</span> <span class="n">expert</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">expertids</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">iit</span><span class="p">,</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">question</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">itemids</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">questions</span><span class="p">)):</span>
+            <span class="c1"># Collect values in correct scientific format</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">format_float_scientific</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exp_digits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+                      <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">assessments</span><span class="p">[</span><span class="n">iexp</span><span class="p">,</span> <span class="p">:,</span> <span class="n">iit</span><span class="p">]]</span>
+            <span class="c1"># Write question if they are specified and first expert or first item</span>
+            <span class="k">if</span> <span class="n">question</span> <span class="ow">and</span> <span class="p">(</span><span class="n">iexp</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">iit</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">dtttext</span> <span class="o">+=</span> <span class="n">questionline</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iexp</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">expert</span><span class="p">,</span> <span class="n">iit</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">,</span> <span class="n">question</span><span class="p">)</span>
+            <span class="c1"># Else write a line without questions</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dtttext</span> <span class="o">+=</span> <span class="n">line</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iexp</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">expert</span><span class="p">,</span> <span class="n">iit</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="c1"># rls</span>
+    <span class="n">questionline</span> <span class="o">=</span> <span class="s1">&#39; </span><span class="si">{:4d}</span><span class="s1"> </span><span class="si">{:&gt;14s}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{:&gt;3s}</span><span class="s1"> </span><span class="si">{:&gt;173s}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">rlstext</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">realizations</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">realizations</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">realizations</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">realizations</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">999.5</span>
+
+    <span class="k">for</span> <span class="n">iit</span><span class="p">,</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">itemids</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">questions</span><span class="p">,</span> <span class="n">realizations</span><span class="p">)):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">format_float_scientific</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exp_digits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">rlstext</span> <span class="o">+=</span> <span class="n">questionline</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iit</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">question</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dttfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dtttext</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">rlsfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">rlstext</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="read_excalibur"><a class="viewcode-back" href="../../io.html#anduryl.io.read_excalibur">[docs]</a><span class="k">def</span> <span class="nf">read_excalibur</span><span class="p">(</span><span class="n">dttfile</span><span class="p">,</span> <span class="n">rlsfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to read assessment from Excalibur .ddt and .rls file</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dttfile : str</span>
+<span class="sd">        File with assessments</span>
+<span class="sd">    rlsfile : str</span>
+<span class="sd">        File with realisations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dttfile</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;File does not exist: </span><span class="si">{dttfile}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">rlsfile</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;File does not exist: </span><span class="si">{rlsfile}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Read dtt file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dttfile</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+    <span class="c1"># Get percentiles</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">first</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;QU=&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()])</span> <span class="o">/</span> <span class="mi">100</span>
+    <span class="n">npercentiles</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">percentiles</span><span class="p">)</span>
+
+    <span class="c1"># Get number of experts and questions</span>
+    <span class="n">nexperts</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
+    <span class="n">nquestions</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">14</span><span class="p">:</span><span class="mi">20</span><span class="p">])</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
+
+    <span class="c1"># Get background measure</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;uni&#39;</span><span class="p">),</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">startchr</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
+    <span class="n">background</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">line</span><span class="p">[</span><span class="n">startchr</span><span class="p">:</span><span class="n">startchr</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="o">+</span><span class="n">nquestions</span><span class="p">]])</span>
+
+    <span class="c1"># Get question id&#39;s</span>
+    <span class="n">idstrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">line</span><span class="p">[:</span><span class="n">startchr</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="o">+</span><span class="n">nquestions</span><span class="p">]])</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">idstrs</span><span class="p">:</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;([^\s]+\s+[^\s]+\s+[^\s]+)&#39;</span> <span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">):]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+    <span class="c1"># Get expert ids</span>
+    <span class="n">experts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">nquestions</span><span class="p">)])</span>
+
+    <span class="c1"># Assessments</span>
+    <span class="n">assessments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nexperts</span><span class="p">,</span> <span class="n">npercentiles</span><span class="p">,</span> <span class="n">nquestions</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">iexpert</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+        <span class="n">iquestion</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">14</span><span class="p">:</span><span class="mi">20</span><span class="p">])</span>
+        <span class="n">assessments</span><span class="p">[</span><span class="n">iexpert</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="n">iquestion</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">startchr</span><span class="o">+</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="n">npercentiles</span><span class="p">]</span>
+
+    <span class="c1"># Process &#39;no-data&#39;</span>
+    <span class="n">assessments</span> <span class="o">=</span> <span class="n">assessments</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">assessments</span><span class="p">[(</span><span class="n">assessments</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">assessments</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">990</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># Read realisations from rls file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">rlsfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+    
+    <span class="c1"># Get the position of &#39;uni&#39; of &#39;log&#39; in the file</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;uni&#39;</span><span class="p">),</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">endchr</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
+
+    <span class="n">realdict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">questiondict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">endchr</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">linepart</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">qid</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;[^\s]+(.+)&#39;</span><span class="p">,</span> <span class="n">linepart</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">realdict</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">questiondict</span><span class="p">[</span><span class="n">qid</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">endchr</span><span class="o">+</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="n">realizations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">realdict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">realdict</span> <span class="k">else</span> <span class="o">-</span><span class="mi">995</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">])</span>
+    <span class="n">questions</span> <span class="o">=</span> <span class="p">[</span><span class="n">questiondict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">questiondict</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">]</span>
+    
+    <span class="c1"># Process &#39;no-data&#39;</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">realizations</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">realizations</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">990</span><span class="p">)</span>
+    <span class="n">realizations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="n">idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="n">val</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">realizations</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+    <span class="n">outdict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;quantiles&#39;</span><span class="p">:</span> <span class="n">percentiles</span><span class="p">,</span>
+        <span class="s1">&#39;assessments&#39;</span><span class="p">:</span> <span class="n">assessments</span><span class="p">,</span>
+        <span class="s1">&#39;items&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;ids&#39;</span><span class="p">:</span> <span class="n">ids</span><span class="p">,</span>       
+            <span class="s1">&#39;realization&#39;</span><span class="p">:</span> <span class="n">realizations</span><span class="p">,</span>
+            <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">background</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="s1">&#39;question&#39;</span><span class="p">:</span> <span class="n">questions</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;experts&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;ids&#39;</span><span class="p">:</span> <span class="n">experts</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">experts</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">outdict</span></div>
+
+<div class="viewcode-block" id="write_json"><a class="viewcode-back" href="../../io.html#anduryl.io.write_json">[docs]</a><span class="k">def</span> <span class="nf">write_json</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to write project experts, items and assessments</span>
+<span class="sd">    to .json</span>
+
+<span class="sd">    Results are not writen to the file. Expert names are also</span>
+<span class="sd">    not saved.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    project : Project instance</span>
+<span class="sd">        Project with experts, items and assessments</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to .json file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Check if paths exists</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Directory {os.path.dirname(path)} does not exist.&#39;</span><span class="p">)</span>
+
+    <span class="n">expert_data_T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">names</span><span class="p">,</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">user_weights</span>
+    <span class="p">]))</span>
+    <span class="n">expert_data_T</span> <span class="o">=</span> <span class="p">[</span><span class="n">expert_data_T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">]</span>
+
+    <span class="c1"># Create dictionary</span>
+    <span class="n">savedct</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;experts&#39;</span><span class="p">:</span> <span class="n">elements_to_dict</span><span class="p">(</span>
+            <span class="n">expert_data_T</span><span class="p">,</span>
+            <span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">get_exp</span><span class="p">(</span><span class="s1">&#39;actual&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;user weight&#39;</span><span class="p">]]</span>
+        <span class="p">),</span>
+        <span class="s1">&#39;items&#39;</span><span class="p">:</span> <span class="n">elements_to_dict</span><span class="p">(</span>
+        <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span>            
+            <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">realizations</span><span class="p">,</span>
+            <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span>
+            <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">questions</span>
+        <span class="p">])),</span>
+            <span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">ids</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;realization&#39;</span><span class="p">,</span> <span class="s1">&#39;scale&#39;</span><span class="p">,</span> <span class="s1">&#39;question&#39;</span><span class="p">]]</span>
+        <span class="p">),</span>
+        <span class="s1">&#39;assessments&#39;</span><span class="p">:</span> <span class="n">elements_to_dict</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">get_exp</span><span class="p">(</span><span class="s1">&#39;actual&#39;</span><span class="p">),</span> <span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">ids</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">]</span>
+        <span class="p">),</span>
+        <span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">project</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">settings</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Write to json</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">savedct</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span></div>
+    
+<div class="viewcode-block" id="read_json"><a class="viewcode-back" href="../../io.html#anduryl.io.read_json">[docs]</a><span class="k">def</span> <span class="nf">read_json</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads Anduryl project from json format</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to json file</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dictionary</span>
+<span class="sd">        Dictionary with loaded data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">outdct</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="c1"># Write to json</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">dct</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="c1"># Read experts</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">dict_to_elements</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="s1">&#39;experts&#39;</span><span class="p">])</span>
+    <span class="n">exp_dict</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="s1">&#39;experts&#39;</span><span class="p">]</span>
+    <span class="n">exp_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">exp_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">outdct</span><span class="p">[</span><span class="s1">&#39;experts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;ids&#39;</span><span class="p">:</span> <span class="n">exp_ids</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">exp_dict</span><span class="p">[</span><span class="n">exp</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">exp_ids</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Read items</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">dict_to_elements</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">])</span>
+    <span class="n">item_dict</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span>
+    <span class="n">item_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">item_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">outdct</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;ids&#39;</span><span class="p">:</span> <span class="n">item_ids</span><span class="p">,</span>
+        <span class="s1">&#39;realization&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">item_dict</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;realization&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">item_ids</span><span class="p">],</span>
+        <span class="s1">&#39;scale&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">item_dict</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;scale&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">item_ids</span><span class="p">],</span>
+        <span class="s1">&#39;question&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">item_dict</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;question&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">item_ids</span><span class="p">],</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># Read assessments</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">dict_to_elements</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="s1">&#39;assessments&#39;</span><span class="p">])</span>
+    <span class="n">assessments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">outdct</span><span class="p">[</span><span class="s1">&#39;quantiles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="c1"># Sort assessments</span>
+    <span class="c1"># by experts</span>
+    <span class="n">assessments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">([</span><span class="n">exp_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]]),</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="c1"># by items</span>
+    <span class="n">assessments</span> <span class="o">=</span> <span class="n">assessments</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">([</span><span class="n">item_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">]])]</span>
+    <span class="c1"># by quantiles</span>
+    <span class="n">assessments</span> <span class="o">=</span> <span class="n">assessments</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))]</span>
+    <span class="c1"># Swap quantiles and items such that the quantiles are in second place</span>
+    <span class="n">outdct</span><span class="p">[</span><span class="s1">&#39;assessments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">assessments</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Add results</span>
+    <span class="n">outdct</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span><span class="c1">#dct[&#39;results&#39;]</span>
+
+    <span class="k">return</span> <span class="n">outdct</span></div>
+
+<div class="viewcode-block" id="elements_to_dict"><a class="viewcode-back" href="../../io.html#anduryl.io.elements_to_dict">[docs]</a><span class="k">def</span> <span class="nf">elements_to_dict</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Functionn to map array of list elements to dictionary</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arr : np.ndarray or lists</span>
+<span class="sd">        Elements to be ravelled to dict</span>
+<span class="sd">    labels : list</span>
+<span class="sd">        labels for each &#39;axis&#39; of the arr</span>
+<span class="sd">    level : int, optional</span>
+<span class="sd">        Level of depth, used by the function itself when nesting, by default 0</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dictionary</span>
+<span class="sd">        array as ravelled dictionary</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dct</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">level</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">elements_to_dict</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dct</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+                
+    <span class="k">return</span> <span class="n">dct</span></div>
+
+<div class="viewcode-block" id="dict_to_elements"><a class="viewcode-back" href="../../io.html#anduryl.io.dict_to_elements">[docs]</a><span class="k">def</span> <span class="nf">dict_to_elements</span><span class="p">(</span><span class="n">dct</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a (nested) list from a dictionary</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dct : dictionary</span>
+<span class="sd">        Dictionary to reshape into lists</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list, list</span>
+<span class="sd">        Labels and elements</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="nf">get_keys</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># Verzamel keys</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+            <span class="n">keys</span><span class="p">[</span><span class="n">level</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">get_keys</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Get keys and select unique</span>
+    <span class="n">get_keys</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)):</span>
+        <span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+    <span class="k">def</span> <span class="nf">fill_lists_by_key</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">level</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">level</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">lst</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">fill_lists_by_key</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">lst</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">lst</span>
+    
+    <span class="n">items</span> <span class="o">=</span> <span class="n">fill_lists_by_key</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">keys</span><span class="p">,</span> <span class="n">items</span></div>
+
+<div class="viewcode-block" id="selection_to_text"><a class="viewcode-back" href="../../io.html#anduryl.io.selection_to_text">[docs]</a><span class="k">def</span> <span class="nf">selection_to_text</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get elements from model selection and convert to text</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    selection : Qt selection</span>
+<span class="sd">        Selection from a table</span>
+<span class="sd">    newline : str, optional</span>
+<span class="sd">        character for newline, by default \n</span>
+<span class="sd">    delimiter : str, optional</span>
+<span class="sd">        character for delimiter, by default \t</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        Text that can be exported or pasted</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">]</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">]</span>
+    <span class="n">minrow</span><span class="p">,</span> <span class="n">maxrow</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">rows</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="n">mincol</span><span class="p">,</span> <span class="n">maxcol</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+    
+    <span class="n">rowcount</span> <span class="o">=</span> <span class="n">maxrow</span> <span class="o">-</span> <span class="n">minrow</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">colcount</span> <span class="o">=</span> <span class="n">maxcol</span> <span class="o">-</span> <span class="n">mincol</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">colcount</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rowcount</span><span class="p">)]</span>
+    
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">-</span> <span class="n">minrow</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span> <span class="o">-</span> <span class="n">mincol</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+        <span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    
+    <span class="k">return</span> <span class="n">newline</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="get_table_text"><a class="viewcode-back" href="../../io.html#anduryl.io.get_table_text">[docs]</a><span class="k">def</span> <span class="nf">get_table_text</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get all elements from table model, including the header</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    selection : Qt selection</span>
+<span class="sd">        Selection from a table</span>
+<span class="sd">    newline : str, optional</span>
+<span class="sd">        character for newline, by default \\n</span>
+<span class="sd">    delimiter : str, optional</span>
+<span class="sd">        character for delimiter, by default \\t</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        Text that can be exported or pasted</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get header</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">headerData</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">)</span>
+              <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">columnCount</span><span class="p">(</span><span class="kc">None</span><span class="p">))]</span>
+    <span class="k">if</span> <span class="n">header</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ID&#39;</span><span class="p">:</span>
+        <span class="n">header</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Id&#39;</span>
+    <span class="c1"># Get data text</span>
+    <span class="n">selection</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">createIndex</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">rowCount</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span> <span class="nb">range</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">columnCount</span><span class="p">(</span><span class="kc">None</span><span class="p">)))]</span>
+    <span class="k">return</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header</span><span class="p">)</span> <span class="o">+</span> <span class="n">newline</span> <span class="o">+</span> <span class="n">selection_to_text</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">newline</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">)</span> <span class="o">+</span> <span class="n">newline</span></div>
+
+<div class="viewcode-block" id="table_to_csv"><a class="viewcode-back" href="../../io.html#anduryl.io.table_to_csv">[docs]</a><span class="k">def</span> <span class="nf">table_to_csv</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mainwindow</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves table to csv.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : table model</span>
+<span class="sd">        Table model from which the data is retrieved</span>
+<span class="sd">    mainwindow : mainwindow</span>
+<span class="sd">        Is used for retrieving save file name</span>
+<span class="sd">    path : str, optional</span>
+<span class="sd">        Path to save file, if None, the user is asked to provide the save file name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+        <span class="c1"># Set current dir</span>
+        <span class="n">currentdir</span> <span class="o">=</span> <span class="n">mainwindow</span><span class="o">.</span><span class="n">appsettings</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;currentdir&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span><span class="n">mainwindow</span><span class="p">,</span> <span class="s1">&#39;Anduryl - Save as CSV&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s2">&quot;CSV (*.csv)&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Save path &quot;{os.path.dirname(path)}&quot; does not exists.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">+=</span> <span class="s1">&#39;.csv&#39;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">get_table_text</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

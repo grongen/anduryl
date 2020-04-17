@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>results.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="widgets.py" href="widgets.html" />
+    <link rel="prev" title="models.py" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html">core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ui.html">ui</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assessments.html">assessments.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dialogs.html">dialogs.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experts.html">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html">main.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">models.py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">results.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="widgets.html">widgets.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../ui.html">ui</a> &raquo;</li>
+        
+      <li>results.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ui/results.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.ui.results">
+<span id="results-py"></span><h1>results.py<a class="headerlink" href="#module-anduryl.ui.results" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="anduryl.ui.results.ItemWeightDialog">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.results.</code><code class="sig-name descname">ItemWeightDialog</code><span class="sig-paren">(</span><em class="sig-param">parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ItemWeightDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ItemWeightDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Dialog to get parameters for calculating decision maker</p>
+<dl class="method">
+<dt id="anduryl.ui.results.ItemWeightDialog.colorpicker">
+<code class="sig-name descname">colorpicker</code><span class="sig-paren">(</span><em class="sig-param">idx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ItemWeightDialog.colorpicker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ItemWeightDialog.colorpicker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a color for assigning to the cell</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.ItemWeightDialog.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ItemWeightDialog.set_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ItemWeightDialog.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changed the table settings after colors are toggled on or off</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.results.LegendTable">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.results.</code><code class="sig-name descname">LegendTable</code><span class="sig-paren">(</span><em class="sig-param">dialog</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#LegendTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.LegendTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTableWidget</span></code></p>
+<p>This widget is the table besides the distributions plot.
+It functions as an interactive legend, in which different
+lines can be toggled on and of.</p>
+<dl class="method">
+<dt id="anduryl.ui.results.LegendTable.construct_widget">
+<code class="sig-name descname">construct_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#LegendTable.construct_widget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.LegendTable.construct_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the widget.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.LegendTable.set_rows">
+<code class="sig-name descname">set_rows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#LegendTable.set_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.LegendTable.set_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill in the legend with all the expert id’s and weights</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.results.PlotDistributionsDialog">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.results.</code><code class="sig-name descname">PlotDistributionsDialog</code><span class="sig-paren">(</span><em class="sig-param">parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Dialog in which the assessments of all experts, the result
+decision maker and all items are visualized. For one item different types
+of plots can be chosen: CDF, Exceedance probability, PDF and the range.
+Per expert only the range can be shown, since the scales of each item
+varies.</p>
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.connect_signals">
+<code class="sig-name descname">connect_signals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.connect_signals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.connect_signals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the signals (again). This function and “disconnect_signals” are
+used to be able to change the dialog settings without updating all the figures.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.construct_widget">
+<code class="sig-name descname">construct_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.construct_widget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.construct_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the widget.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.disconnect_signals">
+<code class="sig-name descname">disconnect_signals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.disconnect_signals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.disconnect_signals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnects the signals (again). This function and “connect_signals” are
+used to be able to change the dialog settings without updating all the figures.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.format_axis">
+<code class="sig-name descname">format_axis</code><span class="sig-paren">(</span><em class="sig-param">xmin</em>, <em class="sig-param">xmax</em>, <em class="sig-param">ymin</em>, <em class="sig-param">ymax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.format_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.format_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set axis limits, called after a plot has been changed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.get_expert_data">
+<code class="sig-name descname">get_expert_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.get_expert_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.get_expert_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the data to plot for a certain expert</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.get_item_data">
+<code class="sig-name descname">get_item_data</code><span class="sig-paren">(</span><em class="sig-param">full_dm_cdf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.get_item_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.get_item_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the data to plot for a certain item</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.init_expert_plot">
+<code class="sig-name descname">init_expert_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.init_expert_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.init_expert_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to initiate expert plot</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.init_item_plot">
+<code class="sig-name descname">init_item_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.init_item_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.init_item_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to initiate item plot</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.init_plot">
+<code class="sig-name descname">init_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.init_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.init_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the expert or items plot. Called after constructing the widget
+or after experts or items are chosen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.set_title">
+<code class="sig-name descname">set_title</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.set_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.set_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set axis title, called after a plot has been changed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.update_expert_plot">
+<code class="sig-name descname">update_expert_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.update_expert_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.update_expert_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to update the expert plot after changes are made to the data selection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.update_item_plot">
+<code class="sig-name descname">update_item_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.update_item_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.update_item_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to update the item plot after changes are made to the data selection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.update_plot">
+<code class="sig-name descname">update_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.update_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.update_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to update a plot after changes are made to the data selection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.update_plotby">
+<code class="sig-name descname">update_plotby</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.update_plotby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.update_plotby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the expert or items plot type. Called after constructing the widget
+or after a different plot type is chosen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotDistributionsDialog.update_realization">
+<code class="sig-name descname">update_realization</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotDistributionsDialog.update_realization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotDistributionsDialog.update_realization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set realization as line in plot.
+If target question, hide the line</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.results.PlotExcludedDialog">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.results.</code><code class="sig-name descname">PlotExcludedDialog</code><span class="sig-paren">(</span><em class="sig-param">parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotExcludedDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotExcludedDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Dialog that shows the sensiticity of excluding experts or items
+from the project on the information and calibration score. The
+spread is shown by a box plot for each number of excluded experts
+or items.</p>
+<dl class="method">
+<dt id="anduryl.ui.results.PlotExcludedDialog.calculate">
+<code class="sig-name descname">calculate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotExcludedDialog.calculate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotExcludedDialog.calculate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the robustness for all combinations of excluding experts. This
+method is called after the calculate button is pressed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotExcludedDialog.check_maximum">
+<code class="sig-name descname">check_maximum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotExcludedDialog.check_maximum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotExcludedDialog.check_maximum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the maximum number of calculations and sets the progess bar accordingly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotExcludedDialog.construct_widget">
+<code class="sig-name descname">construct_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotExcludedDialog.construct_widget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotExcludedDialog.construct_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the widget.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotExcludedDialog.get_n_combinations">
+<code class="sig-name descname">get_n_combinations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotExcludedDialog.get_n_combinations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotExcludedDialog.get_n_combinations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of combinations for excluding the selected number of
+experts or items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotExcludedDialog.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotExcludedDialog.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotExcludedDialog.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the figure plot, called after calculation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.PlotExcludedDialog.update_progressbar">
+<code class="sig-name descname">update_progressbar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#PlotExcludedDialog.update_progressbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.PlotExcludedDialog.update_progressbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the progressbar with one step, after each iteration.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.results.ResultOverview">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.results.</code><code class="sig-name descname">ResultOverview</code><span class="sig-paren">(</span><em class="sig-param">mainwindow</em>, <em class="sig-param">results</em>, <em class="sig-param">settings</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultOverview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultOverview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QScrollArea</span></code></p>
+<p>Widget with results for a decision maker.</p>
+<dl class="method">
+<dt id="anduryl.ui.results.ResultOverview.init_ui">
+<code class="sig-name descname">init_ui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultOverview.init_ui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultOverview.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up the result overview in the user interface.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.ResultOverview.plot_excluded_items">
+<code class="sig-name descname">plot_excluded_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultOverview.plot_excluded_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultOverview.plot_excluded_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a dialog to plot robustness for excluding multiple items.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.ResultOverview.plot_items">
+<code class="sig-name descname">plot_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultOverview.plot_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultOverview.plot_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a dialog to plot the distributions for experts and decision makers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.ResultOverview.show_items">
+<code class="sig-name descname">show_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultOverview.show_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultOverview.show_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a dialog to information scores per item.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.ResultOverview.ui_add_robustness_table">
+<code class="sig-name descname">ui_add_robustness_table</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">index</em>, <em class="sig-param">array</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultOverview.ui_add_robustness_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultOverview.ui_add_robustness_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a robustness table (experts or items) to the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – Experts or Items</p></li>
+<li><p><strong>index</strong> (<em>list</em>) – Index for each table row</p></li>
+<li><p><strong>array</strong> (<em>np.ndarray</em>) – Numpy arra with values to show in table</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.results.ResultsWidget">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.results.</code><code class="sig-name descname">ResultsWidget</code><span class="sig-paren">(</span><em class="sig-param">mainwindow</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultsWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultsWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QFrame</span></code></p>
+<p>Widget that contains all resultoverview in seperate tabs.</p>
+<dl class="method">
+<dt id="anduryl.ui.results.ResultsWidget.add_results">
+<code class="sig-name descname">add_results</code><span class="sig-paren">(</span><em class="sig-param">settings</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultsWidget.add_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultsWidget.add_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add results in an Resultsoverview to the tabs. The specific
+results are derived from the settings, and passed to the
+overview</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>dictionary</em>) – Calculation setting</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.results.ResultsWidget.close_results">
+<code class="sig-name descname">close_results</code><span class="sig-paren">(</span><em class="sig-param">index=None</em>, <em class="sig-param">expert=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/results.html#ResultsWidget.close_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.results.ResultsWidget.close_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes results from the widget. Results can be removed
+by index or by expert id. If the results are removed by
+index, the results are also removed from the expert widget.
+The function is thus used in slightly different ways.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em><em>, </em><em>optional</em>) – Index of results to remove, by default None</p></li>
+<li><p><strong>expert</strong> (<em>str</em><em>, </em><em>optional</em>) – Id of expert (decision maker) to remove, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="widgets.html" class="btn btn-neutral float-right" title="widgets.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models.html" class="btn btn-neutral float-left" title="models.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

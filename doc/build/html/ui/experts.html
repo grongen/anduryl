@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>experts.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="items.py" href="items.html" />
+    <link rel="prev" title="dialogs.py" href="dialogs.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html">core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ui.html">ui</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assessments.html">assessments.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dialogs.html">dialogs.py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html">main.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">models.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="results.html">results.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="widgets.html">widgets.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../ui.html">ui</a> &raquo;</li>
+        
+      <li>experts.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ui/experts.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.ui.experts">
+<span id="experts-py"></span><h1>experts.py<a class="headerlink" href="#module-anduryl.ui.experts" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="anduryl.ui.experts.DecisionMakerOptions">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.experts.</code><code class="sig-name descname">DecisionMakerOptions</code><span class="sig-paren">(</span><em class="sig-param">expertwidget=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Dialog to get parameters for calculating decision maker</p>
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.calculate_dm">
+<code class="sig-name descname">calculate_dm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.calculate_dm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.calculate_dm" title="Permalink to this definition">¶</a></dt>
+<dd><p>User pressed Generate button</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.cancel">
+<code class="sig-name descname">cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.cancel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>User pressed Cancel button</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.disable_update_id">
+<code class="sig-name descname">disable_update_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.disable_update_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.disable_update_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables to auto updating of the id. Is called after the user
+changes the id manually.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.disable_update_name">
+<code class="sig-name descname">disable_update_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.disable_update_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.disable_update_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables to auto updating of the name. Is called after the user
+changes the name manually.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.load_from_settings">
+<code class="sig-name descname">load_from_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.load_from_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.load_from_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save parameters to settings. The settings have the same layout as the input_elements dict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.save_to_settings">
+<code class="sig-name descname">save_to_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.save_to_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.save_to_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save parameters to settings. The settings have the same layout as the input_elements dict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.toggle_visibility">
+<code class="sig-name descname">toggle_visibility</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.toggle_visibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.toggle_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the visibility (enables or greyed out) of all options in the
+menu after the options have changed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.update_name_id">
+<code class="sig-name descname">update_name_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.update_name_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.update_name_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to update the id and name when the settings change</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.validate">
+<code class="sig-name descname">validate</code><span class="sig-paren">(</span><em class="sig-param">check_empty=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for correct input in this dialog</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>check_empty</strong> (<em>boolean</em>) – Whether to check the empty parameters. This is not done when the table
+is loaded from settings, since it then does not matter if there
+are empty cells.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.DecisionMakerOptions.validate_parameter">
+<code class="sig-name descname">validate_parameter</code><span class="sig-paren">(</span><em class="sig-param">val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#DecisionMakerOptions.validate_parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.DecisionMakerOptions.validate_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate parameter based on 3 conditions:
+1. is not nan
+2. is not None
+3. is not ‘’</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.experts.ExpertsWidget">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.experts.</code><code class="sig-name descname">ExpertsWidget</code><span class="sig-paren">(</span><em class="sig-param">mainwindow</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QFrame</span></code></p>
+<p>Widget with the expert table</p>
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.add_decision_maker">
+<code class="sig-name descname">add_decision_maker</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.add_decision_maker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.add_decision_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function called when a user clicks ‘calculate’</p>
+<p>First the presence of experts and items are checked. If one of them is
+not present, send a notification to the user.</p>
+<p>After that a window with calculation options is opened. If accepted (OK)
+a decision maker is calculated with the given options. If robustness
+is checked, also the robustness tables for 1 expert and 1 item are
+calculated.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.add_expert">
+<code class="sig-name descname">add_expert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.add_expert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.add_expert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new expert to the project. Adds a row to the experts table</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.construct_widget">
+<code class="sig-name descname">construct_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.construct_widget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.construct_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the widget</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.contextMenuEvent">
+<code class="sig-name descname">contextMenuEvent</code><span class="sig-paren">(</span><em class="sig-param">event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.contextMenuEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.contextMenuEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the context menu for the expert widget</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.eventFilter">
+<code class="sig-name descname">eventFilter</code><span class="sig-paren">(</span><em class="sig-param">source</em>, <em class="sig-param">event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.eventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Eventfilter for copying table content.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.exclude_expert_clicked">
+<code class="sig-name descname">exclude_expert_clicked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.exclude_expert_clicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.exclude_expert_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executed when expert checkbox is clicked</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.remove_expert">
+<code class="sig-name descname">remove_expert</code><span class="sig-paren">(</span><em class="sig-param">expertid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.remove_expert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.remove_expert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the expert from the project, by expert id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>expertid</strong> (<em>str</em><em>, </em><em>optional</em>) – Expert ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.remove_expert_clicked">
+<code class="sig-name descname">remove_expert_clicked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.remove_expert_clicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.remove_expert_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method executed when the action remove expert is clicked.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.to_csv">
+<code class="sig-name descname">to_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.to_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the anduryl.io.table_to_csv function for the table model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.experts.ExpertsWidget.toggle_expert">
+<code class="sig-name descname">toggle_expert</code><span class="sig-paren">(</span><em class="sig-param">expert</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/experts.html#ExpertsWidget.toggle_expert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.experts.ExpertsWidget.toggle_expert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle and expert on or off. The expert is added or removed
+to or from the excluded list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>expert</strong> (<em>str</em><em>, </em><em>optional</em>) – Expert ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="items.html" class="btn btn-neutral float-right" title="items.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dialogs.html" class="btn btn-neutral float-left" title="dialogs.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

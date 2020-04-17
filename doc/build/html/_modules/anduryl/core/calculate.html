@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>anduryl.core.calculate &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code.html">Code documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>anduryl.core.calculate</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for anduryl.core.calculate</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">combinations</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.core.multiarray</span> <span class="k">import</span> <span class="n">interp</span> <span class="k">as</span> <span class="n">compiled_interp</span>
+
+
+<div class="viewcode-block" id="decision_maker"><a class="viewcode-back" href="../../../core/calculate.html#anduryl.core.calculate.decision_maker">[docs]</a><span class="k">def</span> <span class="nf">decision_maker</span><span class="p">(</span><span class="n">experts</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">assessments</span><span class="p">,</span> <span class="n">weight_type</span><span class="p">,</span> <span class="n">overshoot</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">calpower</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate decision maker (DM).</span>
+
+<span class="sd">    This function can be applied with and without optimisation, and for different weight types.</span>
+
+<span class="sd">    Pseudo code</span>
+<span class="sd">    -----------</span>
+<span class="sd">    Calculate calibration and information score for each expert</span>
+<span class="sd">    Get answers of all experts, and scale to log when it is a log-scale question</span>
+<span class="sd">    Get weights for all experts, given the chosen weight type.</span>
+<span class="sd">    Get lower and upper bound for each item</span>
+<span class="sd">    Get the CDF for all experts and items, as well as the unique answers.</span>
+<span class="sd">    for each item:</span>
+<span class="sd">        Multiply the CDF per expert with the weight of the expert, and sum for all experts (dot product)</span>
+<span class="sd">        for each significance level (only one if no optimistion):</span>
+<span class="sd">            Interpolate the percentiles within the weighted answers</span>
+<span class="sd">            Convert the log-scale questions back to a linear scale</span>
+<span class="sd">    if optimisation:</span>
+<span class="sd">        Create an expert (DM) for each significance level, and pick the one with the highest weight.</span>
+<span class="sd">    else:</span>
+<span class="sd">        Create an expert (DM) for the given significance level</span>
+<span class="sd">        </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experts : anduryl.core.experts.Experts</span>
+<span class="sd">        Expert class with the experts information and methods</span>
+<span class="sd">    items : anduryl.core.items.Items</span>
+<span class="sd">        Item class with the items information and methods</span>
+<span class="sd">    assessments : anduryl.core.assessments.Assessments</span>
+<span class="sd">        Assessment class with the assessments information and methods</span>
+<span class="sd">    weight_type : str</span>
+<span class="sd">        Weigth type: global, item, equal or user</span>
+<span class="sd">    overshoot : float</span>
+<span class="sd">        Intrinsic range, gives the total range per item</span>
+<span class="sd">    alpha : float</span>
+<span class="sd">        Significance level, the minimum calibration value to take expert into account</span>
+<span class="sd">    calpower : float</span>
+<span class="sd">        Calibration power, a factor to weigh the calibration to the information score</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Calculate weights for all actual experts</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span>
+        <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">,</span>
+        <span class="n">experts</span><span class="o">=</span><span class="n">experts</span><span class="o">.</span><span class="n">get_exp</span><span class="p">(</span><span class="s1">&#39;actual&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Check if given alpha is not too high</span>
+    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="o">&gt;</span> <span class="n">experts</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Given significance level (alpha) is higher than maximum calibration score, so all experts are excluded. Choose a lower significance level.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Get the values for the items</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">assessments</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">question_type</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="s1">&#39;actual&#39;</span><span class="p">)</span>
+    <span class="n">nexperts</span><span class="p">,</span> <span class="n">npercentiles</span><span class="p">,</span> <span class="n">nitems</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span>
+    
+    <span class="c1"># Scale values to log, if the background scale is log</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">scale</span>
+    <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+            <span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span>
+
+    <span class="c1"># Get weights</span>
+    <span class="n">actual_experts</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_exp</span><span class="p">(</span><span class="s1">&#39;actual&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Get weights. Returns an array of size Nalpha, Nexperts, Nquestions</span>
+    <span class="n">weights</span><span class="p">,</span> <span class="n">alphas</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(</span><span class="n">weight_type</span><span class="o">=</span><span class="n">weight_type</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">actual_experts</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    
+    <span class="c1"># Get bounds for both seed and target questions</span>
+    <span class="n">qlower</span><span class="p">,</span> <span class="n">qupper</span> <span class="o">=</span> <span class="n">assessments</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">(</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">)</span>
+    
+    <span class="c1"># Get the expert CDF&#39;s and distinct answers</span>
+    <span class="n">F_ex</span><span class="p">,</span> <span class="n">all_answers</span> <span class="o">=</span> <span class="n">get_expert_CDFs</span><span class="p">(</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">qlower</span><span class="p">,</span> <span class="n">qupper</span><span class="p">)</span>
+
+    <span class="c1"># Collect CDF</span>
+    <span class="n">DM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">),</span> <span class="n">nitems</span><span class="p">,</span> <span class="n">npercentiles</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">F_DM</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Get DM for each item</span>
+    <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+
+        <span class="c1"># Determine what experts have not answered the question</span>
+        <span class="n">no_answer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Re-normalize weights without experts that have not answered</span>
+        <span class="k">if</span> <span class="n">no_answer</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">weights</span><span class="p">[:,</span> <span class="n">no_answer</span><span class="p">,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">/=</span> <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># Weight the experts, by getting the weighted sum (in product) of the quantiles</span>
+        <span class="n">F_DM</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_ex</span><span class="p">[</span><span class="n">iq</span><span class="p">],</span> <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        
+        <span class="c1"># For each alpha (weight threshold), get the DM by interpolating the project quantiles</span>
+        <span class="c1"># in the weighted CDF and all answers</span>
+        <span class="k">for</span> <span class="n">ialpha</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">)):</span>
+            <span class="c1"># Determine decision makers for all alphas</span>
+            <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">qlower</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+            <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">qupper</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+            <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">compiled_interp</span><span class="p">(</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">F_DM</span><span class="p">[</span><span class="n">iq</span><span class="p">][:,</span> <span class="n">ialpha</span><span class="p">],</span> <span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">])</span>
+            
+            <span class="c1"># If background scale is logaritmic, the values have to be converted back to their</span>
+            <span class="c1"># original scale, so take the exponent.</span>
+            <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+                <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">])</span>
+
+    <span class="c1"># In case of optimisation, find the optimal alpha</span>
+    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Now the DM is known for each question and weight threshold, find the optimal threshols</span>
+        <span class="c1"># Get weight for each decision maker</span>
+        <span class="n">exps</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="s1">&#39;tmp</span><span class="si">{i}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">))]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">DMassessment</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">exps</span><span class="p">,</span> <span class="n">DM</span><span class="p">):</span>
+            <span class="c1"># Calculate weight of DM</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">add_expert</span><span class="p">(</span><span class="n">exp_id</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">exp_name</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">assessment</span><span class="o">=</span><span class="n">DMassessment</span><span class="p">,</span> <span class="n">exp_type</span><span class="o">=</span><span class="s1">&#39;dm&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Calculate weights for all temporary experts</span>
+        <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span><span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">exps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alphas</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+        <span class="c1"># Get the alpha for the highest weight</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">experts</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">exps</span><span class="p">)])</span>
+        <span class="c1"># Remove all experts</span>
+        <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">:</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">remove_expert</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+            
+    <span class="c1"># Else there is only one DM, use this one.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Else only use the given weight</span>
+        <span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="n">alpha</span><span class="p">]</span>
+
+    <span class="c1"># Get full expert CDF</span>
+    <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+            <span class="n">F_DM</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">]),</span> <span class="n">F_DM</span><span class="p">[</span><span class="n">iq</span><span class="p">][:,</span> <span class="n">imax</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">F_DM</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">],</span> <span class="n">F_DM</span><span class="p">[</span><span class="n">iq</span><span class="p">][:,</span> <span class="n">imax</span><span class="p">]]</span>
+    
+    <span class="k">return</span> <span class="n">DM</span><span class="p">[</span><span class="n">imax</span><span class="p">],</span> <span class="n">F_DM</span><span class="p">,</span> <span class="n">alphas</span><span class="p">[</span><span class="n">imax</span><span class="p">]</span></div>
+    
+<div class="viewcode-block" id="calculate_excluded_scores"><a class="viewcode-back" href="../../../core/calculate.html#anduryl.core.calculate.calculate_excluded_scores">[docs]</a><span class="k">def</span> <span class="nf">calculate_excluded_scores</span><span class="p">(</span><span class="n">experts</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">exclude</span><span class="p">,</span> <span class="n">exp_id</span><span class="p">,</span> <span class="n">calpower</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate information and calibration scores when one or more experts</span>
+<span class="sd">    or items are excluded. These numbers can be calculates also by simply</span>
+<span class="sd">    adding or removing experts from the project and calculating, but this</span>
+<span class="sd">    gives the possibility to do so without modifying the project.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experts : [type]</span>
+<span class="sd">        [description]</span>
+<span class="sd">    items : [type]</span>
+<span class="sd">        [description]</span>
+<span class="sd">    exclude : list</span>
+<span class="sd">        Items to exclude</span>
+<span class="sd">    exp_id : str</span>
+<span class="sd">        Expert id for which </span>
+<span class="sd">    calpower : [type]</span>
+<span class="sd">        [description]</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    [type]</span>
+<span class="sd">        [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    
+    
+    <span class="n">expidx</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+    
+    <span class="c1"># Count realization with exluding one or more items</span>
+    <span class="n">seed_idx</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">include</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seed_idx</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">)</span>
+    <span class="n">include</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">exclude</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">expert</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">expidx</span><span class="p">]</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">count_realizations_per_bin</span><span class="p">(</span><span class="n">experts</span><span class="o">=</span><span class="p">[</span><span class="n">expert</span><span class="p">],</span> <span class="n">items</span><span class="o">=</span><span class="n">include</span><span class="p">)</span>
+
+    <span class="c1"># Recalculate calibration score</span>
+    <span class="n">Nmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="n">exp</span><span class="p">])</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_exp</span><span class="p">(</span><span class="s1">&#39;actual&#39;</span><span class="p">))</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">calibration_score</span><span class="p">(</span><span class="n">counts</span><span class="o">=</span><span class="n">experts</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="n">Nmin</span><span class="o">=</span><span class="n">Nmin</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+
+    <span class="c1"># Calculate information score for realizations, taking into account excluded items</span>
+    <span class="n">ridx</span> <span class="o">=</span> <span class="n">seed_idx</span><span class="p">[</span><span class="n">include</span><span class="p">]</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidx</span><span class="p">,</span> <span class="n">ridx</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidx</span><span class="p">,</span> <span class="n">ridx</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="c1"># Calculate information score for all items</span>
+    <span class="n">tidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">info_per_var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">)</span>
+    <span class="n">tidx</span><span class="p">[</span><span class="n">seed_idx</span><span class="p">[</span><span class="o">~</span><span class="n">include</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">info_total</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidx</span><span class="p">,</span> <span class="n">tidx</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidx</span><span class="p">,</span> <span class="n">tidx</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">info_total</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">experts</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="n">expidx</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="get_expert_CDFs"><a class="viewcode-back" href="../../../core/calculate.html#anduryl.core.calculate.get_expert_CDFs">[docs]</a><span class="k">def</span> <span class="nf">get_expert_CDFs</span><span class="p">(</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">qlower</span><span class="p">,</span> <span class="n">qupper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method to get the uniform CDF&#39;s of the expert assessments, based</span>
+<span class="sd">    on their answers and the lower and upper bounds (with overshoot).</span>
+
+<span class="sd">    This method is defined seperately since it only has to be called once</span>
+<span class="sd">    while calculating for example the robustness per item. The method</span>
+<span class="sd">    returns the CDF (Nanswers, Nexperts) per item, as well as the unique</span>
+<span class="sd">    answers per item.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : numpy.ndarray</span>
+<span class="sd">        Three dimensional array with assessments (Nexpert, Npercentile, Nitem)</span>
+<span class="sd">    qlower : numpy.ndarray</span>
+<span class="sd">        One dimensional array with lower bound per item, overshoot is included</span>
+<span class="sd">    qupper : numpy.ndarray</span>
+<span class="sd">        One dimensional array with upper bound per item, overshoot is included</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nexperts</span><span class="p">,</span> <span class="n">npercentiles</span><span class="p">,</span> <span class="n">nitems</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span>
+        
+    <span class="c1"># Initialize decision maker</span>
+    <span class="n">expert_quantiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">quantiles</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]])</span>    
+    <span class="n">expert_answers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npercentiles</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">F_ex</span><span class="p">,</span> <span class="n">all_answers</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+        
+        <span class="c1"># Collect all quantiles</span>
+        <span class="n">answers</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span>
+        <span class="n">answers</span> <span class="o">=</span> <span class="n">answers</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">answers</span><span class="p">)]</span>
+        <span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="n">qlower</span><span class="p">[</span><span class="n">iq</span><span class="p">]],</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">answers</span><span class="p">),</span> <span class="p">[</span><span class="n">qupper</span><span class="p">[</span><span class="n">iq</span><span class="p">]]])</span>
+        
+        <span class="c1"># Initialize</span>
+        <span class="n">F_ex</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">]),</span> <span class="n">nexperts</span><span class="p">))</span>
+
+        <span class="c1"># Get expert answers, and interpolate all answers in the expert answers and the </span>
+        <span class="c1"># quantiles, to get the quantiles for every answer</span>
+        <span class="n">expert_answers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">qlower</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+        <span class="n">expert_answers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">qupper</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+
+        <span class="c1"># Determine what experts have not answered the question</span>
+        <span class="n">no_answer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            
+        <span class="k">for</span> <span class="n">iex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nexperts</span><span class="p">):</span>
+            <span class="c1"># Skip if not answered</span>
+            <span class="k">if</span> <span class="n">no_answer</span><span class="p">[</span><span class="n">iex</span><span class="p">]:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Add to DM CDF. Note that the answers have already been converted to the background measure</span>
+            <span class="n">expert_answers</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">iex</span><span class="p">,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span>
+            <span class="n">F_ex</span><span class="p">[</span><span class="n">iq</span><span class="p">][:,</span> <span class="n">iex</span><span class="p">]</span> <span class="o">=</span> <span class="n">compiled_interp</span><span class="p">(</span><span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">],</span> <span class="n">expert_answers</span><span class="p">,</span> <span class="n">expert_quantiles</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">F_ex</span><span class="p">,</span> <span class="n">all_answers</span></div>
+
+<div class="viewcode-block" id="get_combinations"><a class="viewcode-back" href="../../../core/calculate.html#anduryl.core.calculate.get_combinations">[docs]</a><span class="k">def</span> <span class="nf">get_combinations</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">min_exclude</span><span class="p">,</span> <span class="n">max_exclude</span><span class="p">,</span> <span class="n">always_exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get combinations of excluded items.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    items : list</span>
+<span class="sd">        List of items for from which n_items are excluded</span>
+<span class="sd">    min_exclude : int</span>
+<span class="sd">        Minimum number of excluded items, combinations are generated</span>
+<span class="sd">        with at least min_exclude excluded items</span>
+<span class="sd">    max_exclude : int</span>
+<span class="sd">        Maximum number of excluded items, combinations are generated</span>
+<span class="sd">        with at least max_exclude excluded items</span>
+<span class="sd">    always_exclude : list, optional</span>
+<span class="sd">        List with items to exclude from all combinations, by default None</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List with combinations of included items</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">max_exclude</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Max number of excluded items (</span><span class="si">{max_exclude}</span><span class="s1">) can not be equal or greater than the total number of items ({len(items)}).&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">always_exclude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">always_exclude</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Check always exclude presence</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">always_exclude</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{item}</span><span class="s1"> is not in the given item list, so can not be excluded.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Create index lists, remove always exclude items</span>
+    <span class="n">total_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">always_exclude</span><span class="p">:</span>
+            <span class="n">total_index</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">items</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+    
+    <span class="c1"># Get combinations of excluded items</span>
+    <span class="n">combs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_exclude</span><span class="p">,</span> <span class="n">max_exclude</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">combs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="n">total_index</span><span class="p">,</span> <span class="n">n</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">combs</span></div>
+
+
+<div class="viewcode-block" id="item_robustness"><a class="viewcode-back" href="../../../core/calculate.html#anduryl.core.calculate.item_robustness">[docs]</a><span class="k">def</span> <span class="nf">item_robustness</span><span class="p">(</span><span class="n">min_exclude</span><span class="p">,</span> <span class="n">max_exclude</span><span class="p">,</span> <span class="n">experts</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">assessments</span><span class="p">,</span> <span class="n">weight_type</span><span class="p">,</span> <span class="n">overshoot</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">progress_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate calibration and information scores by excluding items.</span>
+<span class="sd">    </span>
+<span class="sd">    This function is generally similar to calculating a single decision maker</span>
+<span class="sd">    for each combination of excluded items.</span>
+<span class="sd">    </span>
+<span class="sd">    The expert CDF&#39;s and answers are calculated only once, since these are</span>
+<span class="sd">    equal for all combinations.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    min_exclude : int, optional</span>
+<span class="sd">        Minimum number of items to exclude</span>
+<span class="sd">    max_exclude : int</span>
+<span class="sd">        Maximum number of items to exclude</span>
+<span class="sd">    experts : anduryl.core.experts.Experts</span>
+<span class="sd">        Expert class with the experts information and methods</span>
+<span class="sd">    assessments : anduryl.core.assessments.Assessments</span>
+<span class="sd">        Assessment class with the assessments information and methods</span>
+<span class="sd">    items : anduryl.core.items.Items</span>
+<span class="sd">        Item class with the items information and methods</span>
+<span class="sd">    weight_type : str</span>
+<span class="sd">        Weigth type: global, item, equal or user</span>
+<span class="sd">    overshoot : float</span>
+<span class="sd">        Intrinsic range, gives the total range per item</span>
+<span class="sd">    alpha : float or Nonetype, optional</span>
+<span class="sd">        Significance level, the minimum calibration value to take expert into account</span>
+<span class="sd">    calpower : float, optional</span>
+<span class="sd">        Calibration power, a factor to weigh the calibration to the information score, by default 1.0</span>
+<span class="sd">    progress_func : function, optional</span>
+<span class="sd">        Function to which the progress can be passed, for the GUI, by default None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">weight_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="s1">&#39;item&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Robustness table can only be calculated for item of global weight.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Calculate information score per item and expert on beforehand</span>
+    <span class="n">actual_experts</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_exp</span><span class="p">(</span><span class="s1">&#39;actual&#39;</span><span class="p">)</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">_information_score</span><span class="p">(</span><span class="n">actual_experts</span><span class="p">,</span> <span class="n">overshoot</span><span class="p">)</span>
+    <span class="c1"># Calculate counts, since Nmin is required later in the calculation</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">count_realizations_per_bin</span><span class="p">(</span><span class="n">actual_experts</span><span class="p">))</span>
+    
+    <span class="c1"># Get the values for the items</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">assessments</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">question_type</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="s1">&#39;actual&#39;</span><span class="p">)</span>
+    <span class="n">nexperts</span><span class="p">,</span> <span class="n">npercentiles</span><span class="p">,</span> <span class="n">nitems</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">seed_idx</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">)</span>
+    <span class="n">seed_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span> <span class="k">if</span> <span class="n">seed_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    
+    <span class="c1"># Get combinations of items to exclude</span>
+    <span class="n">combs</span> <span class="o">=</span> <span class="n">get_combinations</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">seed_ids</span><span class="p">,</span> <span class="n">min_exclude</span><span class="o">=</span><span class="n">min_exclude</span><span class="p">,</span> <span class="n">max_exclude</span><span class="o">=</span><span class="n">max_exclude</span><span class="p">)</span>
+    
+    <span class="c1"># Scale values to log, if the background scale is log</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">scale</span>
+    <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+            <span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span>
+
+    <span class="c1"># Get bounds for both seed and target questions</span>
+    <span class="n">qlower</span><span class="p">,</span> <span class="n">qupper</span> <span class="o">=</span> <span class="n">assessments</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">(</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">)</span>
+    
+    <span class="c1"># Get the expert CDF&#39;s and distinct answers</span>
+    <span class="n">F_ex</span><span class="p">,</span> <span class="n">all_answers</span> <span class="o">=</span> <span class="n">get_expert_CDFs</span><span class="p">(</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">qlower</span><span class="p">,</span> <span class="n">qupper</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">totexps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    
+    <span class="c1"># Loop trough all combinations of excluded itemss</span>
+    <span class="k">for</span> <span class="n">comb</span> <span class="ow">in</span> <span class="n">combs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">progress_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">progress_func</span><span class="p">()</span>
+        
+        <span class="c1"># Get the weights and thresholds for exluding some of the items</span>
+        <span class="n">weights</span><span class="p">,</span> <span class="n">alphas</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(</span>
+            <span class="n">experts</span><span class="o">=</span><span class="n">actual_experts</span><span class="p">,</span> <span class="n">weight_type</span><span class="o">=</span><span class="n">weight_type</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="n">comb</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+
+        <span class="c1"># Collect CDF</span>
+        <span class="n">DM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">),</span> <span class="n">nitems</span><span class="p">,</span> <span class="n">npercentiles</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># If all weights are zero, it is not possible to calculate the DM</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">weights</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">results</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">seed_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">comb</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Get DM for each item</span>
+        <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">iq</span> <span class="ow">in</span> <span class="n">comb</span><span class="p">:</span>
+                <span class="n">DM</span><span class="p">[:,</span> <span class="n">iq</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="k">continue</span>
+                
+            <span class="c1"># Determine what experts have not answered the question</span>
+            <span class="n">no_answer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                        
+            <span class="c1"># Re-normalize weights without experts that have not answered</span>
+            <span class="k">if</span> <span class="n">no_answer</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="n">weights</span><span class="p">[:,</span> <span class="n">no_answer</span><span class="p">,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">/=</span> <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+            
+            <span class="c1"># Weight the experts, by getting the weighted sum (in product) of the quantiles</span>
+            <span class="n">F_DM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_ex</span><span class="p">[</span><span class="n">iq</span><span class="p">],</span> <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+            <span class="c1"># For each alpha (weight threshold), get the DM by interpolating the project quantiles</span>
+            <span class="c1"># in the weighted CDF and all answers</span>
+            <span class="k">for</span> <span class="n">ialpha</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">)):</span>
+                <span class="c1"># Determine decision makers for all alphas</span>
+                <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">qlower</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+                <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">qupper</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+                <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">compiled_interp</span><span class="p">(</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">F_DM</span><span class="p">[:,</span> <span class="n">ialpha</span><span class="p">],</span> <span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">])</span>
+                
+                <span class="c1"># If background scale is logaritmic, the values have to be converted back to their</span>
+                <span class="c1"># original scale, so take the exponent.</span>
+                <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+                    <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">])</span>
+        
+        <span class="c1"># In case of optimisation, find the optimal alpha</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Now the DM is known for each question and weight threshold, find the optimal threshols</span>
+            <span class="c1"># Get weight for each decision maker</span>
+            <span class="n">exps</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="s1">&#39;tmp</span><span class="si">{i}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">))]</span>
+            <span class="n">totexps</span> <span class="o">=</span> <span class="n">totexps</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">exps</span><span class="p">))</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">DMassessment</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">exps</span><span class="p">,</span> <span class="n">DM</span><span class="p">):</span>
+                <span class="c1"># Calculate weight of DM</span>
+                <span class="n">experts</span><span class="o">.</span><span class="n">add_expert</span><span class="p">(</span><span class="n">exp_id</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">exp_name</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">assessment</span><span class="o">=</span><span class="n">DMassessment</span><span class="p">,</span> <span class="n">exp_type</span><span class="o">=</span><span class="s1">&#39;dm&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Calculate weights</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span><span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">exps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alphas</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+            <span class="c1"># Get the alpha for the highest weight</span>
+            <span class="n">imax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">experts</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">exps</span><span class="p">)])</span>
+            <span class="n">tmp_id</span> <span class="o">=</span> <span class="n">exps</span><span class="p">[</span><span class="n">imax</span><span class="p">]</span>
+            
+            
+        <span class="c1"># Else there is only one DM, use this one.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">imax</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">tmp_id</span> <span class="o">=</span> <span class="s1">&#39;tmp0&#39;</span>
+            <span class="n">totexps</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmp_id</span><span class="p">]</span>
+            <span class="c1"># Add final expert and calculate weight</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">add_expert</span><span class="p">(</span><span class="n">exp_id</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">exp_name</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">assessment</span><span class="o">=</span><span class="n">DM</span><span class="p">[</span><span class="n">imax</span><span class="p">],</span> <span class="n">exp_type</span><span class="o">=</span><span class="s1">&#39;dm&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span><span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="p">[</span><span class="n">tmp_id</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alphas</span><span class="p">[</span><span class="n">imax</span><span class="p">],</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+            
+        <span class="c1"># Calculate the scores for the final DM</span>
+        <span class="n">results</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">seed_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">comb</span><span class="p">)]</span> <span class="o">=</span> <span class="n">calculate_excluded_scores</span><span class="p">(</span><span class="n">experts</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">comb</span><span class="p">,</span> <span class="n">tmp_id</span><span class="p">,</span> <span class="n">calpower</span><span class="p">)</span>
+            
+    <span class="c1"># Remove all experts</span>
+    <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">totexps</span><span class="p">:</span>
+        <span class="n">experts</span><span class="o">.</span><span class="n">remove_expert</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+
+    <span class="c1"># Recalculate original weights for actual experts</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span>
+        <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">,</span>
+        <span class="n">experts</span><span class="o">=</span><span class="n">actual_experts</span>
+    <span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="expert_robustness"><a class="viewcode-back" href="../../../core/calculate.html#anduryl.core.calculate.expert_robustness">[docs]</a><span class="k">def</span> <span class="nf">expert_robustness</span><span class="p">(</span><span class="n">min_exclude</span><span class="p">,</span> <span class="n">max_exclude</span><span class="p">,</span> <span class="n">experts</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">assessments</span><span class="p">,</span> <span class="n">weight_type</span><span class="p">,</span> <span class="n">overshoot</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">progress_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate calibration and information scores by excluding experts.</span>
+<span class="sd">    </span>
+<span class="sd">    This function is generally similar to calculating a single decision maker</span>
+<span class="sd">    for each combination of excluded experts.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    min_exclude : int, optional</span>
+<span class="sd">        Minimum number of items to exclude</span>
+<span class="sd">    max_exclude : int</span>
+<span class="sd">        Maximum number of items to exclude</span>
+<span class="sd">    experts : anduryl.core.experts.Experts</span>
+<span class="sd">        Expert class with the experts information and methods</span>
+<span class="sd">    assessments : anduryl.core.assessments.Assessments</span>
+<span class="sd">        Assessment class with the assessments information and methods</span>
+<span class="sd">    items : anduryl.core.items.Items</span>
+<span class="sd">        Item class with the items information and methods</span>
+<span class="sd">    weight_type : str</span>
+<span class="sd">        Weigth type: global, item, equal or user</span>
+<span class="sd">    overshoot : float</span>
+<span class="sd">        Intrinsic range, gives the total range per item</span>
+<span class="sd">    alpha : float or Nonetype, optional</span>
+<span class="sd">        Significance level, the minimum calibration value to take expert into account</span>
+<span class="sd">    calpower : float, optional</span>
+<span class="sd">        Calibration power, a factor to weigh the calibration to the information score, by default 1.0</span>
+<span class="sd">    progress_func : function, optional</span>
+<span class="sd">        Function to which the progress can be passed, for the GUI, by default None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">weight_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="s1">&#39;item&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Robustness table can only be calculated for item of global weight.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Calculate information score per item and expert on beforehand</span>
+    <span class="n">actual_experts</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_exp</span><span class="p">(</span><span class="s1">&#39;actual&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_exclude</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">actual_experts</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Maximum number of excluded experts can not be equal or greater than the number of experts.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Calculate original weights for actual experts</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span>
+        <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">,</span>
+        <span class="n">experts</span><span class="o">=</span><span class="n">actual_experts</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Get the values for the items</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">assessments</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">question_type</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="s1">&#39;actual&#39;</span><span class="p">)</span>
+    <span class="n">nexperts</span><span class="p">,</span> <span class="n">npercentiles</span><span class="p">,</span> <span class="n">nitems</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span>
+    
+    <span class="c1"># Scale values to log, if the background scale is log</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">scale</span>
+    <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+            <span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span>
+
+    <span class="c1"># Get combinations of experts to exclude</span>
+    <span class="n">combs</span> <span class="o">=</span> <span class="n">get_combinations</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nexperts</span><span class="p">)),</span> <span class="n">min_exclude</span><span class="o">=</span><span class="n">min_exclude</span><span class="p">,</span> <span class="n">max_exclude</span><span class="o">=</span><span class="n">max_exclude</span><span class="p">)</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">totexps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    
+    <span class="n">expidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">nexperts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    
+    <span class="c1"># Loop trough all combinations of excluded experts</span>
+    <span class="k">for</span> <span class="n">comb</span> <span class="ow">in</span> <span class="n">combs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">progress_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">progress_func</span><span class="p">()</span>
+        
+        <span class="c1"># Get selection as array and expert list</span>
+        <span class="n">expidx</span><span class="p">[:]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">expidx</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">comb</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">exp_selection</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">exp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">actual_experts</span><span class="p">)</span> <span class="k">if</span> <span class="n">expidx</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+        <span class="c1"># Get bounds for both seed and target questions</span>
+        <span class="n">qlower</span><span class="p">,</span> <span class="n">qupper</span> <span class="o">=</span> <span class="n">assessments</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">(</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">exp_selection</span><span class="p">)</span>
+        <span class="c1"># Get CDF for selection of experts (and selected expert bounds)</span>
+        <span class="n">F_ex</span><span class="p">,</span> <span class="n">all_answers</span> <span class="o">=</span> <span class="n">get_expert_CDFs</span><span class="p">(</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="n">expidx</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">qlower</span><span class="p">,</span> <span class="n">qupper</span><span class="p">)</span>
+
+        <span class="c1"># Recalculate the information score, since selecting experts might change the bounds</span>
+        <span class="n">experts</span><span class="o">.</span><span class="n">_information_score</span><span class="p">(</span><span class="n">exp_selection</span><span class="p">,</span> <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">bounds_for_experts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># Get weights for expert selection (based on newly calculated information scores)</span>
+        <span class="n">weights</span><span class="p">,</span> <span class="n">alphas</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(</span><span class="n">weight_type</span><span class="o">=</span><span class="n">weight_type</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">exp_selection</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+
+        <span class="c1"># Collect CDF</span>
+        <span class="n">DM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">),</span> <span class="n">nitems</span><span class="p">,</span> <span class="n">npercentiles</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># Get DM for each item</span>
+        <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+                
+            <span class="c1"># Determine what experts have not answered the question</span>
+            <span class="n">no_answer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">expidx</span><span class="p">,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                        
+            <span class="c1"># Re-normalize weights without experts that have not answered</span>
+            <span class="k">if</span> <span class="n">no_answer</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="n">weights</span><span class="p">[:,</span> <span class="n">no_answer</span><span class="p">,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">/=</span> <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+            
+            <span class="c1"># Weight the experts, by getting the weighted sum (in product) of the quantiles</span>
+            <span class="n">F_DM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_ex</span><span class="p">[</span><span class="n">iq</span><span class="p">],</span> <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    
+            <span class="c1"># For each alpha (weight threshold), get the DM by interpolating the project quantiles</span>
+            <span class="c1"># in the weighted CDF and all answers</span>
+            <span class="k">for</span> <span class="n">ialpha</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">)):</span>
+                <span class="c1"># Determine decision makers for all alphas</span>
+                <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">qlower</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+                <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">qupper</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span>
+                <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">compiled_interp</span><span class="p">(</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">F_DM</span><span class="p">[:,</span> <span class="n">ialpha</span><span class="p">],</span> <span class="n">all_answers</span><span class="p">[</span><span class="n">iq</span><span class="p">])</span>
+            
+                <span class="c1"># If background scale is logaritmic, the values have to be converted back to their</span>
+                <span class="c1"># original scale, so take the exponent.</span>
+                <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+                    <span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">DM</span><span class="p">[</span><span class="n">ialpha</span><span class="p">,</span> <span class="n">iq</span><span class="p">])</span>
+
+        <span class="c1"># In case of optimisation, find the optimal alpha</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Now the DM is known for each question and weight threshold, find the optimal threshols</span>
+            <span class="c1"># Get weight for each decision maker</span>
+            <span class="n">exps</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="s1">&#39;tmp</span><span class="si">{i}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">))]</span>
+            <span class="n">totexps</span> <span class="o">=</span> <span class="n">totexps</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">exps</span><span class="p">))</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">DMassessment</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">exps</span><span class="p">,</span> <span class="n">DM</span><span class="p">):</span>
+                <span class="c1"># Calculate weight of DM</span>
+                <span class="n">experts</span><span class="o">.</span><span class="n">add_expert</span><span class="p">(</span><span class="n">exp_id</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">exp_name</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">assessment</span><span class="o">=</span><span class="n">DMassessment</span><span class="p">,</span> <span class="n">exp_type</span><span class="o">=</span><span class="s1">&#39;dm&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Calculate weights</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span><span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">exps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alphas</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+            <span class="c1"># Get the alpha for the highest weight</span>
+            <span class="n">imax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">experts</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">experts</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">exps</span><span class="p">)])</span>
+            <span class="n">tmp_id</span> <span class="o">=</span> <span class="n">exps</span><span class="p">[</span><span class="n">imax</span><span class="p">]</span>
+            
+        <span class="c1"># Else there is only one DM, use this one.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">imax</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">tmp_id</span> <span class="o">=</span> <span class="s1">&#39;tmp0&#39;</span>
+            <span class="n">totexps</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmp_id</span><span class="p">]</span>
+            <span class="c1"># Add final expert and calculate weight</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">add_expert</span><span class="p">(</span><span class="n">exp_id</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">exp_name</span><span class="o">=</span><span class="n">tmp_id</span><span class="p">,</span> <span class="n">assessment</span><span class="o">=</span><span class="n">DM</span><span class="p">[</span><span class="n">imax</span><span class="p">],</span> <span class="n">exp_type</span><span class="o">=</span><span class="s1">&#39;dm&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span><span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="p">[</span><span class="n">tmp_id</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alphas</span><span class="p">[</span><span class="n">imax</span><span class="p">],</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+            
+        <span class="c1"># Calculate the scores for the final DM</span>
+        <span class="n">dmidx</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">tmp_id</span><span class="p">)</span>
+        <span class="n">experts</span><span class="o">.</span><span class="n">_information_score</span><span class="p">(</span><span class="n">experts</span><span class="o">=</span><span class="n">exp_selection</span><span class="o">+</span><span class="p">[</span><span class="n">tmp_id</span><span class="p">],</span> <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">bounds_for_experts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">actual_experts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">comb</span><span class="p">)]</span> <span class="o">=</span> <span class="n">experts</span><span class="o">.</span><span class="n">info_total</span><span class="p">[</span><span class="n">dmidx</span><span class="p">],</span> <span class="n">experts</span><span class="o">.</span><span class="n">info_real</span><span class="p">[</span><span class="n">dmidx</span><span class="p">],</span> <span class="n">experts</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="n">dmidx</span><span class="p">]</span>
+    
+    <span class="c1"># Remove all experts</span>
+    <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">totexps</span><span class="p">:</span>
+        <span class="n">experts</span><span class="o">.</span><span class="n">remove_expert</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+
+    <span class="c1"># Recalculate original weights for actual experts</span>
+    <span class="n">experts</span><span class="o">.</span><span class="n">calculate_weights</span><span class="p">(</span>
+        <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">,</span>
+        <span class="n">experts</span><span class="o">=</span><span class="n">actual_experts</span>
+    <span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">results</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

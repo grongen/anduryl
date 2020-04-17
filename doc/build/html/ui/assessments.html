@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>assessments.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="dialogs.py" href="dialogs.html" />
+    <link rel="prev" title="ui" href="../ui.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html">core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ui.html">ui</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">assessments.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dialogs.html">dialogs.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experts.html">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html">main.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">models.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="results.html">results.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="widgets.html">widgets.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../ui.html">ui</a> &raquo;</li>
+        
+      <li>assessments.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ui/assessments.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.ui.assessments">
+<span id="assessments-py"></span><h1>assessments.py<a class="headerlink" href="#module-anduryl.ui.assessments" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="anduryl.ui.assessments.AssessmentsWidget">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.assessments.</code><code class="sig-name descname">AssessmentsWidget</code><span class="sig-paren">(</span><em class="sig-param">mainwindow</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QFrame</span></code></p>
+<p>Widget ot show the assessments. Consists of a table with
+all the values, and comboboxes to make a selection from the table.</p>
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.change_combobox_ids">
+<code class="sig-name descname">change_combobox_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.change_combobox_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.change_combobox_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method called when an item name has changed. Looks for items
+that do not match, removes the item at that position and
+replaces it with the new item.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.change_quantiles">
+<code class="sig-name descname">change_quantiles</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">newquantiles=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.change_quantiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.change_quantiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to call when the project quantiles are changes.</p>
+<p>Opens a dialog to set the quantiles, if they are not given as keyword argument.
+Adds or removes quantiles from the assessments untill the
+project matches the given quantiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newquantiles</strong> (<em>list</em><em>, </em><em>optional</em>) – Quantiles, if given no window is opened, by default None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.eventFilter">
+<code class="sig-name descname">eventFilter</code><span class="sig-paren">(</span><em class="sig-param">source</em>, <em class="sig-param">event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.eventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Eventfilter for copying table content.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.init_ui">
+<code class="sig-name descname">init_ui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.init_ui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct graphical interface</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.set_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle background colors for assessments table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.set_expert">
+<code class="sig-name descname">set_expert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.set_expert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.set_expert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method called when expert combobox changed.
+Updates the selection of the array to show.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.set_item">
+<code class="sig-name descname">set_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.set_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.set_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method called when item combobox changed.
+Updates the selection of the array to show.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.to_csv">
+<code class="sig-name descname">to_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.to_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.to_csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.update_comboboxes">
+<code class="sig-name descname">update_comboboxes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.update_comboboxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.update_comboboxes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the comboboxes. This method is called when the items in the
+comboboxes need to be changed. It matches these items (or experts)
+with the items or experts in the project. If the currently selected
+item is removed, the combobox changes to “All items” or “All experts”</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.AssessmentsWidget.update_label">
+<code class="sig-name descname">update_label</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#AssessmentsWidget.update_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.AssessmentsWidget.update_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to update the label that is shown next to the item selection.
+It the item is a realization (has a known answer) the answer is shown.
+Otherwise the shows value is an empty string.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.assessments.QuantileDialog">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.assessments.</code><code class="sig-name descname">QuantileDialog</code><span class="sig-paren">(</span><em class="sig-param">assessmentswidget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#QuantileDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.QuantileDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Dialog to get parameters for calculating decision maker</p>
+<dl class="method">
+<dt id="anduryl.ui.assessments.QuantileDialog.accept">
+<code class="sig-name descname">accept</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#QuantileDialog.accept"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.QuantileDialog.accept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets succeeded attribute to True and calls the close function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.assessments.QuantileDialog.update_items">
+<code class="sig-name descname">update_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/assessments.html#QuantileDialog.update_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.assessments.QuantileDialog.update_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update function that updates the items after one has been added or removed.
+The items are retrieved, sorted and assigned to the table.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dialogs.html" class="btn btn-neutral float-right" title="dialogs.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ui.html" class="btn btn-neutral float-left" title="ui" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

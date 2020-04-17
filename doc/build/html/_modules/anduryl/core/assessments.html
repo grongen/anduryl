@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>anduryl.core.assessments &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code.html">Code documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>anduryl.core.assessments</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for anduryl.core.assessments</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Tue Nov 27 15:21:11 2018</span>
+
+<span class="sd">@author: rongen</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+        
+<div class="viewcode-block" id="Assessment"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment">[docs]</a><span class="k">class</span> <span class="nc">Assessment</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assessment class. Contains the assessments for all experts and all items.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_binprobs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full_cdf</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="Assessment.calculate_binprobs"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment.calculate_binprobs">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_binprobs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate probabilities in between quantiles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binprobs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.0</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binprobs</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Assessment.add_quantile"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment.add_quantile">[docs]</a>    <span class="k">def</span> <span class="nf">add_quantile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quantile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a quantile to the project. Adds the quantile and allocates the space in the array.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        quantile : float</span>
+<span class="sd">            Quantile to add</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mf">0.0</span> <span class="o">&lt;</span> <span class="n">quantile</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Quantile should be &gt; 0.0 and &lt; 1.0&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">quantile</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Quantile &quot;</span><span class="si">{quantile}</span><span class="s1">&quot; is already present.&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get position of new quantile</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">)</span> <span class="k">if</span> <span class="n">quantile</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">)])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">quantile</span><span class="p">)</span>
+
+        <span class="c1"># Assessments</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">idx</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Adjust array size and refill values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="o">~</span><span class="n">idx</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_binprobs</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Assessment.remove_quantile"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment.remove_quantile">[docs]</a>    <span class="k">def</span> <span class="nf">remove_quantile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quantile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes a quantile from the project. Removes the quantile and removes</span>
+<span class="sd">        the values from the assessment array.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        quantile : float</span>
+<span class="sd">            Quantile to remove</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">quantile</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Quantile &quot;</span><span class="si">{quantile}</span><span class="s1">&quot; is not present.&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get position of new quantile</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">quantile</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">quantiles</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+
+        <span class="c1"># Assessments</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">keep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">keep</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># Adjust array size and refill values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:,</span> <span class="n">keep</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_binprobs</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Assessment.clear"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes all quantiles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantiles</span><span class="p">[:]</span></div>
+
+<div class="viewcode-block" id="Assessment.initialize"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nexperts</span><span class="p">,</span> <span class="n">nitems</span><span class="p">,</span> <span class="n">nquantiles</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resizes the assessment array with the given dimensions</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nexperts : int</span>
+<span class="sd">            Number of experts</span>
+<span class="sd">        nitems : int</span>
+<span class="sd">            Number of items</span>
+<span class="sd">        nquantiles : int</span>
+<span class="sd">            Number of quantiles</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">nexperts</span><span class="p">,</span> <span class="n">nquantiles</span><span class="p">,</span> <span class="n">nitems</span><span class="p">),</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="Assessment.get_array"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment.get_array">[docs]</a>    <span class="k">def</span> <span class="nf">get_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question_type</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the assessments as 3D-array with dimensions:</span>
+<span class="sd">        (Nexperts, Nquantiles, Nquestions)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        question_type: str, optional</span>
+<span class="sd">            seed, target or both, by default &#39;both&#39;</span>
+<span class="sd">        experts: list or str</span>
+<span class="sd">            Expert(s) for which to return the assessments</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Array with assessments</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get index for experts</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">experts</span><span class="p">)</span>
+        
+        <span class="c1"># Get values and reshape</span>
+        <span class="n">seedidx</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">realizations</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">question_type</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">question_type</span> <span class="o">==</span> <span class="s1">&#39;seed&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">seedidx</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">question_type</span> <span class="o">==</span> <span class="s1">&#39;target&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="o">~</span><span class="n">seedidx</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Assessment.get_bounds"><a class="viewcode-back" href="../../../core/assessments.html#anduryl.core.assessments.Assessment.get_bounds">[docs]</a>    <span class="k">def</span> <span class="nf">get_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question_type</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">overshoot</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return lower and upper bounds for each question given</span>
+<span class="sd">        the question type. Overshoot van be added by specifying overshoot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        question_type : str</span>
+<span class="sd">            both, seed or target, default &#39;both&#39;</span>
+<span class="sd">        overshoot : float, optional</span>
+<span class="sd">            overshoot, default 0.0</span>
+<span class="sd">        experts: list or str</span>
+<span class="sd">            Expert(s) for which to return the bounds</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            Array with lower bounds and array with upper bounds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get selection of questions from dataframe</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">question_type</span><span class="o">=</span><span class="n">question_type</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">experts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        
+        <span class="c1"># Get bounds per question</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="c1"># If seed questions, combine with realisations</span>
+        <span class="n">realizations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">realizations</span><span class="p">[:]</span>
+        <span class="n">nseed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">realizations</span><span class="p">)</span>
+
+        <span class="n">seedidx</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">realizations</span><span class="p">)</span>
+        <span class="n">realizations</span> <span class="o">=</span> <span class="n">realizations</span><span class="p">[</span><span class="n">seedidx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">question_type</span> <span class="o">==</span> <span class="s1">&#39;seed&#39;</span><span class="p">:</span>
+            <span class="n">lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">realizations</span><span class="p">)</span>
+            <span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">realizations</span><span class="p">)</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">seedidx</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">question_type</span> <span class="o">==</span> <span class="s1">&#39;target&#39;</span><span class="p">:</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="o">~</span><span class="n">seedidx</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lower</span><span class="p">[</span><span class="n">seedidx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">lower</span><span class="p">[</span><span class="n">seedidx</span><span class="p">],</span> <span class="n">realizations</span><span class="p">)</span>
+            <span class="n">upper</span><span class="p">[</span><span class="n">seedidx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">upper</span><span class="p">[</span><span class="n">seedidx</span><span class="p">],</span> <span class="n">realizations</span><span class="p">)</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span>
+
+        <span class="c1"># Add overshoot</span>
+        <span class="k">if</span> <span class="n">overshoot</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="c1"># Get log inndices</span>
+            <span class="n">islog</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span> <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">islog</span><span class="p">):</span>
+                <span class="n">lower</span><span class="p">[</span><span class="n">islog</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">lower</span><span class="p">[</span><span class="n">islog</span><span class="p">])</span>
+                <span class="n">upper</span><span class="p">[</span><span class="n">islog</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">upper</span><span class="p">[</span><span class="n">islog</span><span class="p">])</span>
+            
+            <span class="n">maxrange</span> <span class="o">=</span> <span class="n">upper</span> <span class="o">-</span> <span class="n">lower</span>
+            <span class="n">lower</span> <span class="o">-=</span> <span class="n">overshoot</span> <span class="o">*</span> <span class="n">maxrange</span>
+            <span class="n">upper</span> <span class="o">+=</span> <span class="n">overshoot</span> <span class="o">*</span> <span class="n">maxrange</span>
+                
+        <span class="k">return</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span></div></div>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

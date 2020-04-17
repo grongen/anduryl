@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>experts.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="items.py" href="items.html" />
+    <link rel="prev" title="calculate.py" href="calculate.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assessments.html">assessments.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calculate.html">calculate.py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html">main.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ui.html">ui</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../core.html">core</a> &raquo;</li>
+        
+      <li>experts.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/core/experts.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.core.experts">
+<span id="experts-py"></span><h1>experts.py<a class="headerlink" href="#module-anduryl.core.experts" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="anduryl.core.experts.Experts">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.core.experts.</code><code class="sig-name descname">Experts</code><span class="sig-paren">(</span><em class="sig-param">project</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Experts class. Contain the properties for all experts
+and decision makers. Also functions to add or remove
+experts are present in the class.</p>
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.add_expert">
+<code class="sig-name descname">add_expert</code><span class="sig-paren">(</span><em class="sig-param">exp_id</em>, <em class="sig-param">exp_name</em>, <em class="sig-param">assessment</em>, <em class="sig-param">exp_type</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">full_cdf=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.add_expert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.add_expert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add expert to project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp_id</strong> (<em>str</em>) – Expert ID</p></li>
+<li><p><strong>exp_name</strong> (<em>str</em>) – Expert name</p></li>
+<li><p><strong>assessment</strong> (<em>numpy.ndarray</em>) – Array with expert assessment values (Nquestions, Nquantiles+2)</p></li>
+<li><p><strong>exp_type</strong> (<em>str</em>) – Type of expert. Can be ‘actual’ or ‘dm’</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to overwrite an existing expert ID, by default False</p></li>
+<li><p><strong>full_cdf</strong> (<em>np.ndarray</em>) – Array with full expert CDF</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>KeyError</strong> – If not overwrite and expert id already present</p></li>
+<li><p><strong>TypeError</strong> – If expert type is not one of ‘actual’ or ‘dm’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.calculate_weights">
+<code class="sig-name descname">calculate_weights</code><span class="sig-paren">(</span><em class="sig-param">overshoot</em>, <em class="sig-param">alpha</em>, <em class="sig-param">calpower</em>, <em class="sig-param">experts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.calculate_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.calculate_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the weights of experts, based on the information score
+and the calibration score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>overshoot</strong> (<em>float</em>) – Overshoot or intrinsic range, used for determining the item bounds</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Significance level for the calibration score. Experts with a lower
+calibration score get zero weight.</p></li>
+<li><p><strong>calpower</strong> (<em>float</em>) – Calibration power, relative weight of the calibration compared
+to the information score</p></li>
+<li><p><strong>experts</strong> (<em>list</em><em>, </em><em>optional</em>) – List with experts for which to calculate the weigths, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.calibration_score">
+<code class="sig-name descname">calibration_score</code><span class="sig-paren">(</span><em class="sig-param">counts</em>, <em class="sig-param">Nmin</em>, <em class="sig-param">calpower</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.calibration_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.calibration_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate calbration score</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> (<em>numpy.ndarray</em>) – Number of realizations per question in each bin</p></li>
+<li><p><strong>Nmin</strong> (<em>int</em>) – Minimum number of answered questions for All experts</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.check_user_weights">
+<code class="sig-name descname">check_user_weights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.check_user_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.check_user_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the assigned user weights and returns on
+info or warning message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>User weights which are None if invalid, and a message.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Weights and message</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all id’s, names and counts.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.count_realizations_per_bin">
+<code class="sig-name descname">count_realizations_per_bin</code><span class="sig-paren">(</span><em class="sig-param">experts</em>, <em class="sig-param">items=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.count_realizations_per_bin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.count_realizations_per_bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Devide the realizations in the quantile bins
+given by the experts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experts</strong> (<em>list</em><em> or </em><em>None</em>) – List of experts for which the realizations are counted</p></li>
+<li><p><strong>items</strong> (<em>array</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Boolean array with the items to count. If None, all items are counted.
+This option can be used for excluding items when calculating
+robustness tables</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.get_exp">
+<code class="sig-name descname">get_exp</code><span class="sig-paren">(</span><em class="sig-param">exptype='both'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.get_exp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.get_exp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of expert id’s</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exptype</strong> (<em>str</em><em>, </em><em>optional</em>) – Expert type, should be ‘dm’, ‘actual’ or ‘both’ (default)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of expert id’s</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.get_idx">
+<code class="sig-name descname">get_idx</code><span class="sig-paren">(</span><em class="sig-param">experts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.get_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.get_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the idx of one or more experts in the list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>experts</strong> (<em>list</em><em>, </em><em>str of Nonetype</em>) – List with experts, a single expert, ‘dm’ or ‘actual’ or None</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array with experts indices or a single expert index</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray or int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.get_weights">
+<code class="sig-name descname">get_weights</code><span class="sig-paren">(</span><em class="sig-param">weight_type</em>, <em class="sig-param">experts</em>, <em class="sig-param">alpha=None</em>, <em class="sig-param">exclude=None</em>, <em class="sig-param">calpower=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.get_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get weights excluding given items. Specifically for robustness calculation.</p>
+<p>This method can excludes items from the weights, without actually removing
+these items from the project. By excluding an item the calibration scores
+change, so these are recalculated in the project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight_type</strong> (<em>str</em>) – Weight type, global, item, user or equal.</p></li>
+<li><p><strong>experts</strong> (<em>list</em>) – Experts for which the weights are returned</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Significance level for the calibration score. If None, the weights
+are returnes for all possible significance levels (unique calibration scores)</p></li>
+<li><p><strong>exclude</strong> (<em>list</em><em>, </em><em>optional</em>) – List with experts to exclude, can be used in robustness checks, by default None</p></li>
+<li><p><strong>calpower</strong> (<em>float</em><em>, </em><em>optional</em>) – Calibration power, relative weight of the calibration compared
+to the information score. Can be None when no experts are exluded, and the4
+calibration score does not have to be recalculated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>np.ndarray with weights per (alpha, expert, item) and np.ndarray with alphas</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param">nexperts</em>, <em class="sig-param">nitems</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize (empty) class. Allocates the lists
+and arrays given the number of experts or items</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nexperts</strong> (<em>int</em>) – Number of experts</p></li>
+<li><p><strong>nitems</strong> (<em>int</em>) – Number of items</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.experts.Experts.remove_expert">
+<code class="sig-name descname">remove_expert</code><span class="sig-paren">(</span><em class="sig-param">exp_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#Experts.remove_expert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.Experts.remove_expert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes an experts from the class by id.
+Looks up the id in all the relevant lists and arrays,
+and removes the data from the element.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exp_id</strong> (<em>str</em>) – Expert id</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.core.experts.chi2cdf">
+<code class="sig-prename descclassname">anduryl.core.experts.</code><code class="sig-name descname">chi2cdf</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">df</em>, <em class="sig-param">iterations=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#chi2cdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.chi2cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chi squared cdf function. This function can also be used from scipy,
+but to reduce the compilation size a seperate (slighty slower)
+implementation without scipy is written.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.core.experts.upper_incomplete_gamma">
+<code class="sig-prename descclassname">anduryl.core.experts.</code><code class="sig-name descname">upper_incomplete_gamma</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">x</em>, <em class="sig-param">iterations</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/experts.html#upper_incomplete_gamma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.experts.upper_incomplete_gamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation for upper incomplete gamma.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="items.html" class="btn btn-neutral float-right" title="items.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="calculate.html" class="btn btn-neutral float-left" title="calculate.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

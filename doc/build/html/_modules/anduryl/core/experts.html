@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>anduryl.core.experts &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code.html">Code documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>anduryl.core.experts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for anduryl.core.experts</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">gamma</span><span class="p">,</span><span class="n">e</span>
+
+<div class="viewcode-block" id="upper_incomplete_gamma"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.upper_incomplete_gamma">[docs]</a><span class="k">def</span> <span class="nf">upper_incomplete_gamma</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">iterations</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementation for upper incomplete gamma.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">iterations</span><span class="p">)):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">d</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="n">a</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">))</span> <span class="o">/</span> <span class="n">val</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)))</span> <span class="o">/</span> <span class="n">val</span></div>
+
+<div class="viewcode-block" id="chi2cdf"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.chi2cdf">[docs]</a><span class="k">def</span> <span class="nf">chi2cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Chi squared cdf function. This function can also be used from scipy,</span>
+<span class="sd">    but to reduce the compilation size a seperate (slighty slower)</span>
+<span class="sd">    implementation without scipy is written.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">upper_incomplete_gamma</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">iterations</span><span class="p">)</span> <span class="o">/</span> <span class="n">gamma</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">df</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Experts"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts">[docs]</a><span class="k">class</span> <span class="nc">Experts</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Experts class. Contain the properties for all experts</span>
+<span class="sd">    and decision makers. Also functions to add or remove</span>
+<span class="sd">    experts are present in the class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor. Assigns all (empty) arrays and lists</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        project : anduryl.main.Project</span>
+<span class="sd">            Project class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decision_makers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arraynames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user_weights&#39;</span><span class="p">,</span> <span class="s1">&#39;info_real&#39;</span><span class="p">,</span> <span class="s1">&#39;info_total&#39;</span><span class="p">,</span> <span class="s1">&#39;calibration&#39;</span><span class="p">,</span> <span class="s1">&#39;weights&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">excluded</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Experts.get_exp"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.get_exp">[docs]</a>    <span class="k">def</span> <span class="nf">get_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exptype</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of expert id&#39;s</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exptype : str, optional</span>
+<span class="sd">            Expert type, should be &#39;dm&#39;, &#39;actual&#39; or &#39;both&#39; (default)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            List of expert id&#39;s</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">exptype</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[:]</span>
+        <span class="k">elif</span> <span class="n">exptype</span> <span class="o">==</span> <span class="s1">&#39;dm&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision_makers</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">exptype</span> <span class="o">==</span> <span class="s1">&#39;actual&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">exptype</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Experts.get_idx"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.get_idx">[docs]</a>    <span class="k">def</span> <span class="nf">get_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the idx of one or more experts in the list</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        experts : list, str of Nonetype</span>
+<span class="sd">            List with experts, a single expert, &#39;dm&#39; or &#39;actual&#39; or None</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray or int</span>
+<span class="sd">            Array with experts indices or a single expert index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">experts</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">experts</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">experts</span> <span class="ow">is</span> <span class="s1">&#39;actual&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">experts</span> <span class="ow">is</span> <span class="s1">&#39;dm&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decision_makers</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">experts</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">experts</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">experts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Unexpected type&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Experts.clear"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clears all id&#39;s, names and counts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Empty lists</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[:]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">[:]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">[:]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision_makers</span><span class="p">[:]</span>
+
+        <span class="c1"># Set arrays to nan</span>
+        <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arraynames</span><span class="p">:</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">)[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="c1"># Empty dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Experts.initialize"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nexperts</span><span class="p">,</span> <span class="n">nitems</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize (empty) class. Allocates the lists</span>
+<span class="sd">        and arrays given the number of experts or items</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nexperts : int</span>
+<span class="sd">            Number of experts</span>
+<span class="sd">        nitems : int</span>
+<span class="sd">            Number of items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Intialize lists</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">([[]</span> <span class="o">*</span> <span class="n">nexperts</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="o">.</span><span class="n">extend</span><span class="p">([[]</span> <span class="o">*</span> <span class="n">nexperts</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="o">.</span><span class="n">extend</span><span class="p">([[]</span> <span class="o">*</span> <span class="n">nexperts</span><span class="p">])</span>
+
+        <span class="c1"># 1D arrays</span>
+        <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arraynames</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+            <span class="n">arr</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">nexperts</span><span class="p">,</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">arr</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># 2D arrays</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">nexperts</span><span class="p">,</span> <span class="n">nitems</span><span class="p">),</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Experts.add_expert"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.add_expert">[docs]</a>    <span class="k">def</span> <span class="nf">add_expert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_id</span><span class="p">,</span> <span class="n">exp_name</span><span class="p">,</span> <span class="n">assessment</span><span class="p">,</span> <span class="n">exp_type</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">full_cdf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add expert to project.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exp_id : str</span>
+<span class="sd">            Expert ID</span>
+<span class="sd">        exp_name : str</span>
+<span class="sd">            Expert name</span>
+<span class="sd">        assessment : numpy.ndarray</span>
+<span class="sd">            Array with expert assessment values (Nquestions, Nquantiles+2)</span>
+<span class="sd">        exp_type : str</span>
+<span class="sd">            Type of expert. Can be &#39;actual&#39; or &#39;dm&#39;</span>
+<span class="sd">        overwrite : bool, optional</span>
+<span class="sd">            Whether to overwrite an existing expert ID, by default False</span>
+<span class="sd">        full_cdf : np.ndarray</span>
+<span class="sd">            Array with full expert CDF</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        KeyError</span>
+<span class="sd">            If not overwrite and expert id already present</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If expert type is not one of &#39;actual&#39; or &#39;dm&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">exp_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Expert ID &quot;</span><span class="si">{exp_id}</span><span class="s1">&quot; already present. Pick another or specify overwrite=True.&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Overwrite, so no need to resize</span>
+        <span class="k">elif</span> <span class="n">exp_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span> <span class="ow">and</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">assessment</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+            
+            <span class="c1"># Add full cdf for decision maker</span>
+            <span class="k">if</span> <span class="n">full_cdf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">full_cdf</span><span class="p">[</span><span class="n">exp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_cdf</span>
+        
+        <span class="c1"># Else, append</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exp_name</span><span class="p">)</span>
+            
+            <span class="c1"># Resize expert arrays</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arraynames</span><span class="p">:</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="n">arr</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">size</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            
+            <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[:,</span> <span class="p">:]</span>
+
+            <span class="c1"># Resize assessments array</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">assessment</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">assessment</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+            <span class="c1"># Add index to list with actual experts or DMs</span>
+            <span class="k">if</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;actual&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;dm&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">decision_makers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Expert type not recognized.&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Add full cdf for decision maker</span>
+            <span class="k">if</span> <span class="n">full_cdf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">full_cdf</span><span class="p">[</span><span class="n">exp_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_cdf</span></div>
+        
+
+<div class="viewcode-block" id="Experts.remove_expert"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.remove_expert">[docs]</a>    <span class="k">def</span> <span class="nf">remove_expert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes an experts from the class by id.</span>
+<span class="sd">        Looks up the id in all the relevant lists and arrays,</span>
+<span class="sd">        and removes the data from the element.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exp_id : str</span>
+<span class="sd">            Expert id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Check if present</span>
+        <span class="k">if</span> <span class="n">exp_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Expert &quot;</span><span class="si">{exp_id}</span><span class="s1">&quot; not in expert ids.&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Get index</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+        <span class="c1"># Remove from ids and names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+        
+        <span class="c1"># Remove index from list</span>
+        <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision_makers</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+                <span class="n">lst</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        
+        <span class="c1"># Adjust other indexes of they where larger</span>
+        <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision_makers</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="o">&gt;</span> <span class="n">idx</span><span class="p">:</span>
+                    <span class="n">lst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># Remove from excluded</span>
+        <span class="k">if</span> <span class="n">exp_id</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">excluded</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">excluded</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+        
+        <span class="c1"># Remove bin counts</span>
+        <span class="k">if</span> <span class="n">exp_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="n">exp_id</span><span class="p">]</span>
+
+        <span class="c1"># Remove from 1d arrays</span>
+        <span class="n">keep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_real</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">keep</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arraynames</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+            <span class="n">arr</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">arr</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">vals</span>
+        
+        <span class="c1"># 2D arrays</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">keep</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">vals</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">vals</span>
+
+        <span class="c1"># Assessments</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">keep</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">vals</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">refcheck</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">array</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">vals</span></div>
+
+<div class="viewcode-block" id="Experts.count_realizations_per_bin"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.count_realizations_per_bin">[docs]</a>    <span class="k">def</span> <span class="nf">count_realizations_per_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experts</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Devide the realizations in the quantile bins</span>
+<span class="sd">        given by the experts</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        experts : list or None</span>
+<span class="sd">            List of experts for which the realizations are counted</span>
+<span class="sd">        items : array or None, optional</span>
+<span class="sd">            Boolean array with the items to count. If None, all items are counted.</span>
+<span class="sd">            This option can be used for excluding items when calculating</span>
+<span class="sd">            robustness tables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Get values for all seed assessments, and replace NaN</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="n">experts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">items</span><span class="p">]</span>
+
+        <span class="c1"># Get number of non nan answers per expert</span>
+        <span class="n">nonnan</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">))</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Replace NaN values</span>
+        <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+        <span class="c1"># Get counts</span>
+        <span class="n">rls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">realizations</span>
+        <span class="n">rls</span> <span class="o">=</span> <span class="n">rls</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">rls</span><span class="p">)]</span>
+            
+        <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>            
+            <span class="n">rls</span> <span class="o">=</span> <span class="n">rls</span><span class="p">[</span><span class="n">items</span><span class="p">]</span>
+        
+        <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rls</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&lt;=</span> <span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">Marr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">count</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">count</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">Marr</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">Marr</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">count</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">Marr</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nonnan</span> <span class="o">-</span> <span class="n">count</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dct</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">exp</span><span class="p">,</span> <span class="n">counts</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">experts</span><span class="p">,</span> <span class="n">Marr</span><span class="p">):</span>
+            <span class="n">dct</span><span class="p">[</span><span class="n">exp</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span>
+
+        <span class="k">return</span> <span class="n">dct</span></div>
+
+    <span class="k">def</span> <span class="nf">_information_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experts</span><span class="p">,</span> <span class="n">overshoot</span><span class="p">,</span> <span class="n">bounds_for_experts</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the information score for the given experts</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        experts : list</span>
+<span class="sd">            List with experts for which the information scores are calculated</span>
+<span class="sd">        overshoot : float</span>
+<span class="sd">            Overshoot (intrinsic range) for the bounds</span>
+<span class="sd">        bounds_for_experts : bool, optional</span>
+<span class="sd">            If true, the bounds are determined only for the given experts (instead of all experts).</span>
+<span class="sd">            This option can be used for the robustness checks. By default False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Get bounds for both seed and target questions</span>
+        <span class="k">if</span> <span class="n">bounds_for_experts</span><span class="p">:</span>
+            <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">(</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="n">experts</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">get_bounds</span><span class="p">(</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">overshoot</span><span class="o">=</span><span class="n">overshoot</span><span class="p">)</span>
+
+        <span class="c1"># Get assessments</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">experts</span><span class="o">=</span><span class="n">experts</span><span class="p">)</span>
+        <span class="n">nexperts</span><span class="p">,</span> <span class="n">npercentiles</span><span class="p">,</span> <span class="n">nitems</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c1"># Get the position of the expert</span>
+        <span class="n">expidxs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">experts</span><span class="p">)</span>
+
+        <span class="c1"># Get index of answered per expert. Only if all percentiles are given, the info score is </span>
+        <span class="n">valid</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="c1"># Get number of valid expert assessments per question</span>
+        <span class="n">nvalidq</span> <span class="o">=</span> <span class="n">valid</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="c1"># Scale values to log</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">scale</span>
+        <span class="k">for</span> <span class="n">iq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nitems</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">scale</span><span class="p">[</span><span class="n">iq</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+                <span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">iq</span><span class="p">])</span>
+            
+        <span class="c1"># Get information score per expert</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">binprobs</span>
+
+        <span class="k">for</span> <span class="n">iexp</span><span class="p">,</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">expidxs</span><span class="p">,</span> <span class="n">experts</span><span class="p">)):</span>
+            
+            <span class="c1"># Add lower and upper bounds to answers</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nvalidq</span><span class="p">[</span><span class="n">iexp</span><span class="p">],</span> <span class="n">npercentiles</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">validx</span> <span class="o">=</span> <span class="n">valid</span><span class="p">[</span><span class="n">iexp</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">bounds</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lower</span><span class="p">[</span><span class="n">validx</span><span class="p">]</span>
+            <span class="n">bounds</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">upper</span><span class="p">[</span><span class="n">validx</span><span class="p">]</span>
+            <span class="n">bounds</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">iexp</span><span class="p">,</span> <span class="p">:,</span> <span class="n">validx</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="n">validx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">upper</span><span class="p">[</span><span class="n">validx</span><span class="p">]</span> <span class="o">-</span> <span class="n">lower</span><span class="p">[</span><span class="n">validx</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="p">(</span><span class="n">bounds</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">bounds</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Calculate calibration score for seed and targer</span>
+        <span class="n">ridx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_real</span><span class="p">[</span><span class="n">expidxs</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidxs</span><span class="p">][:,</span> <span class="n">ridx</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidxs</span><span class="p">][:,</span> <span class="n">ridx</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info_total</span><span class="p">[</span><span class="n">expidxs</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidxs</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidxs</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Experts.calibration_score"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.calibration_score">[docs]</a>    <span class="k">def</span> <span class="nf">calibration_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">Nmin</span><span class="p">,</span> <span class="n">calpower</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate calbration score</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        M : numpy.ndarray</span>
+<span class="sd">            Number of realizations per question in each bin            </span>
+<span class="sd">        Nmin : int</span>
+<span class="sd">            Minimum number of answered questions for All experts</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get probabilities</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">assessments</span><span class="o">.</span><span class="n">binprobs</span>
+        <span class="n">cal</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">exp</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Scale the number of realizations per bin</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">count</span> <span class="o">/</span> <span class="n">count</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="c1"># Only use nonzero</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
+            <span class="c1"># Calculate information score</span>
+            <span class="n">MI</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">/</span> <span class="n">p</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+            <span class="n">E</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Nmin</span> <span class="o">*</span> <span class="n">MI</span> <span class="o">*</span> <span class="n">calpower</span>
+            <span class="c1"># Test with chi squared</span>
+            <span class="n">cal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">chi2cdf</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Experts.calculate_weights"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.calculate_weights">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overshoot</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">calpower</span><span class="p">,</span> <span class="n">experts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the weights of experts, based on the information score</span>
+<span class="sd">        and the calibration score.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        overshoot : float</span>
+<span class="sd">            Overshoot or intrinsic range, used for determining the item bounds</span>
+<span class="sd">        alpha : float</span>
+<span class="sd">            Significance level for the calibration score. Experts with a lower</span>
+<span class="sd">            calibration score get zero weight.</span>
+<span class="sd">        calpower : float</span>
+<span class="sd">            Calibration power, relative weight of the calibration compared</span>
+<span class="sd">            to the information score</span>
+<span class="sd">        experts : list, optional</span>
+<span class="sd">            List with experts for which to calculate the weigths, by default None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">experts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">experts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span>
+        
+        <span class="c1"># First calculate information score</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count_realizations_per_bin</span><span class="p">(</span><span class="n">experts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+
+        <span class="c1"># Get information score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_information_score</span><span class="p">(</span><span class="n">experts</span><span class="p">,</span> <span class="n">overshoot</span><span class="p">)</span>
+
+        <span class="c1"># Get minimum answered questions by actual experts</span>
+        <span class="n">Nmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">)</span>
+        <span class="c1"># Get calibration score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">experts</span><span class="p">)]</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration_score</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">Nmin</span><span class="o">=</span><span class="n">Nmin</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+
+        <span class="c1"># Calculate weights based on realizations and calibration</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">experts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">above_threshold</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">alpha</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="c1"># print(self.calibration[idx], self.info_real[idx], above_threshold)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">above_threshold</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Experts.get_weights"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.get_weights">[docs]</a>    <span class="k">def</span> <span class="nf">get_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight_type</span><span class="p">,</span> <span class="n">experts</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get weights excluding given items. Specifically for robustness calculation.</span>
+<span class="sd">        </span>
+<span class="sd">        This method can excludes items from the weights, without actually removing</span>
+<span class="sd">        these items from the project. By excluding an item the calibration scores</span>
+<span class="sd">        change, so these are recalculated in the project.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        weight_type : str</span>
+<span class="sd">            Weight type, global, item, user or equal.</span>
+<span class="sd">        experts : list</span>
+<span class="sd">            Experts for which the weights are returned</span>
+<span class="sd">        alpha : float, optional</span>
+<span class="sd">            Significance level for the calibration score. If None, the weights</span>
+<span class="sd">            are returnes for all possible significance levels (unique calibration scores)</span>
+<span class="sd">        exclude : list, optional</span>
+<span class="sd">            List with experts to exclude, can be used in robustness checks, by default None</span>
+<span class="sd">        calpower : float, optional</span>
+<span class="sd">            Calibration power, relative weight of the calibration compared</span>
+<span class="sd">            to the information score. Can be None when no experts are exluded, and the4</span>
+<span class="sd">            calibration score does not have to be recalculated.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            np.ndarray with weights per (alpha, expert, item) and np.ndarray with alphas </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get index of experts for which the weights should be returned</span>
+        <span class="n">expidx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">experts</span><span class="p">)</span>
+        
+        <span class="c1"># In case of exlcuding items, get the calibration score</span>
+        <span class="k">if</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            
+            <span class="c1"># Count realization with exluding one or more items</span>
+            <span class="n">seed_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">include</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seed_idx</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">)</span>
+            <span class="n">include</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">exclude</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">actual_experts</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">]</span>
+            <span class="n">count_dct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count_realizations_per_bin</span><span class="p">(</span><span class="n">experts</span><span class="o">=</span><span class="n">actual_experts</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">include</span><span class="p">)</span>
+            
+            <span class="c1"># Recalculate calibration score for new counts</span>
+            <span class="n">Nmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">count_dct</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="n">cal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration_score</span><span class="p">(</span><span class="n">counts</span><span class="o">=</span><span class="p">{</span><span class="n">exp</span><span class="p">:</span> <span class="n">count_dct</span><span class="p">[</span><span class="n">exp</span><span class="p">]</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">experts</span><span class="p">},</span> <span class="n">Nmin</span><span class="o">=</span><span class="n">Nmin</span><span class="p">,</span> <span class="n">calpower</span><span class="o">=</span><span class="n">calpower</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="n">expidx</span><span class="p">]</span>
+
+        <span class="c1"># If alpha is not given, the alphas are retrieved from the calibration values</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="n">alpha</span><span class="p">]</span>
+
+        <span class="c1"># Initialize weights</span>
+        <span class="n">nquestions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span>
+        <span class="n">nexperts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">experts</span><span class="p">)</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas</span><span class="p">),</span> <span class="n">nexperts</span><span class="p">,</span> <span class="n">nquestions</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="n">weight_type</span> <span class="o">==</span> <span class="s1">&#39;global&#39;</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Get information score for all realizations if nothing to exclude</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_real</span><span class="p">[</span><span class="n">expidx</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Or select only the included realizations</span>
+                <span class="n">ridx</span> <span class="o">=</span> <span class="n">seed_idx</span><span class="p">[</span><span class="n">include</span><span class="p">]</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidx</span><span class="p">][:,</span> <span class="n">ridx</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidx</span><span class="p">][:,</span> <span class="n">ridx</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1"># Fill with global weights, calculated for calibration questions</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">alphas</span><span class="p">):</span>
+                <span class="n">above_threshold</span> <span class="o">=</span> <span class="p">(</span><span class="n">cal</span> <span class="o">&gt;=</span> <span class="n">alpha</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">above_threshold</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                    <span class="n">wperexp</span> <span class="o">=</span> <span class="n">info</span> <span class="o">*</span> <span class="n">cal</span> <span class="o">*</span> <span class="n">above_threshold</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                    <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">wperexp</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">wperexp</span><span class="p">))[:,</span> <span class="kc">None</span><span class="p">]</span>
+            
+        <span class="c1"># Return item weights, calculated for all (calibration and target) questions</span>
+        <span class="k">elif</span> <span class="n">weight_type</span> <span class="o">==</span> <span class="s1">&#39;item&#39;</span><span class="p">:</span>
+
+            <span class="n">total_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">nquestions</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">total_idx</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">exclude</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># Get information per variable and index</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_per_var</span><span class="p">[</span><span class="n">expidx</span><span class="p">][:,</span> <span class="n">total_idx</span><span class="p">]</span>
+            
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">alphas</span><span class="p">):</span>
+                <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">][:,</span> <span class="n">total_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span> <span class="o">*</span> <span class="p">(</span><span class="n">cal</span> <span class="o">*</span> <span class="p">(</span><span class="n">cal</span> <span class="o">&gt;=</span> <span class="n">alpha</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))[:,</span> <span class="kc">None</span><span class="p">]</span>
+
+            <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">total_idx</span><span class="p">]</span> <span class="o">/=</span> <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">total_idx</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Return equal weights</span>
+        <span class="k">elif</span> <span class="n">weight_type</span> <span class="o">==</span> <span class="s1">&#39;equal&#39;</span><span class="p">:</span>
+            <span class="c1"># Assign equal weights</span>
+            <span class="n">nexp</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">nexp</span><span class="p">)</span> <span class="o">/</span> <span class="n">nexp</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># Return user weights</span>
+        <span class="k">elif</span> <span class="n">weight_type</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span>
+            <span class="c1"># Check weights</span>
+            <span class="n">expert_user_weight</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_user_weights</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">expert_user_weight</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="c1"># Assign user weights</span>
+            <span class="n">weights</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">expert_user_weight</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">weight_type</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">weights</span><span class="p">,</span> <span class="n">alphas</span></div>
+        
+<div class="viewcode-block" id="Experts.check_user_weights"><a class="viewcode-back" href="../../../core/experts.html#anduryl.core.experts.Experts.check_user_weights">[docs]</a>    <span class="k">def</span> <span class="nf">check_user_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the assigned user weights and returns on </span>
+<span class="sd">        info or warning message.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Weights and message</span>
+<span class="sd">            User weights which are None if invalid, and a message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Check weights</span>
+        <span class="n">expert_user_weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_weights</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">expert_user_weight</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Assign user weights before calculating a decision maker with this option.&#39;</span>
+
+        <span class="c1"># Check if less than 0.0        </span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">expert_user_weight</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;All user weights should be equal to or greater than 0.0.&#39;</span>
+
+        <span class="c1"># Set nan values to 0.0</span>
+        <span class="n">expert_user_weight</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">expert_user_weight</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">expert_user_weight</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;All assigned user weights are 0.0. At least one weight should be greater than 0.0.&#39;</span>
+        
+        <span class="c1"># Check if sum == 0.0</span>
+        <span class="k">if</span> <span class="n">expert_user_weight</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">expert_user_weight</span> <span class="o">/</span> <span class="n">expert_user_weight</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">weights</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Sum of user weights is not equal to 1.0 (current sum is {expert_user_weight.sum()}). Weights are normalised.&#39;</span>
+            
+        <span class="k">return</span> <span class="n">expert_user_weight</span><span class="p">,</span> <span class="s1">&#39;&#39;</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

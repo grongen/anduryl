@@ -1,0 +1,769 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>anduryl.ui.experts &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code.html">Code documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>anduryl.ui.experts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for anduryl.ui.experts</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
+<span class="kn">from</span> <span class="nn">anduryl</span> <span class="k">import</span> <span class="n">io</span>
+<span class="kn">from</span> <span class="nn">anduryl.ui</span> <span class="k">import</span> <span class="n">widgets</span>
+<span class="kn">from</span> <span class="nn">anduryl.ui.dialogs</span> <span class="k">import</span> <span class="n">NotificationDialog</span>
+<span class="kn">from</span> <span class="nn">anduryl.ui.models</span> <span class="k">import</span> <span class="n">ExpertsListsModel</span><span class="p">,</span> <span class="n">ItemDelegate</span>
+
+
+<div class="viewcode-block" id="ExpertsWidget"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget">[docs]</a><span class="k">class</span> <span class="nc">ExpertsWidget</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Widget with the expert table</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mainwindow</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ExpertsWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span> <span class="o">=</span> <span class="n">mainwindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">mainwindow</span><span class="o">.</span><span class="n">project</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">construct_widget</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;DM&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Decision Maker&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;Global&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;overshoot&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+            <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s1">&#39;optimisation&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;robustness&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;calpower&#39;</span><span class="p">:</span> <span class="mf">1.0</span>
+        <span class="p">}</span>        
+
+<div class="viewcode-block" id="ExpertsWidget.construct_widget"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.construct_widget">[docs]</a>    <span class="k">def</span> <span class="nf">construct_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs the widget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create the table view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableView</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">verticalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setShowGrid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setAlternatingRowColors</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QTableView{border: 1px solid &quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">bordercolor</span><span class="o">+</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># Create and add model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">ExpertsListsModel</span><span class="p">(</span><span class="n">parentwidget</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setItemDelegate</span><span class="p">(</span><span class="n">ItemDelegate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">))</span>
+
+        <span class="n">mainbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Experts&#39;</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QLabel {border: 1px solid &quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">bordercolor</span><span class="o">+</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+        
+        <span class="n">mainbox</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">mainbox</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">mainbox</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ExpertsWidget.eventFilter"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.eventFilter">[docs]</a>    <span class="k">def</span> <span class="nf">eventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Eventfilter for copying table content.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">KeyPress</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">matches</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Copy</span><span class="p">)):</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">selectedIndexes</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">selection</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">selection_to_text</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">qApp</span><span class="o">.</span><span class="n">clipboard</span><span class="p">()</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">eventFilter</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ExpertsWidget.to_csv"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.to_csv">[docs]</a>    <span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calls the anduryl.io.table_to_csv function for the table model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">io</span><span class="o">.</span><span class="n">table_to_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ExpertsWidget.add_decision_maker"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.add_decision_maker">[docs]</a>    <span class="k">def</span> <span class="nf">add_decision_maker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function called when a user clicks &#39;calculate&#39;</span>
+
+<span class="sd">        First the presence of experts and items are checked. If one of them is</span>
+<span class="sd">        not present, send a notification to the user.</span>
+
+<span class="sd">        After that a window with calculation options is opened. If accepted (OK)</span>
+<span class="sd">        a decision maker is calculated with the given options. If robustness</span>
+<span class="sd">        is checked, also the robustness tables for 1 expert and 1 item are</span>
+<span class="sd">        calculated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Check if there are any experts</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">NotificationDialog</span><span class="p">(</span><span class="s1">&#39;Add at least one expert before calculating a decision maker.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Check if there are any items</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">NotificationDialog</span><span class="p">(</span><span class="s1">&#39;Add at least one item before calculating a decision maker.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Launch window for settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_dialog</span> <span class="o">=</span> <span class="n">DecisionMakerOptions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters_dialog</span><span class="o">.</span><span class="n">succeeded</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># If user weights, check weights.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span>
+            <span class="n">expert_user_weight</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">check_user_weights</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">message</span><span class="p">:</span>
+                <span class="n">NotificationDialog</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">expert_user_weight</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">setCursorWait</span><span class="p">()</span>
+        
+        <span class="c1"># Calculate decision maker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">_about_to_be_changed</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">add_results_from_settings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">_changed</span><span class="p">()</span>
+
+        <span class="c1"># Add calculated results to GUI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">resultswidget</span><span class="o">.</span><span class="n">add_results</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span><span class="p">)</span>
+
+        <span class="c1"># Update GUI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">update_gui</span><span class="p">()</span>
+
+        <span class="c1"># Move splitter if results are hidden</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">rightsplitter</span><span class="o">.</span><span class="n">sizes</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">rightsplitter</span><span class="o">.</span><span class="n">setSizes</span><span class="p">([</span><span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">])</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">setCursorNormal</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ExpertsWidget.add_expert"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.add_expert">[docs]</a>    <span class="k">def</span> <span class="nf">add_expert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a new expert to the project. Adds a row to the experts table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Define name and id</span>
+        <span class="n">nth_expert</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">default_id</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;Exp</span><span class="si">{nth_expert:02d}</span><span class="s1">&#39;</span>
+        <span class="n">default_name</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;Expert </span><span class="si">{nth_expert:02d}</span><span class="s1">&#39;</span>
+    
+        <span class="c1"># Add expert</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">add_expert</span><span class="p">(</span>
+            <span class="n">exp_id</span><span class="o">=</span><span class="n">default_id</span><span class="p">,</span>
+            <span class="n">exp_name</span><span class="o">=</span><span class="n">default_name</span><span class="p">,</span>
+            <span class="n">assessment</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">exp_type</span><span class="o">=</span><span class="s1">&#39;actual&#39;</span><span class="p">,</span>
+            <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Update GUI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">update_gui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">update_color_range</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">setWindowModified</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ExpertsWidget.remove_expert_clicked"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.remove_expert_clicked">[docs]</a>    <span class="k">def</span> <span class="nf">remove_expert_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method executed when the action remove expert is clicked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rownum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">rownum</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">NotificationDialog</span><span class="p">(</span><span class="s1">&#39;Select a row to remove an expert&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        
+        <span class="n">expertid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">rownum</span><span class="p">]</span>
+
+        <span class="c1"># If decision maker, also close the results tab</span>
+        <span class="k">if</span> <span class="n">rownum</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">decision_makers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">resultswidget</span><span class="o">.</span><span class="n">close_results</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">expert</span><span class="o">=</span><span class="n">expertid</span><span class="p">)</span>
+
+        <span class="c1"># Remove expert from table widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_expert</span><span class="p">(</span><span class="n">expertid</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ExpertsWidget.remove_expert"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.remove_expert">[docs]</a>    <span class="k">def</span> <span class="nf">remove_expert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expertid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes the expert from the project, by expert id</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        expertid : str, optional</span>
+<span class="sd">            Expert ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get index</span>
+        <span class="n">expnum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">get_idx</span><span class="p">(</span><span class="n">expertid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">expnum</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">actual_experts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">setWindowModified</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Remove expert from project</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">remove_expert</span><span class="p">(</span><span class="n">expertid</span><span class="p">)</span>
+        
+        <span class="c1"># Update UI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">assessmentswidget</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">update_gui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">update_color_range</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">())</span></div>
+        
+
+<div class="viewcode-block" id="ExpertsWidget.exclude_expert_clicked"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.exclude_expert_clicked">[docs]</a>    <span class="k">def</span> <span class="nf">exclude_expert_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executed when expert checkbox is clicked</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rownum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">rownum</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">NotificationDialog</span><span class="p">(</span><span class="s1">&#39;Select a row to exclude an expert&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Remove expert from table widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toggle_expert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">rownum</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="ExpertsWidget.toggle_expert"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.toggle_expert">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_expert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expert</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggle and expert on or off. The expert is added or removed</span>
+<span class="sd">        to or from the excluded list</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        expert : str, optional</span>
+<span class="sd">            Expert ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">expert</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">excluded</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">excluded</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">expert</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">excluded</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expert</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ExpertsWidget.contextMenuEvent"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.ExpertsWidget.contextMenuEvent">[docs]</a>    <span class="k">def</span> <span class="nf">contextMenuEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the context menu for the expert widget</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">menu</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
+        <span class="c1"># Get current row</span>
+        <span class="n">rownum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+        <span class="n">decision_maker_selected</span> <span class="o">=</span> <span class="p">(</span><span class="n">rownum</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">decision_makers</span><span class="p">)</span>
+        
+        <span class="c1"># Add actions</span>
+        <span class="n">add_expert_action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Add an expert&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">decision_maker_selected</span> <span class="ow">and</span> <span class="n">rownum</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">excluded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">rownum</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">excluded</span>
+            <span class="n">exclude_expert_action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Include this expert&quot;</span> <span class="k">if</span> <span class="n">excluded</span> <span class="k">else</span> <span class="s2">&quot;Exclude this expert  &quot;</span><span class="p">)</span>
+        
+        <span class="n">remove_expert_action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Remove decision maker&quot;</span> <span class="k">if</span> <span class="n">decision_maker_selected</span> <span class="k">else</span> <span class="s2">&quot;Remove this expert&quot;</span><span class="p">)</span>
+        <span class="n">menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+        <span class="n">show_assessments_action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Show DM assessments&quot;</span> <span class="k">if</span> <span class="n">decision_maker_selected</span> <span class="k">else</span> <span class="s2">&quot;Show expert assessments&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">decision_maker_selected</span><span class="p">:</span>
+            <span class="n">show_results_action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Show DM results&quot;</span><span class="p">)</span>
+
+        <span class="n">action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="n">add_expert_action</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_expert</span><span class="p">()</span>
+        
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="n">remove_expert_action</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_expert_clicked</span><span class="p">()</span>
+        
+        <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="n">show_assessments_action</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">assessmentswidget</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">assessmentswidget</span><span class="o">.</span><span class="n">expert_cbox</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">rownum</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="k">elif</span> <span class="n">decision_maker_selected</span> <span class="ow">and</span> <span class="n">action</span> <span class="o">==</span> <span class="n">show_results_action</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span><span class="o">.</span><span class="n">resultswidget</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">decision_makers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">rownum</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">decision_maker_selected</span> <span class="ow">and</span> <span class="p">(</span><span class="n">rownum</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">action</span> <span class="o">==</span> <span class="n">exclude_expert_action</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exclude_expert_clicked</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="DecisionMakerOptions"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions">[docs]</a><span class="k">class</span> <span class="nc">DecisionMakerOptions</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dialog to get parameters for calculating decision maker</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expertwidget</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DecisionMakerOptions</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">expertwidget</span><span class="p">)</span>
+
+        <span class="c1"># Flags for updating names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_update_id</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_update_name</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Get all settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expertwidget</span> <span class="o">=</span> <span class="n">expertwidget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expertwidget</span><span class="o">.</span><span class="n">calc_settings</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Anduryl - Calculation settings&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowContextHelpButtonHint</span><span class="p">)</span>
+
+        <span class="c1"># Built UI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_ui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_from_settings</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_name_id</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">succeeded</span> <span class="o">=</span> <span class="kc">False</span>
+
+        
+    <span class="k">def</span> <span class="nf">_init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set up UI design</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create GUI elements, set them in dict structure</span>
+        <span class="n">alpha_symbol</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\u03B1</span><span class="s1">&#39;</span>
+        <span class="n">labelwidth</span><span class="o">=</span><span class="mi">100</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">ComboboxInputLine</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Weights:&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span><span class="p">,</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Global&#39;</span><span class="p">,</span> <span class="s1">&#39;Item&#39;</span><span class="p">,</span> <span class="s1">&#39;Equal&#39;</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">CheckBoxInput</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;DM optimisation:&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;robustness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">CheckBoxInput</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Robustness:&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;overshoot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">ParameterInputLine</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Intrinsic range:&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span><span class="p">,</span>
+            <span class="n">validator</span><span class="o">=</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QDoubleValidator</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">ParameterInputLine</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;Min. weight (</span><span class="si">{alpha_symbol}</span><span class="s1">)&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span><span class="p">,</span>
+            <span class="n">validator</span><span class="o">=</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QDoubleValidator</span><span class="p">(</span><span class="mf">0.00</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;calpower&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">ParameterInputLine</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;Calibration power&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span><span class="p">,</span>
+            <span class="n">validator</span><span class="o">=</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QDoubleValidator</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">ParameterInputLine</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ID:&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">ParameterInputLine</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Name:&#39;</span><span class="p">,</span>
+            <span class="n">labelwidth</span><span class="o">=</span><span class="n">labelwidth</span>
+        <span class="p">)</span>
+        <span class="c1"># Connect signals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">LineEdit</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disable_update_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">LineEdit</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disable_update_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_name_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_name_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_visibility</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_visibility</span><span class="p">)</span>
+
+        
+        <span class="c1"># Create base layout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widgets</span><span class="o">.</span><span class="n">HLine</span><span class="p">())</span>
+
+        <span class="c1"># OK and Cancel buttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Calculate&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_button</span><span class="o">.</span><span class="n">setDefault</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calculate_dm</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_button</span><span class="o">.</span><span class="n">setAutoDefault</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel</span><span class="p">)</span>
+
+        <span class="n">button_box</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">button_box</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_button</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">ActionRole</span><span class="p">)</span>
+        <span class="n">button_box</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cancel_button</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">RejectRole</span><span class="p">)</span>
+
+        <span class="n">button_box</span><span class="o">.</span><span class="n">accepted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="c1"># button_box.rejected.connect(QtWidgets.QDialog.reject)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_box</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DecisionMakerOptions.disable_update_id"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.disable_update_id">[docs]</a>    <span class="k">def</span> <span class="nf">disable_update_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disables to auto updating of the id. Is called after the user</span>
+<span class="sd">        changes the id manually.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_update_id</span> <span class="o">=</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="DecisionMakerOptions.disable_update_name"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.disable_update_name">[docs]</a>    <span class="k">def</span> <span class="nf">disable_update_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disables to auto updating of the name. Is called after the user</span>
+<span class="sd">        changes the name manually.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_update_name</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.update_name_id"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.update_name_id">[docs]</a>    <span class="k">def</span> <span class="nf">update_name_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to update the id and name when the settings change</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_update_id</span><span class="p">:</span>
+            <span class="n">idtext</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">currentText</span><span class="p">()[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">idtext</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;gl&#39;</span><span class="p">,</span> <span class="s1">&#39;it&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">idtext</span> <span class="o">+=</span> <span class="s1">&#39;opt&#39;</span>
+            
+            <span class="k">if</span> <span class="n">idtext</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">expertwidget</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">99</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">idtext</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">expertwidget</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="n">idtext</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">LineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">idtext</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_update_name</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="s1">&#39;item&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">name</span> <span class="o">+=</span> <span class="s1">&#39; Opt.&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">name</span> <span class="o">+=</span> <span class="s1">&#39; No opt.&#39;</span>
+            
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">expertwidget</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">99</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">name</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">expertwidget</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="n">name</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">LineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.toggle_visibility"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.toggle_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the visibility (enables or greyed out) of all options in the</span>
+<span class="sd">        menu after the options have changed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">optimisation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">weight</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Global&#39;</span><span class="p">,</span> <span class="s1">&#39;Item&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;robustness&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;robustness&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;optimisation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;robustness&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">checkbox</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Visible if no optimisation and global or item weight</span>
+        <span class="n">visible</span> <span class="o">=</span> <span class="p">(</span><span class="ow">not</span> <span class="n">optimisation</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">weight</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Global&#39;</span><span class="p">,</span> <span class="s1">&#39;Item&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">LineEdit</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.calculate_dm"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.calculate_dm">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_dm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        User pressed Generate button</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Validate the input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+        <span class="c1"># Return none if validation failed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Save to settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_to_settings</span><span class="p">()</span>
+
+        <span class="c1"># Check if expert id is new</span>
+        <span class="n">exp_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">exp_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">expertwidget</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">experts</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span>
+            <span class="n">NotificationDialog</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Expert ID &quot;</span><span class="si">{exp_id}</span><span class="s1">&quot; is already in use. Pick an unused ID.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Set project dirty</span>
+        <span class="c1"># self.mainwindow.setDirty()</span>
+
+        <span class="c1"># Set project succeeded</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">succeeded</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.cancel"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.cancel">[docs]</a>    <span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        User pressed Cancel button</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">succeeded</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.validate_parameter"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.validate_parameter">[docs]</a>    <span class="k">def</span> <span class="nf">validate_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate parameter based on 3 conditions:</span>
+<span class="sd">        1. is not nan</span>
+<span class="sd">        2. is not None</span>
+<span class="sd">        3. is not &#39;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Lists are not checked</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">valid</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+                <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">valid</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.validate"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test for correct input in this dialog</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        check_empty : boolean</span>
+<span class="sd">            Whether to check the empty parameters. This is not done when the table</span>
+<span class="sd">            is loaded from settings, since it then does not matter if there</span>
+<span class="sd">            are empty cells.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Collect invalid parameters</span>
+        <span class="n">invalid</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Loop trough input elements and validate</span>
+        <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+            <span class="c1"># If not checking the empty parameters, if a parameter is empty, continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">check_empty</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_parameter</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># Check if item is filled</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_parameter</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+                <span class="n">invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+            <span class="c1"># If the item has a validator, check if the value is valid</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">&#39;validator&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">validator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">validator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">widget</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+                        <span class="n">parameters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">invalid</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">NotificationDialog</span><span class="p">(</span><span class="s1">&#39;Er is geen geldige waarde voor &quot;</span><span class="si">{}</span><span class="s1">&quot; ingevuld: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">invalid</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parameters</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">invalid</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">NotificationDialog</span><span class="p">(</span><span class="s1">&#39;Er zijn geen geldige waarden voor &quot;</span><span class="si">{}</span><span class="s1">&quot; ingevuld: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">invalid</span><span class="p">),</span> <span class="n">parameters</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If no error</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.save_to_settings"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.save_to_settings">[docs]</a>    <span class="k">def</span> <span class="nf">save_to_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save parameters to settings. The settings have the same layout as the input_elements dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+            <span class="c1"># Convert value to integer of float</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">is_integer</span><span class="p">():</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div>
+
+<div class="viewcode-block" id="DecisionMakerOptions.load_from_settings"><a class="viewcode-back" href="../../../ui/experts.html#anduryl.ui.experts.DecisionMakerOptions.load_from_settings">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save parameters to settings. The settings have the same layout as the input_elements dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+            <span class="c1"># Check if parameter is not empty before filling in</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_parameter</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_elements</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="c1"># Validate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">check_empty</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

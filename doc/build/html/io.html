@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>io.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core" href="core.html" />
+    <link rel="prev" title="Code documentation" href="code.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ui.html">ui</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="code.html">Code documentation</a> &raquo;</li>
+        
+      <li>io.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/io.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.io">
+<span id="io-py"></span><h1>io.py<a class="headerlink" href="#module-anduryl.io" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="anduryl.io.ProjectIO">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">ProjectIO</code><span class="sig-paren">(</span><em class="sig-param">project</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>IO class for anduryl project</p>
+<dl class="method">
+<dt id="anduryl.io.ProjectIO.add_data">
+<code class="sig-name descname">add_data</code><span class="sig-paren">(</span><em class="sig-param">outdict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO.add_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO.add_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds data to project from loaded dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>outdict</strong> (<em>dictionary</em>) – Dictionary with loaded input data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.io.ProjectIO.load_excalibur">
+<code class="sig-name descname">load_excalibur</code><span class="sig-paren">(</span><em class="sig-param">dttfile</em>, <em class="sig-param">rlsfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO.load_excalibur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO.load_excalibur" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load Excalibur file format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dttfile</strong> (<em>str</em>) – Path to.dtt file</p></li>
+<li><p><strong>rlsfile</strong> (<em>str</em>) – Path to .rls file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.io.ProjectIO.load_file">
+<code class="sig-name descname">load_file</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO.load_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO.load_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads file given a file name. The load function of
+excalbur or json is called based on the extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.io.ProjectIO.load_json">
+<code class="sig-name descname">load_json</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO.load_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO.load_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load json file format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to .json file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.io.ProjectIO.to_excalibur">
+<code class="sig-name descname">to_excalibur</code><span class="sig-paren">(</span><em class="sig-param">dttfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO.to_excalibur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO.to_excalibur" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save to Excalibur format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dttfile</strong> (<em>str</em>) – .dtt file for excalibur. .rls file is derived from the name by replacing the extension</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.io.ProjectIO.to_file">
+<code class="sig-name descname">to_file</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO.to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO.to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves project to file, calls the save function dependend
+on the path extension</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to save file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.io.ProjectIO.to_json">
+<code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#ProjectIO.to_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.ProjectIO.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save project to json</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to json file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.dict_to_elements">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">dict_to_elements</code><span class="sig-paren">(</span><em class="sig-param">dct</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#dict_to_elements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.dict_to_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a (nested) list from a dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dct</strong> (<em>dictionary</em>) – Dictionary to reshape into lists</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Labels and elements</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list, list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.elements_to_dict">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">elements_to_dict</code><span class="sig-paren">(</span><em class="sig-param">arr</em>, <em class="sig-param">labels</em>, <em class="sig-param">level=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#elements_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.elements_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Functionn to map array of list elements to dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>np.ndarray</em><em> or </em><em>lists</em>) – Elements to be ravelled to dict</p></li>
+<li><p><strong>labels</strong> (<em>list</em>) – labels for each ‘axis’ of the arr</p></li>
+<li><p><strong>level</strong> (<em>int</em><em>, </em><em>optional</em>) – Level of depth, used by the function itself when nesting, by default 0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>array as ravelled dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.get_table_text">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">get_table_text</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">newline='\n'</em>, <em class="sig-param">delimiter='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#get_table_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.get_table_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all elements from table model, including the header</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>selection</strong> (<em>Qt selection</em>) – Selection from a table</p></li>
+<li><p><strong>newline</strong> (<em>str</em><em>, </em><em>optional</em>) – character for newline, by default n</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em><em>, </em><em>optional</em>) – character for delimiter, by default t</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Text that can be exported or pasted</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.read_excalibur">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">read_excalibur</code><span class="sig-paren">(</span><em class="sig-param">dttfile</em>, <em class="sig-param">rlsfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#read_excalibur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.read_excalibur" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to read assessment from Excalibur .ddt and .rls file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dttfile</strong> (<em>str</em>) – File with assessments</p></li>
+<li><p><strong>rlsfile</strong> (<em>str</em>) – File with realisations</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.read_json">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">read_json</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#read_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.read_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads Anduryl project from json format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to json file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with loaded data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.selection_to_text">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">selection_to_text</code><span class="sig-paren">(</span><em class="sig-param">selection</em>, <em class="sig-param">newline='\n'</em>, <em class="sig-param">delimiter='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#selection_to_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.selection_to_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get elements from model selection and convert to text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>selection</strong> (<em>Qt selection</em>) – Selection from a table</p></li>
+<li><p><strong>newline</strong> (<em>str</em><em>, </em><em>optional</em>) – character for newline, by default</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em><em>, </em><em>optional</em>) – character for delimiter, by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Text that can be exported or pasted</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.table_to_csv">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">table_to_csv</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">mainwindow</em>, <em class="sig-param">path=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#table_to_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.table_to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves table to csv.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>table model</em>) – Table model from which the data is retrieved</p></li>
+<li><p><strong>mainwindow</strong> (<em>mainwindow</em>) – Is used for retrieving save file name</p></li>
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save file, if None, the user is asked to provide the save file name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.write_excalibur">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">write_excalibur</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">dttfile</em>, <em class="sig-param">rlsfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#write_excalibur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.write_excalibur" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to write project experts, items and assessments
+to .dtt and .rls files.</p>
+<p>Results are not writen to the file. Expert names are also
+not saved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project</strong> (<em>Project instance</em>) – Project with experts, items and assessments</p></li>
+<li><p><strong>dttfile</strong> (<em>str</em>) – Path to .dtt file</p></li>
+<li><p><strong>rlsfile</strong> (<em>str</em>) – Path to .rls file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.io.write_json">
+<code class="sig-prename descclassname">anduryl.io.</code><code class="sig-name descname">write_json</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/anduryl/io.html#write_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.io.write_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to write project experts, items and assessments
+to .json</p>
+<p>Results are not writen to the file. Expert names are also
+not saved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project</strong> (<em>Project instance</em>) – Project with experts, items and assessments</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Path to .json file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="core.html" class="btn btn-neutral float-right" title="core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="code.html" class="btn btn-neutral float-left" title="Code documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

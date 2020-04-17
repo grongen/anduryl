@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>main.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="models.py" href="models.html" />
+    <link rel="prev" title="items.py" href="items.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html">core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ui.html">ui</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assessments.html">assessments.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dialogs.html">dialogs.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experts.html">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">models.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="results.html">results.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="widgets.html">widgets.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../ui.html">ui</a> &raquo;</li>
+        
+      <li>main.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ui/main.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.ui.main">
+<span id="main-py"></span><h1>main.py<a class="headerlink" href="#module-anduryl.ui.main" title="Permalink to this headline">¶</a></h1>
+<p>Created on  : Tue Aug 22 17:02:55 2017
+Author      : Guus Rongen, HKV Lijn in Water
+Project     : PR3594.10.00
+Description :</p>
+<dl class="class">
+<dt id="anduryl.ui.main.MainWindow">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.main.</code><code class="sig-name descname">MainWindow</code><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<p>Main UI widget of Anduryl.</p>
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.add_export_actions">
+<code class="sig-name descname">add_export_actions</code><span class="sig-paren">(</span><em class="sig-param">resultsoverview</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.add_export_actions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.add_export_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to add expert action when new results have been calculated.
+In the ‘export’ menu the result button is enabled, and export
+options for the new results are added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resultsoverview</strong> (<em>ResultOverview class</em>) – Object with the results for a calculated decision maker</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param">event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.closeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method called when application is closed. The method checks
+whether there are unsaved changes, and ask the user to save,
+discard or cancel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.dragEnterEvent">
+<code class="sig-name descname">dragEnterEvent</code><span class="sig-paren">(</span><em class="sig-param">e</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.dragEnterEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.dragEnterEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to accept a dragged file, based on the extension.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.dropEvent">
+<code class="sig-name descname">dropEvent</code><span class="sig-paren">(</span><em class="sig-param">e</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.dropEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.dropEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to open a project by drawin the file inside the UI.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.end_profiling">
+<code class="sig-name descname">end_profiling</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.end_profiling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.end_profiling" title="Permalink to this definition">¶</a></dt>
+<dd><p>End profiling the code performance, and write the
+results to a file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.exit">
+<code class="sig-name descname">exit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.exit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.exit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that passes to close event.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.getIcon">
+<code class="sig-name descname">getIcon</code><span class="sig-paren">(</span><em class="sig-param">iconname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.getIcon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.getIcon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve icon from data dir and set to GUI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>iconname</strong> (<em>str</em>) – File name of the icon</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Qt object of icon</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>QtGui.QIcon</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.get_project_file">
+<code class="sig-name descname">get_project_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.get_project_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.get_project_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a dialog to select a project file to open.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.init_menubar">
+<code class="sig-name descname">init_menubar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.init_menubar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.init_menubar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the menu bar.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.init_ui">
+<code class="sig-name descname">init_ui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.init_ui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct UI, by splitting the main window and adding the
+different widgets with tables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.new_project">
+<code class="sig-name descname">new_project</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.new_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.new_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a new projcet. Checks if results should be saved. All
+items, experts and results are removed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.ok_to_continue">
+<code class="sig-name descname">ok_to_continue</code><span class="sig-paren">(</span><em class="sig-param">title</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.ok_to_continue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.ok_to_continue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asks the user whether results should be saved, discarded or the action cancelled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.open_project">
+<code class="sig-name descname">open_project</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">fname=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.open_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.open_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that loads project file and builds gui</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.remove_export_actions">
+<code class="sig-name descname">remove_export_actions</code><span class="sig-paren">(</span><em class="sig-param">dm_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.remove_export_actions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.remove_export_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to remove the export actions from the menu after the results
+are deleted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dm_id</strong> (<em>str</em>) – ID of the decision maker to remove.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.save_project">
+<code class="sig-name descname">save_project</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.save_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.save_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save current project, checks if the file name is already known.
+If not, the save as function is called and the user is asked to
+pick a file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.save_project_as">
+<code class="sig-name descname">save_project_as</code><span class="sig-paren">(</span><em class="sig-param">fname=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.save_project_as"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.save_project_as" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asks the user for the file name to save the project to.
+If the file name is passed, the user is not asked the file
+and the project is saved directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>str</em><em>, </em><em>optional</em>) – File name, by default None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.setCursorNormal">
+<code class="sig-name descname">setCursorNormal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.setCursorNormal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.setCursorNormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes cursor (back) to normal cursor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.setCursorWait">
+<code class="sig-name descname">setCursorWait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.setCursorWait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.setCursorWait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes cursor to waiting cursor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.start_profiling">
+<code class="sig-name descname">start_profiling</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.start_profiling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.start_profiling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start profiling the code performance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.MainWindow.update_projectname">
+<code class="sig-name descname">update_projectname</code><span class="sig-paren">(</span><em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#MainWindow.update_projectname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.MainWindow.update_projectname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates window title after a project has been loaded</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Project name, by default None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.main.Signals">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.main.</code><code class="sig-name descname">Signals</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">main</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#Signals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.Signals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Signal class. Contains all signals that are called
+to update the GUI after changes.</p>
+<dl class="method">
+<dt id="anduryl.ui.main.Signals.selection_changes">
+<code class="sig-name descname">selection_changes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#Signals.selection_changes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.Signals.selection_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates selection of array that is shown in table</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.Signals.update_color_range">
+<code class="sig-name descname">update_color_range</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#Signals.update_color_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.Signals.update_color_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the bounds of the arrays and colormaps</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.Signals.update_gui">
+<code class="sig-name descname">update_gui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#Signals.update_gui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.Signals.update_gui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates:
+- Tables (refresh view)
+- Comboboxes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.Signals.update_headers">
+<code class="sig-name descname">update_headers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#Signals.update_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.Signals.update_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates:
+- Tables (refresh view)
+- Comboboxes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.main.Signals.update_ids">
+<code class="sig-name descname">update_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/main.html#Signals.update_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.main.Signals.update_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the combobox id’s</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="models.html" class="btn btn-neutral float-right" title="models.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="items.html" class="btn btn-neutral float-left" title="items.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

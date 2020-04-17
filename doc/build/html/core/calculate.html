@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>calculate.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="experts.py" href="experts.html" />
+    <link rel="prev" title="assessments.py" href="assessments.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assessments.html">assessments.py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">calculate.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experts.html">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html">main.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ui.html">ui</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../core.html">core</a> &raquo;</li>
+        
+      <li>calculate.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/core/calculate.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.core.calculate">
+<span id="calculate-py"></span><h1>calculate.py<a class="headerlink" href="#module-anduryl.core.calculate" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="anduryl.core.calculate.calculate_excluded_scores">
+<code class="sig-prename descclassname">anduryl.core.calculate.</code><code class="sig-name descname">calculate_excluded_scores</code><span class="sig-paren">(</span><em class="sig-param">experts</em>, <em class="sig-param">items</em>, <em class="sig-param">exclude</em>, <em class="sig-param">exp_id</em>, <em class="sig-param">calpower</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/calculate.html#calculate_excluded_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.calculate.calculate_excluded_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate information and calibration scores when one or more experts
+or items are excluded. These numbers can be calculates also by simply
+adding or removing experts from the project and calculating, but this
+gives the possibility to do so without modifying the project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experts</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p></li>
+<li><p><strong>items</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p></li>
+<li><p><strong>exclude</strong> (<em>list</em>) – Items to exclude</p></li>
+<li><p><strong>exp_id</strong> (<em>str</em>) – Expert id for which</p></li>
+<li><p><strong>calpower</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.core.calculate.decision_maker">
+<code class="sig-prename descclassname">anduryl.core.calculate.</code><code class="sig-name descname">decision_maker</code><span class="sig-paren">(</span><em class="sig-param">experts</em>, <em class="sig-param">items</em>, <em class="sig-param">assessments</em>, <em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">alpha</em>, <em class="sig-param">calpower</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/calculate.html#decision_maker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.calculate.decision_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate decision maker (DM).</p>
+<p>This function can be applied with and without optimisation, and for different weight types.</p>
+<p>Calculate calibration and information score for each expert
+Get answers of all experts, and scale to log when it is a log-scale question
+Get weights for all experts, given the chosen weight type.
+Get lower and upper bound for each item
+Get the CDF for all experts and items, as well as the unique answers.
+for each item:</p>
+<blockquote>
+<div><p>Multiply the CDF per expert with the weight of the expert, and sum for all experts (dot product)
+for each significance level (only one if no optimistion):</p>
+<blockquote>
+<div><p>Interpolate the percentiles within the weighted answers
+Convert the log-scale questions back to a linear scale</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
+<dt>if optimisation:</dt><dd><p>Create an expert (DM) for each significance level, and pick the one with the highest weight.</p>
+</dd>
+<dt>else:</dt><dd><p>Create an expert (DM) for the given significance level</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experts</strong> (<a class="reference internal" href="experts.html#anduryl.core.experts.Experts" title="anduryl.core.experts.Experts"><em>anduryl.core.experts.Experts</em></a>) – Expert class with the experts information and methods</p></li>
+<li><p><strong>items</strong> (<a class="reference internal" href="items.html#anduryl.core.items.Items" title="anduryl.core.items.Items"><em>anduryl.core.items.Items</em></a>) – Item class with the items information and methods</p></li>
+<li><p><strong>assessments</strong> (<em>anduryl.core.assessments.Assessments</em>) – Assessment class with the assessments information and methods</p></li>
+<li><p><strong>weight_type</strong> (<em>str</em>) – Weigth type: global, item, equal or user</p></li>
+<li><p><strong>overshoot</strong> (<em>float</em>) – Intrinsic range, gives the total range per item</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Significance level, the minimum calibration value to take expert into account</p></li>
+<li><p><strong>calpower</strong> (<em>float</em>) – Calibration power, a factor to weigh the calibration to the information score</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.core.calculate.expert_robustness">
+<code class="sig-prename descclassname">anduryl.core.calculate.</code><code class="sig-name descname">expert_robustness</code><span class="sig-paren">(</span><em class="sig-param">min_exclude</em>, <em class="sig-param">max_exclude</em>, <em class="sig-param">experts</em>, <em class="sig-param">items</em>, <em class="sig-param">assessments</em>, <em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">alpha=None</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">progress_func=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/calculate.html#expert_robustness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.calculate.expert_robustness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate calibration and information scores by excluding experts.</p>
+<p>This function is generally similar to calculating a single decision maker
+for each combination of excluded experts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_exclude</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum number of items to exclude</p></li>
+<li><p><strong>max_exclude</strong> (<em>int</em>) – Maximum number of items to exclude</p></li>
+<li><p><strong>experts</strong> (<a class="reference internal" href="experts.html#anduryl.core.experts.Experts" title="anduryl.core.experts.Experts"><em>anduryl.core.experts.Experts</em></a>) – Expert class with the experts information and methods</p></li>
+<li><p><strong>assessments</strong> (<em>anduryl.core.assessments.Assessments</em>) – Assessment class with the assessments information and methods</p></li>
+<li><p><strong>items</strong> (<a class="reference internal" href="items.html#anduryl.core.items.Items" title="anduryl.core.items.Items"><em>anduryl.core.items.Items</em></a>) – Item class with the items information and methods</p></li>
+<li><p><strong>weight_type</strong> (<em>str</em>) – Weigth type: global, item, equal or user</p></li>
+<li><p><strong>overshoot</strong> (<em>float</em>) – Intrinsic range, gives the total range per item</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>Nonetype</em><em>, </em><em>optional</em>) – Significance level, the minimum calibration value to take expert into account</p></li>
+<li><p><strong>calpower</strong> (<em>float</em><em>, </em><em>optional</em>) – Calibration power, a factor to weigh the calibration to the information score, by default 1.0</p></li>
+<li><p><strong>progress_func</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to which the progress can be passed, for the GUI, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.core.calculate.get_combinations">
+<code class="sig-prename descclassname">anduryl.core.calculate.</code><code class="sig-name descname">get_combinations</code><span class="sig-paren">(</span><em class="sig-param">items</em>, <em class="sig-param">min_exclude</em>, <em class="sig-param">max_exclude</em>, <em class="sig-param">always_exclude=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/calculate.html#get_combinations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.calculate.get_combinations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get combinations of excluded items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>items</strong> (<em>list</em>) – List of items for from which n_items are excluded</p></li>
+<li><p><strong>min_exclude</strong> (<em>int</em>) – Minimum number of excluded items, combinations are generated
+with at least min_exclude excluded items</p></li>
+<li><p><strong>max_exclude</strong> (<em>int</em>) – Maximum number of excluded items, combinations are generated
+with at least max_exclude excluded items</p></li>
+<li><p><strong>always_exclude</strong> (<em>list</em><em>, </em><em>optional</em>) – List with items to exclude from all combinations, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with combinations of included items</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.core.calculate.get_expert_CDFs">
+<code class="sig-prename descclassname">anduryl.core.calculate.</code><code class="sig-name descname">get_expert_CDFs</code><span class="sig-paren">(</span><em class="sig-param">quantiles</em>, <em class="sig-param">values</em>, <em class="sig-param">qlower</em>, <em class="sig-param">qupper</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/calculate.html#get_expert_CDFs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.calculate.get_expert_CDFs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to get the uniform CDF’s of the expert assessments, based
+on their answers and the lower and upper bounds (with overshoot).</p>
+<p>This method is defined seperately since it only has to be called once
+while calculating for example the robustness per item. The method
+returns the CDF (Nanswers, Nexperts) per item, as well as the unique
+answers per item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – Three dimensional array with assessments (Nexpert, Npercentile, Nitem)</p></li>
+<li><p><strong>qlower</strong> (<em>numpy.ndarray</em>) – One dimensional array with lower bound per item, overshoot is included</p></li>
+<li><p><strong>qupper</strong> (<em>numpy.ndarray</em>) – One dimensional array with upper bound per item, overshoot is included</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.core.calculate.item_robustness">
+<code class="sig-prename descclassname">anduryl.core.calculate.</code><code class="sig-name descname">item_robustness</code><span class="sig-paren">(</span><em class="sig-param">min_exclude</em>, <em class="sig-param">max_exclude</em>, <em class="sig-param">experts</em>, <em class="sig-param">items</em>, <em class="sig-param">assessments</em>, <em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">alpha=None</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">progress_func=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/calculate.html#item_robustness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.calculate.item_robustness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate calibration and information scores by excluding items.</p>
+<p>This function is generally similar to calculating a single decision maker
+for each combination of excluded items.</p>
+<p>The expert CDF’s and answers are calculated only once, since these are
+equal for all combinations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_exclude</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum number of items to exclude</p></li>
+<li><p><strong>max_exclude</strong> (<em>int</em>) – Maximum number of items to exclude</p></li>
+<li><p><strong>experts</strong> (<a class="reference internal" href="experts.html#anduryl.core.experts.Experts" title="anduryl.core.experts.Experts"><em>anduryl.core.experts.Experts</em></a>) – Expert class with the experts information and methods</p></li>
+<li><p><strong>assessments</strong> (<em>anduryl.core.assessments.Assessments</em>) – Assessment class with the assessments information and methods</p></li>
+<li><p><strong>items</strong> (<a class="reference internal" href="items.html#anduryl.core.items.Items" title="anduryl.core.items.Items"><em>anduryl.core.items.Items</em></a>) – Item class with the items information and methods</p></li>
+<li><p><strong>weight_type</strong> (<em>str</em>) – Weigth type: global, item, equal or user</p></li>
+<li><p><strong>overshoot</strong> (<em>float</em>) – Intrinsic range, gives the total range per item</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>Nonetype</em><em>, </em><em>optional</em>) – Significance level, the minimum calibration value to take expert into account</p></li>
+<li><p><strong>calpower</strong> (<em>float</em><em>, </em><em>optional</em>) – Calibration power, a factor to weigh the calibration to the information score, by default 1.0</p></li>
+<li><p><strong>progress_func</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to which the progress can be passed, for the GUI, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="experts.html" class="btn btn-neutral float-right" title="experts.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="assessments.html" class="btn btn-neutral float-left" title="assessments.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>models.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="results.py" href="results.html" />
+    <link rel="prev" title="main.py" href="main.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core.html">core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ui.html">ui</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assessments.html">assessments.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dialogs.html">dialogs.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experts.html">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main.html">main.py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">models.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="results.html">results.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="widgets.html">widgets.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../ui.html">ui</a> &raquo;</li>
+        
+      <li>models.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ui/models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.ui.models">
+<span id="models-py"></span><h1>models.py<a class="headerlink" href="#module-anduryl.ui.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="anduryl.ui.models.ArrayModel">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">ArrayModel</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">labels</em>, <em class="sig-param">coldim</em>, <em class="sig-param">rowdim</em>, <em class="sig-param">index_names</em>, <em class="sig-param">index</em>, <em class="sig-param">selector=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ArrayModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ArrayModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
+<p>Generic Array model
+Class to populate a table view with an array</p>
+<dl class="method">
+<dt id="anduryl.ui.models.ArrayModel.columnCount">
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param">parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ArrayModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ArrayModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of visible columns</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ArrayModel.data">
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ArrayModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ArrayModel.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set the data to a cell. Sets value, alignment and color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – Index object with row and column</p></li>
+<li><p><strong>role</strong> (<em>Qt.DisplayRole</em><em>, </em><em>optional</em>) – Property of data to display, by default QtCore.Qt.DisplayRole</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Property of data displayed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>QtCore.QVariant</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ArrayModel.get_array_index">
+<code class="sig-name descname">get_array_index</code><span class="sig-paren">(</span><em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ArrayModel.get_array_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ArrayModel.get_array_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to get the value from the ND-array, given row and column</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ArrayModel.get_list_label">
+<code class="sig-name descname">get_list_label</code><span class="sig-paren">(</span><em class="sig-param">row</em>, <em class="sig-param">col</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ArrayModel.get_list_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ArrayModel.get_list_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to get the label (string) of the index lists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – Column index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Get label for the array dimension, given the table row and column</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ArrayModel.headerData">
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">rowcol</em>, <em class="sig-param">orientation</em>, <em class="sig-param">role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ArrayModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ArrayModel.headerData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to get header (index and columns) data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ArrayModel.rowCount">
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param">parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ArrayModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ArrayModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of visible rows</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.models.AssessmentArrayModel">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">AssessmentArrayModel</code><span class="sig-paren">(</span><em class="sig-param">parentwidget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#AssessmentArrayModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.AssessmentArrayModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#anduryl.ui.models.ArrayModel" title="anduryl.ui.models.ArrayModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">anduryl.ui.models.ArrayModel</span></code></a></p>
+<p>Generic Array model
+Class to populate a table view with an array</p>
+<dl class="method">
+<dt id="anduryl.ui.models.AssessmentArrayModel.colorpicker">
+<code class="sig-name descname">colorpicker</code><span class="sig-paren">(</span><em class="sig-param">idx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#AssessmentArrayModel.colorpicker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.AssessmentArrayModel.colorpicker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a number (0-1) for assigning a color to the cell</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.AssessmentArrayModel.flags">
+<code class="sig-name descname">flags</code><span class="sig-paren">(</span><em class="sig-param">index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#AssessmentArrayModel.flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.AssessmentArrayModel.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get cell properties (flags) given the index</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.AssessmentArrayModel.setData">
+<code class="sig-name descname">setData</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">value</em>, <em class="sig-param">role=2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#AssessmentArrayModel.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.AssessmentArrayModel.setData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set data to cell. Changes the value in the array too.
+The value is checked for beigin in between other percentiles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.AssessmentArrayModel.update_range">
+<code class="sig-name descname">update_range</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#AssessmentArrayModel.update_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.AssessmentArrayModel.update_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to update the used color range.
+This method is called from the project signal “update_color_range”</p>
+<p>Should update when:
+- Assessments values are changed
+- Experts are added or removed
+- Items are added or removed
+- New DM is calculated (possibly overshoot had changed)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.models.ExpertsListsModel">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">ExpertsListsModel</code><span class="sig-paren">(</span><em class="sig-param">parentwidget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ExpertsListsModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ExpertsListsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
+<p>Class to populate a table view with several lists related to the experts</p>
+<dl class="method">
+<dt id="anduryl.ui.models.ExpertsListsModel.columnCount">
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ExpertsListsModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ExpertsListsModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Also norm. weight columns are added for each DM,
+so the columnCount is larger than the default list model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ExpertsListsModel.data">
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ExpertsListsModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ExpertsListsModel.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set the data to a cell. Sets value, alignment and color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – Index object with row and column</p></li>
+<li><p><strong>role</strong> (<em>Qt.DisplayRole</em><em>, </em><em>optional</em>) – Property of data to display, by default QtCore.Qt.DisplayRole</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Property of data displayed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>QtCore.QVariant</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ExpertsListsModel.flags">
+<code class="sig-name descname">flags</code><span class="sig-paren">(</span><em class="sig-param">index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ExpertsListsModel.flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ExpertsListsModel.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns flags (properties) for a certain cell, based on the index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>ModelIndex</em>) – index of the cell</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Properties of the cell</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>flags</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ExpertsListsModel.headerData">
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">rowcol</em>, <em class="sig-param">orientation</em>, <em class="sig-param">role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ExpertsListsModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ExpertsListsModel.headerData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to get header (index and columns) data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ExpertsListsModel.rowCount">
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ExpertsListsModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ExpertsListsModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of rows in table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ExpertsListsModel.setData">
+<code class="sig-name descname">setData</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">value</em>, <em class="sig-param">role=2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ExpertsListsModel.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ExpertsListsModel.setData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set data to cell. Changes the value in the list or array
+The value is checked for beigin in between other percentiles.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.models.ItemDelegate">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">ItemDelegate</code><span class="sig-paren">(</span><em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ItemDelegate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ItemDelegate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QItemDelegate</span></code></p>
+<p>Item delegate where data can be changed.</p>
+<dl class="method">
+<dt id="anduryl.ui.models.ItemDelegate.setEditorData">
+<code class="sig-name descname">setEditorData</code><span class="sig-paren">(</span><em class="sig-param">editor</em>, <em class="sig-param">index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ItemDelegate.setEditorData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ItemDelegate.setEditorData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to set data</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.models.ItemsListsModel">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">ItemsListsModel</code><span class="sig-paren">(</span><em class="sig-param">parentwidget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ItemsListsModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ItemsListsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#anduryl.ui.models.ListsModel" title="anduryl.ui.models.ListsModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">anduryl.ui.models.ListsModel</span></code></a></p>
+<p>Class to populate a table view with several lists related to the items</p>
+<dl class="method">
+<dt id="anduryl.ui.models.ItemsListsModel.data">
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ItemsListsModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ItemsListsModel.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set the data to a cell. Sets value, alignment and color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – Index object with row and column</p></li>
+<li><p><strong>role</strong> (<em>Qt.DisplayRole</em><em>, </em><em>optional</em>) – Property of data to display, by default QtCore.Qt.DisplayRole</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Property of data displayed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>QtCore.QVariant</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ItemsListsModel.flags">
+<code class="sig-name descname">flags</code><span class="sig-paren">(</span><em class="sig-param">index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ItemsListsModel.flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ItemsListsModel.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns flags (properties) for a certain cell, based on the index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>ModelIndex</em>) – index of the cell</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Properties of the cell</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>flags</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ItemsListsModel.setData">
+<code class="sig-name descname">setData</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">value</em>, <em class="sig-param">role=2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ItemsListsModel.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ItemsListsModel.setData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set data to cell. Changes the value in the list or array
+The value is checked for beigin in between other percentiles.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.models.ListsModel">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">ListsModel</code><span class="sig-paren">(</span><em class="sig-param">lists</em>, <em class="sig-param">labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ListsModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ListsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
+<p>Class to populate a table view with a pandas dataframe</p>
+<dl class="method">
+<dt id="anduryl.ui.models.ListsModel.columnCount">
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ListsModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ListsModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of columns in table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ListsModel.data">
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ListsModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ListsModel.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set the data to a cell. Sets value, alignment and color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – Index object with row and column</p></li>
+<li><p><strong>role</strong> (<em>Qt.DisplayRole</em><em>, </em><em>optional</em>) – Property of data to display, by default QtCore.Qt.DisplayRole</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Property of data displayed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>QtCore.QVariant</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ListsModel.headerData">
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">rowcol</em>, <em class="sig-param">orientation</em>, <em class="sig-param">role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ListsModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ListsModel.headerData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to get header (index and columns) data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.ListsModel.rowCount">
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#ListsModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.ListsModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of rows in table.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.ui.models.Selector">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">Selector</code><span class="sig-paren">(</span><em class="sig-param">array</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#Selector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to keep track of the selection of an array that is shown
+by the UI.</p>
+<dl class="method">
+<dt id="anduryl.ui.models.Selector.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">dim=None</em>, <em class="sig-param">index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#Selector.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.Selector.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the parts of the array that are selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>int</em><em>, </em><em>optional</em>) – Array dimension to apply selection, by default None</p></li>
+<li><p><strong>index</strong> (<em>int</em><em>, </em><em>optional</em>) – Index of the dimension that is shown, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.ui.models.Selector.update_shape">
+<code class="sig-name descname">update_shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#Selector.update_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.Selector.update_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the shape of the array
+When the array changes, the selector will still show the right items</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="anduryl.ui.models.strformat">
+<code class="sig-prename descclassname">anduryl.ui.models.</code><code class="sig-name descname">strformat</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/ui/models.html#strformat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.ui.models.strformat" title="Permalink to this definition">¶</a></dt>
+<dd><p>String formatter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>str</em><em> or </em><em>int</em><em> or </em><em>float</em>) – Item to be converted to formatted string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Formatted string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="results.html" class="btn btn-neutral float-right" title="results.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="main.html" class="btn btn-neutral float-left" title="main.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

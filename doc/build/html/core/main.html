@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>main.py &mdash; Anduryl 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ui" href="../ui.html" />
+    <link rel="prev" title="items.py" href="items.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anduryl
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io.py</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../core.html">core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assessments.html">assessments.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calculate.html">calculate.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experts.html">experts.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="items.html">items.py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ui.html">ui</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anduryl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../code.html">Code documentation</a> &raquo;</li>
+        
+          <li><a href="../core.html">core</a> &raquo;</li>
+        
+      <li>main.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/core/main.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-anduryl.core.main">
+<span id="main-py"></span><h1>main.py<a class="headerlink" href="#module-anduryl.core.main" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="anduryl.core.main.Project">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.core.main.</code><code class="sig-name descname">Project</code><a class="reference internal" href="../_modules/anduryl/core/main.html#Project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main project class. Contains experts, items, assessments
+and results.</p>
+<dl class="method">
+<dt id="anduryl.core.main.Project.add_results_from_settings">
+<code class="sig-name descname">add_results_from_settings</code><span class="sig-paren">(</span><em class="sig-param">calc_settings</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Project.add_results_from_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Project.add_results_from_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to add the results from settings. The settings contain
+all the information to (re-)calculate the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>calc_settings</strong> (<em>dict</em>) – Dictionary with calculation settings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.main.Project.calculate_decision_maker">
+<code class="sig-name descname">calculate_decision_maker</code><span class="sig-paren">(</span><em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">exp_id</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">exp_name=None</em>, <em class="sig-param">alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Project.calculate_decision_maker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Project.calculate_decision_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function for calculating the DM for the main results.
+For parameters see the method calculate_decision_maker in the Result class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.main.Project.calculate_expert_robustness">
+<code class="sig-name descname">calculate_expert_robustness</code><span class="sig-paren">(</span><em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">max_exclude</em>, <em class="sig-param">min_exclude=0</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Project.calculate_expert_robustness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Project.calculate_expert_robustness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function for calculating the expert robustness for the main results.
+For parameters see the method calculate_expert_robustness in the Result class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.main.Project.calculate_item_robustness">
+<code class="sig-name descname">calculate_item_robustness</code><span class="sig-paren">(</span><em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">max_exclude</em>, <em class="sig-param">min_exclude=0</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Project.calculate_item_robustness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Project.calculate_item_robustness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function for calculating the item robustness for the main results.
+For parameters see the method calculate_item_robustness in the Result class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.main.Project.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param">nexperts</em>, <em class="sig-param">nseed</em>, <em class="sig-param">ntarget</em>, <em class="sig-param">nquantiles</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Project.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Project.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the project by initializing all the arrays and lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nexperts</strong> (<em>int</em>) – Number of experts</p></li>
+<li><p><strong>nseed</strong> (<em>int</em>) – Number of seed questions</p></li>
+<li><p><strong>ntarget</strong> (<em>int</em>) – Number of target questions</p></li>
+<li><p><strong>nquantiles</strong> (<em>int</em>) – Number of quantiles</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.main.Project.to_results">
+<code class="sig-name descname">to_results</code><span class="sig-paren">(</span><em class="sig-param">settings</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Project.to_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Project.to_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the project to a results class, which can be used to calculate
+the decision maker of robustness. Add the results to the result dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>dictionary</em>) – Dictionary with the calculation settings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="anduryl.core.main.Results">
+<em class="property">class </em><code class="sig-prename descclassname">anduryl.core.main.</code><code class="sig-name descname">Results</code><span class="sig-paren">(</span><em class="sig-param">settings</em>, <em class="sig-param">experts</em>, <em class="sig-param">assessments</em>, <em class="sig-param">items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Result class. Contains a copy (when using GUI) of the experts, items and assessments
+from the moment the results were calculated. The result class
+contains methods to calculate decision makers and robustenss. These
+results are calculated from the copy of the experts, items and
+assessments, and will therefor not change when those are changed in the GUI.</p>
+<dl class="method">
+<dt id="anduryl.core.main.Results.calculate_decision_maker">
+<code class="sig-name descname">calculate_decision_maker</code><span class="sig-paren">(</span><em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">exp_id</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">exp_name=None</em>, <em class="sig-param">alpha=None</em>, <em class="sig-param">main_results=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Results.calculate_decision_maker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Results.calculate_decision_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to calculate the decision maker, given some settings from the parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight_type</strong> (<em>str</em>) – Weigth type: global, item, equal or user</p></li>
+<li><p><strong>overshoot</strong> (<em>float</em>) – Intrinsic range, gives the total range per item</p></li>
+<li><p><strong>exp_id</strong> (<em>str</em>) – ID by which expert is added to results</p></li>
+<li><p><strong>calpower</strong> (<em>float</em><em>, </em><em>optional</em>) – Calibration power, a factor to weigh the calibration to the information score</p></li>
+<li><p><strong>exp_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name by which expert is added to results, by default None</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>Nonetype</em><em>, </em><em>optional</em>) – Significance level, the minimum calibration value to take expert into account</p></li>
+<li><p><strong>main_results</strong> (<em>result class</em><em>, </em><em>optional</em>) – Main Results class to which to results are added, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.main.Results.calculate_expert_robustness">
+<code class="sig-name descname">calculate_expert_robustness</code><span class="sig-paren">(</span><em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">max_exclude</em>, <em class="sig-param">min_exclude=0</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">alpha=None</em>, <em class="sig-param">progress_func=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Results.calculate_expert_robustness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Results.calculate_expert_robustness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate calibration and information scores by excluding experts.
+This gives a measure for the robustness of the results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight_type</strong> (<em>str</em>) – Weigth type: global, item, equal or user</p></li>
+<li><p><strong>overshoot</strong> (<em>float</em>) – Intrinsic range, gives the total range per item</p></li>
+<li><p><strong>max_exclude</strong> (<em>int</em>) – Maximum number of items to exclude</p></li>
+<li><p><strong>min_exclude</strong> (<em>int</em><em>, </em><em>optional</em>) – Minumum number of items to exclude, by default 0</p></li>
+<li><p><strong>calpower</strong> (<em>float</em><em>, </em><em>optional</em>) – Calibration power, a factor to weigh the calibration to the information score, by default 1.0</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>Nonetype</em><em>, </em><em>optional</em>) – Significance level, the minimum calibration value to take expert into account</p></li>
+<li><p><strong>progress_func</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to which the progress can be passed, for the GUI, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="anduryl.core.main.Results.calculate_item_robustness">
+<code class="sig-name descname">calculate_item_robustness</code><span class="sig-paren">(</span><em class="sig-param">weight_type</em>, <em class="sig-param">overshoot</em>, <em class="sig-param">max_exclude</em>, <em class="sig-param">min_exclude=0</em>, <em class="sig-param">calpower=1.0</em>, <em class="sig-param">alpha=None</em>, <em class="sig-param">progress_func=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/anduryl/core/main.html#Results.calculate_item_robustness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#anduryl.core.main.Results.calculate_item_robustness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate calibration and information scores by excluding items.
+This gives a measure for the robustness of the results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight_type</strong> (<em>str</em>) – Weigth type: global, item, equal or user</p></li>
+<li><p><strong>overshoot</strong> (<em>float</em>) – Intrinsic range, gives the total range per item</p></li>
+<li><p><strong>max_exclude</strong> (<em>int</em>) – Maximum number of items to exclude</p></li>
+<li><p><strong>min_exclude</strong> (<em>int</em><em>, </em><em>optional</em>) – Minumum number of items to exclude, by default 0</p></li>
+<li><p><strong>calpower</strong> (<em>float</em><em>, </em><em>optional</em>) – Calibration power, a factor to weigh the calibration to the information score, by default 1.0</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>Nonetype</em><em>, </em><em>optional</em>) – Significance level, the minimum calibration value to take expert into account</p></li>
+<li><p><strong>progress_func</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to which the progress can be passed, for the GUI, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../ui.html" class="btn btn-neutral float-right" title="ui" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="items.html" class="btn btn-neutral float-left" title="items.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guus Rongen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
