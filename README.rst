@@ -60,7 +60,7 @@ To get all the required dependencies working, it is advised to:
 Usage
 -----
 The documentation provides a quickstart guide. The documentation can be accessed from the GUI menu under 'help'.
-For using the module directly from code or notebook, see the example notebook under https://github.com/grongen/anduryl/blob/master/notebooks/Example_Anduryl_with_scripting.html
+For using the module directly from code or notebook, see the example notebook under https://htmlpreview.github.io/?https://github.com/grongen/anduryl/blob/master/notebooks/Example_Anduryl_with_scripting.html
 
 Build
 -----
