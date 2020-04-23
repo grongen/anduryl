@@ -23,7 +23,7 @@ This module cannot be installed with pip or conda. To use it:
 
 1.  Clone or download the repository;
 
-2.	For running the stand alone GUI application, download the exe from here: ...
+2.	For running the stand alone GUI application, download the exe from here: https://github.com/grongen/anduryl/blob/master/pyinstaller/dist/Anduryl.exe
 
 3.  For running the GUI from the python scripts, open an Anaconda command prompt in the github directory and run `python -m anduryl`.
 
@@ -60,7 +60,7 @@ To get all the required dependencies working, it is advised to:
 Usage
 -----
 The documentation provides a quickstart guide. The documentation can be accessed from the GUI menu under 'help'.
-For using the module directly from code or notebook, see the example notebook under ...
+For using the module directly from code or notebook, see the example notebook under https://github.com/grongen/anduryl/blob/master/notebooks/Example%20Anduryl%20with%20scripting.ipynb
 
 Build
 -----

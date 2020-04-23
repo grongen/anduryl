@@ -5,10 +5,6 @@ import shutil
 
 block_cipher = None
 
-# Import list of modules that are removed from pyinstaller build
-with open('modules_to_remove.txt', 'r') as f:
-    modules_to_remove = f.read().split('\n')
-
 # Import list of binaries to exclude
 with open('binaries_to_remove.txt', 'r') as f:
     binaries_to_remove = [file.lower() for file in f.read().split('\n') if not file.startswith('#')] 
@@ -40,7 +36,7 @@ a = Analysis(
     hiddenimports=[],
     hookspath=[],
     runtime_hooks=[],
-    excludes=modules_to_remove,
+    excludes=[],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
