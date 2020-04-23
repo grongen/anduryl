@@ -1,0 +1,487 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1     Ex.1    1  Fogo Ltithics UNI  1.00000E+0000  3.00000E+0000  7.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    1     Ex.1    2     Taal Surge UNI  1.00000E+0000  3.00000E+0000  1.00000E+0001                                                                             What was the greatest distance, in km, traversed by the base surge at Taal (Philippines) in 1965? 
+    1     Ex.1    3       Laki SO2 LOG  1.60000E+0002  2.00000E+0002  2.50000E+0002    Over a period of 8 months following the 1783-1784 eruption of Laki (Iceland), what was the total accumulative atmospheric mass loading, in Mt (or Tg), of sulphur dioxide? 
+    1     Ex.1    4      Laki Lava LOG  1.20000E+0001  1.30000E+0001  1.60000E+0001                                                                                            During the same Laki eruption, what was the total volume, in km3, of erupted lava? 
+    1     Ex.1    5 Santa Maria Co UNI  2.00000E+0001  2.50000E+0001  3.80000E+0001                                                                  What was the column height, in km, of the dacitic plinian eruption plume of Santa Maria (Guatemala) in 1902? 
+    1     Ex.1    6  S. Maria Fall UNI  2.00000E+0000  6.00000E+0000  1.20000E+0001                                                                                                                               Over how many hours did the plinian fall occur? 
+    1     Ex.1    7    Colima Dome LOG  1.00000E+0000  5.00000E+0000  2.00000E+0001  On 20 November 1998, a new andesitic lava dome began growing inside the 1994 summit dome crater of Volcan de Colima (Mexico).  At what rate, in m3/s, did the new block-lava 
+    1     Ex.1    8 Submarine erup LOG  3.50000E+0002  4.00000E+0002  6.00000E+0002 In submarine eruptions the explosive release of volatiles at depth (magmatic explosivity) is limited at certain water depths (hydrostatic pressures).  In metres, what is the 
+    1     Ex.1    9  Collapse load LOG  5.00000E+0003  1.00000E+0004  1.00000E+0005                                                                          What is the mean collapse load, in kPa, that tephra can exert on a sloping reinforced concrete roof? 
+    1     Ex.1   10 Melt Prod Rate LOG  1.50000E+0001  2.00000E+0001  2.50000E+0001                                                                                             In km3 per year, what is the total melt production rate beneath mid-ocean ridges? 
+    1     Ex.1   11         Hierro LOG  1.00000E+0001  1.00000E+0002  1.00000E+0003 In km3, what was the proposed volume loss of the entire El Hierro (Canary Islands) edifice following the debris avalanche which is thought to have created the Julan embaymen 
+    1     Ex.1   12    Scoria cone LOG  5.00000E+0000  1.50000E+0001  6.00000E+0001 A statistically significant relationship exists between average daily scoria cone construction rate and ultimate cone volume.  The final volume of a scoria cone equals appro 
+    1     Ex.1   13  Effusion rate LOG  5.00000E+0000  2.00000E+0001  1.00000E+0002                                                          In m3/s, what was the average effusion rate at Piton de la Fournaise (La Reunion) during the May-July 2003 eruption? 
+    1     Ex.1   14 Lava Flow Leng UNI  5.00000E+0000  7.00000E+0000  2.00000E+0001                                                                             In km, how long was the andesite lava flow that erupted from Lonquimay (Chile) between 1988-1990? 
+    1     Ex.1   15 Melt Prod Hawa LOG  5.00000E-0002  1.00000E-0001  1.00000E+0000                                                                             In km3 per year, what is the melt production rate (volcanic and plutonic) for the Hawaiian Chain? 
+    1     Ex.1   16 Hekla earthqua LOG  2.00000E+0002  1.00000E+0003  1.00000E+0004  The 1991 eruption of Hekla (Iceland) was unexpected as there had been no long-term precursory seismic activity.  The first related seismic events occurred just half an hour 
+    1     Ex.1   17   Window Asama UNI  5.00000E+0000  1.00000E+0001  3.00000E+0001                           During the eruption of Mount Asama (Japan) in 1958, what was the maximum recorded distance from the crater, in km, that window damage was reported? 
+    1     Ex.1   18       Eruption UNI  2.00000E+0001  5.00000E+0001  7.00000E+0001                  Given unrest (earthquake swarms felt/activity seen or smelt by inhabitants at the Settlement), what is the probability (0-100) that an eruption would ensue? 
+    1     Ex.1   19    No eruption UNI  2.00000E+0001  5.00000E+0001  8.00000E+0001                                        Given unrest (earthquake swarms felt/activity seen or smelt by inhabitants), what is the probability that an eruption would NOT ensue? 
+    1     Ex.1   20         Summit UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001                                                                                                      Given an eruption, what is the probability of an eruption at the summit? 
+    1     Ex.1   21          Flank UNI  2.00000E+0001  3.50000E+0001  5.00000E+0001                                                                                                       Given an eruption, what is the probability of an eruption on the flank? 
+    1     Ex.1   22  Coastal Strip UNI  2.50000E+0001  4.00000E+0001  6.00000E+0001                                                                                               Given an eruption, what is the probability of an eruption on the coastal strip? 
+    1     Ex.1   23      Submarine UNI  1.00000E+0001  2.00000E+0001  4.00000E+0001                                                                                                           Given an eruption, what is the probability of a submarine eruption? 
+    1     Ex.1   24 Proximal Flank UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001                                                       Given an eruption on the flank, what is the probability of the eruption being proximal to the Settlement (<2km radius)? 
+    1     Ex.1   25   Distal Flank UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001                                                         Given an eruption on the flank, what is the probability of the eruption being distal to the Settlement (>2km radius)? 
+    1     Ex.1   26    Proximal CS UNI  3.00000E+0001  4.00000E+0001  6.00000E+0001                                                Given an eruption on the coastal strip, what is the probability of the eruption being proximal to the Settlement (<2km radius) 
+    1     Ex.1   27      Distal CS UNI  4.00000E+0001  6.00000E+0001  7.00000E+0001                                                 Given an eruption on the coastal strip, what is the probability of the eruption being distal to the Settlement (>2km radius)? 
+    2     Ex.2    1  Fogo Ltithics UNI  0.00000E+0000  5.00000E-0001  2.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    2     Ex.2    2     Taal Surge UNI  5.00000E-0001  7.00000E+0000  3.00000E+0001 
+    2     Ex.2    3       Laki SO2 LOG  5.00000E+0001  1.00000E+0002  1.00000E+0003 
+    2     Ex.2    4      Laki Lava LOG  1.00000E+0000  2.00000E+0001  1.00000E+0002 
+    2     Ex.2    5 Santa Maria Co UNI  8.00000E+0000  1.20000E+0001  1.50000E+0001 
+    2     Ex.2    6  S. Maria Fall UNI  5.00000E+0000  1.00000E+0001  7.20000E+0001 
+    2     Ex.2    7    Colima Dome LOG  2.00000E+0000  5.00000E+0000  2.00000E+0001 
+    2     Ex.2    8 Submarine erup LOG  2.00000E+0001  1.00000E+0002  1.50000E+0002 
+    2     Ex.2    9  Collapse load LOG  3.00000E-0001  1.00000E+0000  2.00000E+0000 
+    2     Ex.2   10 Melt Prod Rate LOG  2.00000E+0001  5.00000E+0002  1.00000E+0004 
+    2     Ex.2   11         Hierro LOG  1.00000E+0002  1.00000E+0003  1.00000E+0006 
+    2     Ex.2   12    Scoria cone LOG  2.00000E+0000  1.00000E+0001  5.00000E+0001 
+    2     Ex.2   13  Effusion rate LOG  1.00000E+0000  6.00000E+0000  2.00000E+0001 
+    2     Ex.2   14 Lava Flow Leng UNI  5.00000E+0000  1.00000E+0001  5.00000E+0001 
+    2     Ex.2   15 Melt Prod Hawa LOG  5.00000E-0001  2.00000E+0000  5.00000E+0001 
+    2     Ex.2   16 Hekla earthqua LOG  5.00000E+0002  1.00000E+0003  5.00000E+0003 
+    2     Ex.2   17   Window Asama UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    2     Ex.2   18       Eruption UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    2     Ex.2   19    No eruption UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    2     Ex.2   20         Summit UNI  5.00000E+0000  2.00000E+0001  4.00000E+0001 
+    2     Ex.2   21          Flank UNI  5.00000E+0000  2.00000E+0001  5.00000E+0001 
+    2     Ex.2   22  Coastal Strip UNI  2.00000E+0001  3.00000E+0001  9.00000E+0001 
+    2     Ex.2   23      Submarine UNI  2.00000E+0001  3.00000E+0001  9.00000E+0001 
+    2     Ex.2   24 Proximal Flank UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+    2     Ex.2   25   Distal Flank UNI  8.50000E+0001  9.00000E+0001  9.50000E+0001 
+    2     Ex.2   26    Proximal CS UNI  2.00000E+0001  4.00000E+0001  5.00000E+0001 
+    2     Ex.2   27      Distal CS UNI  5.00000E+0001  6.00000E+0001  9.00000E+0001 
+    3     Ex.3    1  Fogo Ltithics UNI  0.00000E+0000  1.00000E+0000  8.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    3     Ex.3    2     Taal Surge UNI  1.00000E+0001  5.00000E+0001  1.00000E+0002 
+    3     Ex.3    3       Laki SO2 LOG  1.00000E+0000  1.00000E+0002  1.00000E+0003 
+    3     Ex.3    4      Laki Lava LOG  5.00000E-0001  3.00000E+0000  1.00000E+0001 
+    3     Ex.3    5 Santa Maria Co UNI  1.00000E+0001  2.50000E+0001  3.50000E+0001 
+    3     Ex.3    6  S. Maria Fall UNI  1.20000E+0001  4.80000E+0001  1.50000E+0002 
+    3     Ex.3    7    Colima Dome LOG  1.00000E+0000  5.00000E+0000  2.00000E+0001 
+    3     Ex.3    8 Submarine erup LOG  3.00000E+0002  5.00000E+0002  1.50000E+0003 
+    3     Ex.3    9  Collapse load LOG  2.00000E+0000  1.00000E+0001  3.00000E+0001 
+    3     Ex.3   10 Melt Prod Rate LOG  5.00000E+0001  6.40000E+0002  2.00000E+0003 
+    3     Ex.3   11         Hierro LOG  1.00000E+0000  1.00000E+0001  5.00000E+0001 
+    3     Ex.3   12    Scoria cone LOG  3.00000E+0001  1.00000E+0002  5.00000E+0002 
+    3     Ex.3   13  Effusion rate LOG  5.00000E+0001  5.00000E+0002  5.00000E+0003 
+    3     Ex.3   14 Lava Flow Leng UNI  5.00000E-0001  2.00000E+0000  1.20000E+0001 
+    3     Ex.3   15 Melt Prod Hawa LOG  5.00000E-0002  5.00000E-0001  1.00000E+0001 
+    3     Ex.3   16 Hekla earthqua LOG  2.00000E+0000  1.00000E+0001  1.00000E+0002 
+    3     Ex.3   17   Window Asama UNI  2.00000E+0000  3.00000E+0001  1.00000E+0002 
+    3     Ex.3   18       Eruption UNI  1.00000E+0001  5.00000E+0001  9.00000E+0001 
+    3     Ex.3   19    No eruption UNI  1.00000E+0001  5.00000E+0001  9.00000E+0001 
+    3     Ex.3   20         Summit UNI  2.00000E+0000  2.00000E+0001  5.00000E+0001 
+    3     Ex.3   21          Flank UNI  1.50000E+0001  5.00000E+0001  8.50000E+0001 
+    3     Ex.3   22  Coastal Strip UNI  5.00000E+0000  2.00000E+0001  6.00000E+0001 
+    3     Ex.3   23      Submarine UNI  5.00000E+0000  1.00000E+0001  5.00000E+0001 
+    3     Ex.3   24 Proximal Flank UNI  3.00000E+0000  8.00000E+0000  1.50000E+0001 
+    3     Ex.3   25   Distal Flank UNI  8.50000E+0001  9.20000E+0001  9.70000E+0001 
+    3     Ex.3   26    Proximal CS UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    3     Ex.3   27      Distal CS UNI  2.00000E+0001  4.00000E+0001  6.00000E+0001 
+    4     Ex.4    1  Fogo Ltithics UNI  0.00000E+0000  5.00000E-0001  1.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    4     Ex.4    2     Taal Surge UNI  2.00000E+0000  5.00000E+0000  1.20000E+0001 
+    4     Ex.4    3       Laki SO2 LOG  1.00000E+0001  1.00000E+0002  5.00000E+0002 
+    4     Ex.4    4      Laki Lava LOG  5.00000E+0000  1.00000E+0001  5.00000E+0001 
+    4     Ex.4    5 Santa Maria Co UNI  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    4     Ex.4    6  S. Maria Fall UNI  1.00000E+0000  1.00000E+0001  2.00000E+0001 
+    4     Ex.4    7    Colima Dome LOG  1.00000E+0000  1.00000E+0001  2.00000E+0001 
+    4     Ex.4    8 Submarine erup LOG  2.00000E+0001  5.00000E+0001  2.00000E+0002 
+    4     Ex.4    9  Collapse load LOG  5.00000E-0001  2.00000E+0000  1.00000E+0001 
+    4     Ex.4   10 Melt Prod Rate LOG  1.00000E+0004  1.00000E+0006  1.00000E+0007 
+    4     Ex.4   11         Hierro LOG  2.00000E+0000  1.00000E+0001  1.00000E+0002 
+    4     Ex.4   12    Scoria cone LOG  1.00000E+0001  3.00000E+0001  1.00000E+0002 
+    4     Ex.4   13  Effusion rate LOG  1.00000E+0001  5.00000E+0001  2.00000E+0002 
+    4     Ex.4   14 Lava Flow Leng UNI  1.00000E+0000  2.00000E+0000  5.00000E+0000 
+    4     Ex.4   15 Melt Prod Hawa LOG  1.00000E+0001  5.00000E+0001  1.00000E+0002 
+    4     Ex.4   16 Hekla earthqua LOG  2.00000E+0002  1.00000E+0003  1.00000E+0005 
+    4     Ex.4   17   Window Asama UNI  1.00000E+0000  1.00000E+0001  2.00000E+0001 
+    4     Ex.4   18       Eruption UNI  5.00000E+0000  4.00000E+0001  9.50000E+0001 
+    4     Ex.4   19    No eruption UNI  5.00000E+0000  6.00000E+0001  9.50000E+0001 
+    4     Ex.4   20         Summit UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    4     Ex.4   21          Flank UNI  1.00000E+0000  2.00000E+0001  3.00000E+0001 
+    4     Ex.4   22  Coastal Strip UNI  1.00000E+0001  3.50000E+0001  7.00000E+0001 
+    4     Ex.4   23      Submarine UNI  1.00000E+0001  4.00000E+0001  7.00000E+0001 
+    4     Ex.4   24 Proximal Flank UNI  5.00000E+0000  2.00000E+0001  6.00000E+0001 
+    4     Ex.4   25   Distal Flank UNI  5.00000E+0001  8.00000E+0001  9.00000E+0001 
+    4     Ex.4   26    Proximal CS UNI  2.00000E+0001  6.00000E+0001  8.00000E+0001 
+    4     Ex.4   27      Distal CS UNI  2.00000E+0001  4.00000E+0001  8.00000E+0001 
+    5     Ex.5    1  Fogo Ltithics UNI  5.00000E-0001  1.00000E+0000  5.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    5     Ex.5    2     Taal Surge UNI  5.00000E-0001  3.00000E+0000  5.00000E+0000 
+    5     Ex.5    3       Laki SO2 LOG  1.00000E-0001  3.00000E-0001  5.00000E-0001 
+    5     Ex.5    4      Laki Lava LOG  1.00000E+0001  2.50000E+0001  5.00000E+0001 
+    5     Ex.5    5 Santa Maria Co UNI  5.00000E+0000  2.00000E+0001  2.50000E+0001 
+    5     Ex.5    6  S. Maria Fall UNI  5.00000E+0000  2.40000E+0001  5.00000E+0001 
+    5     Ex.5    7    Colima Dome LOG  1.00000E-0001  1.00000E+0000  3.00000E+0000 
+    5     Ex.5    8 Submarine erup LOG  3.00000E+0001  1.00000E+0002  3.00000E+0002 
+    5     Ex.5    9  Collapse load LOG  3.00000E+0001  1.00000E+0002  3.00000E+0002 
+    5     Ex.5   10 Melt Prod Rate LOG  5.00000E+0000  2.00000E+0001  4.00000E+0001 
+    5     Ex.5   11         Hierro LOG  2.00000E+0000  1.00000E+0001  2.00000E+0001 
+    5     Ex.5   12    Scoria cone LOG  5.00000E+0000  2.00000E+0001  5.00000E+0001 
+    5     Ex.5   13  Effusion rate LOG  5.00000E+0001  3.00000E+0002  5.00000E+0002 
+    5     Ex.5   14 Lava Flow Leng UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    5     Ex.5   15 Melt Prod Hawa LOG  3.00000E-0002  1.00000E-0001  3.00000E-0001 
+    5     Ex.5   16 Hekla earthqua LOG  5.00000E+0002  2.00000E+0003  5.00000E+0003 
+    5     Ex.5   17   Window Asama UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    5     Ex.5   18       Eruption UNI  5.00000E+0001  8.00000E+0001  9.00000E+0001 
+    5     Ex.5   19    No eruption UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    5     Ex.5   20         Summit UNI  0.00000E+0000  5.00000E+0000  1.00000E+0001 
+    5     Ex.5   21          Flank UNI  0.00000E+0000  5.00000E+0000  1.00000E+0001 
+    5     Ex.5   22  Coastal Strip UNI  5.00000E+0001  8.00000E+0001  9.00000E+0001 
+    5     Ex.5   23      Submarine UNI  0.00000E+0000  1.00000E+0001  2.00000E+0001 
+    5     Ex.5   24 Proximal Flank UNI  1.00000E+0000  1.00000E+0001  2.00000E+0001 
+    5     Ex.5   25   Distal Flank UNI  5.00000E+0001  9.00000E+0001  1.00000E+0002 
+    5     Ex.5   26    Proximal CS UNI  2.00000E+0001  5.00000E+0001  7.00000E+0001 
+    5     Ex.5   27      Distal CS UNI  2.00000E+0001  5.00000E+0001  7.00000E+0001 
+    6     Ex.6    1  Fogo Ltithics UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    6     Ex.6    2     Taal Surge UNI  1.00000E+0001  5.00000E+0001  1.00000E+0002 
+    6     Ex.6    3       Laki SO2 LOG  5.00000E-0001  4.00000E+0000  6.00000E+0000 
+    6     Ex.6    4      Laki Lava LOG  2.00000E+0000  5.00000E+0000  3.00000E+0001 
+    6     Ex.6    5 Santa Maria Co UNI  1.00000E+0001  2.00000E+0001  2.50000E+0001 
+    6     Ex.6    6  S. Maria Fall UNI  1.00000E+0000  5.00000E+0000  7.00000E+0000 
+    6     Ex.6    7    Colima Dome LOG  1.00000E-0001  2.00000E-0001  5.00000E-0001 
+    6     Ex.6    8 Submarine erup LOG  5.00000E+0001  1.00000E+0002  2.00000E+0002 
+    6     Ex.6    9  Collapse load LOG  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+    6     Ex.6   10 Melt Prod Rate LOG  1.00000E+0001  5.00000E+0001  5.00000E+0002 
+    6     Ex.6   11         Hierro LOG  1.00000E+0001  3.00000E+0001  5.00000E+0001 
+    6     Ex.6   12    Scoria cone LOG  2.00000E+0002  3.00000E+0002  5.00000E+0002 
+    6     Ex.6   13  Effusion rate LOG  1.00000E+0001  3.00000E+0001  5.00000E+0001 
+    6     Ex.6   14 Lava Flow Leng UNI  5.00000E+0000  6.00000E+0000  1.00000E+0001 
+    6     Ex.6   15 Melt Prod Hawa LOG  2.00000E-0001  1.50000E+0000  2.00000E+0000 
+    6     Ex.6   16 Hekla earthqua LOG  5.00000E+0000  6.00000E+0000  1.00000E+0001 
+    6     Ex.6   17   Window Asama UNI  4.00000E+0000  5.00000E+0000  1.00000E+0001 
+    6     Ex.6   18       Eruption UNI  5.00000E+0000  3.00000E+0001  9.50000E+0001 
+    6     Ex.6   19    No eruption UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+    6     Ex.6   20         Summit UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+    6     Ex.6   21          Flank UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+    6     Ex.6   22  Coastal Strip UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+    6     Ex.6   23      Submarine UNI  2.00000E+0001  5.00000E+0001  6.00000E+0001 
+    6     Ex.6   24 Proximal Flank UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    6     Ex.6   25   Distal Flank UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+    6     Ex.6   26    Proximal CS UNI  8.00000E+0001  9.00000E+0001  9.50000E+0001 
+    6     Ex.6   27      Distal CS UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+    7     Ex.7    1  Fogo Ltithics UNI  0.00000E+0000  9.00000E-0001  5.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    7     Ex.7    2     Taal Surge UNI  4.00000E+0000  2.50000E+0001  4.00000E+0001 
+    7     Ex.7    3       Laki SO2 LOG  1.00000E+0000  1.00000E+0001  1.00000E+0002 
+    7     Ex.7    4      Laki Lava LOG  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    7     Ex.7    5 Santa Maria Co UNI  1.80000E+0001  2.50000E+0001  3.50000E+0001 
+    7     Ex.7    6  S. Maria Fall UNI  2.00000E+0000  8.00000E+0000  2.00000E+0001 
+    7     Ex.7    7    Colima Dome LOG  1.00000E-0001  8.00000E+0000  2.00000E+0001 
+    7     Ex.7    8 Submarine erup LOG  4.00000E+0002  1.00000E+0003  2.00000E+0004 
+    7     Ex.7    9  Collapse load LOG  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+    7     Ex.7   10 Melt Prod Rate LOG  1.00000E+0000  1.00000E+0001  1.00000E+0002 
+    7     Ex.7   11         Hierro LOG  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    7     Ex.7   12    Scoria cone LOG  1.00000E+0000  2.00000E+0001  1.00000E+0002 
+    7     Ex.7   13  Effusion rate LOG  1.00000E+0000  5.00000E+0000  2.00000E+0001 
+    7     Ex.7   14 Lava Flow Leng UNI  1.00000E+0000  1.00000E+0001  2.50000E+0001 
+    7     Ex.7   15 Melt Prod Hawa LOG  1.00000E-0002  1.00000E+0000  1.00000E+0001 
+    7     Ex.7   16 Hekla earthqua LOG  5.00000E+0002  2.00000E+0003  2.00000E+0004 
+    7     Ex.7   17   Window Asama UNI  1.00000E+0000  1.00000E+0001  2.00000E+0001 
+    7     Ex.7   18       Eruption UNI  0.00000E+0000  8.00000E+0001  1.00000E+0002 
+    7     Ex.7   19    No eruption UNI  0.00000E+0000  2.00000E+0001  1.00000E+0002 
+    7     Ex.7   20         Summit UNI  0.00000E+0000  5.00000E+0000  5.00000E+0001 
+    7     Ex.7   21          Flank UNI  0.00000E+0000  1.00000E+0001  5.00000E+0001 
+    7     Ex.7   22  Coastal Strip UNI  0.00000E+0000  3.00000E+0001  8.00000E+0001 
+    7     Ex.7   23      Submarine UNI  0.00000E+0000  5.50000E+0001  1.00000E+0002 
+    7     Ex.7   24 Proximal Flank UNI  5.00000E+0000  2.00000E+0001  4.00000E+0001 
+    7     Ex.7   25   Distal Flank UNI  6.50000E+0001  8.00000E+0001  1.00000E+0002 
+    7     Ex.7   26    Proximal CS UNI  3.00000E+0001  5.00000E+0001  8.00000E+0001 
+    7     Ex.7   27      Distal CS UNI  3.00000E+0001  5.00000E+0001  8.00000E+0001 
+    8     Ex.8    1  Fogo Ltithics UNI  1.00000E+0000  3.00000E+0000  1.00000E+0001 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    8     Ex.8    2     Taal Surge UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    8     Ex.8    3       Laki SO2 LOG  2.00000E+0001  8.00000E+0001  2.00000E+0002 
+    8     Ex.8    4      Laki Lava LOG  8.00000E+0000  1.20000E+0001  2.00000E+0001 
+    8     Ex.8    5 Santa Maria Co UNI  2.00000E+0000  7.00000E+0000  2.00000E+0001 
+    8     Ex.8    6  S. Maria Fall UNI  1.00000E+0001  2.50000E+0001  4.00000E+0001 
+    8     Ex.8    7    Colima Dome LOG  4.00000E+0001  1.00000E+0002  1.60000E+0002 
+    8     Ex.8    8 Submarine erup LOG  2.00000E+0002  3.00000E+0002  4.00000E+0002 
+    8     Ex.8    9  Collapse load LOG  5.00000E+0000  1.00000E+0001  3.00000E+0001 
+    8     Ex.8   10 Melt Prod Rate LOG  2.00000E+0001  4.00000E+0001  2.00000E+0002 
+    8     Ex.8   11         Hierro LOG  1.00000E+0001  2.50000E+0001  4.00000E+0001 
+    8     Ex.8   12    Scoria cone LOG  2.00000E+0000  1.00000E+0001  5.00000E+0001 
+    8     Ex.8   13  Effusion rate LOG  4.00000E+0001  1.50000E+0002  2.00000E+0002 
+    8     Ex.8   14 Lava Flow Leng UNI  2.00000E+0000  4.00000E+0000  1.00000E+0001 
+    8     Ex.8   15 Melt Prod Hawa LOG  2.00000E+0001  6.00000E+0001  1.00000E+0002 
+    8     Ex.8   16 Hekla earthqua LOG  1.00000E+0001  5.00000E+0001  1.00000E+0002 
+    8     Ex.8   17   Window Asama UNI  5.00000E+0000  2.00000E+0001  5.00000E+0001 
+    8     Ex.8   18       Eruption UNI  5.00000E+0000  7.00000E+0001  9.50000E+0001 
+    8     Ex.8   19    No eruption UNI  5.00000E+0000  3.00000E+0001  9.50000E+0001 
+    8     Ex.8   20         Summit UNI  0.00000E+0000  5.00000E+0000  2.00000E+0001 
+    8     Ex.8   21          Flank UNI  0.00000E+0000  1.00000E+0001  6.00000E+0001 
+    8     Ex.8   22  Coastal Strip UNI  0.00000E+0000  2.50000E+0001  6.00000E+0001 
+    8     Ex.8   23      Submarine UNI  0.00000E+0000  6.00000E+0001  9.00000E+0001 
+    8     Ex.8   24 Proximal Flank UNI  0.00000E+0000  1.00000E+0001  8.00000E+0001 
+    8     Ex.8   25   Distal Flank UNI  0.00000E+0000  9.00000E+0001  1.00000E+0002 
+    8     Ex.8   26    Proximal CS UNI  0.00000E+0000  6.00000E+0001  9.00000E+0001 
+    8     Ex.8   27      Distal CS UNI  0.00000E+0000  4.00000E+0001  9.00000E+0001 
+    9     Ex.9    1  Fogo Ltithics UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+    9     Ex.9    2     Taal Surge UNI  1.00000E+0000  2.00000E+0000  5.00000E+0000 
+    9     Ex.9    3       Laki SO2 LOG  1.00000E+0001  5.00000E+0001  1.00000E+0002 
+    9     Ex.9    4      Laki Lava LOG  1.00000E-0001  5.00000E-0001  1.00000E+0000 
+    9     Ex.9    5 Santa Maria Co UNI  1.00000E+0001  1.40000E+0001  2.00000E+0001 
+    9     Ex.9    6  S. Maria Fall UNI  3.00000E+0000  1.00000E+0001  2.00000E+0001 
+    9     Ex.9    7    Colima Dome LOG  3.00000E+0000  1.00000E+0001  3.00000E+0001 
+    9     Ex.9    8 Submarine erup LOG  1.00000E+0000  5.00000E+0000  7.00000E+0000 
+    9     Ex.9    9  Collapse load LOG  3.00000E+0000  1.00000E+0001  3.00000E+0001 
+    9     Ex.9   10 Melt Prod Rate LOG  1.00000E+0002  1.00000E+0003  5.00000E+0003 
+    9     Ex.9   11         Hierro LOG  2.00000E+0000  5.00000E+0000  1.00000E+0001 
+    9     Ex.9   12    Scoria cone LOG  2.00000E+0000  1.00000E+0001  3.00000E+0001 
+    9     Ex.9   13  Effusion rate LOG  3.00000E+0000  1.00000E+0001  3.00000E+0001 
+    9     Ex.9   14 Lava Flow Leng UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001 
+    9     Ex.9   15 Melt Prod Hawa LOG  5.00000E-0001  2.00000E+0000  5.00000E+0000 
+    9     Ex.9   16 Hekla earthqua LOG  1.00000E+0001  1.00000E+0003  1.00000E+0004 
+    9     Ex.9   17   Window Asama UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    9     Ex.9   18       Eruption UNI  4.00000E+0001  8.00000E+0001  9.00000E+0001 
+    9     Ex.9   19    No eruption UNI  1.00000E+0001  2.00000E+0001  6.00000E+0001 
+    9     Ex.9   20         Summit UNI  0.00000E+0000  1.00000E+0001  2.00000E+0001 
+    9     Ex.9   21          Flank UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    9     Ex.9   22  Coastal Strip UNI  3.00000E+0001  4.00000E+0001  6.00000E+0001 
+    9     Ex.9   23      Submarine UNI  1.00000E+0001  3.00000E+0001  4.00000E+0001 
+    9     Ex.9   24 Proximal Flank UNI  5.00000E+0001  7.00000E+0001  8.00000E+0001 
+    9     Ex.9   25   Distal Flank UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+    9     Ex.9   26    Proximal CS UNI  5.00000E+0001  7.00000E+0001  8.00000E+0001 
+    9     Ex.9   27      Distal CS UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+   10    Ex.10    1  Fogo Ltithics UNI  9.00000E-0001  1.50000E+0000  4.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   10    Ex.10    2     Taal Surge UNI  3.50000E+0000  5.00000E+0000  8.00000E+0000 
+   10    Ex.10    3       Laki SO2 LOG  1.15000E+0002  1.20000E+0002  1.25000E+0002 
+   10    Ex.10    4      Laki Lava LOG  1.00000E+0001  1.40000E+0001  1.60000E+0001 
+   10    Ex.10    5 Santa Maria Co UNI  2.50000E+0001  3.20000E+0001  3.50000E+0001 
+   10    Ex.10    6  S. Maria Fall UNI  2.40000E+0001  3.60000E+0001  7.20000E+0001 
+   10    Ex.10    7    Colima Dome LOG  5.00000E+0000  8.00000E+0000  1.20000E+0001 
+   10    Ex.10    8 Submarine erup LOG  1.50000E+0002  2.00000E+0002  4.50000E+0002 
+   10    Ex.10    9  Collapse load LOG  6.00000E+0000  8.00000E+0000  1.50000E+0001 
+   10    Ex.10   10 Melt Prod Rate LOG  1.00000E+0001  2.00000E+0001  4.00000E+0001 
+   10    Ex.10   11         Hierro LOG  3.00000E-0001  5.00000E-0001  1.50000E+0000 
+   10    Ex.10   12    Scoria cone LOG  3.00000E+0000  6.00000E+0000  1.00000E+0001 
+   10    Ex.10   13  Effusion rate LOG  2.00000E+0000  8.00000E+0000  1.20000E+0001 
+   10    Ex.10   14 Lava Flow Leng UNI  1.50000E+0000  3.00000E+0000  5.00000E+0000 
+   10    Ex.10   15 Melt Prod Hawa LOG  4.00000E-0001  6.00000E-0001  1.50000E+0000 
+   10    Ex.10   16 Hekla earthqua LOG  1.00000E+0001  6.00000E+0001  2.00000E+0002 
+   10    Ex.10   17   Window Asama UNI  4.00000E+0000  6.00000E+0000  9.00000E+0000 
+   10    Ex.10   18       Eruption UNI  9.00000E+0001  9.50000E+0001  9.90000E+0001 
+   10    Ex.10   19    No eruption UNI  1.00000E+0000  5.00000E+0000  1.50000E+0001 
+   10    Ex.10   20         Summit UNI  5.00000E-0001  5.00000E+0000  6.00000E+0000 
+   10    Ex.10   21          Flank UNI  1.00000E+0000  5.00000E+0000  1.50000E+0001 
+   10    Ex.10   22  Coastal Strip UNI  2.00000E+0001  4.00000E+0001  7.00000E+0001 
+   10    Ex.10   23      Submarine UNI  2.00000E+0001  4.00000E+0001  8.00000E+0001 
+   10    Ex.10   24 Proximal Flank UNI  5.00000E+0000  1.00000E+0001  4.00000E+0001 
+   10    Ex.10   25   Distal Flank UNI  7.00000E+0001  9.00000E+0001  9.90000E+0001 
+   10    Ex.10   26    Proximal CS UNI  3.00000E+0001  5.50000E+0001  6.00000E+0001 
+   10    Ex.10   27      Distal CS UNI  2.00000E+0001  4.50000E+0001  6.50000E+0001 
+   11    Ex.11    1  Fogo Ltithics UNI  2.00000E+0000  4.00000E+0000  1.00000E+0001 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   11    Ex.11    2     Taal Surge UNI  5.00000E+0000  1.50000E+0001  3.00000E+0001 
+   11    Ex.11    3       Laki SO2 LOG  2.00000E-0001  1.00000E+0001  1.00000E+0002 
+   11    Ex.11    4      Laki Lava LOG  1.00000E+0001  1.20000E+0001  1.80000E+0001 
+   11    Ex.11    5 Santa Maria Co UNI  1.50000E+0001  2.20000E+0001  3.00000E+0001 
+   11    Ex.11    6  S. Maria Fall UNI  5.00000E+0000  1.50000E+0001  2.00000E+0001 
+   11    Ex.11    7    Colima Dome LOG  1.00000E-0001  5.00000E+0000  1.50000E+0001 
+   11    Ex.11    8 Submarine erup LOG  1.50000E+0002  2.00000E+0002  3.00000E+0002 
+   11    Ex.11    9  Collapse load LOG  1.00000E+0000  1.00000E+0001  1.00000E+0002 
+   11    Ex.11   10 Melt Prod Rate LOG  1.00000E+0000  1.00000E+0001  1.00000E+0002 
+   11    Ex.11   11         Hierro LOG  1.00000E+0001  5.00000E+0001  1.25000E+0002 
+   11    Ex.11   12    Scoria cone LOG  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+   11    Ex.11   13  Effusion rate LOG  2.00000E+0000  5.00000E+0000  2.00000E+0001 
+   11    Ex.11   14 Lava Flow Leng UNI  5.00000E+0000  1.00000E+0001  2.50000E+0001 
+   11    Ex.11   15 Melt Prod Hawa LOG  2.00000E-0001  1.00000E+0000  2.00000E+0000 
+   11    Ex.11   16 Hekla earthqua LOG  1.00000E+0001  1.00000E+0003  1.00000E+0004 
+   11    Ex.11   17   Window Asama UNI  5.00000E+0000  1.50000E+0001  3.00000E+0001 
+   11    Ex.11   18       Eruption UNI  4.00000E+0001  7.00000E+0001  8.00000E+0001 
+   11    Ex.11   19    No eruption UNI  1.00000E+0000  3.00000E+0001  5.00000E+0001 
+   11    Ex.11   20         Summit UNI  5.00000E+0000  1.50000E+0001  4.00000E+0001 
+   11    Ex.11   21          Flank UNI  5.00000E+0000  1.50000E+0001  4.00000E+0001 
+   11    Ex.11   22  Coastal Strip UNI  3.00000E+0001  5.00000E+0001  8.00000E+0001 
+   11    Ex.11   23      Submarine UNI  1.00000E+0001  2.00000E+0001  5.00000E+0001 
+   11    Ex.11   24 Proximal Flank UNI  2.00000E+0000  1.00000E+0001  3.00000E+0001 
+   11    Ex.11   25   Distal Flank UNI  7.50000E+0001  9.00000E+0001  9.50000E+0001 
+   11    Ex.11   26    Proximal CS UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+   11    Ex.11   27      Distal CS UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+   12    Ex.12    1  Fogo Ltithics UNI  0.00000E+0000  2.00000E+0000  5.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   12    Ex.12    2     Taal Surge UNI  2.00000E+0001  4.00000E+0001  1.00000E+0002 
+   12    Ex.12    3       Laki SO2 LOG  5.00000E+0000  1.00000E+0002  5.00000E+0002 
+   12    Ex.12    4      Laki Lava LOG  5.00000E+0001  5.50000E+0001  1.50000E+0002 
+   12    Ex.12    5 Santa Maria Co UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+   12    Ex.12    6  S. Maria Fall UNI  5.00000E+0000  1.80000E+0001  3.60000E+0001 
+   12    Ex.12    7    Colima Dome LOG  2.00000E-0001  5.00000E-0001  1.00000E+0001 
+   12    Ex.12    8 Submarine erup LOG  2.00000E+0001  3.00000E+0001  1.00000E+0002 
+   12    Ex.12    9  Collapse load LOG  1.00000E+0000  2.00000E+0000  5.00000E+0001 
+   12    Ex.12   10 Melt Prod Rate LOG  5.00000E+0003  1.00000E+0005  5.00000E+0005 
+   12    Ex.12   11         Hierro LOG  8.00000E+0001  1.50000E+0002  5.00000E+0002 
+   12    Ex.12   12    Scoria cone LOG  1.00000E+0000  2.00000E+0000  5.00000E+0000 
+   12    Ex.12   13  Effusion rate LOG  2.00000E+0000  4.00000E+0000  1.50000E+0001 
+   12    Ex.12   14 Lava Flow Leng UNI  5.00000E+0000  2.00000E+0001  3.00000E+0001 
+   12    Ex.12   15 Melt Prod Hawa LOG  1.00000E+0002  1.00000E+0003  3.00000E+0003 
+   12    Ex.12   16 Hekla earthqua LOG  2.00000E+0001  5.00000E+0001  1.00000E+0002 
+   12    Ex.12   17   Window Asama UNI  3.00000E+0001  5.00000E+0001  1.00000E+0002 
+   12    Ex.12   18       Eruption UNI  6.00000E+0001  8.00000E+0001  9.00000E+0001 
+   12    Ex.12   19    No eruption UNI  5.00000E+0000  2.00000E+0001  4.00000E+0001 
+   12    Ex.12   20         Summit UNI  0.00000E+0000  5.00000E+0000  3.00000E+0001 
+   12    Ex.12   21          Flank UNI  5.00000E+0000  1.50000E+0001  5.00000E+0001 
+   12    Ex.12   22  Coastal Strip UNI  3.00000E+0001  5.00000E+0001  8.00000E+0001 
+   12    Ex.12   23      Submarine UNI  1.00000E+0001  3.00000E+0001  5.00000E+0001 
+   12    Ex.12   24 Proximal Flank UNI  5.00000E+0000  1.50000E+0001  3.00000E+0001 
+   12    Ex.12   25   Distal Flank UNI  7.00000E+0001  8.50000E+0001  9.00000E+0001 
+   12    Ex.12   26    Proximal CS UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+   12    Ex.12   27      Distal CS UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+   13    Ex.13    1  Fogo Ltithics UNI  9.00000E-0001  2.50000E+0000  5.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   13    Ex.13    2     Taal Surge UNI  3.00000E+0000  7.00000E+0000  2.00000E+0001 
+   13    Ex.13    3       Laki SO2 LOG  2.00000E+0002  9.00000E+0002  2.00000E+0003 
+   13    Ex.13    4      Laki Lava LOG  1.00000E+0000  1.50000E+0001  8.00000E+0001 
+   13    Ex.13    5 Santa Maria Co UNI  1.50000E+0001  2.20000E+0001  3.50000E+0001 
+   13    Ex.13    6  S. Maria Fall UNI  1.00000E+0001  1.50000E+0001  3.00000E+0001 
+   13    Ex.13    7    Colima Dome LOG  2.00000E-0001  6.00000E+0000  2.00000E+0001 
+   13    Ex.13    8 Submarine erup LOG  1.50000E+0003  2.00000E+0003  3.50000E+0003 
+   13    Ex.13    9  Collapse load LOG  1.00000E+0000  5.00000E+0000  3.00000E+0001 
+   13    Ex.13   10 Melt Prod Rate LOG  2.00000E+0003  1.00000E+0004  4.00000E+0004 
+   13    Ex.13   11         Hierro LOG  5.00000E+0001  1.50000E+0002  3.00000E+0002 
+   13    Ex.13   12    Scoria cone LOG  5.00000E+0001  1.00000E+0002  2.50000E+0002 
+   13    Ex.13   13  Effusion rate LOG  1.00000E+0000  3.00000E+0001  1.00000E+0002 
+   13    Ex.13   14 Lava Flow Leng UNI  3.00000E-0001  3.00000E+0000  6.00000E+0000 
+   13    Ex.13   15 Melt Prod Hawa LOG  5.00000E+0000  2.00000E+0001  1.00000E+0002 
+   13    Ex.13   16 Hekla earthqua LOG  5.00000E+0001  3.00000E+0002  9.00000E+0002 
+   13    Ex.13   17   Window Asama UNI  4.00000E+0000  1.00000E+0001  2.50000E+0001 
+   13    Ex.13   18       Eruption UNI  1.00000E+0000  8.00000E+0000  2.00000E+0001 
+   13    Ex.13   19    No eruption UNI  5.00000E+0001  9.20000E+0001  9.90000E+0001 
+   13    Ex.13   20         Summit UNI  5.00000E+0000  1.00000E+0001  4.00000E+0001 
+   13    Ex.13   21          Flank UNI  2.00000E+0001  4.00000E+0001  7.00000E+0001 
+   13    Ex.13   22  Coastal Strip UNI  1.00000E+0001  2.00000E+0001  5.00000E+0001 
+   13    Ex.13   23      Submarine UNI  1.00000E+0001  3.00000E+0001  5.00000E+0001 
+   13    Ex.13   24 Proximal Flank UNI  1.00000E-0002  2.00000E+0000  1.00000E+0001 
+   13    Ex.13   25   Distal Flank UNI  5.00000E+0001  9.80000E+0001  9.99000E+0001 
+   13    Ex.13   26    Proximal CS UNI  1.00000E-0001  1.00000E+0001  2.00000E+0001 
+   13    Ex.13   27      Distal CS UNI  2.00000E+0001  9.00000E+0001  9.90000E+0001 
+   14    Ex.14    1  Fogo Ltithics UNI  1.50000E+0000  3.50000E+0000  6.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   14    Ex.14    2     Taal Surge UNI  4.00000E+0000  1.20000E+0001  2.30000E+0001 
+   14    Ex.14    3       Laki SO2 LOG  2.00000E+0001  7.00000E+0001  1.50000E+0002 
+   14    Ex.14    4      Laki Lava LOG  1.00000E+0001  1.20000E+0001  1.80000E+0001 
+   14    Ex.14    5 Santa Maria Co UNI  2.70000E+0001  3.50000E+0001  4.20000E+0001 
+   14    Ex.14    6  S. Maria Fall UNI  5.00000E+0000  2.40000E+0001  5.00000E+0001 
+   14    Ex.14    7    Colima Dome LOG  1.00000E+0000  1.00000E+0001  3.00000E+0001 
+   14    Ex.14    8 Submarine erup LOG  2.00000E+0002  1.00000E+0003  3.00000E+0003 
+   14    Ex.14    9  Collapse load LOG  1.50000E+0000  3.00000E+0000  8.00000E+0000 
+   14    Ex.14   10 Melt Prod Rate LOG  2.00000E+0000  1.00000E+0001  3.00000E+0001 
+   14    Ex.14   11         Hierro LOG  2.00000E+0001  2.00000E+0002  1.00000E+0003 
+   14    Ex.14   12    Scoria cone LOG  3.00000E+0000  8.00000E+0000  1.50000E+0002 
+   14    Ex.14   13  Effusion rate LOG  1.00000E+0000  3.00000E+0001  5.00000E+0002 
+   14    Ex.14   14 Lava Flow Leng UNI  1.10000E+0001  1.40000E+0001  1.80000E+0001 
+   14    Ex.14   15 Melt Prod Hawa LOG  5.00000E-0002  3.00000E-0001  1.00000E+0000 
+   14    Ex.14   16 Hekla earthqua LOG  1.00000E+0002  5.00000E+0003  3.00000E+0004 
+   14    Ex.14   17   Window Asama UNI  1.50000E+0000  5.00000E+0000  1.00000E+0001 
+   14    Ex.14   18       Eruption UNI  2.00000E+0001  7.00000E+0001  9.00000E+0001 
+   14    Ex.14   19    No eruption UNI  1.00000E+0001  3.00000E+0001  9.00000E+0001 
+   14    Ex.14   20         Summit UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+   14    Ex.14   21          Flank UNI  1.90000E+0001  2.00000E+0001  3.00000E+0001 
+   14    Ex.14   22  Coastal Strip UNI  2.00000E+0001  4.00000E+0001  8.00000E+0001 
+   14    Ex.14   23      Submarine UNI  1.00000E+0001  2.00000E+0001  8.00000E+0001 
+   14    Ex.14   24 Proximal Flank UNI  2.00000E-0001  4.00000E+0000  3.00000E+0001 
+   14    Ex.14   25   Distal Flank UNI  7.00000E+0001  9.60000E+0001  9.98000E+0001 
+   14    Ex.14   26    Proximal CS UNI  5.00000E+0000  4.00000E+0001  8.00000E+0001 
+   14    Ex.14   27      Distal CS UNI  2.00000E+0001  6.00000E+0001  9.50000E+0001 
+   15    Ex.15    1  Fogo Ltithics UNI  1.00000E+0000  2.00000E+0000  4.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   15    Ex.15    2     Taal Surge UNI  2.00000E+0000  4.00000E+0000  8.00000E+0000 
+   15    Ex.15    3       Laki SO2 LOG  1.00000E+0001  1.00000E+0002  1.00000E+0003 
+   15    Ex.15    4      Laki Lava LOG  5.00000E+0001  1.00000E+0002  3.00000E+0002 
+   15    Ex.15    5 Santa Maria Co UNI  1.00000E+0001  3.00000E+0001  4.00000E+0001 
+   15    Ex.15    6  S. Maria Fall UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+   15    Ex.15    7    Colima Dome LOG  5.00000E-0002  1.00000E+0000  5.00000E+0000 
+   15    Ex.15    8 Submarine erup LOG  1.00000E+0002  5.00000E+0002  2.00000E+0003 
+   15    Ex.15    9  Collapse load LOG  5.00000E+0001  5.00000E+0002  2.00000E+0003 
+   15    Ex.15   10 Melt Prod Rate LOG  5.00000E+0000  5.00000E+0001  1.00000E+0002 
+   15    Ex.15   11         Hierro LOG  5.00000E+0000  2.00000E+0001  1.00000E+0002 
+   15    Ex.15   12    Scoria cone LOG  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+   15    Ex.15   13  Effusion rate LOG  1.00000E-0001  2.00000E+0000  2.00000E+0001 
+   15    Ex.15   14 Lava Flow Leng UNI  2.00000E+0000  5.00000E+0000  1.50000E+0001 
+   15    Ex.15   15 Melt Prod Hawa LOG  1.00000E-0002  1.00000E-0001  5.00000E+0000 
+   15    Ex.15   16 Hekla earthqua LOG  1.00000E+0001  5.00000E+0001  2.00000E+0002 
+   15    Ex.15   17   Window Asama UNI  2.00000E+0000  1.00000E+0001  1.50000E+0001 
+   15    Ex.15   18       Eruption UNI  5.00000E+0000  3.00000E+0001  8.00000E+0001 
+   15    Ex.15   19    No eruption UNI  1.00000E+0001  7.00000E+0001  9.50000E+0001 
+   15    Ex.15   20         Summit UNI  1.00000E+0000  5.00000E+0000  2.00000E+0001 
+   15    Ex.15   21          Flank UNI  1.00000E+0000  1.00000E+0001  6.00000E+0001 
+   15    Ex.15   22  Coastal Strip UNI  5.00000E+0000  7.00000E+0001  9.50000E+0001 
+   15    Ex.15   23      Submarine UNI  1.00000E+0000  1.50000E+0001  5.00000E+0001 
+   15    Ex.15   24 Proximal Flank UNI  1.00000E-0001  5.00000E+0000  2.00000E+0001 
+   15    Ex.15   25   Distal Flank UNI  5.00000E+0000  2.00000E+0001  8.00000E+0001 
+   15    Ex.15   26    Proximal CS UNI  1.00000E+0001  4.00000E+0001  9.00000E+0001 
+   15    Ex.15   27      Distal CS UNI  5.00000E+0000  3.50000E+0001  8.00000E+0001 
+   16    Ex.16    1  Fogo Ltithics UNI  1.00000E+0000  6.00000E+0000  1.00000E+0001 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   16    Ex.16    2     Taal Surge UNI  3.50000E+0000  7.00000E+0000  3.50000E+0001 
+   16    Ex.16    3       Laki SO2 LOG  2.50000E+0000  5.00000E+0001  5.00000E+0003 
+   16    Ex.16    4      Laki Lava LOG  1.00000E+0000  1.00000E+0001  1.00000E+0002 
+   16    Ex.16    5 Santa Maria Co UNI  8.00000E+0000  1.60000E+0001  2.50000E+0001 
+   16    Ex.16    6  S. Maria Fall UNI  1.00000E+0000  4.00000E+0000  3.60000E+0001 
+   16    Ex.16    7    Colima Dome LOG  2.50000E-0001  1.50000E+0001  1.50000E+0002 
+   16    Ex.16    8 Submarine erup LOG  2.50000E+0001  5.00000E+0002  2.50000E+0003 
+   16    Ex.16    9  Collapse load LOG  3.00000E+0000  3.00000E+0001  3.00000E+0003 
+   16    Ex.16   10 Melt Prod Rate LOG  5.00000E+0001  5.00000E+0002  5.00000E+0004 
+   16    Ex.16   11         Hierro LOG  2.00000E-0002  2.00000E+0000  2.50000E+0003 
+   16    Ex.16   12    Scoria cone LOG  2.80000E+0000  5.00000E+0000  1.00000E+0002 
+   16    Ex.16   13  Effusion rate LOG  1.00000E-0002  2.00000E-0001  5.00000E+0000 
+   16    Ex.16   14 Lava Flow Leng UNI  2.50000E+0000  2.50000E+0001  1.00000E+0002 
+   16    Ex.16   15 Melt Prod Hawa LOG  1.00000E+0000  1.00000E+0001  1.00000E+0003 
+   16    Ex.16   16 Hekla earthqua LOG  2.00000E+0000  2.00000E+0002  2.00000E+0003 
+   16    Ex.16   17   Window Asama UNI  2.00000E+0000  1.50000E+0001  3.50000E+0001 
+   16    Ex.16   18       Eruption UNI  1.00000E-0001  1.50000E+0001  8.00000E+0001 
+   16    Ex.16   19    No eruption UNI  1.00000E+0001  8.50000E+0001  9.80000E+0001 
+   16    Ex.16   20         Summit UNI  2.00000E+0000  1.00000E+0001  6.60000E+0001 
+   16    Ex.16   21          Flank UNI  5.00000E+0000  5.00000E+0001  9.00000E+0001 
+   16    Ex.16   22  Coastal Strip UNI  2.00000E+0000  1.50000E+0001  6.50000E+0001 
+   16    Ex.16   23      Submarine UNI  3.00000E+0000  2.50000E+0001  9.00000E+0001 
+   16    Ex.16   24 Proximal Flank UNI  1.00000E+0000  1.50000E+0001  5.00000E+0001 
+   16    Ex.16   25   Distal Flank UNI  7.50000E+0001  9.00000E+0001  9.99000E+0001 
+   16    Ex.16   26    Proximal CS UNI  2.00000E+0000  3.30000E+0001  8.50000E+0001 
+   16    Ex.16   27      Distal CS UNI  1.00000E+0001  6.70000E+0001  9.95000E+0001 
+   17    Ex.17    1  Fogo Ltithics UNI  4.00000E+0000  5.00000E+0000  8.00000E+0000 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   17    Ex.17    2     Taal Surge UNI  6.00000E+0000  1.00000E+0001  1.50000E+0001 
+   17    Ex.17    3       Laki SO2 LOG  1.00000E+0001  2.50000E+0001  5.00000E+0001 
+   17    Ex.17    4      Laki Lava LOG  1.00000E+0001  1.50000E+0001  5.00000E+0001 
+   17    Ex.17    5 Santa Maria Co UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+   17    Ex.17    6  S. Maria Fall UNI  3.00000E+0000  4.00000E+0000  6.00000E+0000 
+   17    Ex.17    7    Colima Dome LOG  1.00000E+0001  1.20000E+0001  2.00000E+0001 
+   17    Ex.17    8 Submarine erup LOG  1.80000E+0002  2.80000E+0002  3.00000E+0002 
+   17    Ex.17    9  Collapse load LOG  3.00000E+0000  1.00000E+0001  5.50000E+0001 
+   17    Ex.17   10 Melt Prod Rate LOG  1.00000E+0002  2.50000E+0002  1.00000E+0003 
+   17    Ex.17   11         Hierro LOG  5.00000E+0000  8.00000E+0000  4.00000E+0001 
+   17    Ex.17   12    Scoria cone LOG  2.00000E+0000  3.00000E+0000  1.00000E+0001 
+   17    Ex.17   13  Effusion rate LOG  5.00000E+0000  7.00000E+0000  1.20000E+0001 
+   17    Ex.17   14 Lava Flow Leng UNI  4.00000E+0000  7.00000E+0000  1.20000E+0001 
+   17    Ex.17   15 Melt Prod Hawa LOG  5.00000E+0001  1.00000E+0002  2.50000E+0002 
+   17    Ex.17   16 Hekla earthqua LOG  3.50000E+0003  5.00000E+0003  1.00000E+0004 
+   17    Ex.17   17   Window Asama UNI  3.00000E+0000  5.00000E+0000  7.00000E+0000 
+   17    Ex.17   18       Eruption UNI  1.00000E+0001  6.00000E+0001  8.00000E+0001 
+   17    Ex.17   19    No eruption UNI  1.00000E+0001  4.00000E+0001  8.00000E+0001 
+   17    Ex.17   20         Summit UNI  5.00000E+0000  2.00000E+0001  7.50000E+0001 
+   17    Ex.17   21          Flank UNI  1.00000E+0001  2.00000E+0001  8.00000E+0001 
+   17    Ex.17   22  Coastal Strip UNI  1.00000E+0001  3.00000E+0001  6.00000E+0001 
+   17    Ex.17   23      Submarine UNI  1.00000E+0001  3.00000E+0001  7.50000E+0001 
+   17    Ex.17   24 Proximal Flank UNI  1.00000E+0000  2.50000E+0001  5.00000E+0001 
+   17    Ex.17   25   Distal Flank UNI  1.00000E+0001  7.50000E+0001  9.00000E+0001 
+   17    Ex.17   26    Proximal CS UNI  1.00000E+0001  8.00000E+0001  9.50000E+0001 
+   17    Ex.17   27      Distal CS UNI  1.00000E+0000  2.00000E+0001  5.00000E+0001 
+   18    Ex.18    1  Fogo Ltithics UNI  6.00000E+0000  9.00000E+0000  1.50000E+0001 4600 years ago, Mount Fogo on the island of Sao Miguel (Azores) erupted one of its largest Plinian eruptions.  The volume of the eruption was 0.6 - 0.7km3 (DRE) and was comp 
+   18    Ex.18    2     Taal Surge UNI  1.00000E+0001  2.00000E+0001  3.50000E+0001 
+   18    Ex.18    3       Laki SO2 LOG  3.00000E+0000  1.20000E+0001  3.50000E+0001 
+   18    Ex.18    4      Laki Lava LOG  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+   18    Ex.18    5 Santa Maria Co UNI  2.50000E+0001  3.50000E+0001  4.50000E+0001 
+   18    Ex.18    6  S. Maria Fall UNI  6.00000E+0000  3.60000E+0001  6.00000E+0001 
+   18    Ex.18    7    Colima Dome LOG  2.00000E+0000  6.00000E+0000  1.50000E+0001 
+   18    Ex.18    8 Submarine erup LOG  1.00000E+0002  2.50000E+0002  4.00000E+0002 
+   18    Ex.18    9  Collapse load LOG  1.50000E+0001  3.00000E+0001  1.00000E+0002 
+   18    Ex.18   10 Melt Prod Rate LOG  1.00000E+0002  3.00000E+0002  1.00000E+0003 
+   18    Ex.18   11         Hierro LOG  1.00000E+0001  3.00000E+0001  9.00000E+0001 
+   18    Ex.18   12    Scoria cone LOG  6.00000E+0000  1.50000E+0001  4.50000E+0001 
+   18    Ex.18   13  Effusion rate LOG  5.00000E+0000  1.50000E+0001  3.50000E+0001 
+   18    Ex.18   14 Lava Flow Leng UNI  7.00000E+0000  1.00000E+0001  1.60000E+0001 
+   18    Ex.18   15 Melt Prod Hawa LOG  1.00000E-0001  5.00000E-0001  5.00000E+0000 
+   18    Ex.18   16 Hekla earthqua LOG  1.00000E+0002  4.00000E+0002  1.00000E+0003 
+   18    Ex.18   17   Window Asama UNI  9.00000E+0000  1.80000E+0001  3.50000E+0001 
+   18    Ex.18   18       Eruption UNI  2.00000E+0001  6.00000E+0001  8.00000E+0001 
+   18    Ex.18   19    No eruption UNI  1.00000E+0001  4.00000E+0001  8.00000E+0001 
+   18    Ex.18   20         Summit UNI  1.00000E+0000  5.00000E+0000  6.00000E+0001 
+   18    Ex.18   21          Flank UNI  5.00000E+0000  2.00000E+0001  8.00000E+0001 
+   18    Ex.18   22  Coastal Strip UNI  1.00000E+0001  3.50000E+0001  6.50000E+0001 
+   18    Ex.18   23      Submarine UNI  2.00000E+0001  4.00000E+0001  7.00000E+0001 
+   18    Ex.18   24 Proximal Flank UNI  6.00000E+0001  8.00000E+0001  9.50000E+0001 
+   18    Ex.18   25   Distal Flank UNI  7.00000E+0000  2.00000E+0001  5.00000E+0001 
+   18    Ex.18   26    Proximal CS UNI  3.00000E+0001  6.00000E+0001  9.00000E+0001 
+   18    Ex.18   27      Distal CS UNI  2.50000E+0001  4.00000E+0001  8.00000E+0001 

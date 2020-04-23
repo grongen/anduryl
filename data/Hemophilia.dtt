@@ -1,0 +1,415 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=  10  50  90
+    1        1    1    Question 1a log -9.99500E+0002 -9.99500E+0002 -9.99500E+0002                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    1        1    2    Question 1b log -9.99500E+0002 -9.99500E+0002 -9.99500E+0002                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 1.7 years. 
+    1        1    3    Question 1c log  1.00000E+0001  1.50000E+0001  2.50000E+0001                                           [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 3 years. 
+    1        1    4    Question 2a log -9.99500E+0002 -9.99500E+0002 -9.99500E+0002                                       [Joint bleeds/year] Joint bleed frequency on on-demand treatment  (adult years) when age at first spontaneous joint bleed is 0.7 years. 
+    1        1    5    Question 2b log -9.99500E+0002 -9.99500E+0002 -9.99500E+0002                                       [Joint bleeds/year] Joint bleed frequency on on-demand treatment  (adult years) when age at first spontaneous joint bleed is 1.7 years. 
+    1        1    6    Question 2c log  1.00000E+0001  1.80000E+0001  2.50000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment  (adult years) when age at first spontaneous joint bleed is 3 years. 
+    1        1    7    Question 2d uni  1.00000E+0001  1.40000E+0001  2.00000E+0001                                                                                          [%] Joint bleed frequency on on-demand treatment  (late adulthood) compared to 2a-2c 
+    1        1    8    Question 3a log  1.27500E+0003  1.70000E+0003  1.87000E+0003                                                      [IU/dose] Dose of prophylaxis needed to suppress bleedin to max 2 joint bleeds per year (start from 5 joint bleeds/year) 
+    1        1    9    Question 3b log  1.27500E+0003  1.70000E+0003  2.55000E+0003                                                     [IU/dose] Dose of prophylaxis needed to suppress bleedin to max 2 joint bleeds per year (start from 15 joint bleeds/year) 
+    1        1   10    Question 3c log  1.70000E+0003  2.55000E+0003  3.40000E+0003                                                     [IU/dose] Dose of prophylaxis needed to suppress bleedin to max 2 joint bleeds per year (start from 30 joint bleeds/year) 
+    1        1   11    Question 3d log -9.99500E+0002 -9.99500E+0002 -9.99500E+0002                                                     [IU/dose] Dose of prophylaxis needed to suppress bleedin to max 2 joint bleeds per year (start from 50 joint bleeds/year) 
+    1        1   12     Question 4 log  8.50000E+0002  8.55000E+0002  1.27500E+0003                                                                                                                                       [IU] Initial dose for minor joint bleed 
+    1        1   13     Question 5 log  1.00000E+0000  1.50000E+0000  2.00000E+0000                                                                                                                              Number of infusions to treat a minor joint bleed 
+    1        1   14     Question 6 log  1.00000E-0003  2.00000E-0003  3.00000E-0003                                                                                                                               [years] Delayed effect of secondary prophylaxis 
+    1        1   15     Question 7 log  9.49900E+0001  9.50000E+0001  9.50100E+0001                                                                                                                                 [%] Expected lifetime compared to normal male 
+    1        1   16  CalQuestion 1 log  1.50000E+0001  1.60000E+0001  1.80000E+0001                                                                                                                          Annual number of joint bleeds on on-demand treatment 
+    1        1   17  CalQuestion 2 log  1.06700E+0003  1.20000E+0003  1.33300E+0003                                                                                                                [IU/kg/year] Annual clotting factor use on on-demand treatment 
+    1        1   18  CalQuestion 3 log  1.00000E+0001  1.20000E+0001  1.40000E+0001                                                                                                                        Annual number of joint bleeds on prophylaxis treatment 
+    1        1   19  CalQuestion 4 log  2.00000E+0003  3.00000E+0003  4.00000E+0003                                                                                                              [IU/kg/year] Annual clotting factor use on prophylaxis treatment 
+    1        1   20  CalQuestion 5 log  1.40000E+0000  1.60000E+0000  1.80000E+0000                                                                                                                        [ratio] Global factor concentrate consumption increase 
+    1        1   21 CalQuestion 6a log  1.00000E+0001  2.00000E+0001  3.00000E+0001                                                                                                                                        [%] Proportion of mild cases in the US 
+    1        1   22 CalQuestion 6b log  7.00000E+0001  8.00000E+0001  9.00000E+0001                                                                                                                                      [%] Proportion of severe cases in the US 
+    1        1   23  CalQuestion 7 log  1.00000E+0000  3.00000E+0000  5.00000E+0000                                                                                                                                              [years] Age of frist joint bleed 
+    2        2    1    Question 1a log  3.00000E+0000  1.00000E+0001  1.50000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    2        2    2    Question 1b log  2.00000E+0000  8.00000E+0000  1.20000E+0001 
+    2        2    3    Question 1c log  2.00000E+0000  8.00000E+0000  1.20000E+0001 
+    2        2    4    Question 2a log  3.00000E+0000  8.00000E+0000  1.20000E+0001 
+    2        2    5    Question 2b log  2.00000E+0000  8.00000E+0000  1.00000E+0001 
+    2        2    6    Question 2c log  2.00000E+0000  4.00000E+0000  6.00000E+0000 
+    2        2    7    Question 2d uni -6.00000E+0001 -5.00000E+0001 -1.00000E+0001 
+    2        2    8    Question 3a log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+    2        2    9    Question 3b log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+    2        2   10    Question 3c log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+    2        2   11    Question 3d log  2.00000E+0003  3.00000E+0003  4.00000E+0003 
+    2        2   12     Question 4 log  1.00000E+0003  1.50000E+0003  2.00000E+0003 
+    2        2   13     Question 5 log  9.90000E-0001  1.00000E+0000  2.00000E+0000 
+    2        2   14     Question 6 log  1.80000E-0002  1.90000E-0002  3.80000E-0002 
+    2        2   15     Question 7 log  9.35000E+0001  9.74000E+0001  1.00000E+0002 
+    2        2   16  CalQuestion 1 log  2.00000E+0000  1.00000E+0001  1.50000E+0001 
+    2        2   17  CalQuestion 2 log  2.00000E+0002  1.00000E+0003  1.50000E+0003 
+    2        2   18  CalQuestion 3 log  1.00000E+0000  4.00000E+0000  8.00000E+0000 
+    2        2   19  CalQuestion 4 log  6.00000E+0002  1.20000E+0003  1.60000E+0003 
+    2        2   20  CalQuestion 5 log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+    2        2   21 CalQuestion 6a log  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+    2        2   22 CalQuestion 6b log  3.00000E+0001  6.00000E+0001  7.00000E+0001 
+    2        2   23  CalQuestion 7 log  5.00000E-0001  2.00000E+0000  6.00000E+0000 
+    3        3    1    Question 1a log  6.00000E+0000  1.80000E+0001  2.40000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    3        3    2    Question 1b log  6.00000E+0000  1.80000E+0001  2.40000E+0001 
+    3        3    3    Question 1c log  6.00000E+0000  1.80000E+0001  2.40000E+0001 
+    3        3    4    Question 2a log  1.20000E+0001  2.40000E+0001  4.80000E+0001 
+    3        3    5    Question 2b log  1.20000E+0001  2.40000E+0001  4.80000E+0001 
+    3        3    6    Question 2c log  1.20000E+0001  2.40000E+0001  4.80000E+0001 
+    3        3    7    Question 2d uni  2.00000E+0000  5.00000E+0000  1.00000E+0001 
+    3        3    8    Question 3a log  1.50000E+0003  2.50000E+0003  3.00000E+0003 
+    3        3    9    Question 3b log  1.50000E+0003  2.50000E+0003  3.00000E+0003 
+    3        3   10    Question 3c log  1.50000E+0003  2.50000E+0003  3.00000E+0003 
+    3        3   11    Question 3d log  1.50000E+0003  2.50000E+0003  3.00000E+0003 
+    3        3   12     Question 4 log  1.50000E+0003  3.00000E+0003  4.00000E+0003 
+    3        3   13     Question 5 log  1.00000E-0002  1.00000E+0000  2.00000E+0000 
+    3        3   14     Question 6 log  2.50000E-0001  5.00000E-0001  1.00000E+0000 
+    3        3   15     Question 7 log  3.50000E+0001  7.50000E+0001  9.00000E+0001 
+    3        3   16  CalQuestion 1 log  6.00000E+0000  1.20000E+0001  2.40000E+0001 
+    3        3   17  CalQuestion 2 log  1.00000E+0003  1.42800E+0003  2.57100E+0003 
+    3        3   18  CalQuestion 3 log  2.00000E+0000  6.00000E+0000  1.00000E+0001 
+    3        3   19  CalQuestion 4 log  3.42800E+0003  3.71400E+0003  4.57100E+0003 
+    3        3   20  CalQuestion 5 log  1.15000E+0000  1.30000E+0000  1.60000E+0000 
+    3        3   21 CalQuestion 6a log  2.00000E+0001  2.50000E+0001  4.00000E+0001 
+    3        3   22 CalQuestion 6b log  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+    3        3   23  CalQuestion 7 log  7.00000E-0001  1.70000E+0000  3.00000E+0000 
+    4        4    1    Question 1a log  4.00000E+0000  1.80000E+0001  3.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    4        4    2    Question 1b log  4.00000E+0000  1.50000E+0001  2.80000E+0001 
+    4        4    3    Question 1c log  4.00000E+0000  1.50000E+0001  2.80000E+0001 
+    4        4    4    Question 2a log  3.00000E+0000  1.20000E+0001  3.00000E+0001 
+    4        4    5    Question 2b log  3.00000E+0000  1.00000E+0001  3.00000E+0001 
+    4        4    6    Question 2c log  3.00000E+0000  9.00000E+0000  2.80000E+0001 
+    4        4    7    Question 2d uni  0.00000E+0000  7.00000E+0000  1.50000E+0001 
+    4        4    8    Question 3a log  1.70000E+0003  2.55000E+0003  2.97500E+0003 
+    4        4    9    Question 3b log  1.70000E+0003  2.55000E+0003  2.97500E+0003 
+    4        4   10    Question 3c log  1.70000E+0003  2.55000E+0003  2.97500E+0003 
+    4        4   11    Question 3d log  1.70000E+0003  2.55000E+0003  3.40000E+0003 
+    4        4   12     Question 4 log  2.00000E+0003  2.50000E+0003  3.00000E+0003 
+    4        4   13     Question 5 log  9.90000E-0001  1.00000E+0000  2.00000E+0000 
+    4        4   14     Question 6 log  2.50000E-0001  3.30000E-0001  5.83330E-0001 
+    4        4   15     Question 7 log  8.00000E+0001  8.70000E+0001  9.30000E+0001 
+    4        4   16  CalQuestion 1 log  6.00000E+0000  1.50000E+0001  2.40000E+0001 
+    4        4   17  CalQuestion 2 log  3.00000E+0002  8.00000E+0002  1.30000E+0003 
+    4        4   18  CalQuestion 3 log  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    4        4   19  CalQuestion 4 log  2.20000E+0003  2.50000E+0003  3.00000E+0003 
+    4        4   20  CalQuestion 5 log  1.08000E+0000  1.15000E+0000  1.20000E+0000 
+    4        4   21 CalQuestion 6a log  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    4        4   22 CalQuestion 6b log  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    4        4   23  CalQuestion 7 log  7.50000E-0001  1.50000E+0000  3.50000E+0000 
+    5        5    1    Question 1a log  6.00000E+0000  1.20000E+0001  2.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    5        5    2    Question 1b log  4.00000E+0000  8.00000E+0000  1.50000E+0001 
+    5        5    3    Question 1c log  4.00000E+0000  8.00000E+0000  1.50000E+0001 
+    5        5    4    Question 2a log  4.00000E+0000  8.00000E+0000  1.20000E+0001 
+    5        5    5    Question 2b log  3.00000E+0000  6.00000E+0000  8.00000E+0000 
+    5        5    6    Question 2c log  2.00000E+0000  4.00000E+0000  6.00000E+0000 
+    5        5    7    Question 2d uni  4.00000E+0000  8.00000E+0000  1.20000E+0001 
+    5        5    8    Question 3a log  8.50000E+0002  1.27500E+0003  1.70000E+0003 
+    5        5    9    Question 3b log  1.70000E+0003  2.12500E+0003  2.55000E+0003 
+    5        5   10    Question 3c log  2.12500E+0003  2.55000E+0003  2.97500E+0003 
+    5        5   11    Question 3d log  2.55000E+0003  2.97500E+0003  3.40000E+0003 
+    5        5   12     Question 4 log  1.27500E+0003  2.12500E+0003  2.55000E+0003 
+    5        5   13     Question 5 log  9.90000E-0001  1.00000E+0000  2.00000E+0000 
+    5        5   14     Question 6 log  3.84610E-0002  7.69000E-0002  1.53800E-0001 
+    5        5   15     Question 7 log  7.50000E+0001  8.50000E+0001  9.00000E+0001 
+    5        5   16  CalQuestion 1 log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+    5        5   17  CalQuestion 2 log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+    5        5   18  CalQuestion 3 log  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    5        5   19  CalQuestion 4 log  3.20000E+0003  3.70000E+0003  4.20000E+0003 
+    5        5   20  CalQuestion 5 log  2.00000E+0000  4.00000E+0000  7.00000E+0000 
+    5        5   21 CalQuestion 6a log  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    5        5   22 CalQuestion 6b log  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    5        5   23  CalQuestion 7 log  2.10000E+0000  3.00000E+0000  6.00000E+0000 
+    6        6    1    Question 1a log  6.00000E+0000  1.80000E+0001  3.60000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    6        6    2    Question 1b log  6.00000E+0000  1.80000E+0001  3.60000E+0001 
+    6        6    3    Question 1c log  6.00000E+0000  1.80000E+0001  3.60000E+0001 
+    6        6    4    Question 2a log  3.00000E+0000  1.20000E+0001  2.40000E+0001 
+    6        6    5    Question 2b log  3.00000E+0000  1.20000E+0001  2.40000E+0001 
+    6        6    6    Question 2c log  3.00000E+0000  1.20000E+0001  2.40000E+0001 
+    6        6    7    Question 2d uni -9.00000E+0001 -5.00000E+0001 -1.00000E+0001 
+    6        6    8    Question 3a log -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 
+    6        6    9    Question 3b log  1.27500E+0003  1.70000E+0003  2.12500E+0003 
+    6        6   10    Question 3c log  1.70000E+0003  2.12500E+0003  2.55000E+0003 
+    6        6   11    Question 3d log  2.12500E+0003  2.55000E+0003  3.40000E+0003 
+    6        6   12     Question 4 log  1.50000E+0003  2.00000E+0003  2.50000E+0003 
+    6        6   13     Question 5 log  9.90000E-0001  1.00000E+0000  1.01000E+0000 
+    6        6   14     Question 6 log  2.50000E-0001  5.00000E-0001  7.50000E-0001 
+    6        6   15     Question 7 log  8.00000E+0001  9.00000E+0001  1.00000E+0002 
+    6        6   16  CalQuestion 1 log  6.00000E+0000  1.80000E+0001  3.60000E+0001 
+    6        6   17  CalQuestion 2 log  1.80000E+0002  5.40000E+0002  1.08000E+0003 
+    6        6   18  CalQuestion 3 log  1.00000E-0002  2.00000E+0000  5.00000E+0000 
+    6        6   19  CalQuestion 4 log  4.00000E+0003  5.40000E+0003  6.00000E+0003 
+    6        6   20  CalQuestion 5 log  1.10000E+0000  1.30000E+0000  1.50000E+0000 
+    6        6   21 CalQuestion 6a log  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    6        6   22 CalQuestion 6b log  7.00000E+0001  8.00000E+0001  9.00000E+0001 
+    6        6   23  CalQuestion 7 log  5.00000E-0001  2.00000E+0000  4.00000E+0000 
+    7        7    1    Question 1a log  5.00000E+0000  1.50000E+0001  3.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    7        7    2    Question 1b log  3.00000E+0000  1.00000E+0001  2.00000E+0001 
+    7        7    3    Question 1c log  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    7        7    4    Question 2a log  1.00000E+0000  1.00000E+0001  4.00000E+0001 
+    7        7    5    Question 2b log  1.00000E-0002  5.00000E+0000  2.00000E+0001 
+    7        7    6    Question 2c log  1.00000E-0002  3.00000E+0000  1.50000E+0001 
+    7        7    7    Question 2d uni -5.00000E+0001 -2.00000E+0001  0.00000E+0000 
+    7        7    8    Question 3a log  5.00000E+0002  1.70000E+0003  3.00000E+0003 
+    7        7    9    Question 3b log  1.00000E+0003  2.50000E+0003  3.50000E+0003 
+    7        7   10    Question 3c log  1.50000E+0003  3.00000E+0003  4.00000E+0003 
+    7        7   11    Question 3d log  2.00000E+0003  3.50000E+0003  4.50000E+0003 
+    7        7   12     Question 4 log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+    7        7   13     Question 5 log  1.00000E+0000  2.50000E+0000  4.00000E+0000 
+    7        7   14     Question 6 log  2.50000E-0001  1.00000E+0000  2.00000E+0000 
+    7        7   15     Question 7 log  8.00000E+0001  9.00000E+0001  1.00000E+0002 
+    7        7   16  CalQuestion 1 log  3.00000E+0000  1.20000E+0001  3.50000E+0001 
+    7        7   17  CalQuestion 2 log  1.00000E+0003  2.50000E+0003  4.00000E+0003 
+    7        7   18  CalQuestion 3 log  1.00000E-0002  2.00000E+0000  4.00000E+0000 
+    7        7   19  CalQuestion 4 log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+    7        7   20  CalQuestion 5 log  1.30000E+0000  1.50000E+0000  1.70000E+0000 
+    7        7   21 CalQuestion 6a log  2.00000E+0000  1.50000E+0001  3.00000E+0001 
+    7        7   22 CalQuestion 6b log  7.00000E+0001  8.50000E+0001  9.50000E+0001 
+    7        7   23  CalQuestion 7 log  8.00000E-0001  1.50000E+0000  3.00000E+0000 
+    8        8    1    Question 1a log  1.00000E+0000  1.50000E+0001  2.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    8        8    2    Question 1b log  2.00000E+0000  1.20000E+0001  2.00000E+0001 
+    8        8    3    Question 1c log  2.00000E+0000  1.20000E+0001  2.00000E+0001 
+    8        8    4    Question 2a log  6.00000E+0000  2.50000E+0001  4.00000E+0001 
+    8        8    5    Question 2b log  4.00000E+0000  2.20000E+0001  3.00000E+0001 
+    8        8    6    Question 2c log  4.00000E+0000  2.00000E+0001  3.00000E+0001 
+    8        8    7    Question 2d uni  0.00000E+0000  1.50000E+0001  3.80000E+0001 
+    8        8    8    Question 3a log  5.00000E+0002  1.00000E+0003  1.50000E+0003 
+    8        8    9    Question 3b log  5.00000E+0002  1.00000E+0003  1.50000E+0003 
+    8        8   10    Question 3c log  5.00000E+0002  1.00000E+0003  1.50000E+0003 
+    8        8   11    Question 3d log  1.00000E+0003  1.50000E+0003  1.50100E+0003 
+    8        8   12     Question 4 log  1.49900E+0003  1.50000E+0003  1.50100E+0003 
+    8        8   13     Question 5 log  3.99000E+0000  4.00000E+0000  4.01000E+0000 
+    8        8   14     Question 6 log  5.77000E-0002  1.66600E-0001  2.50000E-0001 
+    8        8   15     Question 7 log  7.00000E+0001  9.50000E+0001  1.00000E+0002 
+    8        8   16  CalQuestion 1 log  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    8        8   17  CalQuestion 2 log  1.50000E+0003  2.00000E+0003  2.50000E+0003 
+    8        8   18  CalQuestion 3 log  1.00000E-0002  3.00000E+0000  6.00000E+0000 
+    8        8   19  CalQuestion 4 log  1.90000E+0003  2.90000E+0003  2.90100E+0003 
+    8        8   20  CalQuestion 5 log  1.04000E+0000  1.06000E+0000  1.08000E+0000 
+    8        8   21 CalQuestion 6a log  3.50000E+0001  5.00000E+0001  6.50000E+0001 
+    8        8   22 CalQuestion 6b log  3.50000E+0001  4.00000E+0001  5.00000E+0001 
+    8        8   23  CalQuestion 7 log  1.50000E+0000  2.50000E+0000  3.00000E+0000 
+    9        9    1    Question 1a log  8.00000E+0000  2.00000E+0001  3.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+    9        9    2    Question 1b log  5.00000E+0000  1.50000E+0001  2.00000E+0001 
+    9        9    3    Question 1c log  5.00000E+0000  1.50000E+0001  2.00000E+0001 
+    9        9    4    Question 2a log  5.00000E+0000  1.70000E+0001  2.50000E+0001 
+    9        9    5    Question 2b log  3.00000E+0000  1.40000E+0001  2.20000E+0001 
+    9        9    6    Question 2c log  3.00000E+0000  1.00000E+0001  2.00000E+0001 
+    9        9    7    Question 2d uni  8.00000E+0000  1.00000E+0001  2.00000E+0001 
+    9        9    8    Question 3a log  1.00000E+0003  2.00000E+0003  2.50000E+0003 
+    9        9    9    Question 3b log  1.00000E+0003  2.50000E+0003  3.50000E+0003 
+    9        9   10    Question 3c log  1.00000E+0003  2.50000E+0003  3.50000E+0003 
+    9        9   11    Question 3d log  1.50000E+0003  3.00000E+0003  4.00000E+0003 
+    9        9   12     Question 4 log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+    9        9   13     Question 5 log  9.90000E-0001  1.00000E+0000  3.00000E+0000 
+    9        9   14     Question 6 log  1.00000E-0001  5.00000E-0001  8.00000E-0001 
+    9        9   15     Question 7 log  8.97000E+0001  9.61000E+0001  1.00000E+0002 
+    9        9   16  CalQuestion 1 log  5.00000E+0000  2.00000E+0001  3.00000E+0001 
+    9        9   17  CalQuestion 2 log  1.00000E+0003  2.00000E+0003  4.00000E+0003 
+    9        9   18  CalQuestion 3 log  1.00000E+0000  4.00000E+0000  1.00000E+0001 
+    9        9   19  CalQuestion 4 log  3.50000E+0003  4.50000E+0003  5.50000E+0003 
+    9        9   20  CalQuestion 5 log  1.05000E+0000  1.15000E+0000  1.20000E+0000 
+    9        9   21 CalQuestion 6a log  2.00000E+0001  5.00000E+0001  6.50000E+0001 
+    9        9   22 CalQuestion 6b log  2.00000E+0001  5.00000E+0001  6.50000E+0001 
+    9        9   23  CalQuestion 7 log  4.00000E-0001  1.20000E+0000  3.20000E+0000 
+   10       10    1    Question 1a log  3.00000E+0000  8.00000E+0000  1.20000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   10       10    2    Question 1b log  2.00000E+0000  6.00000E+0000  9.00000E+0000 
+   10       10    3    Question 1c log  1.00000E+0000  4.00000E+0000  6.00000E+0000 
+   10       10    4    Question 2a log  3.00000E+0000  6.00000E+0000  1.00000E+0001 
+   10       10    5    Question 2b log  2.00000E+0000  5.00000E+0000  8.00000E+0000 
+   10       10    6    Question 2c log  1.00000E+0000  3.00000E+0000  5.00000E+0000 
+   10       10    7    Question 2d uni -4.00000E+0001 -3.33330E+0001  0.00000E+0000 
+   10       10    8    Question 3a log  1.27500E+0003  1.70000E+0003  3.40000E+0003 
+   10       10    9    Question 3b log  1.70000E+0003  2.12500E+0003  3.40000E+0003 
+   10       10   10    Question 3c log  1.70000E+0003  2.12500E+0003  4.25000E+0003 
+   10       10   11    Question 3d log  2.55000E+0003  4.25000E+0003  5.10000E+0003 
+   10       10   12     Question 4 log  1.00000E+0003  2.00000E+0003  3.00000E+0003 
+   10       10   13     Question 5 log  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+   10       10   14     Question 6 log  2.50000E-0001  5.00000E-0001  1.00000E+0000 
+   10       10   15     Question 7 log  7.43600E+0001  8.71800E+0001  9.35897E+0001 
+   10       10   16  CalQuestion 1 log  8.00000E+0000  1.00000E+0001  1.40000E+0001 
+   10       10   17  CalQuestion 2 log  1.00000E+0003  2.50000E+0003  4.00000E+0003 
+   10       10   18  CalQuestion 3 log  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+   10       10   19  CalQuestion 4 log  1.50000E+0003  3.00000E+0003  4.50000E+0003 
+   10       10   20  CalQuestion 5 log  1.10000E+0000  1.80000E+0000  2.00000E+0000 
+   10       10   21 CalQuestion 6a log  1.00000E+0001  2.50000E+0001  3.50000E+0001 
+   10       10   22 CalQuestion 6b log  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+   10       10   23  CalQuestion 7 log  5.00000E-0001  1.50000E+0000  4.00000E+0000 
+   11       11    1    Question 1a log  2.00000E+0000  3.00000E+0001  5.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   11       11    2    Question 1b log  2.00000E+0000  2.50000E+0001  3.50000E+0001 
+   11       11    3    Question 1c log  2.00000E+0000  2.00000E+0001  3.00000E+0001 
+   11       11    4    Question 2a log  2.00000E+0000  5.00000E+0001  8.00000E+0001 
+   11       11    5    Question 2b log  2.00000E+0000  5.00000E+0001  8.00000E+0001 
+   11       11    6    Question 2c log  2.00000E+0000  5.00000E+0001  8.00000E+0001 
+   11       11    7    Question 2d uni -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 
+   11       11    8    Question 3a log  7.49000E+0002  7.50000E+0002  1.00000E+0003 
+   11       11    9    Question 3b log  7.50000E+0002  1.50000E+0003  1.50100E+0003 
+   11       11   10    Question 3c log  1.00000E+0003  1.50000E+0003  2.00000E+0003 
+   11       11   11    Question 3d log  1.00000E+0003  1.50000E+0003  2.00000E+0003 
+   11       11   12     Question 4 log  1.50000E+0003  2.00000E+0003  2.50000E+0003 
+   11       11   13     Question 5 log  9.90000E-0001  1.00000E+0000  4.00000E+0000 
+   11       11   14     Question 6 log  2.73800E-0003  2.73800E-0002  2.73800E-0001 
+   11       11   15     Question 7 log  8.71795E+0001  9.74359E+0001  1.01282E+0002 
+   11       11   16  CalQuestion 1 log  2.00000E+0001  2.50000E+0001  3.50000E+0001 
+   11       11   17  CalQuestion 2 log  1.00000E+0003  1.50000E+0003  2.00000E+0003 
+   11       11   18  CalQuestion 3 log  1.00000E+0000  4.00000E+0000  1.00000E+0001 
+   11       11   19  CalQuestion 4 log  1.62500E+0003  1.87500E+0003  2.50000E+0003 
+   11       11   20  CalQuestion 5 log  1.50000E+0000  2.00000E+0000  3.00000E+0000 
+   11       11   21 CalQuestion 6a log  1.50000E+0001  2.00000E+0001  3.50000E+0001 
+   11       11   22 CalQuestion 6b log  2.50000E+0001  3.00000E+0001  3.50000E+0001 
+   11       11   23  CalQuestion 7 log  1.80000E+0000  3.00000E+0000  4.00000E+0000 
+   12       12    1    Question 1a log  1.00000E+0001  3.10000E+0001  5.20000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   12       12    2    Question 1b log  5.00000E+0000  1.55000E+0001  2.60000E+0001 
+   12       12    3    Question 1c log  5.00000E+0000  1.25000E+0001  2.00000E+0001 
+   12       12    4    Question 2a log  2.00000E+0000  1.40000E+0001  2.60000E+0001 
+   12       12    5    Question 2b log  1.00000E-0002  1.30000E+0001  2.60000E+0001 
+   12       12    6    Question 2c log  1.00000E-0002  7.50000E+0000  1.50000E+0001 
+   12       12    7    Question 2d uni -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   12       12    8    Question 3a log  1.00000E-0002  1.00000E+0000  2.50000E+0002 
+   12       12    9    Question 3b log  4.99000E+0002  5.00000E+0002  7.50000E+0002 
+   12       12   10    Question 3c log  7.50000E+0002  1.00000E+0003  1.25000E+0003 
+   12       12   11    Question 3d log  1.00000E+0003  1.25000E+0003  1.50000E+0003 
+   12       12   12     Question 4 log  5.00000E+0002  1.00000E+0003  1.50000E+0003 
+   12       12   13     Question 5 log  9.90000E-0001  1.00000E+0000  2.00000E+0000 
+   12       12   14     Question 6 log  8.33000E-0002  1.66600E-0001  3.33300E-0001 
+   12       12   15     Question 7 log  9.47368E+0001  9.73700E+0001  1.00000E+0002 
+   12       12   16  CalQuestion 1 log  1.50000E+0001  2.60000E+0001  3.00000E+0001 
+   12       12   17  CalQuestion 2 log  7.00000E+0002  8.00000E+0002  1.00000E+0003 
+   12       12   18  CalQuestion 3 log  6.00000E+0000  7.00000E+0000  8.00000E+0000 
+   12       12   19  CalQuestion 4 log  1.10000E+0003  1.25000E+0003  1.40000E+0003 
+   12       12   20  CalQuestion 5 log  1.80000E+0000  2.00000E+0000  2.20000E+0000 
+   12       12   21 CalQuestion 6a log  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+   12       12   22 CalQuestion 6b log  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+   12       12   23  CalQuestion 7 log  1.20000E+0000  1.50000E+0000  1.80000E+0000 
+   13       13    1    Question 1a log  5.00000E+0000  1.50000E+0001  2.50000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   13       13    2    Question 1b log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   13       13    3    Question 1c log  2.00000E+0000  5.00000E+0000  8.00000E+0000 
+   13       13    4    Question 2a log  7.00000E+0000  1.20000E+0001  1.50000E+0001 
+   13       13    5    Question 2b log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   13       13    6    Question 2c log  3.00000E+0000  8.00000E+0000  1.20000E+0001 
+   13       13    7    Question 2d uni  2.00000E+0000  1.00000E+0001  2.00000E+0001 
+   13       13    8    Question 3a log  1.00000E+0003  1.50000E+0003  2.00000E+0003 
+   13       13    9    Question 3b log  2.00000E+0003  2.50000E+0003  3.00000E+0003 
+   13       13   10    Question 3c log  2.50000E+0003  3.00000E+0003  3.50000E+0003 
+   13       13   11    Question 3d log  3.00000E+0003  3.50000E+0003  4.00000E+0003 
+   13       13   12     Question 4 log  1.50000E+0003  2.00000E+0003  2.50000E+0003 
+   13       13   13     Question 5 log  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+   13       13   14     Question 6 log  1.00000E+0000  1.50000E+0000  2.00000E+0000 
+   13       13   15     Question 7 log  8.07692E+0001  8.71800E+0001  9.35900E+0001 
+   13       13   16  CalQuestion 1 log  4.00000E+0000  8.00000E+0000  1.20000E+0001 
+   13       13   17  CalQuestion 2 log  8.00000E+0003  1.00000E+0004  1.50000E+0004 
+   13       13   18  CalQuestion 3 log  2.00000E+0000  4.00000E+0000  6.00000E+0000 
+   13       13   19  CalQuestion 4 log  5.00000E+0003  8.00000E+0003  1.00000E+0004 
+   13       13   20  CalQuestion 5 log  1.30000E+0000  1.50000E+0000  1.80000E+0000 
+   13       13   21 CalQuestion 6a log  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+   13       13   22 CalQuestion 6b log  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+   13       13   23  CalQuestion 7 log  8.00000E-0001  2.00000E+0000  3.00000E+0000 
+   14       14    1    Question 1a log  6.00000E+0000  1.20000E+0001  1.80000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   14       14    2    Question 1b log  3.00000E+0000  6.00000E+0000  1.20000E+0001 
+   14       14    3    Question 1c log  1.00000E+0000  3.00000E+0000  6.00000E+0000 
+   14       14    4    Question 2a log  1.20000E+0001  2.40000E+0001  3.00000E+0001 
+   14       14    5    Question 2b log  6.00000E+0000  1.20000E+0001  1.80000E+0001 
+   14       14    6    Question 2c log  3.00000E+0000  6.00000E+0000  1.20000E+0001 
+   14       14    7    Question 2d uni -7.50000E+0001 -5.00000E+0001 -2.50000E+0001 
+   14       14    8    Question 3a log  8.50000E+0002  1.70000E+0003  2.12500E+0003 
+   14       14    9    Question 3b log  1.27500E+0003  2.12500E+0003  2.55000E+0003 
+   14       14   10    Question 3c log  1.70000E+0003  2.55000E+0003  2.97500E+0003 
+   14       14   11    Question 3d log  2.12500E+0003  2.97500E+0003  3.40000E+0003 
+   14       14   12     Question 4 log  1.27500E+0003  2.55000E+0003  3.40000E+0003 
+   14       14   13     Question 5 log  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+   14       14   14     Question 6 log  8.33000E-0002  2.50000E-0001  5.00000E-0001 
+   14       14   15     Question 7 log  6.79500E+0001  7.43600E+0001  8.07700E+0001 
+   14       14   16  CalQuestion 1 log  6.00000E+0000  1.20000E+0001  2.40000E+0001 
+   14       14   17  CalQuestion 2 log  1.00000E+0003  2.00000E+0003  2.50000E+0003 
+   14       14   18  CalQuestion 3 log  2.00000E+0000  4.00000E+0000  8.00000E+0000 
+   14       14   19  CalQuestion 4 log  1.25000E+0003  1.75000E+0003  2.25000E+0003 
+   14       14   20  CalQuestion 5 log  1.15000E+0000  1.25000E+0000  1.30000E+0000 
+   14       14   21 CalQuestion 6a log  1.50000E+0001  2.50000E+0001  3.50000E+0001 
+   14       14   22 CalQuestion 6b log  6.50000E+0001  7.50000E+0001  8.50000E+0001 
+   14       14   23  CalQuestion 7 log  1.50000E+0000  2.50000E+0000  4.00000E+0000 
+   15       15    1    Question 1a log -9.99600E+0002 -9.99600E+0002 -9.99600E+0002                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   15       15    2    Question 1b log -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   15       15    3    Question 1c log -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   15       15    4    Question 2a log -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   15       15    5    Question 2b log -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   15       15    6    Question 2c log -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   15       15    7    Question 2d uni -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   15       15    8    Question 3a log  8.50000E+0002  1.70000E+0003  3.40000E+0003 
+   15       15    9    Question 3b log  1.70000E+0003  2.55000E+0003  4.25000E+0003 
+   15       15   10    Question 3c log  1.70000E+0003  2.55000E+0003  4.25000E+0003 
+   15       15   11    Question 3d log  1.70000E+0003  2.55000E+0003  4.25000E+0003 
+   15       15   12     Question 4 log  1.70000E+0003  2.55000E+0003  3.40000E+0003 
+   15       15   13     Question 5 log  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+   15       15   14     Question 6 log  8.33300E-0002  5.00000E-0001  1.00000E+0000 
+   15       15   15     Question 7 log  6.41000E+0001  8.33300E+0001  9.61500E+0001 
+   15       15   16  CalQuestion 1 log  3.00000E+0000  1.00000E+0001  2.00000E+0001 
+   15       15   17  CalQuestion 2 log  1.00000E+0003  4.00000E+0003  8.00000E+0003 
+   15       15   18  CalQuestion 3 log  3.00000E+0000  4.00000E+0000  8.00000E+0000 
+   15       15   19  CalQuestion 4 log  2.00000E+0003  4.00000E+0003  8.00000E+0003 
+   15       15   20  CalQuestion 5 log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   15       15   21 CalQuestion 6a log  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+   15       15   22 CalQuestion 6b log  7.00000E+0001  8.00000E+0001  9.00000E+0001 
+   15       15   23  CalQuestion 7 log  6.00000E-0001  1.20000E+0000  2.00000E+0000 
+   16       16    1    Question 1a log  5.00000E+0000  2.50000E+0001  3.60000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   16       16    2    Question 1b log  5.00000E+0000  2.00000E+0001  3.00000E+0001 
+   16       16    3    Question 1c log  3.00000E+0000  1.00000E+0001  2.00000E+0001 
+   16       16    4    Question 2a log  1.00000E+0001  2.50000E+0001  4.00000E+0001 
+   16       16    5    Question 2b log  1.00000E+0001  2.50000E+0001  4.00000E+0001 
+   16       16    6    Question 2c log  1.00000E+0001  2.00000E+0001  2.50000E+0001 
+   16       16    7    Question 2d uni -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 
+   16       16    8    Question 3a log  1.06250E+0003  1.70000E+0003  3.40000E+0003 
+   16       16    9    Question 3b log  1.27500E+0003  2.55000E+0003  3.40000E+0003 
+   16       16   10    Question 3c log  1.27500E+0003  2.55000E+0003  3.40000E+0003 
+   16       16   11    Question 3d log  1.70000E+0003  2.55000E+0003  4.25000E+0003 
+   16       16   12     Question 4 log  8.50000E+0002  1.70000E+0003  2.55000E+0003 
+   16       16   13     Question 5 log  9.90000E-0001  1.00000E+0000  3.00000E+0000 
+   16       16   14     Question 6 log  2.50000E-0001  1.00000E+0000  1.50000E+0000 
+   16       16   15     Question 7 log  8.71800E+0001  9.35900E+0001  1.00000E+0002 
+   16       16   16  CalQuestion 1 log  5.00000E+0000  1.70000E+0001  3.00000E+0001 
+   16       16   17  CalQuestion 2 log  5.00000E+0002  1.00000E+0003  2.50000E+0003 
+   16       16   18  CalQuestion 3 log  1.00000E-0002  4.00000E+0000  1.00000E+0001 
+   16       16   19  CalQuestion 4 log  1.20000E+0003  2.00000E+0003  3.00000E+0003 
+   16       16   20  CalQuestion 5 log  3.00000E+0000  5.00000E+0000  6.00000E+0000 
+   16       16   21 CalQuestion 6a log  5.00000E+0000  2.00000E+0001  3.00000E+0001 
+   16       16   22 CalQuestion 6b log  7.00000E+0001  8.00000E+0001  9.00000E+0001 
+   16       16   23  CalQuestion 7 log  1.00000E+0000  1.50000E+0000  3.50000E+0000 
+   17       17    1    Question 1a log  1.00000E+0001  2.00000E+0001  4.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   17       17    2    Question 1b log  7.00000E+0000  1.50000E+0001  2.20000E+0001 
+   17       17    3    Question 1c log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   17       17    4    Question 2a log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   17       17    5    Question 2b log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   17       17    6    Question 2c log  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   17       17    7    Question 2d uni -1.00000E-0002  0.00000E+0000  1.00000E-0002 
+   17       17    8    Question 3a log  1.50000E+0003  2.00000E+0003  3.00000E+0003 
+   17       17    9    Question 3b log  2.00000E+0003  3.00000E+0003  4.00000E+0003 
+   17       17   10    Question 3c log  2.00000E+0003  3.00000E+0003  4.00000E+0003 
+   17       17   11    Question 3d log  2.00000E+0003  3.00000E+0003  4.00000E+0003 
+   17       17   12     Question 4 log  2.00000E+0003  3.00000E+0003  4.00000E+0003 
+   17       17   13     Question 5 log  9.90000E-0001  1.00000E+0000  1.01000E+0000 
+   17       17   14     Question 6 log  1.00000E-0003  2.00000E-0003  3.00000E-0003 
+   17       17   15     Question 7 log  7.00000E+0001  8.00000E+0001  9.00000E+0001 
+   17       17   16  CalQuestion 1 log  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+   17       17   17  CalQuestion 2 log  1.00000E+0003  2.00000E+0003  4.00000E+0003 
+   17       17   18  CalQuestion 3 log  1.00000E-0002  4.00000E+0000  6.00000E+0000 
+   17       17   19  CalQuestion 4 log  2.00000E+0003  4.00000E+0003  5.00000E+0003 
+   17       17   20  CalQuestion 5 log  1.00000E+0000  1.50000E+0000  2.00000E+0000 
+   17       17   21 CalQuestion 6a log  2.00000E+0001  4.00000E+0001  6.00000E+0001 
+   17       17   22 CalQuestion 6b log  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+   17       17   23  CalQuestion 7 log  5.00000E-0001  4.00000E+0000  6.00000E+0000 
+   18       18    1    Question 1a log  7.00000E+0000  2.20000E+0001  5.00000E+0001                                         [Joint bleeds/year] Joint bleed frequency on on-demand treatment (teen years) when age at first spontaneous joint bleed is 0.7 years. 
+   18       18    2    Question 1b log  3.00000E+0000  1.70000E+0001  3.50000E+0001 
+   18       18    3    Question 1c log  1.00000E-0002  1.00000E+0001  1.70000E+0001 
+   18       18    4    Question 2a log  5.00000E+0000  2.50000E+0001  5.50000E+0001 
+   18       18    5    Question 2b log  3.00000E+0000  1.70000E+0001  3.50000E+0001 
+   18       18    6    Question 2c log  3.00000E+0000  1.40000E+0001  3.30000E+0001 
+   18       18    7    Question 2d uni -2.00000E+0001 -1.00000E+0001  2.00000E+0001 
+   18       18    8    Question 3a log  5.00000E+0002  7.50000E+0002  1.00000E+0003 
+   18       18    9    Question 3b log  7.50000E+0002  1.00000E+0003  1.25000E+0003 
+   18       18   10    Question 3c log  7.50000E+0002  1.25000E+0003  1.50000E+0003 
+   18       18   11    Question 3d log  1.00000E+0003  1.25000E+0003  1.50000E+0003 
+   18       18   12     Question 4 log  1.00000E+0003  1.50000E+0003  2.00000E+0003 
+   18       18   13     Question 5 log  9.90000E-0001  1.00000E+0000  3.00000E+0000 
+   18       18   14     Question 6 log  1.92308E-0002  7.69231E-0002  1.73077E-0001 
+   18       18   15     Question 7 log  7.00000E+0001  8.00000E+0001  9.00000E+0001 
+   18       18   16  CalQuestion 1 log  1.00000E+0000  1.80000E+0001  4.50000E+0001 
+   18       18   17  CalQuestion 2 log  5.00000E+0002  1.50000E+0003  3.50000E+0003 
+   18       18   18  CalQuestion 3 log  1.00000E-0002  6.00000E+0000  1.30000E+0001 
+   18       18   19  CalQuestion 4 log  9.00000E+0002  1.25000E+0003  2.60000E+0003 
+   18       18   20  CalQuestion 5 log  1.50000E+0000  2.00000E+0000  3.00000E+0000 
+   18       18   21 CalQuestion 6a log  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+   18       18   22 CalQuestion 6b log  5.00000E+0001  6.50000E+0001  7.50000E+0001 
+   18       18   23  CalQuestion 7 log  2.00000E+0000  2.20000E+0000  2.40000E+0000 

@@ -1,0 +1,111 @@
+* CLASS ASCII OUTPUT FILE. NQ=   5   QU=   5  25  50  75  95
+    1      Ex1    1   %ChMetUninsd UNI  2.00000E+0000  4.00000E+0000  7.00000E+0000  1.00000E+0001  2.00000E+0001                                                                                                                                  % children in metropolitan regions uninsured 
+    1      Ex1    2   %ChNmetUnins UNI  4.00000E+0000  6.00000E+0000  1.00000E+0001  1.50000E+0001  3.00000E+0001                                                                                                                             % childdren in non-metropolitan regions uninsured 
+    1      Ex1    3 %ChMetPaHealth UNI  1.00000E+0001  1.50000E+0001  3.00000E+0001  4.00000E+0001  6.00000E+0001                                                                                               % chil;dren in metropolitan regions covered by state sponsored health insurance 
+    1      Ex1    4 %ChNmetPaHealt UNI  3.00000E+0000  1.00000E+0001  1.50000E+0001  3.00000E+0001  5.00000E+0001                                                                                           % chil;dren in non-metropolitan regions covered by state sponsored health insurance 
+    1      Ex1    5     %UnFamNoKn UNI  5.00000E+0000  3.00000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001                                                                                                   % of familities with uninsured children not at all knowledgeable about CHIP 
+    1      Ex1    6      %famnoPay UNI  3.00000E+0000  2.00000E+0001  6.50000E+0001  7.50000E+0001  9.00000E+0001                                                                                       %of familie4s with uninsured children not at all likely to pay CHIP primium of $%150/mo 
+    1      Ex1    7       %UnChApp UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  5.00000E+0001  7.00000E+0001                                                                                   % of PA uni8nsured children who applied for any state sponsored insurance in previous 12 mo 
+    1      Ex1    8    %PaChNHI/Oh UNI  5.00000E-0001  6.00000E-0001  6.60000E-0001  7.50000E-0001  9.00000E-0001                                                                                                                      ratio %PA children without health insurance / %Ohio idem 
+    1      Ex1    9       AdBaWait UNI  1.00000E+0000  1.50000E+0000  2.00000E+0000  3.00000E+0000  5.00000E+0000                                                                                                     average waiting time for AdultBasic before offered health insurance [yrs] 
+    1      Ex1   10      %CHIPComp UNI  2.00000E+0000  1.00000E+0001  1.50000E+0001  2.50000E+0001  5.00000E+0001                                                                                                                                     % CHIP applications submitted via COMPASS 
+    1      Ex1   11     07PrCwoRWJ UNI  7.50000E+0001  8.00000E+0001  8.80000E+0001  8.85000E+0001  8.90000E+0001                                                                                              rate of children and adolescent access  to primary care for CHIP in 07 wo RWJ[%] 
+    1      Ex1   12          20PrC UNI  7.50000E+0001  8.00000E+0001  8.80000E+0001  8.85000E+0001  8.90000E+0001                                                                                                   rate of children and adolescent access  to primary care for CHIP in 2020[%] 
+    1      Ex1   13     20PrCwoRWJ UNI  7.00000E+0001  7.50000E+0001  8.50000E+0001  8.80000E+0001  8.90000E+0001                                                                                            rate of children and adolescent access  to primary care for CHIP in 2020 wo RWJ[%] 
+    1      Ex1   14     07AWCwoRWJ UNI  4.50000E+0001  5.00000E+0001  5.54000E+0001  5.80000E+0001  6.00000E+0001                                                                                                                               rate adolescent well-care visit in 07 wo RWJ[%] 
+    1      Ex1   15          20AWC UNI  4.50000E+0001  5.00000E+0001  5.54000E+0001  5.80000E+0001  6.00000E+0001                                                                                                                                       rate adolescent well-care visit in 2020 
+    1      Ex1   16     20AWCwoRWJ UNI  4.50000E+0001  5.00000E+0001  5.54000E+0001  5.80000E+0001  6.00000E+0001                                                                                                                             rate adolescent well-care visit in 2020 wo RWJ[%] 
+    1      Ex1   17   08CH/ElwoRWJ UNI  1.00000E+0001  4.00000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001                                                                                                                  ratio nr children enrolled in CHIP / nr eligible 2008 wo RWJ 
+    1      Ex1   18        20CH/El UNI  6.60000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001  8.50000E+0001                                                                                                                         ratio nr children enrolled in CHIP / nr eligible 2020 
+    1      Ex1   19   20CH/ElwoRWJ UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001  8.00000E+0001                                                                                                               ratio nr children enrolled in CHIP / nr eligible in 2020 wo RWJ 
+    1      Ex1   20  08Med/ElwoRWJ UNI  8.00000E+0001  8.30000E+0001  8.50000E+0001  8.70000E+0001  9.00000E+0001                                                                                                           ratio nr children enrolled in Medicaid / nr eligible in 2008 wo RWJ 
+    1      Ex1   21       20Med/El UNI  6.00000E+0001  7.00000E+0001  9.50000E+0001  9.55000E+0001  9.60000E+0001                                                                                                                  ratio nr children enrolled in Medicaid / nr eligible in 2020 
+    1      Ex1   22 20Me3d/ElwoRWJ UNI  5.50000E+0001  6.50000E+0001  9.00000E+0001  9.50000E+0001  9.60000E+0001                                                                                                           ratio nr children enrolled in Medicaid / nr eligible in 2020 wo RWJ 
+    2      Ex2    1   %ChMetUninsd UNI  5.00000E+0000  6.00000E+0000  8.00000E+0000  9.00000E+0000  1.00000E+0001                                                                                                                                  % children in metropolitan regions uninsured 
+    2      Ex2    2   %ChNmetUnins UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.20000E+0001  2.50000E+0001 
+    2      Ex2    3 %ChMetPaHealth UNI  1.00000E+0001  1.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    2      Ex2    4 %ChNmetPaHealt UNI  2.50000E+0001  3.00000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001 
+    2      Ex2    5     %UnFamNoKn UNI  1.00000E+0001  1.30000E+0001  1.50000E+0001  1.80000E+0001  2.00000E+0001 
+    2      Ex2    6      %famnoPay UNI  2.50000E+0001  3.50000E+0001  5.00000E+0001  6.00000E+0001  7.50000E+0001 
+    2      Ex2    7       %UnChApp UNI  1.00000E+0001  1.20000E+0001  1.50000E+0001  1.60000E+0001  2.00000E+0001 
+    2      Ex2    8    %PaChNHI/Oh UNI  5.00000E-0001  7.50000E-0001  1.00000E+0000  1.25000E+0000  2.00000E+0000 
+    2      Ex2    9       AdBaWait UNI  1.00000E+0000  2.50000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000 
+    2      Ex2   10      %CHIPComp UNI  5.00000E+0000  8.00000E+0000  1.00000E+0001  1.20000E+0001  1.50000E+0001 
+    2      Ex2   11     07PrCwoRWJ UNI  2.50000E+0001  3.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001 
+    2      Ex2   12          20PrC UNI  7.50000E+0001  8.00000E+0001  9.00000E+0001  9.50000E+0001  9.90000E+0001 
+    2      Ex2   13     20PrCwoRWJ UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  7.50000E+0001  9.90000E+0001 
+    2      Ex2   14     07AWCwoRWJ UNI  2.50000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001 
+    2      Ex2   15          20AWC UNI  5.50000E+0001  6.00000E+0001  6.50000E+0001  7.50000E+0001  9.90000E+0001 
+    2      Ex2   16     20AWCwoRWJ UNI  2.50000E+0001  3.00000E+0001  4.00000E+0001  5.50000E+0001  9.90000E+0001 
+    2      Ex2   17   08CH/ElwoRWJ UNI  3.30000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001  6.60000E+0001 
+    2      Ex2   18        20CH/El UNI  2.50000E+0001  4.50000E+0001  6.60000E+0001  7.00000E+0001  7.50000E+0001 
+    2      Ex2   19   20CH/ElwoRWJ UNI  2.50000E+0001  3.00000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001 
+    2      Ex2   20  08Med/ElwoRWJ UNI  4.50000E+0001  5.50000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001 
+    2      Ex2   21       20Med/El UNI  8.50000E+0001  9.00000E+0001  9.51000E+0001  9.60000E+0001  9.70000E+0001 
+    2      Ex2   22 20Me3d/ElwoRWJ UNI  4.50000E-0001  5.50000E-0001  6.50000E-0001  7.00000E-0001  7.50000E-0001 
+    3      Ex3    1   %ChMetUninsd UNI  4.00000E+0000  5.00000E+0000  6.00000E+0000  7.00000E+0000  8.00000E+0000                                                                                                                                  % children in metropolitan regions uninsured 
+    3      Ex3    2   %ChNmetUnins UNI  6.00000E+0000  7.00000E+0000  8.00000E+0000  9.00000E+0000  1.00000E+0001 
+    3      Ex3    3 %ChMetPaHealth UNI  2.50000E+0001  2.80000E+0001  3.70000E+0001  4.20000E+0001  5.00000E+0001 
+    3      Ex3    4 %ChNmetPaHealt UNI  2.80000E+0001  3.10000E+0001  3.30000E+0001  3.40000E+0001  3.50000E+0001 
+    3      Ex3    5     %UnFamNoKn UNI  1.00000E+0001  2.50000E+0001  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+    3      Ex3    6      %famnoPay UNI  2.50000E+0001  3.70000E+0001  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+    3      Ex3    7       %UnChApp UNI  1.00000E+0001  1.50000E+0001  2.50000E+0001  3.00000E+0001  5.00000E+0001 
+    3      Ex3    8    %PaChNHI/Oh UNI  3.30000E-0001  4.00000E-0001  5.00000E-0001  5.71000E-0001  1.00000E+0000 
+    3      Ex3    9       AdBaWait UNI  7.50000E-0001  1.00000E+0000  1.50000E+0000  1.75000E+0000  2.00000E+0000 
+    3      Ex3   10      %CHIPComp UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    3      Ex3   11     07PrCwoRWJ UNI  8.70000E+0001  8.80000E+0001  8.90000E+0001  8.95000E+0001  9.00000E+0001 
+    3      Ex3   12          20PrC UNI  8.50000E+0001  8.70000E+0001  9.00000E+0001  9.10000E+0001  9.20000E+0001 
+    3      Ex3   13     20PrCwoRWJ UNI  8.50000E+0001  8.70000E+0001  9.00000E+0001  9.10000E+0001  9.20000E+0001 
+    3      Ex3   14     07AWCwoRWJ UNI  5.00000E+0001  5.20000E+0001  5.50000E+0001  5.70000E+0001  6.00000E+0001 
+    3      Ex3   15          20AWC UNI  4.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001  6.50000E+0001 
+    3      Ex3   16     20AWCwoRWJ UNI  4.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001  6.50000E+0001 
+    3      Ex3   17   08CH/ElwoRWJ UNI  2.00000E+0001  2.20000E+0001  2.50000E+0001  3.30000E+0001  5.00000E+0001 
+    3      Ex3   18        20CH/El UNI  6.00000E+0001  6.60000E+0001  7.00000E+0001  7.20000E+0001  7.50000E+0001 
+    3      Ex3   19   20CH/ElwoRWJ UNI  1.50000E+0001  2.20000E+0001  2.50000E+0001  3.00000E+0001  4.50000E+0001 
+    3      Ex3   20  08Med/ElwoRWJ UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  6.50000E+0001  8.00000E+0001 
+    3      Ex3   21       20Med/El UNI  8.00000E+0001  9.50000E+0001  9.70000E+0001  9.80000E+0001  1.00000E+0002 
+    3      Ex3   22 20Me3d/ElwoRWJ UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  6.50000E+0001  8.00000E+0001 
+    4      Ex4    1   %ChMetUninsd UNI  2.00000E+0000  4.00000E+0000  5.00000E+0000  5.50000E+0000  6.00000E+0000                                                                                                                                  % children in metropolitan regions uninsured 
+    4      Ex4    2   %ChNmetUnins UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000  5.00000E+0000  7.00000E+0000 
+    4      Ex4    3 %ChMetPaHealth UNI  2.40000E+0001  2.90000E+0001  3.60000E+0001  3.90000E+0001  4.80000E+0001 
+    4      Ex4    4 %ChNmetPaHealt UNI  2.00000E+0001  2.30000E+0001  2.80000E+0001  3.30000E+0001  3.60000E+0001 
+    4      Ex4    5     %UnFamNoKn UNI  2.50000E+0001  4.00000E+0001  6.00000E+0001  6.80000E+0001  8.00000E+0001 
+    4      Ex4    6      %famnoPay UNI  1.50000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  8.00000E+0001 
+    4      Ex4    7       %UnChApp UNI  5.00000E+0000  1.20000E+0001  1.60000E+0001  2.50000E+0001  3.00000E+0001 
+    4      Ex4    8    %PaChNHI/Oh UNI  1.00000E-0001  3.00000E-0001  5.00000E-0001  6.00000E-0001  8.00000E-0001 
+    4      Ex4    9       AdBaWait UNI  2.50000E-0001  5.00000E-0001  6.66000E-0001  1.33300E+0000  1.66600E+0000 
+    4      Ex4   10      %CHIPComp UNI  6.00000E+0000  1.20000E+0001  1.80000E+0001  2.00000E+0001  2.40000E+0001 
+    4      Ex4   11     07PrCwoRWJ UNI  6.50000E+0001  7.00000E+0001  8.00000E+0001  8.30000E+0001  8.70000E+0001 
+    4      Ex4   12          20PrC UNI  7.50000E+0001  8.80000E+0001  9.40000E+0001  9.50000E+0001  9.60000E+0001 
+    4      Ex4   13     20PrCwoRWJ UNI  5.00000E+0001  5.60000E+0001  6.00000E+0001  7.50000E+0001  8.50000E+0001 
+    4      Ex4   14     07AWCwoRWJ UNI  4.40000E+0001  4.60000E+0001  4.80000E+0001  5.00000E+0001  5.30000E+0001 
+    4      Ex4   15          20AWC UNI  5.20000E+0001  5.60000E+0001  6.00000E+0001  6.10000E+0001  6.30000E+0001 
+    4      Ex4   16     20AWCwoRWJ UNI  5.00000E+0001  5.30000E+0001  5.80000E+0001  6.00000E+0001  6.20000E+0001 
+    4      Ex4   17   08CH/ElwoRWJ UNI  4.60000E+0001  4.80000E+0001  5.00000E+0001  6.00000E+0001  6.50000E+0001 
+    4      Ex4   18        20CH/El UNI  6.20000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001  8.50000E+0001 
+    4      Ex4   19   20CH/ElwoRWJ UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.20000E+0001  7.60000E+0001 
+    4      Ex4   20  08Med/ElwoRWJ UNI  8.60000E+0001  8.80000E+0001  9.00000E+0001  9.20000E+0001  9.30000E+0001 
+    4      Ex4   21       20Med/El UNI  9.00000E+0001  9.30000E+0001  9.70000E+0001  9.80000E+0001  9.90000E+0001 
+    4      Ex4   22 20Me3d/ElwoRWJ UNI  8.80000E+0001  9.00000E+0001  9.20000E+0001  9.60000E+0001  9.80000E+0001 
+    5      Ex5    1   %ChMetUninsd UNI  1.00000E+0000  3.00000E+0000  7.00000E+0000  9.00000E+0000  1.00000E+0001                                                                                                                                  % children in metropolitan regions uninsured 
+    5      Ex5    2   %ChNmetUnins UNI  5.00000E+0000  7.00000E+0000  1.50000E+0001  1.70000E+0001  2.00000E+0001 
+    5      Ex5    3 %ChMetPaHealth UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    5      Ex5    4 %ChNmetPaHealt UNI  3.00000E+0000  5.00000E+0000  1.00000E+0001  2.00000E+0001  2.50000E+0001 
+    5      Ex5    5     %UnFamNoKn UNI  1.00000E+0000  2.00000E+0000  5.00000E+0000  7.00000E+0000  1.00000E+0001 
+    5      Ex5    6      %famnoPay UNI  1.00000E+0000  1.00000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    5      Ex5    7       %UnChApp UNI  1.00000E+0000  7.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    5      Ex5    8    %PaChNHI/Oh UNI  1.43000E-0001  1.67000E-0001  2.00000E-0001  5.00000E-0001  1.00000E+0000 
+    5      Ex5    9       AdBaWait UNI  1.67000E-0001  4.17000E-0001  7.50000E-0001  8.33000E-0001  1.00000E+0000 
+    5      Ex5   10      %CHIPComp UNI  5.00000E+0000  1.00000E+0001  1.40000E+0001  2.00000E+0001  3.00000E+0001 
+    5      Ex5   11     07PrCwoRWJ UNI  7.00000E+0001  7.50000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001 
+    5      Ex5   12          20PrC UNI  9.00000E+0001  9.50000E+0001  9.80000E+0001  9.90000E+0001  1.00000E+0002 
+    5      Ex5   13     20PrCwoRWJ UNI  8.50000E+0001  8.70000E+0001  9.00000E+0001  9.50000E+0001  9.80000E+0001 
+    5      Ex5   14     07AWCwoRWJ UNI  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001 
+    5      Ex5   15          20AWC UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    5      Ex5   16     20AWCwoRWJ UNI  4.00000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001  6.50000E+0001 
+    5      Ex5   17   08CH/ElwoRWJ UNI  4.30000E+0001  4.50000E+0001  5.00000E+0001  6.00000E+0001  6.60000E+0001 
+    5      Ex5   18        20CH/El UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    5      Ex5   19   20CH/ElwoRWJ UNI  5.00000E+0001  6.00000E+0001  6.50000E+0001  6.70000E+0001  7.50000E+0001 
+    5      Ex5   20  08Med/ElwoRWJ UNI  8.00000E+0001  8.50000E+0001  9.30000E+0001  9.50000E+0001  9.70000E+0001 
+    5      Ex5   21       20Med/El UNI  9.40000E+0001  9.60000E+0001  9.70000E+0001  9.90000E+0001  1.00000E+0002 
+    5      Ex5   22 20Me3d/ElwoRWJ UNI  8.00000E+0001  8.60000E+0001  9.40000E+0001  9.50000E+0001  9.60000E+0001 

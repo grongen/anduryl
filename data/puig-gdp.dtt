@@ -1,0 +1,172 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1        A    1 inter_crecnega UNI  3.10000E+0000  4.50000E+0000  6.00000E+0000                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    1        A    2 inter_crec1996 UNI  3.50000E+0000  4.00000E+0000  4.50000E+0000                                                                                                                                        Tasa de CETES a 28 días en 1996 y 1997 
+    1        A    3 infla_crecneg8 UNI  4.50000E+0000  6.50000E+0000  7.00000E+0000                                                                                  Tasa de inflación promedio en los siete años con tasa de crecimiento negativa de 1981 - 2013 
+    1        A    4 infla_1996-201 UNI  3.50000E+0000  4.50000E+0000  6.00000E+0000                                                                                                                                             Inflación promedio de 1996 a 2013 
+    1        A    5 infla_2000-201 UNI  2.50000E+0000  3.50000E+0000  4.50000E+0000                                                                                                                                             Inflación promedio de 2000 a 2013 
+    1        A    6 inflación_8189 UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001                                                                                                                                             Inflación promedio de 1981 - 1989 
+    1        A    7   PEAdes_14mas UNI  6.00000E+0000  8.00000E+0000  1.00000E+0001                                                                                                    Participacion promedio de la PEA desocupada respecto de la pob de 14 y más 
+    1        A    8 desocuppromedi UNI  6.00000E+0000  7.00000E+0000  8.00000E+0000                                                                                                                                              Tasa de desocupacion 2005 - 2013 
+    1        A    9 desocup_millon UNI  1.80000E+0000  2.40000E+0000  2.80000E+0000                                                                                                                                       Tasa de desocupación en millones de hab 
+    1        A   10  desocup_prome UNI  9.00000E+0000  1.00000E+0001  1.10000E+0001                                                                                                                                          Tasa de desocupacion 2008_4 a 2009 4 
+    1        A   11  razon_desocup UNI  8.00000E-0001  1.10000E+0000  1.20000E+0000                                                                                                                            Cociente entre tasa de desocupación de 2010 y 2006 
+    1        A   12  crecimientoUS UNI  2.90000E+0000  3.50000E+0000  4.10000E+0000                                                                                                                                              Crecimiento de US de 1996 a 2000 
+    1        A   13 sincroni_USMEX UNI  6.00000E-0001  7.00000E-0001  8.00000E-0001                                                                                                                    Coeficiente de determinación como medida de sincronización 
+    1        A   14            A20 UNI  3.10000E+0000  4.50000E+0000  5.50000E+0000                                                                                                                       Crecimiento económico de México en 2020 - Escenario b&u 
+    1        A   15            B20 UNI  1.90000E+0000  2.10000E+0000  3.00000E+0000                                                                                                                       Crecimiento económico de México en 2020 - Escenario pes 
+    1        A   16            C20 UNI  2.80000E+0000  3.50000E+0000  4.20000E+0000                                                                                                                       Crecimiento económico de Mëxico en 2020 - Escenario opt 
+    1        A   17            A30 UNI  2.80000E+0000  3.90000E+0000  4.20000E+0000                                                                                                                       Crecimiento económico de México en 2030 - Escenario b&u 
+    1        A   18            B30 UNI  1.20000E+0000  1.50000E+0000  2.00000E+0000                                                                                                                       Crecimiento económico de México en 2030 - Escenario pes 
+    1        A   19            C30 UNI  1.60000E+0000  2.50000E+0000  3.00000E+0000                                                                                                                       Crecimiento económico de Mëxico en 2030 - Escenario opt 
+    2        B    1 inter_crecnega UNI  1.00000E+0001  5.00000E+0001  8.00000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    2        B    2 inter_crec1996 UNI  5.00000E+0000  2.00000E+0001  3.00000E+0001 
+    2        B    3 infla_crecneg8 UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    2        B    4 infla_1996-201 UNI  2.00000E+0000  5.00000E+0000  7.00000E+0000 
+    2        B    5 infla_2000-201 UNI  2.00000E+0000  4.20000E+0000  6.50000E+0000 
+    2        B    6 inflación_8189 UNI  1.00000E+0001  3.50000E+0001  5.00000E+0001 
+    2        B    7   PEAdes_14mas UNI  2.00000E+0000  4.50000E+0000  1.00000E+0001 
+    2        B    8 desocuppromedi UNI  3.20000E+0000  5.60000E+0000  6.50000E+0000 
+    2        B    9 desocup_millon UNI  1.44000E+0000  2.52000E+0000  2.95000E+0000 
+    2        B   10  desocup_prome UNI  3.00000E+0000  4.70000E+0000  5.00000E+0000 
+    2        B   11  razon_desocup UNI  5.00000E+0000  7.50000E+0000  8.50000E+0000 
+    2        B   12  crecimientoUS UNI  2.10000E+0000  2.50000E+0000  4.20000E+0000 
+    2        B   13 sincroni_USMEX UNI  5.00000E-0001  7.50000E-0001  8.20000E-0001 
+    2        B   14            A20 UNI  1.20000E+0000  1.70000E+0000  2.00000E+0000 
+    2        B   15            B20 UNI  1.00000E+0000  1.50000E+0000  1.90000E+0000 
+    2        B   16            C20 UNI  2.00000E+0000  2.80000E+0000  3.50000E+0000 
+    2        B   17            A30 UNI  1.20000E+0000  1.70000E+0000  2.00000E+0000 
+    2        B   18            B30 UNI  1.00000E+0000  1.50000E+0000  1.90000E+0000 
+    2        B   19            C30 UNI  2.00000E+0000  2.80000E+0000  3.50000E+0000 
+    3        C    1 inter_crecnega UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    3        C    2 inter_crec1996 UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001 
+    3        C    3 infla_crecneg8 UNI -1.00000E+0000  2.00000E+0000  5.00000E+0000 
+    3        C    4 infla_1996-201 UNI  4.00000E+0000  1.10000E+0001  1.80000E+0001 
+    3        C    5 infla_2000-201 UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000 
+    3        C    6 inflación_8189 UNI  2.00000E+0001  2.50000E+0001  5.00000E+0001 
+    3        C    7   PEAdes_14mas UNI  5.00000E+0000  6.00000E+0000  7.00000E+0000 
+    3        C    8 desocuppromedi UNI  7.00000E+0000  8.00000E+0000  9.00000E+0000 
+    3        C    9 desocup_millon UNI  2.80000E+0000  3.20000E+0000  3.60000E+0000 
+    3        C   10  desocup_prome UNI  8.00000E+0000  1.00000E+0001  1.20000E+0001 
+    3        C   11  razon_desocup UNI  1.00000E+0000  1.33000E+0000  1.50000E+0000 
+    3        C   12  crecimientoUS UNI  3.00000E+0000  3.50000E+0000  4.50000E+0000 
+    3        C   13 sincroni_USMEX UNI  9.30000E-0001  9.50000E-0001  9.60000E-0001 
+    3        C   14            A20 UNI  4.00000E+0000  4.25000E+0000  4.50000E+0000 
+    3        C   15            B20 UNI  3.75000E+0000  4.00000E+0000  4.25000E+0000 
+    3        C   16            C20 UNI  4.25000E+0000  4.50000E+0000  4.75000E+0000 
+    3        C   17            A30 UNI  4.10000E+0000  4.30000E+0000  4.60000E+0000 
+    3        C   18            B30 UNI  3.80000E+0000  4.10000E+0000  4.30000E+0000 
+    3        C   19            C30 UNI  4.30000E+0000  4.60000E+0000  4.80000E+0000 
+    4        D    1 inter_crecnega UNI  1.00000E+0001  1.50000E+0001  2.50000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    4        D    2 inter_crec1996 UNI  5.00000E+0000  8.00000E+0000  1.20000E+0001 
+    4        D    3 infla_crecneg8 UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+    4        D    4 infla_1996-201 UNI  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    4        D    5 infla_2000-201 UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+    4        D    6 inflación_8189 UNI  2.00000E+0001  4.00000E+0001  5.00000E+0001 
+    4        D    7   PEAdes_14mas UNI  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    4        D    8 desocuppromedi UNI  5.00000E+0000  6.00000E+0000  7.00000E+0000 
+    4        D    9 desocup_millon UNI  2.00000E+0001  2.40000E+0001  2.80000E+0001 
+    4        D   10  desocup_prome UNI  5.00000E+0000  6.00000E+0000  7.00000E+0000 
+    4        D   11  razon_desocup UNI  1.00000E+0000  1.25000E+0000  1.50000E+0000 
+    4        D   12  crecimientoUS UNI  3.00000E+0000  5.00000E+0000  6.00000E+0000 
+    4        D   13 sincroni_USMEX UNI  5.00000E-0001  7.00000E-0001  9.00000E-0001 
+    4        D   14            A20 UNI  3.00000E+0000  3.50000E+0000  4.00000E+0000 
+    4        D   15            B20 UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+    4        D   16            C20 UNI  3.50000E+0000  4.50000E+0000  5.00000E+0000 
+    4        D   17            A30 UNI  2.50000E+0000  3.00000E+0000  3.50000E+0000 
+    4        D   18            B30 UNI  2.00000E+0000  2.50000E+0000  3.00000E+0000 
+    4        D   19            C30 UNI  3.50000E+0000  4.00000E+0000  4.50000E+0000 
+    5        E    1 inter_crecnega UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    5        E    2 inter_crec1996 UNI  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    5        E    3 infla_crecneg8 UNI  3.60000E+0001  4.60000E+0001  5.60000E+0001 
+    5        E    4 infla_1996-201 UNI  7.00000E+0000  8.80000E+0000  1.10000E+0001 
+    5        E    5 infla_2000-201 UNI  5.00000E+0000  6.50000E+0000  7.50000E+0000 
+    5        E    6 inflación_8189 UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    5        E    7   PEAdes_14mas UNI  4.50000E+0000  5.00000E+0000  6.50000E+0000 
+    5        E    8 desocuppromedi UNI  5.00000E+0000  6.60000E+0000  7.00000E+0000 
+    5        E    9 desocup_millon UNI  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    5        E   10  desocup_prome UNI  5.00000E+0000  6.00000E+0000  8.00000E+0000 
+    5        E   11  razon_desocup UNI  8.00000E-0001  1.40000E+0000  1.80000E+0000 
+    5        E   12  crecimientoUS UNI  2.60000E+0000  3.20000E+0000  4.00000E+0000 
+    5        E   13 sincroni_USMEX UNI  4.00000E-0001  6.00000E-0001  8.00000E-0001 
+    5        E   14            A20 UNI  2.50000E+0000  3.00000E+0000  3.50000E+0000 
+    5        E   15            B20 UNI  1.50000E+0000  2.00000E+0000  2.50000E+0000 
+    5        E   16            C20 UNI  3.50000E+0000  4.00000E+0000  4.50000E+0000 
+    5        E   17            A30 UNI  2.00000E+0000  2.50000E+0000  3.00000E+0000 
+    5        E   18            B30 UNI  1.50000E+0000  2.00000E+0000  2.50000E+0000 
+    5        E   19            C30 UNI  3.00000E+0000  3.50000E+0000  4.00000E+0000 
+    6        F    1 inter_crecnega UNI  3.00000E+0000  3.00000E+0001  6.00000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    6        F    2 inter_crec1996 UNI  2.00000E+0001  4.00000E+0001  5.00000E+0001 
+    6        F    3 infla_crecneg8 UNI  3.00000E+0001  5.50000E+0001  9.00000E+0001 
+    6        F    4 infla_1996-201 UNI  6.00000E+0000  1.20000E+0001  2.00000E+0001 
+    6        F    5 infla_2000-201 UNI  3.00000E+0000  5.50000E+0000  8.00000E+0000 
+    6        F    6 inflación_8189 UNI  5.00000E+0001  8.00000E+0001  1.00000E+0002 
+    6        F    7   PEAdes_14mas UNI  4.00000E+0000  5.40000E+0000  6.00000E+0000 
+    6        F    8 desocuppromedi UNI  5.10000E+0000  5.90000E+0000  6.50000E+0000 
+    6        F    9 desocup_millon UNI  1.80000E+0000  2.50000E+0000  3.50000E+0000 
+    6        F   10  desocup_prome UNI  5.70000E+0000  6.00000E+0000  6.30000E+0000 
+    6        F   11  razon_desocup UNI  1.30000E+0000  1.35000E+0000  1.41000E+0000 
+    6        F   12  crecimientoUS UNI  2.50000E+0000  3.70000E+0000  4.50000E+0000 
+    6        F   13 sincroni_USMEX UNI  8.00000E-0001  9.00000E-0001  9.50000E-0001 
+    6        F   14            A20 UNI  2.80000E+0000  3.50000E+0000  4.10000E+0000 
+    6        F   15            B20 UNI  1.50000E+0000  2.50000E+0000  3.20000E+0000 
+    6        F   16            C20 UNI  3.90000E+0000  4.50000E+0000  5.50000E+0000 
+    6        F   17            A30 UNI  3.00000E+0000  4.00000E+0000  4.50000E+0000 
+    6        F   18            B30 UNI  1.90000E+0000  3.00000E+0000  3.70000E+0000 
+    6        F   19            C30 UNI  3.50000E+0000  4.90000E+0000  5.90000E+0000 
+    7        G    1 inter_crecnega UNI  1.20000E+0001  1.80000E+0001  2.00000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    7        G    2 inter_crec1996 UNI  9.00000E+0000  1.00000E+0001  1.30000E+0001 
+    7        G    3 infla_crecneg8 UNI  4.50000E+0001  5.00000E+0001  8.00000E+0001 
+    7        G    4 infla_1996-201 UNI  6.00000E+0000  7.00000E+0000  9.00000E+0000 
+    7        G    5 infla_2000-201 UNI  4.50000E+0000  5.00000E+0000  5.50000E+0000 
+    7        G    6 inflación_8189 UNI  6.00000E+0001  7.00000E+0001  7.50000E+0001 
+    7        G    7   PEAdes_14mas UNI  5.00000E+0000  6.00000E+0000  8.00000E+0000 
+    7        G    8 desocuppromedi UNI  6.00000E+0000  6.50000E+0000  7.00000E+0000 
+    7        G    9 desocup_millon UNI  1.00000E+0000  1.50000E+0000  2.00000E+0000 
+    7        G   10  desocup_prome UNI  6.50000E+0000  7.00000E+0000  7.50000E+0000 
+    7        G   11  razon_desocup UNI  1.10000E+0000  1.20000E+0000  1.40000E+0000 
+    7        G   12  crecimientoUS UNI  1.90000E+0000  2.10000E+0000  2.30000E+0000 
+    7        G   13 sincroni_USMEX UNI  7.50000E-0001  8.00000E-0001  9.00000E-0001 
+    7        G   14            A20 UNI  2.00000E+0000  2.90000E+0000  3.10000E+0000 
+    7        G   15            B20 UNI  1.20000E+0000  2.50000E+0000  2.60000E+0000 
+    7        G   16            C20 UNI  3.00000E+0000  3.60000E+0000  3.70000E+0000 
+    7        G   17            A30 UNI  2.00000E+0000  2.10000E+0000  2.50000E+0000 
+    7        G   18            B30 UNI  1.60000E+0000  1.80000E+0000  2.00000E+0000 
+    7        G   19            C30 UNI  2.20000E+0000  2.80000E+0000  3.00000E+0000 
+    8        H    1 inter_crecnega UNI  8.00000E+0000  9.00000E+0000  1.00000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    8        H    2 inter_crec1996 UNI  6.00000E+0000  7.00000E+0000  8.00000E+0000 
+    8        H    3 infla_crecneg8 UNI  4.50000E+0001  5.50000E+0001  6.00000E+0001 
+    8        H    4 infla_1996-201 UNI  4.50000E+0000  5.50000E+0000  6.50000E+0000 
+    8        H    5 infla_2000-201 UNI  4.50000E+0000  5.00000E+0000  5.50000E+0000 
+    8        H    6 inflación_8189 UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    8        H    7   PEAdes_14mas UNI  4.70000E+0000  5.70000E+0000  6.70000E+0000 
+    8        H    8 desocuppromedi UNI  4.50000E+0000  5.50000E+0000  6.00000E+0000 
+    8        H    9 desocup_millon UNI  8.00000E-0001  1.00000E+0000  1.80000E+0000 
+    8        H   10  desocup_prome UNI  5.00000E+0000  6.00000E+0000  7.00000E+0000 
+    8        H   11  razon_desocup UNI  1.00000E+0000  1.40000E+0000  2.00000E+0000 
+    8        H   12  crecimientoUS UNI  3.00000E+0000  3.80000E+0000  4.20000E+0000 
+    8        H   13 sincroni_USMEX UNI  8.00000E-0001  8.50000E-0001  9.60000E-0001 
+    8        H   14            A20 UNI  3.70000E+0000  3.90000E+0000  4.40000E+0000 
+    8        H   15            B20 UNI  2.00000E+0000  2.40000E+0000  3.10000E+0000 
+    8        H   16            C20 UNI  5.00000E+0000  5.30000E+0000  5.60000E+0000 
+    8        H   17            A30 UNI  3.50000E+0000  3.70000E+0000  4.20000E+0000 
+    8        H   18            B30 UNI  1.80000E+0000  2.10000E+0000  3.00000E+0000 
+    8        H   19            C30 UNI  4.00000E+0000  4.50000E+0000  5.20000E+0000 
+    9        I    1 inter_crecnega UNI  1.60000E+0001  2.50000E+0001  3.00000E+0001                                                                                                        Tasa de CETES a 28 días de 1994 a 2013 cuando crecimiento fue negativo 
+    9        I    2 inter_crec1996 UNI  1.60000E+0001  2.00000E+0001  3.00000E+0001 
+    9        I    3 infla_crecneg8 UNI  2.50000E+0001  4.00000E+0001  6.00000E+0001 
+    9        I    4 infla_1996-201 UNI  4.00000E+0000  6.00000E+0000  1.00000E+0001 
+    9        I    5 infla_2000-201 UNI  4.00000E+0000  5.00000E+0000  8.00000E+0000 
+    9        I    6 inflación_8189 UNI  5.00000E+0001  6.00000E+0001  7.50000E+0001 
+    9        I    7   PEAdes_14mas UNI  4.00000E+0000  5.20000E+0000  6.00000E+0000 
+    9        I    8 desocuppromedi UNI  5.00000E+0000  6.60000E+0000  7.00000E+0000 
+    9        I    9 desocup_millon UNI  1.80000E+0000  2.00000E+0000  3.00000E+0000 
+    9        I   10  desocup_prome UNI  5.00000E+0000  7.00000E+0000  9.00000E+0000 
+    9        I   11  razon_desocup UNI  9.00000E-0001  1.20000E+0000  1.50000E+0000 
+    9        I   12  crecimientoUS UNI  3.00000E+0000  4.00000E+0000  5.50000E+0000 
+    9        I   13 sincroni_USMEX UNI  4.00000E-0001  6.00000E-0001  8.00000E-0001 
+    9        I   14            A20 UNI  1.50000E+0000  2.50000E+0000  3.00000E+0000 
+    9        I   15            B20 UNI  1.00000E+0000  2.20000E+0000  3.00000E+0000 
+    9        I   16            C20 UNI  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    9        I   17            A30 UNI  3.00000E+0000  3.50000E+0000  4.10000E+0000 
+    9        I   18            B30 UNI  1.50000E+0000  2.20000E+0000  2.80000E+0000 
+    9        I   19            C30 UNI  3.00000E+0000  4.60000E+0000  5.90000E+0000 

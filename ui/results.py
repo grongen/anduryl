@@ -440,6 +440,8 @@ class PlotExcludedDialog(QtWidgets.QDialog):
         self.results = parent.results
         self.settings = parent.settings
 
+        self.icon = parent.mainwindow.icon
+
         self.robustness_results = {}
 
         # Count number of combinations
@@ -465,7 +467,8 @@ class PlotExcludedDialog(QtWidgets.QDialog):
         Constructs the widget.
         """
         self.setWindowTitle('Robustness')
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
+        self.setWindowIcon(self.icon)
+        self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
 
         self.setLayout(QtWidgets.QVBoxLayout())
 
@@ -652,6 +655,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         super(PlotDistributionsDialog, self).__init__()
 
         self.results = parent.results
+        self.icon = parent.mainwindow.icon
         self.plottype = 'cdf'
         self.plotby = 'item'
 
@@ -675,6 +679,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         self.setWindowTitle('Distributions & range')
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
+        self.setWindowIcon(self.icon)
 
         self.setLayout(QtWidgets.QVBoxLayout())
 

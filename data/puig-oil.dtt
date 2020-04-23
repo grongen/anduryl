@@ -1,0 +1,161 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1        a    1     china_crec UNI  9.50000E+0000  1.00000E+0001  1.20000E+0001                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    1        a    2      OCDE_crec UNI  1.00000E+0000  2.50000E+0000  3.00000E+0000                                                                                                                             OCDE Crecimiento promedio anual ene1991 - dic1999 
+    1        a    3     world_crec UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000                                                                                                                            World Crecimiento promedio anual ene1991 - dic1999 
+    1        a    4      rusia_cre UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000                                                                                                                            Rusia_Crecimiento promedio anual ene2002 - dic2008 
+    1        a    5       OCDE_cre UNI  1.50000E+0000  2.00000E+0000  3.10000E+0000                                                                                                                             OCDE Crecimiento promedio anual ene2002 - dic2008 
+    1        a    6      world_cre UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000                                                                                                                            World Crecimiento promedio anual ene2002 - dic2008 
+    1        a    7     india_crec UNI  5.00000E+0000  6.00000E+0000  7.00000E+0000                                                                                                                            India_Crecimiento promedio anual ene2009 - dic2012 
+    1        a    8        OCDE_cr UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000                                                                                                                             OCDE Crecimiento promedio anual ene2009 - dic2012 
+    1        a    9       world_cr UNI  2.00000E+0000  4.00000E+0000  5.00000E+0000                                                                                                                            World Crecimiento promedio anual ene2009 - dic2012 
+    1        a   10 opep_mund91-99 UNI  3.30000E-0001  3.50000E-0001  3.60000E-0001                                                                                                                 Participación oferta OPEP en la demanda mundial  1991 -  1999 
+    1        a   11 opep_mund02-08 UNI  3.40000E-0001  3.60000E-0001  3.70000E-0001                                                                                                                 Participación oferta OPEP en la demanda mundial  2002 -  2008 
+    1        a   12 opep_mund09-12 UNI  3.50000E-0001  3.70000E-0001  3.80000E-0001                                                                                                                 Participación oferta OPEP en la demanda mundial  2009 -  2012 
+    1        a   13      m_d_91-99 UNI  3.50000E-0001  4.00000E-0001  4.50000E-0001                                                                                                            Participación promedio de petróleo importado por la OCDE 1991-1999 
+    1        a   14      m_d_02-08 UNI  4.50000E-0001  5.00000E-0001  5.50000E-0001                                                                                                            Participación promedio de petróleo importado por la OCDE 2002-2008 
+    1        a   15      m_d_09-12 UNI  4.00000E-0001  4.50000E-0001  5.00000E-0001                                                                                                            Participación promedio de petróleo importado por la OCDE 2009-2012 
+    1        a   16 reserv_oil_ara UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002                                                                                                              Reservas probadas de petróleo al 1 de enero 2013 -Arabia Saudita 
+    1        a   17 reserv_oil_ven UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002                                                                                                                   Reservas probadas de petróleo al 1 de enero 2013 -Venezuela 
+    1        a   18 reserv_oil_ira UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002                                                                                                                        Reservas probadas de petróleo al 1 de enero 2013 -Irán 
+    1        a   19 reserv_oil_usa UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002                                                                                                              Reservas probadas de petróleo al 1 de enero 2013 -Estados Unidos 
+    1        a   20 reserv_oil_mex UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002                                                                                                                      Reservas probadas de petróleo al 1 de enero 2013 -México 
+    2        B    1     china_crec UNI  7.00000E+0000  9.00000E+0000  1.10000E+0001                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    2        B    2      OCDE_crec UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000 
+    2        B    3     world_crec UNI  4.00000E+0000  4.50000E+0000  6.00000E+0000 
+    2        B    4      rusia_cre UNI  1.80000E+0000  2.20000E+0000  2.50000E+0000 
+    2        B    5       OCDE_cre UNI  2.50000E+0000  3.00000E+0000  3.50000E+0000 
+    2        B    6      world_cre UNI  2.50000E+0000  3.50000E+0000  4.50000E+0000 
+    2        B    7     india_crec UNI  3.50000E+0000  4.50000E+0000  5.00000E+0000 
+    2        B    8        OCDE_cr UNI  5.00000E-0001  9.00000E-0001  1.30000E+0000 
+    2        B    9       world_cr UNI  1.50000E+0000  2.50000E+0000  3.00000E+0000 
+    2        B   10 opep_mund91-99 UNI  4.00000E-0001  4.50000E-0001  4.80000E-0001 
+    2        B   11 opep_mund02-08 UNI  4.00000E-0001  4.20000E-0001  4.50000E-0001 
+    2        B   12 opep_mund09-12 UNI  3.80000E-0001  4.00000E-0001  4.50000E-0001 
+    2        B   13      m_d_91-99 UNI  3.80000E-0001  4.20000E-0001  5.50000E-0001 
+    2        B   14      m_d_02-08 UNI  4.00000E-0001  4.50000E-0001  5.50000E-0001 
+    2        B   15      m_d_09-12 UNI  4.00000E-0001  5.00000E-0001  6.00000E-0001 
+    2        B   16 reserv_oil_ara UNI  2.35000E+0002  2.50000E+0002  2.60000E+0002 
+    2        B   17 reserv_oil_ven UNI  1.50000E+0002  2.00000E+0002  2.10000E+0002 
+    2        B   18 reserv_oil_ira UNI  1.40000E+0002  1.50000E+0002  1.70000E+0002 
+    2        B   19 reserv_oil_usa UNI  2.40000E+0001  2.60000E+0001  2.80000E+0001 
+    2        B   20 reserv_oil_mex UNI  9.00000E+0000  1.00000E+0001  1.10000E+0001 
+    3        C    1     china_crec UNI  5.00000E+0000  6.00000E+0000  6.50000E+0000                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    3        C    2      OCDE_crec UNI  4.00000E+0000  4.50000E+0000  5.50000E+0000 
+    3        C    3     world_crec UNI  4.50000E+0000  5.00000E+0000  6.00000E+0000 
+    3        C    4      rusia_cre UNI  5.00000E+0000  6.00000E+0000  6.50000E+0000 
+    3        C    5       OCDE_cre UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000 
+    3        C    6      world_cre UNI  3.50000E+0000  4.50000E+0000  5.50000E+0000 
+    3        C    7     india_crec UNI  3.50000E+0000  4.50000E+0000  5.50000E+0000 
+    3        C    8        OCDE_cr UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+    3        C    9       world_cr UNI  2.50000E+0000  3.50000E+0000  4.50000E+0000 
+    3        C   10 opep_mund91-99 UNI  3.50000E-0001  4.00000E-0001  4.50000E-0001 
+    3        C   11 opep_mund02-08 UNI  3.00000E-0001  3.50000E-0001  4.00000E-0001 
+    3        C   12 opep_mund09-12 UNI  2.80000E-0001  3.20000E-0001  3.60000E-0001 
+    3        C   13      m_d_91-99 UNI  5.00000E-0001  6.00000E-0001  7.00000E-0001 
+    3        C   14      m_d_02-08 UNI  4.50000E-0001  5.00000E-0001  6.00000E-0001 
+    3        C   15      m_d_09-12 UNI  3.50000E-0001  4.00000E-0001  5.00000E-0001 
+    3        C   16 reserv_oil_ara UNI  1.20000E+0002  1.50000E+0002  1.80000E+0002 
+    3        C   17 reserv_oil_ven UNI  6.00000E+0001  8.00000E+0001  1.00000E+0002 
+    3        C   18 reserv_oil_ira UNI  5.00000E+0001  6.00000E+0001  8.00000E+0001 
+    3        C   19 reserv_oil_usa UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    3        C   20 reserv_oil_mex UNI  9.00000E+0000  9.50000E+0000  1.00000E+0001 
+    4        D    1     china_crec UNI  7.00000E+0000  8.50000E+0000  9.50000E+0000                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    4        D    2      OCDE_crec UNI  1.50000E+0000  3.00000E+0000  3.50000E+0000 
+    4        D    3     world_crec UNI  1.50000E+0000  3.50000E+0000  4.00000E+0000 
+    4        D    4      rusia_cre UNI  1.50000E+0000  2.50000E+0000  3.50000E+0000 
+    4        D    5       OCDE_cre UNI  1.00000E+0000  2.50000E+0000  3.00000E+0000 
+    4        D    6      world_cre UNI  1.50000E+0000  3.00000E+0000  4.00000E+0000 
+    4        D    7     india_crec UNI  4.50000E+0000  6.00000E+0000  7.50000E+0000 
+    4        D    8        OCDE_cr UNI  5.00000E-0001  1.50000E+0000  3.00000E+0000 
+    4        D    9       world_cr UNI  1.00000E+0000  2.50000E+0000  3.50000E+0000 
+    4        D   10 opep_mund91-99 UNI  3.00000E-0001  4.70000E-0001  5.50000E-0001 
+    4        D   11 opep_mund02-08 UNI  3.50000E-0001  4.30000E-0001  5.00000E-0001 
+    4        D   12 opep_mund09-12 UNI  3.80000E-0001  4.90000E-0001  5.20000E-0001 
+    4        D   13      m_d_91-99 UNI  4.00000E-0001  5.00000E-0001  6.00000E-0001 
+    4        D   14      m_d_02-08 UNI  4.50000E-0001  5.50000E-0001  6.50000E-0001 
+    4        D   15      m_d_09-12 UNI  4.80000E-0001  5.30000E-0001  6.30000E-0001 
+    4        D   16 reserv_oil_ara UNI  6.00000E+0001  8.70000E+0001  1.10000E+0002 
+    4        D   17 reserv_oil_ven UNI  5.00000E+0001  8.50000E+0001  1.20000E+0002 
+    4        D   18 reserv_oil_ira UNI  1.00000E+0001  2.50000E+0001  3.50000E+0001 
+    4        D   19 reserv_oil_usa UNI  1.50000E+0001  2.00000E+0001  4.00000E+0001 
+    4        D   20 reserv_oil_mex UNI  7.00000E+0000  1.20000E+0001  1.50000E+0001 
+    5        E    1     china_crec UNI  2.00000E+0000  2.50000E+0000  3.80000E+0000                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    5        E    2      OCDE_crec UNI  2.50000E+0000  3.00000E+0000  5.90000E+0000 
+    5        E    3     world_crec UNI  3.00000E+0000  4.00000E+0000  6.00000E+0000 
+    5        E    4      rusia_cre UNI  2.50000E+0000  3.00000E+0000  3.50000E+0000 
+    5        E    5       OCDE_cre UNI  3.00000E+0000  3.50000E+0000  4.00000E+0000 
+    5        E    6      world_cre UNI  3.50000E+0000  4.00000E+0000  5.00000E+0000 
+    5        E    7     india_crec UNI  1.00000E+0000  1.50000E+0000  2.00000E+0000 
+    5        E    8        OCDE_cr UNI  1.50000E+0000  2.00000E+0000  3.00000E+0000 
+    5        E    9       world_cr UNI  3.50000E+0000  5.00000E+0000  6.50000E+0000 
+    5        E   10 opep_mund91-99 UNI  5.00000E-0001  7.00000E-0001  8.00000E-0001 
+    5        E   11 opep_mund02-08 UNI  4.50000E-0001  5.50000E-0001  6.00000E-0001 
+    5        E   12 opep_mund09-12 UNI  4.00000E-0001  6.00000E-0001  7.00000E-0001 
+    5        E   13      m_d_91-99 UNI  2.50000E-0001  3.00000E-0001  3.50000E-0001 
+    5        E   14      m_d_02-08 UNI  3.00000E-0001  4.50000E-0001  5.00000E-0001 
+    5        E   15      m_d_09-12 UNI  4.50000E-0001  5.00000E-0001  6.00000E-0001 
+    5        E   16 reserv_oil_ara UNI  2.60000E+0001  2.80000E+0002  3.20000E+0002 
+    5        E   17 reserv_oil_ven UNI  2.50000E+0002  2.70000E+0002  3.00000E+0002 
+    5        E   18 reserv_oil_ira UNI  2.00000E+0002  2.50000E+0002  2.60000E+0002 
+    5        E   19 reserv_oil_usa UNI  7.50000E+0001  8.00000E+0001  1.20000E+0002 
+    5        E   20 reserv_oil_mex UNI  8.00000E+0001  9.90000E+0001  1.00000E+0002 
+    6        F    1     china_crec UNI  1.10000E+0001  1.20000E+0001  1.30000E+0001                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    6        F    2      OCDE_crec UNI  2.50000E+0000  3.00000E+0000  3.50000E+0000 
+    6        F    3     world_crec UNI  3.50000E+0000  4.00000E+0000  4.50000E+0000 
+    6        F    4      rusia_cre UNI  3.50000E+0000  4.00000E+0000  4.50000E+0000 
+    6        F    5       OCDE_cre UNI  2.00000E+0000  2.50000E+0000  3.00000E+0000 
+    6        F    6      world_cre UNI  4.00000E+0000  4.50000E+0000  5.00000E+0000 
+    6        F    7     india_crec UNI  7.50000E+0000  8.00000E+0000  8.50000E+0000 
+    6        F    8        OCDE_cr UNI  5.00000E-0001  1.00000E+0000  1.50000E+0000 
+    6        F    9       world_cr UNI  3.50000E+0000  4.00000E+0000  4.50000E+0000 
+    6        F   10 opep_mund91-99 UNI  3.80000E-0001  4.00000E-0001  4.20000E-0001 
+    6        F   11 opep_mund02-08 UNI  3.30000E-0001  3.50000E-0001  3.80000E-0001 
+    6        F   12 opep_mund09-12 UNI  3.10000E-0001  3.30000E-0001  3.50000E-0001 
+    6        F   13      m_d_91-99 UNI  6.50000E-0001  7.00000E-0001  7.50000E-0001 
+    6        F   14      m_d_02-08 UNI  6.00000E-0001  6.50000E-0001  7.00000E-0001 
+    6        F   15      m_d_09-12 UNI  5.50000E-0001  6.00000E-0001  6.50000E-0001 
+    6        F   16 reserv_oil_ara UNI  8.50000E+0001  9.00000E+0001  9.50000E+0001 
+    6        F   17 reserv_oil_ven UNI  7.50000E+0001  8.00000E+0001  9.00000E+0001 
+    6        F   18 reserv_oil_ira UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001 
+    6        F   19 reserv_oil_usa UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001 
+    6        F   20 reserv_oil_mex UNI  1.20000E+0001  1.30000E+0001  1.40000E+0001 
+    7        G    1     china_crec UNI  9.00000E+0000  1.20000E+0001  1.30000E+0001                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    7        G    2      OCDE_crec UNI  1.50000E+0000  2.50000E+0000  3.20000E+0000 
+    7        G    3     world_crec UNI  2.50000E+0000  3.50000E+0000  3.80000E+0000 
+    7        G    4      rusia_cre UNI  3.00000E+0000  5.00000E+0000  6.00000E+0000 
+    7        G    5       OCDE_cre UNI  1.00000E+0000  2.50000E+0000  3.00000E+0000 
+    7        G    6      world_cre UNI  2.50000E+0000  3.50000E+0000  4.50000E+0000 
+    7        G    7     india_crec UNI  5.00000E+0000  7.00000E+0000  7.50000E+0000 
+    7        G    8        OCDE_cr UNI  2.00000E+0000  2.50000E+0000  3.00000E+0000 
+    7        G    9       world_cr UNI -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 
+    7        G   10 opep_mund91-99 UNI  3.00000E-0001  3.50000E-0001  4.00000E-0001 
+    7        G   11 opep_mund02-08 UNI  2.80000E-0001  3.20000E-0001  3.50000E-0001 
+    7        G   12 opep_mund09-12 UNI  2.80000E-0001  3.00000E-0001  3.20000E-0001 
+    7        G   13      m_d_91-99 UNI  4.00000E-0001  5.00000E-0001  6.00000E-0001 
+    7        G   14      m_d_02-08 UNI  4.00000E-0001  5.50000E-0001  6.00000E-0001 
+    7        G   15      m_d_09-12 UNI  4.00000E-0001  5.60000E-0001  6.00000E-0001 
+    7        G   16 reserv_oil_ara UNI  3.00000E+0001  4.50000E+0001  6.00000E+0001 
+    7        G   17 reserv_oil_ven UNI  2.00000E+0001  3.00000E+0001  4.50000E+0001 
+    7        G   18 reserv_oil_ira UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+    7        G   19 reserv_oil_usa UNI  1.20000E+0001  1.50000E+0001  2.00000E+0001 
+    7        G   20 reserv_oil_mex UNI  8.00000E+0000  9.30000E+0000  1.30000E+0001 
+    8        H    1     china_crec UNI  3.00000E+0000  5.00000E+0000  6.50000E+0000                                                                                                                            China_Crecimiento promedio anual ene1991 - dic1999 
+    8        H    2      OCDE_crec UNI  2.50000E+0000  4.50000E+0000  5.50000E+0000 
+    8        H    3     world_crec UNI  2.00000E+0000  2.40000E+0000  3.00000E+0000 
+    8        H    4      rusia_cre UNI  3.40000E+0000  4.20000E+0000  4.80000E+0000 
+    8        H    5       OCDE_cre UNI  2.60000E+0000  3.10000E+0000  3.80000E+0000 
+    8        H    6      world_cre UNI  2.00000E+0000  2.70000E+0000  3.60000E+0000 
+    8        H    7     india_crec UNI  5.50000E+0000  6.50000E+0000  7.50000E+0000 
+    8        H    8        OCDE_cr UNI  1.00000E+0000  1.50000E+0000  2.20000E+0000 
+    8        H    9       world_cr UNI  1.00000E+0000  1.70000E+0000  2.10000E+0000 
+    8        H   10 opep_mund91-99 UNI  5.00000E-0001  5.50000E-0001  6.00000E-0001 
+    8        H   11 opep_mund02-08 UNI  4.50000E-0001  4.80000E-0001  5.50000E-0001 
+    8        H   12 opep_mund09-12 UNI  5.00000E-0001  5.50000E-0001  6.00000E-0001 
+    8        H   13      m_d_91-99 UNI  4.00000E-0001  5.50000E-0001  6.50000E-0001 
+    8        H   14      m_d_02-08 UNI  4.00000E-0001  4.80000E-0001  5.50000E-0001 
+    8        H   15      m_d_09-12 UNI  4.00000E-0001  4.50000E-0001  5.50000E-0001 
+    8        H   16 reserv_oil_ara UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001 
+    8        H   17 reserv_oil_ven UNI  3.00000E+0001  3.80000E+0001  4.80000E+0001 
+    8        H   18 reserv_oil_ira UNI  2.50000E+0001  3.00000E+0001  3.80000E+0001 
+    8        H   19 reserv_oil_usa UNI  2.50000E+0001  2.80000E+0001  3.50000E+0001 
+    8        H   20 reserv_oil_mex UNI  1.10000E+0001  1.30000E+0001  1.40000E+0001 

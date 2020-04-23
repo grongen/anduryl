@@ -205,4 +205,41 @@ class Assessment:
                 
         return lower, upper
 
+    def as_dict(self, orient='columns'):
+        """
+        Returns an overview of the assessments for all experts
+        and item as a Python dictionary.
+        The result can easily be converted to a pandas DataFrame with
+        pandas.DataFrame.from_dict([results])
+               
+        Parameters
+        ----------
+        orient : str, optional
+            First dimensions in dictionary. If columns, the results
+            variables are the first dimension. If index, the experts.
+            By default 'columns', similar to the pandas default.
+        
+        Returns
+        -------
+        dictionary
+            Dictionary with information and calibration scores
+        """
+
+        if orient not in ['columns', 'index']:
+            raise KeyError(f"Orient {orient} should be 'columns' or 'index'.")
+
+        nexp, nquant, nitem = self.array.shape
+        table = np.swapaxes(self.array, 1, 2).reshape((nexp * nitem, nquant))
+
+        index = [(exp, item) for exp, item in zip(np.repeat(self.project.experts.ids, nitem), np.tile(self.project.items.ids, nexp))]
+        quantiles = self.project.assessments.quantiles
+        
+        if orient == 'index':
+            dct = {idx: {q: val for q, val in zip(quantiles, row)} for idx, row in zip(index, table)}
+        
+        elif orient == 'columns':
+            dct = {q: {idx: row for idx, row in zip(index, table[:, i])} for i, q in enumerate(quantiles)}
+            
+        return dct
+
 

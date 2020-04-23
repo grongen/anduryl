@@ -1,0 +1,121 @@
+* CLASS ASCII OUTPUT FILE. NQ=   5   QU=   5  25  50  75  95
+    1     AR01    1 ARKidsA Enroll UNI  7.08400E+0001  9.44500E+0001  1.18060E+0002  1.41680E+0002  1.77100E+0002                                                                                  How much did monthly enrollment for ARKids First A change from January 2009 to January 2010? 
+    1     AR01    2 ARKidsB Enroll UNI  2.11800E+0001  2.82400E+0001  3.53000E+0001  4.23600E+0001  5.29500E+0001                                                                                  How much did monthly enrollment for ARKids First B change from January 2009 to January 2010? 
+    1     AR01    3 Unins <100 FPL UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.60000E+0001  2.70000E+0001                                                                                                What was the rate of uninsurance among children (0-18) under 100% FPL in 2008? 
+    1     AR01    4 Unins >250 FPL UNI  5.00000E+0000  7.50000E+0000  1.00000E+0001  1.20000E+0001  1.30000E+0001                                                                                                 What was the rate of uninsurance among children (0-18) over 250% FPL in 2008? 
+    1     AR01    5  Case closures UNI  6.50000E+0001  7.00000E+0001  7.50000E+0001  7.60000E+0001  7.70000E+0001                                                                             What % of ARKids First A and B case closures were due to paperwork or processing reasons in 2009? 
+    1     AR01    6   ARKids A ADV UNI  5.50000E+0001  6.00000E+0001  6.50000E+0001  6.60000E+0001  6.70000E+0001                                                                                              What was the Annual Dental Visit  (ADV) rate for ARKids First A members in 2009? 
+    1     AR01    7   ARKids B ADV UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.10000E+0001  7.20000E+0001                                                                                               What was the Annual Dental Visit (ADV) rate for ARKids First B members in 2009? 
+    1     AR01    8 % Medicaid kid UNI  2.80000E+0001  2.90000E+0001  3.00000E+0001  3.10000E+0001  3.20000E+0001                                                                                                  What % of total Medicaid enrollees in Arkansas were children (0-18) in 2009? 
+    1     AR01    9  AR:LA # unins UNI  5.90000E-0001  6.25000E-0001  6.70000E-0001  7.10000E-0001  7.70000E-0001                                                  What is the ratio: # of children without health insurance in Arkansas / # of children without health insurance in Louisiana? 
+    1     AR01   10 High satisfact UNI  5.80000E+0001  5.90000E+0001  6.00000E+0001  6.50000E+0001  7.00000E+0001                                     What % of the beneficiary families indicated a high degree of satisfaction (>= 8, 0 to 10 scale) with the ARKids First B program in 2009? 
+    1     AR01   11        IWCV -$ UNI  6.30000E+0001  6.40000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001                                                                                      What would the infant well-care visit rate have been in 2008 without RWJF Covering Kids? 
+    1     AR01   12      IWCV 2020 UNI  7.50000E+0001  8.00000E+0001  8.50000E+0001  8.60000E+0001  8.70000E+0001                                                                                                                         What will the infant well-care visit rate be in 2020? 
+    1     AR01   13   IWCV 2020 -$ UNI  7.30000E+0001  7.40000E+0001  7.50000E+0001  7.60000E+0001  7.70000E+0001                                                                                             What would the infant well-care visit rate be in 2020 without RWJF Covering Kids? 
+    1     AR01   14  IWCV 2020 - L UNI  8.80000E+0001  8.90000E+0001  9.00000E+0001  9.10000E+0001  9.20000E+0001                                                                                     What would the infant well-care visit rate be in 2020 if CHIPRA were not renewed in 2013? 
+    1     AR01   15  IWCV 2020 -$L UNI  7.50000E+0001  7.60000E+0001  7.70000E+0001  7.80000E+0001  7.90000E+0001                                                      What would the infant well-care visit rate be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     AR01   16        AWCV -$ UNI  1.00000E+0001  1.20000E+0001  1.50000E+0001  1.60000E+0001  1.70000E+0001                                                                                  What would the adolescent well-care visit rate have been in 2008 without RWJF Covering Kids? 
+    1     AR01   17      AWCV 2020 UNI  3.00000E+0001  3.40000E+0001  3.50000E+0001  3.60000E+0001  3.70000E+0001                                                                                                                     What will the adolescent well-care visit rate be in 2020? 
+    1     AR01   18   AWCV 2020 -$ UNI  3.00000E+0001  3.40000E+0001  3.50000E+0001  3.60000E+0001  3.70000E+0001                                                                                         What would the adolescent well-care visit rate be in 2020 without RWJF Covering Kids? 
+    1     AR01   19   AWCV 2020 -L UNI  3.00000E+0001  3.40000E+0001  3.50000E+0001  3.60000E+0001  3.70000E+0001                                                                                 What would the adolescent well-care visit rate be in 2020 if CHIPRA were not renewed in 2013? 
+    1     AR01   20  AWCV 2020 -$L UNI  3.00000E+0001  3.40000E+0001  3.50000E+0001  3.60000E+0001  3.70000E+0001                                                  What would the adolescent well-care visit rate be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     AR01   21        CHIP -$ UNI  8.80100E+0000  8.80300E+0000  8.80500E+0000  8.80700E+0000  8.80900E+0000                                                                                    What would the % change in monthly caseload have been for 2008 without RWJF Covering Kids? 
+    1     AR01   22      CHIP 2020 UNI  4.24400E+0001  4.44100E+0001  4.83700E+0001  5.23300E+0001  5.82600E+0001                                                                                                              What will the % change in monthly caseload be for December 2020? 
+    1     AR01   23   CHIP 2020 -$ UNI  4.24400E+0001  4.44100E+0001  4.83700E+0001  5.23300E+0001  5.82600E+0001                                                                                                             What would the % change in monthly caseload be for December 2020? 
+    1     AR01   24   CHIP 2020 -L UNI  4.24400E+0001  4.44100E+0001  4.83700E+0001  5.23300E+0001  5.82600E+0001                                                                          What would the % change in monthly caseload be for December 2020 if CHIPRA were not renewed in 2013? 
+    1     AR01   25  CHIP 2020 -$L UNI  4.24400E+0001  4.44100E+0001  4.83700E+0001  5.23300E+0001  5.82600E+0001                                           What would the % change in monthly caseload be for December 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     AR01   26        Part -$ UNI  6.50000E+0001  6.80000E+0001  7.00000E+0001  7.20000E+0001  7.50000E+0001                                                                          What would the participation rate for public insurance have been in 2008 without RWJF Covering Kids? 
+    1     AR01   27      Part 2020 UNI  8.90000E+0001  8.95000E+0001  9.00000E+0001  9.05000E+0001  9.10000E+0001                                                                                                             What will the participation rate for public insurance be in 2020? 
+    1     AR01   28   Part 2020 -$ UNI  8.90000E+0001  8.95000E+0001  9.00000E+0001  9.05000E+0001  9.10000E+0001                                                                                 What would the participation rate for public insurance be in 2020 without RWJF Covering Kids? 
+    1     AR01   29   Part 2020 -L UNI  8.90000E+0001  8.95000E+0001  9.00000E+0001  9.05000E+0001  9.10000E+0001                                                                         What would the participation rate for public insurance be in 2020 if CHIPRA were not renewed in 2013? 
+    1     AR01   30  Part 2020 -$L UNI  8.90000E+0001  8.95000E+0001  9.00000E+0001  9.05000E+0001  9.10000E+0001                                          What would the participation rate for public insurance be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    2     AR03    1 ARKidsA Enroll UNI  1.00000E+0001  2.00000E+0001  5.00000E+0001  1.50000E+0002  2.00000E+0002                                                                                  How much did monthly enrollment for ARKids First A change from January 2009 to January 2010? 
+    2     AR03    2 ARKidsB Enroll UNI -3.00000E+0001 -2.00000E+0001 -1.00000E+0001  0.00000E+0000  1.00000E+0001 
+    2     AR03    3 Unins <100 FPL UNI  8.80000E+0000  8.90000E+0000  9.00000E+0000  9.20000E+0000  9.50000E+0000 
+    2     AR03    4 Unins >250 FPL UNI  6.00000E+0000  7.00000E+0000  8.00000E+0000  9.00000E+0000  1.00000E+0001 
+    2     AR03    5  Case closures UNI  4.80000E+0001  4.90000E+0001  5.00000E+0001  5.10000E+0001  5.20000E+0001 
+    2     AR03    6   ARKids A ADV UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001 
+    2     AR03    7   ARKids B ADV UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001 
+    2     AR03    8 % Medicaid kid UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001 
+    2     AR03    9  AR:LA # unins UNI  2.50000E-0001  3.30000E-0001  5.00000E-0001  1.00000E+0000  2.00000E+0000 
+    2     AR03   10 High satisfact UNI  7.00000E+0001  7.50000E+0001  8.00000E+0001  9.00000E+0001  9.50000E+0001 
+    2     AR03   11        IWCV -$ UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001  7.60000E+0001  8.00000E+0001 
+    2     AR03   12      IWCV 2020 UNI  8.50000E+0001  9.00000E+0001  9.60000E+0001  9.80000E+0001  1.00000E+0002 
+    2     AR03   13   IWCV 2020 -$ UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    2     AR03   14  IWCV 2020 - L UNI  5.00000E+0001  6.00000E+0001  7.50000E+0001  8.00000E+0001  8.50000E+0001 
+    2     AR03   15  IWCV 2020 -$L UNI  3.00000E+0001  4.00000E+0001  5.60000E+0001  6.00000E+0001  6.50000E+0001 
+    2     AR03   16        AWCV -$ UNI  1.50000E+0001  1.70000E+0001  2.00000E+0001  2.20000E+0001  2.30000E+0001 
+    2     AR03   17      AWCV 2020 UNI  1.50000E+0001  2.00000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    2     AR03   18   AWCV 2020 -$ UNI  1.50000E+0001  2.00000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    2     AR03   19   AWCV 2020 -L UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.20000E+0001  2.60000E+0001 
+    2     AR03   20  AWCV 2020 -$L UNI  1.00000E+0001  1.50000E+0001  1.80000E+0001  2.00000E+0001  2.20000E+0001 
+    2     AR03   21        CHIP -$ UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  1.70000E+0001  2.00000E+0001 
+    2     AR03   22      CHIP 2020 UNI  5.10000E+0001  5.30000E+0001  5.50000E+0001  6.00000E+0001  6.50000E+0001 
+    2     AR03   23   CHIP 2020 -$ UNI  4.90000E+0001  5.00000E+0001  5.20000E+0001  5.60000E+0001  6.00000E+0001 
+    2     AR03   24   CHIP 2020 -L UNI -1.50000E+0001 -1.00000E+0001  0.00000E+0000  5.00000E+0000  6.00000E+0000 
+    2     AR03   25  CHIP 2020 -$L UNI -1.50000E+0001 -1.00000E+0001  0.00000E+0000  3.00000E+0000  5.00000E+0000 
+    2     AR03   26        Part -$ UNI  6.50000E+0001  6.80000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    2     AR03   27      Part 2020 UNI  8.80000E+0001  9.00000E+0001  9.50000E+0001  9.70000E+0001  9.90000E+0001 
+    2     AR03   28   Part 2020 -$ UNI  8.00000E+0001  8.30000E+0001  8.50000E+0001  9.00000E+0001  9.50000E+0001 
+    2     AR03   29   Part 2020 -L UNI  8.00000E+0001  8.80000E+0001  9.30000E+0001  9.50000E+0001  9.70000E+0001 
+    2     AR03   30  Part 2020 -$L UNI  7.50000E+0001  8.00000E+0001  8.30000E+0001  8.50000E+0001  8.80000E+0001 
+    3     AR06    1 ARKidsA Enroll UNI -3.00000E+0001  1.00000E+0000  2.00000E+0001  1.50000E+0002  2.50000E+0002                                                                                  How much did monthly enrollment for ARKids First A change from January 2009 to January 2010? 
+    3     AR06    2 ARKidsB Enroll UNI -5.00000E+0000  5.00000E-0001  1.00000E+0001  3.00000E+0001  6.00000E+0001 
+    3     AR06    3 Unins <100 FPL UNI  5.00000E+0000  1.20000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    3     AR06    4 Unins >250 FPL UNI  2.00000E+0000  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.50000E+0001 
+    3     AR06    5  Case closures UNI  5.00000E+0000  2.00000E+0001  4.00000E+0001  5.50000E+0001  7.00000E+0001 
+    3     AR06    6   ARKids A ADV UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    3     AR06    7   ARKids B ADV UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    3     AR06    8 % Medicaid kid UNI  2.50000E+0001  4.00000E+0001  5.00000E+0001  6.50000E+0001  7.50000E+0001 
+    3     AR06    9  AR:LA # unins UNI  5.00000E-0001  7.00000E-0001  1.11000E+0000  1.43000E+0000  2.00000E+0000 
+    3     AR06   10 High satisfact UNI  8.00000E+0001  9.00000E+0001  9.60000E+0001  9.80000E+0001  1.00000E+0002 
+    3     AR06   11        IWCV -$ UNI  9.00000E+0001  9.50000E+0001  9.60000E+0001  9.70000E+0001  9.80000E+0001 
+    3     AR06   12      IWCV 2020 UNI  9.00000E+0001  9.30000E+0001  9.60000E+0001  9.70000E+0001  9.80000E+0001 
+    3     AR06   13   IWCV 2020 -$ UNI  9.00000E+0001  9.30000E+0001  9.60000E+0001  9.70000E+0001  9.80000E+0001 
+    3     AR06   14  IWCV 2020 - L UNI  8.80000E+0001  9.20000E+0001  9.40000E+0001  9.50000E+0001  9.60000E+0001 
+    3     AR06   15  IWCV 2020 -$L UNI  8.80000E+0001  9.20000E+0001  9.40000E+0001  9.50000E+0001  9.60000E+0001 
+    3     AR06   16        AWCV -$ UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.40000E+0001  2.60000E+0001 
+    3     AR06   17      AWCV 2020 UNI  2.00000E+0001  2.40000E+0001  2.60000E+0001  2.80000E+0001  3.00000E+0001 
+    3     AR06   18   AWCV 2020 -$ UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.40000E+0001  2.60000E+0001 
+    3     AR06   19   AWCV 2020 -L UNI  2.00000E+0001  2.40000E+0001  2.60000E+0001  2.80000E+0001  3.00000E+0001 
+    3     AR06   20  AWCV 2020 -$L UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.40000E+0001  2.60000E+0001 
+    3     AR06   21        CHIP -$ UNI  5.00000E+0000  1.50000E+0001  2.00000E+0001  2.60000E+0001  3.30000E+0001 
+    3     AR06   22      CHIP 2020 UNI  2.00000E+0001  3.00000E+0001  4.80000E+0001  5.80000E+0001  6.80000E+0001 
+    3     AR06   23   CHIP 2020 -$ UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    3     AR06   24   CHIP 2020 -L UNI  5.00000E+0000  1.50000E+0001  2.00000E+0001  2.60000E+0001  3.30000E+0001 
+    3     AR06   25  CHIP 2020 -$L UNI  0.00000E+0000  5.00000E+0000  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    3     AR06   26        Part -$ UNI  3.50000E+0001  4.30000E+0001  6.00000E+0001  7.20000E+0001  8.50000E+0001 
+    3     AR06   27      Part 2020 UNI  8.00000E+0001  8.50000E+0001  9.20000E+0001  9.50000E+0001  9.90000E+0001 
+    3     AR06   28   Part 2020 -$ UNI  4.50000E+0001  5.50000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    3     AR06   29   Part 2020 -L UNI  7.50000E+0001  8.00000E+0001  8.60000E+0001  9.10000E+0001  9.50000E+0001 
+    3     AR06   30  Part 2020 -$L UNI  4.00000E+0001  5.10000E+0001  6.80000E+0001  7.30000E+0001  8.00000E+0001 
+    4     AR07    1 ARKidsA Enroll UNI  4.72300E+0001  9.44500E+0001  1.18060E+0002  1.65290E+0002  1.88900E+0002                                                                                  How much did monthly enrollment for ARKids First A change from January 2009 to January 2010? 
+    4     AR07    2 ARKidsB Enroll UNI  2.11800E+0001  3.53000E+0001  4.94200E+0001  6.35400E+0001  7.06000E+0001 
+    4     AR07    3 Unins <100 FPL UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000  7.00000E+0000  1.00000E+0001 
+    4     AR07    4 Unins >250 FPL UNI  3.00000E+0000  5.00000E+0000  1.00000E+0001  1.20000E+0001  1.30000E+0001 
+    4     AR07    5  Case closures UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    4     AR07    6   ARKids A ADV UNI  1.00000E+0001  1.50000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001 
+    4     AR07    7   ARKids B ADV UNI  2.00000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    4     AR07    8 % Medicaid kid UNI  4.50000E+0001  5.00000E+0001  6.00000E+0001  6.50000E+0001  7.00000E+0001 
+    4     AR07    9  AR:LA # unins UNI  1.00000E+0000  1.25000E+0000  2.00000E+0000  2.50000E+0000  4.00000E+0000 
+    4     AR07   10 High satisfact UNI  2.50000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    4     AR07   11        IWCV -$ UNI  5.00000E+0001  6.00000E+0001  8.50000E+0001  8.80000E+0001  9.00000E+0001 
+    4     AR07   12      IWCV 2020 UNI  5.50000E+0001  7.00000E+0001  9.70000E+0001  9.80000E+0001  9.90000E+0001 
+    4     AR07   13   IWCV 2020 -$ UNI  5.50000E+0001  7.00000E+0001  9.70000E+0001  9.80000E+0001  9.90000E+0001 
+    4     AR07   14  IWCV 2020 - L UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001 
+    4     AR07   15  IWCV 2020 -$L UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001 
+    4     AR07   16        AWCV -$ UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.20000E+0001  2.30000E+0001 
+    4     AR07   17      AWCV 2020 UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.80000E+0001  3.00000E+0001 
+    4     AR07   18   AWCV 2020 -$ UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.80000E+0001  3.00000E+0001 
+    4     AR07   19   AWCV 2020 -L UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.20000E+0001  2.30000E+0001 
+    4     AR07   20  AWCV 2020 -$L UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.20000E+0001  2.30000E+0001 
+    4     AR07   21        CHIP -$ UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.70000E+0001  3.00000E+0001 
+    4     AR07   22      CHIP 2020 UNI  3.50000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    4     AR07   23   CHIP 2020 -$ UNI  3.50000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    4     AR07   24   CHIP 2020 -L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    4     AR07   25  CHIP 2020 -$L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    4     AR07   26        Part -$ UNI  7.00000E+0001  7.50000E+0001  8.00000E+0001  8.20000E+0001  8.50000E+0001 
+    4     AR07   27      Part 2020 UNI  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.20000E+0001  9.50000E+0001 
+    4     AR07   28   Part 2020 -$ UNI  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.20000E+0001  9.50000E+0001 
+    4     AR07   29   Part 2020 -L UNI  6.50000E+0001  7.00000E+0001  8.00000E+0001  8.20000E+0001  8.50000E+0001 
+    4     AR07   30  Part 2020 -$L UNI  6.50000E+0001  7.00000E+0001  8.00000E+0001  8.20000E+0001  8.50000E+0001 

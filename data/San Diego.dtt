@@ -1,0 +1,361 @@
+* CLASS ASCII OUTPUT FILE. NQ=   5   QU=   5  25  50  75  95
+    1     SD01    1    Wrist Dis H UNI  1.00000E+0002  1.15000E+0002  1.25000E+0002  1.35000E+0002  1.50000E+0002                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    1     SD01    2   Wrist Dis LM UNI  2.00000E+0002  2.25000E+0002  2.50000E+0002  3.00000E+0002  4.00000E+0002                               A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a LMIC? 
+    1     SD01    3  Wrist Dis Unt UNI  6.00000E+0002  7.00000E+0002  8.00000E+0002  8.30000E+0002  9.00000E+0002                                       A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if untreated? 
+    1     SD01    4      Leg Dis H UNI  1.00000E+0001  1.50000E+0001  2.50000E+0001  7.50000E+0001  1.00000E+0002                                           A 25 year-old man presents with a lower leg fracture. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    1     SD01    5     Leg Dis LM UNI  5.00000E+0001  6.00000E+0001  7.50000E+0001  8.50000E+0001  1.00000E+0002                                          A 25 year-old man presents with a lower leg fracture. Given 1000 such cases, how many would develop disability if treated in a LMIC? 
+    1     SD01    6    Leg Dis Unt UNI  3.00000E+0002  3.50000E+0002  4.00000E+0002  5.00000E+0002  6.00000E+0002                                                  A 25 year-old man presents with a lower leg fracture. Given 1000 such cases, how many would develop disability if untreated? 
+    1     SD01    7  HipFrac Dis H UNI  7.50000E+0001  9.00000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002                                  A 70 year-old woman presents with a hip fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    1     SD01    8 HipFrac Dis LM UNI  3.00000E+0002  3.50000E+0002  4.00000E+0002  4.50000E+0002  5.00000E+0002                                 A 70 year-old woman presents with a hip fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a LMIC? 
+    1     SD01    9 HipFrac Dis Un UNI  6.50000E+0002  6.75000E+0002  7.00000E+0002  7.50000E+0002  8.00000E+0002                                         A 70 year-old woman presents with a hip fracture after a fall. Given 1000 such cases, how many would develop disability if untreated? 
+    1     SD01   10  HipFrac Dea H UNI  7.00000E+0001  7.50000E+0001  1.00000E+0002  1.25000E+0002  2.00000E+0002                                     A 70 year-old woman presents with a hip fracture after a fall. Given 1000 such cases, how many would result in death if treated in a HIC? 
+    1     SD01   11 HipFrac Dea LM UNI  4.25000E+0002  4.50000E+0002  5.00000E+0002  5.50000E+0002  6.00000E+0002                                    A 70 year-old woman presents with a hip fracture after a fall. Given 1000 such cases, how many would result in death if treated in a LMIC? 
+    1     SD01   12 HipFrac Dea Un UNI  6.00000E+0002  6.50000E+0002  7.50000E+0002  8.00000E+0002  9.00000E+0002                                            A 70 year-old woman presents with a hip fracture after a fall. Given 1000 such cases, how many would result in death if untreated? 
+    1     SD01   13   HipDis Dis H UNI  2.50000E+0001  5.00000E+0001  8.00000E+0001  9.00000E+0001  1.00000E+0002                        A 60 year-old woman presents with a dislocation of the hip after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    1     SD01   14  HipDis Dis LM UNI  1.00000E+0002  1.25000E+0002  1.50000E+0002  1.75000E+0002  2.00000E+0002                       A 60 year-old woman presents with a dislocation of the hip after a fall. Given 1000 such cases, how many would develop disability if treated in a LMIC? 
+    1     SD01   15 HipDis Dis Unt UNI  8.00000E+0002  8.25000E+0002  8.50000E+0002  8.75000E+0002  9.00000E+0002                               A 60 year-old woman presents with a dislocation of the hip after a fall. Given 1000 such cases, how many would develop disability if untreated? 
+    1     SD01   16    Ankle Dis H UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  8.00000E+0001  1.00000E+0002                                              An 8 year-old boy presents with an ankle fracture. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    1     SD01   17   Ankle Dis LM UNI  5.00000E+0001  6.00000E+0001  7.50000E+0001  8.50000E+0001  1.50000E+0002                                             An 8 year-old boy presents with an ankle fracture. Given 1000 such cases, how many would develop disability if treated in a LMIC? 
+    1     SD01   18  Ankle Dis Unt UNI  4.00000E+0002  4.50000E+0002  5.00000E+0002  6.50000E+0002  7.50000E+0002                                                     An 8 year-old boy presents with an ankle fracture. Given 1000 such cases, how many would develop disability if untreated? 
+    1     SD01   19    Burn1 Dis H UNI  1.00000E+0002  1.25000E+0002  1.50000E+0002  1.75000E+0002  2.00000E+0002        A 30 year-old woman presents with burns over 25% of the body without airway involvement. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    1     SD01   20   Burn1 Dis LM UNI  4.00000E+0002  4.50000E+0002  5.00000E+0002  5.50000E+0002  6.00000E+0002        A 30 year-old woman presents with burns over 25% of the body without airway involvment. Given 1000 such cases, how many would develop disability if treated in a LMIC? 
+    1     SD01   21  Burn1 Dis Unt UNI  7.25000E+0002  7.50000E+0002  8.00000E+0002  8.50000E+0002  9.00000E+0002               A 30 year-old woman presents with burns over 25% of the body without airway involvement. Given 1000 such cases, how many would develop disability if untreated? 
+    1     SD01   22    Burn1 Dea H UNI  1.00000E+0001  1.50000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001           A 30 year-old woman presents with burns over 25% of the body without airway involvement. Given 1000 such cases, how many would result in death if treated in a HIC? 
+    1     SD01   23   Burn1 Dea LM UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001  8.50000E+0001  1.00000E+0002          A 30 year-old woman presents with burns over 25% of the body without airway involvement. Given 1000 such cases, how many would result in death if treated in a LMIC? 
+    1     SD01   24  Burn1 Dea Unt UNI  1.00000E+0002  1.25000E+0002  1.50000E+0002  2.00000E+0002  2.50000E+0002                  A 30 year-old woman presents with burns over 25% of the body without airway involvement. Given 1000 such cases, how many would result in death if untreated? 
+    1     SD01   25    Burn2 Dea H UNI  7.50000E+0001  8.00000E+0001  1.00000E+0002  1.25000E+0002  2.50000E+0002              A 30 year-old woman presents with burns over 25% of the body with airway involvement. Given 1000 such cases, how many would result in death if treated in a HIC? 
+    1     SD01   26   Burn2 Dea LM UNI  6.00000E+0002  6.25000E+0002  6.50000E+0002  6.75000E+0002  7.00000E+0002             A 30 year-old woman presents with burns over 25% of the body with airway involvement. Given 1000 such cases, how many would result in death if treated in a LMIC? 
+    1     SD01   27  Burn2 Dea Unt UNI  8.00000E+0002  8.75000E+0002  9.00000E+0002  9.50000E+0002  1.00000E+0003                     A 30 year-old woman presents with burns over 25% of the body with airway involvement. Given 1000 such cases, how many would result in death if untreated? 
+    1     SD01   28      App Dea H UNI  1.00000E-0002  3.00000E-0002  5.00000E-0002  7.00000E-0001  1.00000E+0000                                 A 12 year-old boy presents with acute abdomen due to appendicitis. Given 1000 such cases, how many would result in death if treated in a HIC? 
+    1     SD01   29     App Dea LM UNI  7.50000E+0001  8.50000E+0001  1.00000E+0002  1.25000E+0002  1.50000E+0002                                A 12 year-old boy presents with acute abdomen due to appendicitis. Given 1000 such cases, how many would result in death if treated in a LMIC? 
+    1     SD01   30    App Dea Unt UNI  3.00000E+0002  4.00000E+0002  5.00000E+0002  6.00000E+0002  7.00000E+0002                                        A 12 year-old boy presents with acute abdomen due to appendicitis. Given 1000 such cases, how many would result in death if untreated? 
+    1     SD01   31      Amp Dis H UNI  1.00000E+0002  1.50000E+0002  2.00000E+0002  2.50000E+0002  3.00000E+0002                                      A 30 year-old woman has to undergo a lower limb amputation. Given 1000 such cases, how many would deveop disability if treated in a HIC? 
+    1     SD01   32      Amp Dis L UNI  5.00000E+0002  5.70000E+0002  6.00000E+0002  7.00000E+0002  8.00000E+0002                                    A 30 year-old woman has to undergo a lower limb amputation. Given 1000 such cases, how many would develop disability if treated in a LMIC? 
+    1     SD01   33     Amp Dis Un UNI  9.00000E+0002  9.30000E+0002  9.50000E+0002  9.70000E+0002  1.00000E+0003                                               A 30 year-old woman has to undergo a lower limb amputation. Given 1000 such cases, how many would result in death if untreated? 
+    1     SD01   34      Amp Dea H UNI  1.00000E+0001  2.00000E+0001  5.00000E+0001  8.00000E+0001  1.00000E+0002                                        A 30 year-old woman has to undergo a lower limb amputation. Given 1000 such cases, how many would result in death if treated in a HIC? 
+    1     SD01   35      Amp Dea U UNI  1.00000E+0002  1.25000E+0002  1.50000E+0002  1.75000E+0002  2.00000E+0002                                       A 30 year-old woman has to undergo a lower limb amputation. Given 1000 such cases, how many would result in death if treated in a LMIC? 
+    1     SD01   36     Amp Dea Un UNI  2.00000E+0002  2.50000E+0002  3.00000E+0002  3.50000E+0002  4.00000E+0002                                               A 30 year-old woman has to undergo a lower limb amputation. Given 1000 such cases, how many would result in death if untreated? 
+    1     SD01   37     Conc Dis H UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  7.50000E+0001  1.00000E+0002                                                       A 10 year-old girl sustained a concussion. Given 1000 such cases, how many would deveop disability if treated in a HIC? 
+    1     SD01   38    Conc Dis LM UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  7.50000E+0001  1.00000E+0002                                                      A 10 year-old girl sustained a concussion. Given 1000 such cases, how many would deveop disability if treated in a LMIC? 
+    1     SD01   39    Conc Dis 70 UNI  1.50000E+0002  1.75000E+0002  2.00000E+0002  2.50000E+0002  3.00000E+0002                                                        A 70 year-old man sustained a concussion. Given 1000 such cases, how many would deveop disability if treated in a HIC? 
+    1     SD01   40    ModBr Dis H UNI  1.00000E+0002  1.10000E+0002  1.25000E+0002  1.40000E+0002  1.50000E+0002                                   A 10 year-old girl sustained a moderately severe brain injury. Given 1000 such cases, how many would deveop disability if treated in a HIC? 
+    1     SD01   41   ModBr Dis LM UNI  1.00000E+0002  1.25000E+0002  1.50000E+0002  1.75000E+0002  2.00000E+0002                                  A 10 year-old girl sustained a moderately severe brain injury. Given 1000 such cases, how many would deveop disability if treated in a LMIC? 
+    1     SD01   42   ModBr Dis 70 UNI  4.00000E+0002  4.25000E+0002  4.50000E+0002  4.75000E+0002  5.00000E+0002                                    A 70 year-old man sustained a moderatley severe brain injury. Given 1000 such cases, how many would deveop disability if treated in a HIC? 
+    1     SD01   43    SevBr Dis H UNI  3.00000E+0002  5.00000E+0002  6.00000E+0002  6.50000E+0002  7.00000E+0002                                              A 10 year-old girl sustained a severe brain injury. Given 1000 such cases, how many would deveop disability if treated in a HIC? 
+    1     SD01   44   SevBr Dis LM UNI  7.00000E+0002  7.50000E+0002  8.00000E+0002  9.25000E+0002  9.50000E+0002                                             A 10 year-old girl sustained a severe brain injury. Given 1000 such cases, how many would deveop disability if treated in a LMIC? 
+    1     SD01   45   SevBr Dis 70 UNI  6.00000E+0002  7.00000E+0002  8.00000E+0002  8.50000E+0002  9.00000E+0002                                               A 70 year-old man sustained a severe brain injury. Given 1000 such cases, how many would deveop disability if treated in a HIC? 
+    2     SD02    1    Wrist Dis H UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000  4.50000E+0000  5.00000E+0000                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    2     SD02    2   Wrist Dis LM UNI  3.00000E+0000  5.00000E+0000  7.00000E+0000  9.00000E+0000  1.50000E+0001 
+    2     SD02    3  Wrist Dis Unt UNI  5.00000E+0000  9.00000E+0000  1.40000E+0001  1.80000E+0001  2.50000E+0001 
+    2     SD02    4      Leg Dis H UNI  9.00000E-0001  1.50000E+0000  2.50000E+0000  3.00000E+0000  4.00000E+0000 
+    2     SD02    5     Leg Dis LM UNI  2.00000E+0000  5.00000E+0000  6.00000E+0000  1.30000E+0001  1.50000E+0001 
+    2     SD02    6    Leg Dis Unt UNI  1.50000E+0001  1.75000E+0001  2.50000E+0001  3.70000E+0001  4.00000E+0001 
+    2     SD02    7  HipFrac Dis H UNI  3.50000E+0001  3.70000E+0001  4.00000E+0001  4.20000E+0001  4.50000E+0001 
+    2     SD02    8 HipFrac Dis LM UNI  3.50000E+0002  4.50000E+0002  6.50000E+0002  7.50000E+0002  8.80000E+0002 
+    2     SD02    9 HipFrac Dis Un UNI  7.50000E+0002  9.50000E+0002  9.90000E+0002  9.93000E+0002  9.95000E+0002 
+    2     SD02   10  HipFrac Dea H UNI  4.00000E+0000  9.00000E+0000  1.00000E+0001  1.10000E+0001  1.20000E+0001 
+    2     SD02   11 HipFrac Dea LM UNI  4.00000E+0000  1.00000E+0001  2.50000E+0001  2.70000E+0001  3.00000E+0001 
+    2     SD02   12 HipFrac Dea Un UNI  1.50000E+0001  1.70000E+0001  3.00000E+0001  3.30000E+0001  3.50000E+0001 
+    2     SD02   13   HipDis Dis H UNI  7.75000E+0002  8.80000E+0002  8.85000E+0002  8.87000E+0002  9.00000E+0002 
+    2     SD02   14  HipDis Dis LM UNI  8.00000E+0002  8.80000E+0002  9.00000E+0002  9.85000E+0002  9.90000E+0002 
+    2     SD02   15 HipDis Dis Unt UNI  8.85000E+0002  9.95000E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    2     SD02   16    Ankle Dis H UNI  2.00000E-0001  5.00000E-0001  6.00000E-0001  7.50000E-0001  1.00000E+0000 
+    2     SD02   17   Ankle Dis LM UNI  2.00000E+0000  3.00000E+0000  5.00000E+0000  7.00000E+0000  7.50000E+0000 
+    2     SD02   18  Ankle Dis Unt UNI  9.00000E+0000  2.70000E+0001  4.00000E+0001  4.30000E+0001  5.00000E+0001 
+    2     SD02   19    Burn1 Dis H UNI -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 
+    2     SD02   20   Burn1 Dis LM UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   21  Burn1 Dis Unt UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   22    Burn1 Dea H UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   23   Burn1 Dea LM UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   24  Burn1 Dea Unt UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   25    Burn2 Dea H UNI  2.50000E+0002  8.85000E+0002  9.90000E+0002  9.95000E+0002  1.00000E+0003 
+    2     SD02   26   Burn2 Dea LM UNI  7.00000E+0002  9.90000E+0002  9.99000E+0002  9.99500E+0002  1.00000E+0003 
+    2     SD02   27  Burn2 Dea Unt UNI -9.99500E+0002 -9.99500E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   28      App Dea H UNI  0.00000E+0000  1.00000E-0004  1.00000E-0003  5.00000E-0003  1.00000E-0002 
+    2     SD02   29     App Dea LM UNI  1.00000E+0000  1.50000E+0000  2.00000E+0000  2.50000E+0000  3.00000E+0000 
+    2     SD02   30    App Dea Unt UNI  7.50000E+0002  9.90000E+0002  9.99000E+0002  9.99500E+0002  1.00000E+0003 
+    2     SD02   31      Amp Dis H UNI  1.00000E+0001  2.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001 
+    2     SD02   32      Amp Dis L UNI  5.50000E+0001  8.00000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    2     SD02   33     Amp Dis Un UNI  2.25000E+0002  4.45000E+0002  5.00000E+0002  6.00000E+0002  8.85000E+0002 
+    2     SD02   34      Amp Dea H UNI -9.99500E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   35      Amp Dea U UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   36     Amp Dea Un UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+    2     SD02   37     Conc Dis H UNI  9.00000E+0000  1.20000E+0001  1.50000E+0001  1.70000E+0001  2.50000E+0001 
+    2     SD02   38    Conc Dis LM UNI  1.00000E+0001  1.30000E+0001  1.75000E+0001  1.80000E+0001  2.00000E+0001 
+    2     SD02   39    Conc Dis 70 UNI  1.75000E+0002  2.50000E+0002  3.00000E+0002  3.50000E+0002  3.55000E+0002 
+    2     SD02   40    ModBr Dis H UNI  2.00000E+0001  2.70000E+0001  3.00000E+0001  3.50000E+0001  4.50000E+0001 
+    2     SD02   41   ModBr Dis LM UNI  5.00000E+0001  8.50000E+0001  1.00000E+0002  1.50000E+0002  2.50000E+0002 
+    2     SD02   42   ModBr Dis 70 UNI  2.50000E+0002  3.50000E+0002  5.00000E+0002  6.00000E+0002  7.50000E+0002 
+    2     SD02   43    SevBr Dis H UNI  2.50000E+0002  2.75000E+0002  3.00000E+0002  3.50000E+0002  4.50000E+0002 
+    2     SD02   44   SevBr Dis LM UNI  5.00000E+0002  6.75000E+0002  7.00000E+0002  7.50000E+0002  8.00000E+0002 
+    2     SD02   45   SevBr Dis 70 UNI  7.50000E+0002  8.00000E+0002  8.80000E+0002  9.00000E+0002  9.90000E+0002 
+    3     SD03    1    Wrist Dis H UNI  2.00000E+0000  3.50000E+0000  5.00000E+0000  6.50000E+0000  1.00000E+0001                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    3     SD03    2   Wrist Dis LM UNI  2.50000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+    3     SD03    3  Wrist Dis Unt UNI  1.50000E+0002  1.80000E+0002  2.50000E+0002  3.00000E+0002  5.00000E+0002 
+    3     SD03    4      Leg Dis H UNI  2.00000E+0000  6.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    3     SD03    5     Leg Dis LM UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    3     SD03    6    Leg Dis Unt UNI  1.00000E+0001  2.50000E+0001  5.00000E+0001  7.50000E+0001  1.00000E+0002 
+    3     SD03    7  HipFrac Dis H UNI  2.00000E+0000  6.00000E+0000  8.00000E+0000  1.40000E+0001  1.80000E+0001 
+    3     SD03    8 HipFrac Dis LM UNI  1.00000E+0001  1.80000E+0001  2.50000E+0001  3.50000E+0001  4.50000E+0001 
+    3     SD03    9 HipFrac Dis Un UNI  3.00000E+0002  3.50000E+0002  4.00000E+0002  4.50000E+0002  5.00000E+0002 
+    3     SD03   10  HipFrac Dea H UNI  1.00000E+0000  3.00000E+0000  4.00000E+0000  6.00000E+0000  8.00000E+0000 
+    3     SD03   11 HipFrac Dea LM UNI  2.00000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    3     SD03   12 HipFrac Dea Un UNI  2.00000E+0002  2.25000E+0002  2.50000E+0002  2.75000E+0002  3.00000E+0002 
+    3     SD03   13   HipDis Dis H UNI  2.00000E+0000  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.00000E+0001 
+    3     SD03   14  HipDis Dis LM UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    3     SD03   15 HipDis Dis Unt UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002  4.00000E+0002  5.00000E+0002 
+    3     SD03   16    Ankle Dis H UNI  2.00000E+0000  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.00000E+0001 
+    3     SD03   17   Ankle Dis LM UNI  5.00000E+0000  4.00000E+0001  6.00000E+0001  7.00000E+0001  1.00000E+0002 
+    3     SD03   18  Ankle Dis Unt UNI  2.00000E+0002  2.50000E+0002  3.00000E+0002  3.50000E+0002  4.00000E+0002 
+    3     SD03   19    Burn1 Dis H UNI  2.00000E+0000  3.00000E+0000  5.00000E+0000  6.00000E+0000  8.00000E+0000 
+    3     SD03   20   Burn1 Dis LM UNI  1.00000E+0001  1.30000E+0001  1.50000E+0001  1.80000E+0001  2.00000E+0001 
+    3     SD03   21  Burn1 Dis Unt UNI  5.00000E+0001  6.00000E+0001  7.50000E+0001  8.50000E+0001  1.00000E+0002 
+    3     SD03   22    Burn1 Dea H UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    3     SD03   23   Burn1 Dea LM UNI  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.00000E+0001  1.80000E+0001 
+    3     SD03   24  Burn1 Dea Unt UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    3     SD03   25    Burn2 Dea H UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    3     SD03   26   Burn2 Dea LM UNI  2.00000E+0002  2.50000E+0002  3.00000E+0002  3.50000E+0002  4.00000E+0002 
+    3     SD03   27  Burn2 Dea Unt UNI  9.90000E+0002  9.93000E+0002  9.95000E+0002  9.98000E+0002  1.00000E+0003 
+    3     SD03   28      App Dea H UNI  0.00000E+0000  1.00000E+0000  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+    3     SD03   29     App Dea LM UNI  2.00000E+0000  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.00000E+0001 
+    3     SD03   30    App Dea Unt UNI  1.00000E+0001  1.60000E+0001  2.50000E+0001  3.50000E+0001  5.00000E+0001 
+    3     SD03   31      Amp Dis H UNI  5.00000E+0000  1.20000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    3     SD03   32      Amp Dis L UNI  5.00000E+0001  1.20000E+0002  2.00000E+0002  3.00000E+0002  4.00000E+0002 
+    3     SD03   33     Amp Dis Un UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    3     SD03   34      Amp Dea H UNI  2.00000E+0000  6.00000E+0000  8.00000E+0000  1.40000E+0001  1.60000E+0001 
+    3     SD03   35      Amp Dea U UNI  8.00000E+0000  2.40000E+0001  3.20000E+0001  5.60000E+0001  6.40000E+0001 
+    3     SD03   36     Amp Dea Un UNI  9.90000E+0002  9.94000E+0002  9.95000E+0002  9.98000E+0002  1.00000E+0003 
+    3     SD03   37     Conc Dis H UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    3     SD03   38    Conc Dis LM UNI  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.00000E+0001  1.20000E+0001 
+    3     SD03   39    Conc Dis 70 UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    3     SD03   40    ModBr Dis H UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    3     SD03   41   ModBr Dis LM UNI  3.00000E+0000  4.50000E+0000  6.00000E+0000  7.00000E+0000  8.00000E+0000 
+    3     SD03   42   ModBr Dis 70 UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    3     SD03   43    SevBr Dis H UNI  4.00000E+0000  5.00000E+0000  7.00000E+0000  8.00000E+0000  1.00000E+0001 
+    3     SD03   44   SevBr Dis LM UNI  2.00000E+0001  2.50000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    3     SD03   45   SevBr Dis 70 UNI  4.00000E+0000  5.00000E+0000  7.00000E+0000  8.00000E+0000  1.00000E+0001 
+    4     SD05    1    Wrist Dis H UNI  3.50000E+0001  4.00000E+0001  5.00000E+0001  9.00000E+0001  2.20000E+0002                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    4     SD05    2   Wrist Dis LM UNI  2.40000E+0002  2.50000E+0002  3.00000E+0002  4.50000E+0002  6.00000E+0002 
+    4     SD05    3  Wrist Dis Unt UNI  8.70000E+0002  9.00000E+0002  9.50000E+0002  9.70000E+0002  1.00000E+0003 
+    4     SD05    4      Leg Dis H UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  4.00000E+0001  5.50000E+0001 
+    4     SD05    5     Leg Dis LM UNI  5.00000E+0001  7.50000E+0001  1.20000E+0002  1.35000E+0002  1.60000E+0002 
+    4     SD05    6    Leg Dis Unt UNI  6.80000E+0002  7.00000E+0002  7.50000E+0002  8.00000E+0002  8.50000E+0002 
+    4     SD05    7  HipFrac Dis H UNI  5.00000E+0001  6.20000E+0001  7.50000E+0001  9.50000E+0001  1.15000E+0002 
+    4     SD05    8 HipFrac Dis LM UNI  4.60000E+0002  5.10000E+0002  5.50000E+0002  7.00000E+0002  8.50000E+0002 
+    4     SD05    9 HipFrac Dis Un UNI  8.00000E+0002  9.00000E+0002  9.50000E+0002  9.70000E+0002  1.00000E+0003 
+    4     SD05   10  HipFrac Dea H UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  5.00000E+0001  7.50000E+0001 
+    4     SD05   11 HipFrac Dea LM UNI  2.50000E+0002  3.00000E+0002  3.50000E+0002  4.00000E+0002  5.00000E+0002 
+    4     SD05   12 HipFrac Dea Un UNI  3.50000E+0002  4.00000E+0002  5.50000E+0002  6.00000E+0002  8.00000E+0002 
+    4     SD05   13   HipDis Dis H UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.50000E+0001 
+    4     SD05   14  HipDis Dis LM UNI  3.50000E+0001  4.50000E+0001  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+    4     SD05   15 HipDis Dis Unt UNI  9.95000E+0002  9.96000E+0002  9.98000E+0002  9.99000E+0002  1.00000E+0003 
+    4     SD05   16    Ankle Dis H UNI  1.50000E+0001  4.00000E+0001  6.50000E+0001  7.00000E+0001  8.00000E+0001 
+    4     SD05   17   Ankle Dis LM UNI  2.50000E+0002  3.00000E+0002  5.60000E+0002  6.00000E+0002  7.00000E+0002 
+    4     SD05   18  Ankle Dis Unt UNI  8.50000E+0002  9.00000E+0002  9.50000E+0002  9.70000E+0002  9.90000E+0002 
+    4     SD05   19    Burn1 Dis H UNI  1.50000E+0001  4.00000E+0001  6.00000E+0001  7.50000E+0001  8.50000E+0001 
+    4     SD05   20   Burn1 Dis LM UNI  4.00000E+0002  5.00000E+0002  6.50000E+0002  7.00000E+0002  8.00000E+0002 
+    4     SD05   21  Burn1 Dis Unt UNI  7.00000E+0002  8.00000E+0002  8.50000E+0002  9.00000E+0002  9.90000E+0002 
+    4     SD05   22    Burn1 Dea H UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001  1.50000E+0001  3.00000E+0001 
+    4     SD05   23   Burn1 Dea LM UNI  8.00000E+0001  9.50000E+0001  1.15000E+0002  1.40000E+0002  2.00000E+0002 
+    4     SD05   24  Burn1 Dea Unt UNI  9.85000E+0002  9.90000E+0002  9.95000E+0002  9.97000E+0002  1.00000E+0003 
+    4     SD05   25    Burn2 Dea H UNI  2.00000E+0001  3.50000E+0001  5.00000E+0001  6.00000E+0001  8.00000E+0001 
+    4     SD05   26   Burn2 Dea LM UNI  2.50000E+0002  4.00000E+0002  6.00000E+0002  6.50000E+0002  7.00000E+0002 
+    4     SD05   27  Burn2 Dea Unt UNI  9.92000E+0002  9.94000E+0002  9.96000E+0002  9.98000E+0002  1.00000E+0003 
+    4     SD05   28      App Dea H UNI  0.00000E+0000  1.00000E-0001  2.00000E-0001  3.00000E-0001  4.00000E-0001 
+    4     SD05   29     App Dea LM UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    4     SD05   30    App Dea Unt UNI  8.00000E+0002  8.50000E+0002  9.00000E+0002  9.50000E+0002  9.99000E+0002 
+    4     SD05   31      Amp Dis H UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  4.00000E+0001  5.50000E+0001 
+    4     SD05   32      Amp Dis L UNI  4.00000E+0002  4.50000E+0002  6.00000E+0002  6.50000E+0002  8.00000E+0002 
+    4     SD05   33     Amp Dis Un UNI  7.00000E+0002  7.50000E+0002  8.00000E+0002  8.50000E+0002  9.50000E+0002 
+    4     SD05   34      Amp Dea H UNI  1.00000E-0002  1.00000E-0001  5.00000E-0001  6.00000E-0001  7.00000E-0001 
+    4     SD05   35      Amp Dea U UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    4     SD05   36     Amp Dea Un UNI  9.85000E+0002  9.90000E+0002  9.95000E+0002  9.97000E+0002  1.00000E+0003 
+    4     SD05   37     Conc Dis H UNI  3.50000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.50000E+0001 
+    4     SD05   38    Conc Dis LM UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001  1.10000E+0002  1.20000E+0002 
+    4     SD05   39    Conc Dis 70 UNI  7.00000E+0001  9.00000E+0001  1.10000E+0002  1.20000E+0002  1.30000E+0002 
+    4     SD05   40    ModBr Dis H UNI  5.00000E+0001  6.50000E+0001  8.00000E+0001  8.50000E+0001  1.00000E+0002 
+    4     SD05   41   ModBr Dis LM UNI  7.50000E+0001  1.00000E+0002  1.50000E+0002  1.70000E+0002  1.80000E+0002 
+    4     SD05   42   ModBr Dis 70 UNI  6.00000E+0001  8.00000E+0001  1.20000E+0002  1.30000E+0002  1.50000E+0002 
+    4     SD05   43    SevBr Dis H UNI  6.50000E+0001  8.00000E+0001  1.00000E+0002  1.10000E+0002  1.20000E+0002 
+    4     SD05   44   SevBr Dis LM UNI  1.50000E+0002  2.00000E+0002  2.50000E+0002  3.00000E+0002  4.00000E+0002 
+    4     SD05   45   SevBr Dis 70 UNI  1.20000E+0002  1.50000E+0002  1.80000E+0002  2.20000E+0002  2.50000E+0002 
+    5     SD06    1    Wrist Dis H UNI  2.50000E+0001  3.00000E+0001  5.00000E+0001  1.20000E+0002  1.50000E+0002                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    5     SD06    2   Wrist Dis LM UNI  5.00000E+0001  1.00000E+0002  1.50000E+0002  2.50000E+0002  3.00000E+0002 
+    5     SD06    3  Wrist Dis Unt UNI  1.00000E+0002  1.50000E+0002  2.50000E+0002  4.00000E+0002  5.00000E+0002 
+    5     SD06    4      Leg Dis H UNI  1.00000E+0001  1.50000E+0001  2.50000E+0001  4.00000E+0001  5.00000E+0001 
+    5     SD06    5     Leg Dis LM UNI  3.00000E+0001  4.00000E+0001  7.50000E+0001  1.50000E+0002  2.00000E+0002 
+    5     SD06    6    Leg Dis Unt UNI  5.00000E+0001  7.50000E+0001  1.50000E+0002  3.00000E+0002  4.00000E+0002 
+    5     SD06    7  HipFrac Dis H UNI  1.00000E+0002  1.50000E+0002  2.00000E+0002  2.50000E+0002  3.50000E+0002 
+    5     SD06    8 HipFrac Dis LM UNI  4.50000E+0002  5.00000E+0002  6.00000E+0002  7.00000E+0002  9.00000E+0002 
+    5     SD06    9 HipFrac Dis Un UNI  8.00000E+0002  8.50000E+0002  9.00000E+0002  9.45000E+0002  9.50000E+0002 
+    5     SD06   10  HipFrac Dea H UNI  1.00000E+0002  1.50000E+0002  2.00000E+0002  2.50000E+0002  3.00000E+0002 
+    5     SD06   11 HipFrac Dea LM UNI  2.00000E+0002  2.50000E+0002  3.00000E+0002  3.50000E+0002  4.00000E+0002 
+    5     SD06   12 HipFrac Dea Un UNI  2.50000E+0002  3.00000E+0002  3.50000E+0002  4.00000E+0002  4.50000E+0002 
+    5     SD06   13   HipDis Dis H UNI  1.50000E+0001  2.50000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    5     SD06   14  HipDis Dis LM UNI  1.50000E+0001  2.50000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    5     SD06   15 HipDis Dis Unt UNI  9.88000E+0002  9.89000E+0002  9.90000E+0002  9.98000E+0002  9.99000E+0002 
+    5     SD06   16    Ankle Dis H UNI  1.00000E+0001  1.50000E+0001  2.50000E+0001  3.50000E+0001  5.00000E+0001 
+    5     SD06   17   Ankle Dis LM UNI  2.50000E+0001  3.00000E+0001  4.00000E+0001  6.00000E+0001  7.50000E+0001 
+    5     SD06   18  Ankle Dis Unt UNI  5.00000E+0001  7.50000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    5     SD06   19    Burn1 Dis H UNI  1.00000E+0002  1.50000E+0002  2.00000E+0002  3.50000E+0002  4.00000E+0002 
+    5     SD06   20   Burn1 Dis LM UNI  1.50000E+0002  2.00000E+0002  3.00000E+0002  4.50000E+0002  6.00000E+0002 
+    5     SD06   21  Burn1 Dis Unt UNI  3.00000E+0002  4.00000E+0002  6.00000E+0002  8.00000E+0002  9.00000E+0002 
+    5     SD06   22    Burn1 Dea H UNI  1.00000E+0000  3.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    5     SD06   23   Burn1 Dea LM UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001 
+    5     SD06   24  Burn1 Dea Unt UNI  1.00000E+0001  1.50000E+0001  3.00000E+0001  5.00000E+0001  6.00000E+0001 
+    5     SD06   25    Burn2 Dea H UNI  1.00000E+0002  1.25000E+0002  3.30000E+0002  5.00000E+0002  6.60000E+0002 
+    5     SD06   26   Burn2 Dea LM UNI  2.00000E+0002  2.50000E+0002  5.00000E+0002  7.50000E+0002  8.00000E+0002 
+    5     SD06   27  Burn2 Dea Unt UNI  8.00000E+0002  8.50000E+0002  9.00000E+0002  9.80000E+0002  9.90000E+0002 
+    5     SD06   28      App Dea H UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001  2.00000E+0001  2.50000E+0001 
+    5     SD06   29     App Dea LM UNI  2.00000E+0000  8.00000E+0000  1.20000E+0001  2.50000E+0001  3.00000E+0001 
+    5     SD06   30    App Dea Unt UNI  8.50000E+0002  9.00000E+0002  9.50000E+0002  9.75000E+0002  9.80000E+0002 
+    5     SD06   31      Amp Dis H UNI  1.00000E+0001  2.50000E+0001  5.00000E+0001  1.00000E+0002  1.50000E+0002 
+    5     SD06   32      Amp Dis L UNI  5.00000E+0001  1.00000E+0002  1.50000E+0002  4.00000E+0002  5.00000E+0002 
+    5     SD06   33     Amp Dis Un UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    5     SD06   34      Amp Dea H UNI  1.00000E+0001  2.50000E+0001  1.00000E+0002  4.00000E+0002  5.00000E+0002 
+    5     SD06   35      Amp Dea U UNI  2.50000E+0001  5.00000E+0001  1.50000E+0002  4.00000E+0002  5.00000E+0002 
+    5     SD06   36     Amp Dea Un UNI  8.00000E+0002  8.50000E+0002  9.00000E+0002  9.50000E+0002  9.90000E+0002 
+    5     SD06   37     Conc Dis H UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001  2.00000E+0001  2.50000E+0001 
+    5     SD06   38    Conc Dis LM UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001  2.00000E+0001  2.50000E+0001 
+    5     SD06   39    Conc Dis 70 UNI  5.00000E+0000  2.50000E+0001  5.00000E+0001  1.00000E+0002  1.50000E+0002 
+    5     SD06   40    ModBr Dis H UNI  5.00000E+0000  1.00000E+0001  2.50000E+0001  7.50000E+0001  1.00000E+0002 
+    5     SD06   41   ModBr Dis LM UNI  5.00000E+0000  1.00000E+0001  2.50000E+0001  7.50000E+0001  1.00000E+0002 
+    5     SD06   42   ModBr Dis 70 UNI  2.50000E+0001  5.00000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    5     SD06   43    SevBr Dis H UNI  2.00000E+0001  2.50000E+0001  1.00000E+0002  2.50000E+0002  3.00000E+0002 
+    5     SD06   44   SevBr Dis LM UNI  2.00000E+0001  2.50000E+0001  1.00000E+0002  2.50000E+0002  3.00000E+0002 
+    5     SD06   45   SevBr Dis 70 UNI  1.00000E+0002  3.33000E+0002  5.00000E+0002  6.60000E+0002  7.50000E+0002 
+    6     SD07    1    Wrist Dis H UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001  3.00000E+0001  5.00000E+0001                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    6     SD07    2   Wrist Dis LM UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001  9.00000E+0001  1.50000E+0002 
+    6     SD07    3  Wrist Dis Unt UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001  9.00000E+0001  1.50000E+0002 
+    6     SD07    4      Leg Dis H UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+    6     SD07    5     Leg Dis LM UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001  1.20000E+0002  1.80000E+0002 
+    6     SD07    6    Leg Dis Unt UNI  6.00000E+0001  8.00000E+0001  1.10000E+0002  1.30000E+0002  1.90000E+0002 
+    6     SD07    7  HipFrac Dis H UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    6     SD07    8 HipFrac Dis LM UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    6     SD07    9 HipFrac Dis Un UNI  6.00000E+0001  7.00000E+0001  9.00000E+0001  1.20000E+0002  1.50000E+0002 
+    6     SD07   10  HipFrac Dea H UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    6     SD07   11 HipFrac Dea LM UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    6     SD07   12 HipFrac Dea Un UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    6     SD07   13   HipDis Dis H UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    6     SD07   14  HipDis Dis LM UNI  2.00000E+0001  3.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    6     SD07   15 HipDis Dis Unt UNI  6.00000E+0001  7.00000E+0001  9.00000E+0001  1.20000E+0002  1.50000E+0002 
+    6     SD07   16    Ankle Dis H UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    6     SD07   17   Ankle Dis LM UNI  9.00000E+0001  1.10000E+0002  1.20000E+0002  1.50000E+0002  1.80000E+0002 
+    6     SD07   18  Ankle Dis Unt UNI  9.00000E+0001  1.10000E+0002  1.20000E+0002  1.50000E+0002  1.80000E+0002 
+    6     SD07   19    Burn1 Dis H UNI  2.00000E+0001  2.50000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    6     SD07   20   Burn1 Dis LM UNI  2.00000E+0001  2.50000E+0001  5.00000E+0001  7.00000E+0001  8.00000E+0001 
+    6     SD07   21  Burn1 Dis Unt UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 -9.99500E+0002 
+    6     SD07   22    Burn1 Dea H UNI  1.00000E+0001  1.20000E+0001  1.50000E+0001  1.70000E+0001  2.00000E+0001 
+    6     SD07   23   Burn1 Dea LM UNI  1.00000E+0002  1.20000E+0002  1.50000E+0002  1.70000E+0002  2.00000E+0002 
+    6     SD07   24  Burn1 Dea Unt UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    6     SD07   25    Burn2 Dea H UNI  1.00000E+0001  1.20000E+0001  1.50000E+0001  1.70000E+0001  2.00000E+0001 
+    6     SD07   26   Burn2 Dea LM UNI  1.50000E+0002  1.70000E+0002  2.50000E+0002  3.00000E+0002  3.50000E+0002 
+    6     SD07   27  Burn2 Dea Unt UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    6     SD07   28      App Dea H UNI  0.00000E+0000  1.00000E-0003  2.00000E-0003  3.00000E-0003  4.00000E-0003 
+    6     SD07   29     App Dea LM UNI  8.00000E+0001  9.00000E+0001  1.00000E+0002  1.20000E+0002  1.50000E+0002 
+    6     SD07   30    App Dea Unt UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    6     SD07   31      Amp Dis H UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    6     SD07   32      Amp Dis L UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    6     SD07   33     Amp Dis Un UNI -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 
+    6     SD07   34      Amp Dea H UNI  0.00000E+0000  7.00000E+0000  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    6     SD07   35      Amp Dea U UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    6     SD07   36     Amp Dea Un UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    6     SD07   37     Conc Dis H UNI  5.00000E+0001  2.50000E+0002  5.00000E+0002  7.50000E+0002  9.50000E+0002 
+    6     SD07   38    Conc Dis LM UNI  5.00000E+0001  2.50000E+0002  5.00000E+0002  7.50000E+0002  9.50000E+0002 
+    6     SD07   39    Conc Dis 70 UNI  2.00000E+0002  3.50000E+0002  7.00000E+0002  8.00000E+0002  9.50000E+0002 
+    6     SD07   40    ModBr Dis H UNI  3.00000E+0002  4.00000E+0002  6.00000E+0002  7.50000E+0002  9.00000E+0002 
+    6     SD07   41   ModBr Dis LM UNI  3.00000E+0002  4.00000E+0002  6.00000E+0002  7.50000E+0002  9.00000E+0002 
+    6     SD07   42   ModBr Dis 70 UNI  6.00000E+0002  7.00000E+0002  8.00000E+0002  9.00000E+0002  1.00000E+0003 
+    6     SD07   43    SevBr Dis H UNI  7.00000E+0002  7.50000E+0002  8.00000E+0002  9.00000E+0002  1.00000E+0003 
+    6     SD07   44   SevBr Dis LM UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    6     SD07   45   SevBr Dis 70 UNI  9.99960E+0002  9.99970E+0002  9.99980E+0002  9.99990E+0002  1.00000E+0003 
+    7     SD08    1    Wrist Dis H UNI  1.00000E+0000  2.50000E+0000  5.00000E+0000  7.50000E+0000  1.00000E+0001                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    7     SD08    2   Wrist Dis LM UNI  3.00000E+0000  5.00000E+0000  8.00000E+0000  1.20000E+0001  1.50000E+0001 
+    7     SD08    3  Wrist Dis Unt UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001 
+    7     SD08    4      Leg Dis H UNI  4.00000E+0000  6.00000E+0000  1.00000E+0001  1.70000E+0001  2.00000E+0001 
+    7     SD08    5     Leg Dis LM UNI  2.00000E+0001  5.00000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    7     SD08    6    Leg Dis Unt UNI  1.00000E+0002  2.25000E+0002  3.00000E+0002  5.00000E+0002  6.00000E+0002 
+    7     SD08    7  HipFrac Dis H UNI  2.50000E+0001  3.50000E+0001  5.00000E+0001  6.00000E+0001  7.50000E+0001 
+    7     SD08    8 HipFrac Dis LM UNI  4.00000E+0002  4.50000E+0002  5.00000E+0002  8.00000E+0002  9.00000E+0002 
+    7     SD08    9 HipFrac Dis Un UNI  8.00000E+0002  8.50000E+0002  9.00000E+0002  9.50000E+0002  1.00000E+0003 
+    7     SD08   10  HipFrac Dea H UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+    7     SD08   11 HipFrac Dea LM UNI  1.00000E+0001  5.00000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    7     SD08   12 HipFrac Dea Un UNI  1.50000E+0002  2.00000E+0002  3.00000E+0002  4.50000E+0002  5.00000E+0002 
+    7     SD08   13   HipDis Dis H UNI  5.00000E-0001  1.00000E+0000  5.00000E+0000  8.00000E+0000  1.00000E+0001 
+    7     SD08   14  HipDis Dis LM UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    7     SD08   15 HipDis Dis Unt UNI  9.00000E+0002  9.50000E+0002  9.75000E+0002  9.90000E+0002  1.00000E+0003 
+    7     SD08   16    Ankle Dis H UNI  1.00000E+0000  3.00000E+0000  5.00000E+0000  8.00000E+0000  1.00000E+0001 
+    7     SD08   17   Ankle Dis LM UNI  1.00000E+0001  5.00000E+0001  7.50000E+0001  1.00000E+0002  2.00000E+0002 
+    7     SD08   18  Ankle Dis Unt UNI  5.00000E+0002  7.50000E+0002  9.00000E+0002  9.50000E+0002  9.90000E+0002 
+    7     SD08   19    Burn1 Dis H UNI  5.00000E+0001  7.50000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    7     SD08   20   Burn1 Dis LM UNI  3.00000E+0002  4.00000E+0002  5.00000E+0002  6.00000E+0002  9.00000E+0002 
+    7     SD08   21  Burn1 Dis Unt UNI  7.50000E+0002  8.00000E+0002  9.00000E+0002  9.50000E+0002  1.00000E+0003 
+    7     SD08   22    Burn1 Dea H UNI  0.00000E+0000  7.50000E-0001  1.00000E+0000  1.50000E+0000  2.00000E+0000 
+    7     SD08   23   Burn1 Dea LM UNI  1.00000E+0001  2.50000E+0001  5.00000E+0001  7.50000E+0001  1.00000E+0002 
+    7     SD08   24  Burn1 Dea Unt UNI  3.00000E+0002  4.00000E+0002  5.00000E+0002  7.50000E+0002  9.00000E+0002 
+    7     SD08   25    Burn2 Dea H UNI  1.00000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    7     SD08   26   Burn2 Dea LM UNI  5.00000E+0002  6.00000E+0002  7.50000E+0002  8.00000E+0002  9.00000E+0002 
+    7     SD08   27  Burn2 Dea Unt UNI  8.00000E+0002  8.50000E+0002  9.00000E+0002  9.50000E+0002  1.00000E+0003 
+    7     SD08   28      App Dea H UNI  1.00000E+0000  1.50000E+0000  2.50000E+0000  3.00000E+0000  5.00000E+0000 
+    7     SD08   29     App Dea LM UNI  1.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001  7.50000E+0001 
+    7     SD08   30    App Dea Unt UNI  2.00000E+0001  5.00000E+0001  6.00000E+0001  8.00000E+0001  1.25000E+0002 
+    7     SD08   31      Amp Dis H UNI  5.00000E+0001  1.00000E+0002  2.00000E+0002  3.00000E+0002  4.00000E+0002 
+    7     SD08   32      Amp Dis L UNI  2.50000E+0002  4.00000E+0002  5.00000E+0002  7.00000E+0002  9.00000E+0002 
+    7     SD08   33     Amp Dis Un UNI  4.00000E+0002  6.00000E+0002  8.00000E+0002  9.00000E+0002  1.00000E+0003 
+    7     SD08   34      Amp Dea H UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001  4.00000E+0001  6.00000E+0001 
+    7     SD08   35      Amp Dea U UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002  3.50000E+0002  4.00000E+0002 
+    7     SD08   36     Amp Dea Un UNI  3.50000E+0002  4.00000E+0002  5.00000E+0002  7.50000E+0002  9.00000E+0002 
+    7     SD08   37     Conc Dis H UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    7     SD08   38    Conc Dis LM UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    7     SD08   39    Conc Dis 70 UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    7     SD08   40    ModBr Dis H UNI  1.00000E+0001  2.50000E+0001  5.00000E+0001  7.50000E+0001  1.00000E+0002 
+    7     SD08   41   ModBr Dis LM UNI  2.50000E+0001  5.00000E+0001  2.00000E+0002  3.00000E+0002  4.00000E+0002 
+    7     SD08   42   ModBr Dis 70 UNI  5.00000E+0000  1.50000E+0001  2.50000E+0001  5.00000E+0001  7.50000E+0001 
+    7     SD08   43    SevBr Dis H UNI  4.00000E+0002  4.50000E+0002  5.00000E+0002  7.50000E+0002  9.00000E+0002 
+    7     SD08   44   SevBr Dis LM UNI  5.50000E+0002  6.00000E+0002  7.50000E+0002  9.00000E+0002  9.50000E+0002 
+    7     SD08   45   SevBr Dis 70 UNI  4.00000E+0002  4.50000E+0002  7.50000E+0002  9.00000E+0002  9.50000E+0002 
+    8     SD09    1    Wrist Dis H UNI  5.00000E+0001  6.00000E+0001  7.50000E+0001  9.00000E+0001  1.00000E+0002                                A 60 year-old woman presents with a wrist fracture after a fall. Given 1000 such cases, how many would develop disability if treated in a HIC? 
+    8     SD09    2   Wrist Dis LM UNI  1.00000E+0002  1.10000E+0002  1.25000E+0002  1.40000E+0002  1.50000E+0002 
+    8     SD09    3  Wrist Dis Unt UNI  8.00000E+0002  9.00000E+0002  9.50000E+0002  9.75000E+0002  1.00000E+0003 
+    8     SD09    4      Leg Dis H UNI  5.00000E+0000  8.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    8     SD09    5     Leg Dis LM UNI  5.00000E+0001  6.50000E+0001  7.50000E+0001  8.50000E+0001  1.00000E+0002 
+    8     SD09    6    Leg Dis Unt UNI  9.50000E+0002  9.60000E+0002  9.75000E+0002  9.90000E+0002  1.00000E+0003 
+    8     SD09    7  HipFrac Dis H UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  8.00000E+0001  1.00000E+0002 
+    8     SD09    8 HipFrac Dis LM UNI  1.50000E+0002  1.75000E+0002  2.00000E+0002  2.25000E+0002  3.00000E+0002 
+    8     SD09    9 HipFrac Dis Un UNI  9.50000E+0002  9.60000E+0002  9.75000E+0002  9.90000E+0002  1.00000E+0003 
+    8     SD09   10  HipFrac Dea H UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    8     SD09   11 HipFrac Dea LM UNI  2.00000E+0001  4.00000E+0001  6.00000E+0001  8.00000E+0001  1.00000E+0002 
+    8     SD09   12 HipFrac Dea Un UNI  4.00000E+0002  4.50000E+0002  5.00000E+0002  5.50000E+0002  6.00000E+0002 
+    8     SD09   13   HipDis Dis H UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    8     SD09   14  HipDis Dis LM UNI  1.50000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.50000E+0001 
+    8     SD09   15 HipDis Dis Unt UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002  4.00000E+0002  5.00000E+0002 
+    8     SD09   16    Ankle Dis H UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    8     SD09   17   Ankle Dis LM UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    8     SD09   18  Ankle Dis Unt UNI  9.00000E+0002  9.25000E+0002  9.50000E+0002  9.75000E+0002  1.00000E+0003 
+    8     SD09   19    Burn1 Dis H UNI  1.00000E+0002  1.20000E+0002  1.50000E+0002  1.80000E+0002  2.00000E+0002 
+    8     SD09   20   Burn1 Dis LM UNI  6.00000E+0002  6.50000E+0002  7.00000E+0002  7.50000E+0002  8.00000E+0002 
+    8     SD09   21  Burn1 Dis Unt UNI  9.50000E+0002  9.80000E+0002  9.90000E+0002  9.95000E+0002  1.00000E+0003 
+    8     SD09   22    Burn1 Dea H UNI  1.00000E+0001  2.00000E+0001  2.50000E+0001  2.70000E+0001  3.00000E+0001 
+    8     SD09   23   Burn1 Dea LM UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    8     SD09   24  Burn1 Dea Unt UNI  6.00000E+0002  6.50000E+0002  7.00000E+0002  7.50000E+0002  8.00000E+0002 
+    8     SD09   25    Burn2 Dea H UNI  2.00000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    8     SD09   26   Burn2 Dea LM UNI  7.00000E+0002  8.00000E+0002  8.50000E+0002  8.70000E+0002  9.00000E+0002 
+    8     SD09   27  Burn2 Dea Unt UNI  9.90000E+0002  9.93000E+0002  9.95000E+0002  9.97000E+0002  1.00000E+0003 
+    8     SD09   28      App Dea H UNI  1.00000E-0002  2.00000E-0002  5.00000E-0002  7.00000E-0002  1.00000E-0001 
+    8     SD09   29     App Dea LM UNI  5.00000E+0001  7.50000E+0001  1.00000E+0002  1.25000E+0002  1.50000E+0002 
+    8     SD09   30    App Dea Unt UNI  3.50000E+0002  4.00000E+0002  5.00000E+0002  6.00000E+0002  7.50000E+0002 
+    8     SD09   31      Amp Dis H UNI  5.00000E+0001  7.50000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    8     SD09   32      Amp Dis L UNI  3.00000E+0002  3.50000E+0002  4.00000E+0002  4.50000E+0002  5.00000E+0002 
+    8     SD09   33     Amp Dis Un UNI  7.00000E+0002  7.50000E+0002  8.00000E+0002  8.50000E+0002  9.00000E+0002 
+    8     SD09   34      Amp Dea H UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001  3.00000E+0001  5.00000E+0001 
+    8     SD09   35      Amp Dea U UNI  1.00000E+0001  5.00000E+0001  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+    8     SD09   36     Amp Dea Un UNI  1.00000E+0002  1.50000E+0002  2.50000E+0002  3.00000E+0002  4.00000E+0002 
+    8     SD09   37     Conc Dis H UNI  1.00000E-0001  2.00000E-0001  1.00000E+0000  1.20000E+0000  1.00000E+0001 
+    8     SD09   38    Conc Dis LM UNI  1.00000E-0001  2.00000E-0001  1.00000E+0000  1.20000E+0000  1.00000E+0001 
+    8     SD09   39    Conc Dis 70 UNI  5.00000E-0001  2.00000E+0000  1.00000E+0001  4.00000E+0001  5.00000E+0001 
+    8     SD09   40    ModBr Dis H UNI  5.00000E+0001  7.00000E+0001  1.00000E+0002  1.30000E+0002  1.50000E+0002 
+    8     SD09   41   ModBr Dis LM UNI  1.00000E+0002  1.40000E+0002  2.00000E+0002  2.60000E+0002  3.00000E+0002 
+    8     SD09   42   ModBr Dis 70 UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002  4.00000E+0002  5.00000E+0002 
+    8     SD09   43    SevBr Dis H UNI  3.00000E+0002  4.00000E+0002  5.00000E+0002  6.00000E+0002  7.00000E+0002 
+    8     SD09   44   SevBr Dis LM UNI  3.50000E+0002  4.50000E+0002  5.50000E+0002  6.50000E+0002  7.50000E+0002 
+    8     SD09   45   SevBr Dis 70 UNI  7.00000E+0002  7.50000E+0002  8.00000E+0002  8.50000E+0002  9.00000E+0002 

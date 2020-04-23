@@ -1,0 +1,541 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1      Ex1    1        OUT_W_I UNI  2.00500E+0001  4.01000E+0001  7.21800E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    1      Ex1    2       OUT_W_II UNI  4.31200E+0001  8.62400E+0001  1.55200E+0002                                                                                                outgoing total nitrogen load (kg TN) from the sub-watershed over rain event II 
+    1      Ex1    3      OUT_W_III UNI  8.50100E+0000  1.41700E+0001  2.83400E+0001                                                                                               outgoing total nitrogen load (kg TN) from the sub-watershed over rain event III 
+    1      Ex1    4       OUT_W_IV UNI  1.92200E+0001  3.20300E+0001  6.40600E+0001                                                                                                outgoing total nitrogen load (kg TN) from the sub-watershed over rain event IV 
+    1      Ex1    5        OUT_W_V UNI  3.65900E+0000  6.09800E+0000  1.34200E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event V 
+    1      Ex1    6         IN_A_V UNI  1.70900E+0000  3.10800E+0000  6.52700E+0000                                                                                                                                                incoming TN load (kg) to BMP A 
+    1      Ex1    7        OUT_A_V UNI  1.36800E+0000  2.65700E+0000  5.22100E+0000                                                                                                                                              outgoing TN load (kg) from BMP A 
+    1      Ex1    8         IN_B_V UNI  1.59400E-0001  2.87300E-0001  4.96900E-0001                                                                                                                                                incoming TN load (kg) to BMP B 
+    1      Ex1    9        OUT_B_V UNI  9.06000E-0002  1.55100E-0001  2.98100E-0001                                                                                                                                              outgoing TN load (kg) from BMP B 
+    1      Ex1   10         IN_C_V UNI  1.99200E-0001  3.45300E-0001  6.00500E-0001                                                                                                                                                incoming TN load (kg) to BMP C 
+    1      Ex1   11        OUT_C_V UNI  1.05200E-0001  1.76100E-0001  3.60300E-0001                                                                                                                                               outoing TN load (kg) from BMP C 
+    1      Ex1   12       OUT_W_VI UNI  7.70000E+0001  1.54000E+0002  2.77200E+0002                                                                                                outgoing total nitrogen load (kg TN) from the sub-watershed over rain event VI 
+    1      Ex1   13        IN_A_VI UNI  4.39900E+0001  6.28000E+0001  1.17700E+0002                                                                                                                                                incoming TN load (kg) to BMP A 
+    1      Ex1   14       OUT_A_VI UNI  4.17900E+0001  5.53900E+0001  9.41800E+0001                                                                                                                                              outgoing TN load (kg) from BMP A 
+    1      Ex1   15        IN_B_VI UNI  5.37500E+0000  9.06700E+0000  1.56800E+0001                                                                                                                                                incoming TN load (kg) to BMP B 
+    1      Ex1   16       OUT_B_VI UNI  4.09400E+0000  6.22000E+0000  1.09800E+0001                                                                                                                                              outgoing TN load (kg) from BMP B 
+    1      Ex1   17        IN_C_VI UNI  5.37500E+0000  9.06700E+0000  1.56800E+0001                                                                                                                                                incoming TN load (kg) to BMP C 
+    1      Ex1   18       OUT_C_VI UNI  4.00500E+0000  6.15700E+0000  1.09800E+0001                                                                                                                                              outgoing TN load (kg) from BMP C 
+    1      Ex1   19      OUT_W_VII UNI  5.91400E+0002  9.85600E+0002  1.77400E+0003                                                                                               outgoing total nitrogen load (kg TN) from the sub-watershed over rain event VII 
+    1      Ex1   20       IN_A_VII UNI  2.51100E+0002  4.18600E+0002  7.11600E+0002                                                                                                                                                incoming TN load (kg) to BMP A 
+    1      Ex1   21      OUT_A_VII UNI  2.48600E+0002  3.76700E+0002  6.40400E+0002                                                                                                                                              outgoing TN load (kg) from BMP A 
+    1      Ex1   22       IN_B_VII UNI  4.01500E+0001  6.69200E+0001  1.20500E+0002                                                                                                                                              incoming TN load (kg) from BMP B 
+    1      Ex1   23      OUT_B_VII UNI  3.93500E+0001  5.96300E+0001  1.08400E+0002                                                                                                                                              outgoing TN load (kg) from BMP B 
+    1      Ex1   24       IN_C_VII UNI  3.74900E+0001  6.24800E+0001  1.12500E+0002                                                                                                                                              incoming TN load (kg) from BMP C 
+    1      Ex1   25      OUT_C_VII UNI  3.67400E+0001  5.56700E+0001  1.01200E+0002                                                                                                                                              outgoing TN load (kg) from BMP C 
+    1      Ex1   26     OUT_W_VIII UNI  5.91400E+0002  8.87000E+0002  1.59700E+0003                                                                                              outgoing total nitrogen load (kg TN) from the sub-watershed over rain event VIII 
+    1      Ex1   27      IN_A_VIII UNI  2.28100E+0002  3.80200E+0002  6.08300E+0002                                                                                                                                              incoming TN load (kg) from BMP A 
+    1      Ex1   28     OUT_A_VIII UNI  2.25800E+0002  3.42100E+0002  5.47400E+0002                                                                                                                                              outgoing TN load (kg) from BMP A 
+    1      Ex1   29      IN_B_VIII UNI  3.61400E+0001  6.02300E+0001  1.12600E+0002                                                                                                                                              incoming TN load (kg) from BMP B 
+    1      Ex1   30     OUT_B_VIII UNI  3.54200E+0001  5.36600E+0001  1.01400E+0002                                                                                                                                              outgoing TN load (kg) from BMP B 
+    1      Ex1   31      IN_C_VIII UNI  3.37400E+0001  5.62300E+0001  9.55900E+0001                                                                                                                                              incoming TN load (kg) from BMP C 
+    1      Ex1   32     OUT_C_VIII UNI  3.30600E+0001  5.01000E+0001  8.60300E+0001                                                                                                                                              outgiong TN load (kg) from BMP C 
+    1      Ex1   33       OUT_W_IX UNI  2.77200E-0001  4.33400E-0001  1.43200E+0000                                                                                             outgoing total nitrogen load (kg TN) from the watershed outlet over rain event IX 
+    1      Ex1   34        OUT_W_X UNI  9.08500E-0001  1.89300E+0000  5.67800E+0000                                                                                              outgoing total nitrogen load (kg TN) from the watershed outlet over rain event X 
+    1      Ex1   35       OUT_W_XI UNI  1.00600E+0000  1.57200E+0000  5.21400E+0000                                                                                             outgoing total nitrogen load (kg TN) from the watershed outlet over rain event XI 
+    1      Ex1   36      OUT_W_XII UNI  5.33700E-0001  8.33900E-0001  2.73900E+0000                                                                                            outgoing total nitrogen load (kg TN) from the watershed outlet over rain event XII 
+    1      Ex1   37     OUT_W_XIII UNI  1.26100E+0000  2.19200E+0000  6.51200E+0000                                                                                           outgiong total nitrogen load (kg TN) from the watershed outlet over rain event XIII 
+    1      Ex1   38      IN_Q_XIII UNI  1.41900E-0002  3.91400E-0002  1.46800E-0001                                                                                                                     incoming TN load (kg) to bioretention structure at Site Q 
+    1      Ex1   39     OUT_Q_XIII UNI  3.53400E-0003  1.90300E-0002  1.40900E-0001                                                                                                   outgoing TN load (kg) from bioretention structure at Site Q (post-retrofit) 
+    1      Ex1   40      IN_R_XIII UNI  1.34300E-0001  4.03300E-0001  1.63900E+0000                                                                                                incoming TN load (kg) to regenerative step-pool conveyance structure at Site R 
+    1      Ex1   41  OUT_Rpre_XIII UNI  1.05500E-0001  2.54800E-0001  1.31100E+0000                                                                                                              outgoing TN load (kg) from the dry pond at Site R (pre-retrofit) 
+    1      Ex1   42 OUT_Rpost_XIII UNI  3.07700E-0002  1.51300E-0001  1.04400E+0000                                                                              outgoing TN load (kg) from regenerative step-pool conveyance structure at Site R (post-retrofit) 
+    1      Ex1   43     OUT_W_XIIb UNI  2.61400E-0001  6.94500E-0001  2.19100E+0000                                                                                            outgoing total nitrogen load (kg TN) from the watershed outlet over rain event XII 
+    1      Ex1   44       IN_Q_XII UNI  3.95800E-0003  1.18700E-0002  6.72600E-0002                                                                                                                     incoming TN (kg) load to bioretention structure at Site Q 
+    1      Ex1   45      OUT_Q_XII UNI  0.00000E+0000  1.37400E-0003  5.38100E-0002                                                                                                   outgoing TN load (kg) from bioretention structure at Site Q (post-retrofit) 
+    1      Ex1   46       IN_R_XII UNI  3.50700E-0002  1.27900E-0001  6.99900E-0001                                                                                                incoming TN load (kg) to regenerative step-pool conveyance structure at Site R 
+    1      Ex1   47   OUT_Rpre_XII UNI  2.45500E-0002  5.10600E-0002  3.49900E-0001                                                                                                              outgoing TN load (kg) from the dry pond at Site R (pre-retrofit) 
+    1      Ex1   48  OUT_Rpost_XII UNI  0.00000E+0000  6.07900E-0003  9.79800E-0002                                                                              outgoing TN load (kg) from regenerative step-pool conveyance structure at Site R (post-retrofit) 
+    1      Ex1   49      OUT_W_XIV UNI  1.49700E+0001  3.56400E+0001  1.12300E+0002                                                                                            outgoing total nitrogen load (kg TN) from the watershed outlet over rain event XIV 
+    1      Ex1   50       IN_Q_XIV UNI  2.37000E-0002  6.58300E-0001  2.13300E+0000                                                                                                                     incoming TN load (kg) to bioretention structure at Site Q 
+    1      Ex1   51      OUT_Q_XIV UNI  1.16400E-0001  4.70800E-0001  2.37000E+0000                                                                                                     outgoing TN load (kg) to bioretention structure at Site Q (post-retrofit) 
+    1      Ex1   52       IN_R_XIV UNI  2.70900E+0000  6.44900E+0000  2.08900E+0001                                                                                                                               incoming TN load (kg) to the dry pond at Site R 
+    1      Ex1   53   OUT_Rpre_XIV UNI  2.27500E+0000  5.80400E+0000  1.88100E+0001                                                                                                              outgoing TN load (kg) from the dry pond at Site R (pre-retrofit) 
+    1      Ex1   54  OUT_Rpost_XIV UNI  1.65500E+0000  3.90700E+0000  1.52300E+0001                                                                          outgoing TN load (kg) from the regenerative step-pool conveyance structure at Site R (post-retrofit) 
+    1      Ex1   55       OUT_W_XV UNI  1.34700E+0001  3.20800E+0001  1.01000E+0002                                                                                                     outgoing total nitrogen (kg) from the watershed outlet over rain event XV 
+    1      Ex1   56        IN_Q_XV UNI  2.25100E-0002  6.25400E-0001  2.02600E+0000                                                                                                                     incoming TN load (kg) to bioretention structure at Site Q 
+    1      Ex1   57       OUT_Q_XV UNI  1.11600E-0001  4.49700E-0001  2.25100E+0000                                                                                                                   outgoing TN load (kg) from bioretention structure at Site Q 
+    1      Ex1   58        IN_R_XV UNI  2.43800E+0000  5.80400E+0000  1.88100E+0001                                                                                                                               incoming TN load (kg) to the dry pond at Site R 
+    1      Ex1   59    OUT_Rpre_XV UNI  2.04800E+0000  5.22400E+0000  1.69200E+0001                                                                                                              outgoing TN load (kg) from the dry pond at Site R (pre-retrofit) 
+    1      Ex1   60   OUT_Rpost_XV UNI  1.53100E+0000  3.71200E+0000  1.38000E+0001                                                                          outgoing TN load (kg) from the regenerative step-pool conveyance structure at Site R (post-retrofit) 
+    2      Ex2    1        OUT_W_I UNI  1.90000E-0001  6.30000E-0001  1.08000E+0000                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    2      Ex2    2       OUT_W_II UNI  4.00000E-0001  1.41000E+0000  2.43000E+0000 
+    2      Ex2    3      OUT_W_III UNI  2.80000E-0001  8.50000E-0001  1.42000E+0000 
+    2      Ex2    4       OUT_W_IV UNI  4.20000E-0001  1.43000E+0000  2.44000E+0000 
+    2      Ex2    5        OUT_W_V UNI  1.30000E-0001  4.20000E-0001  7.10000E-0001 
+    2      Ex2    6         IN_A_V UNI  1.00000E-0001  2.40000E-0001  3.80000E-0001 
+    2      Ex2    7        OUT_A_V UNI  1.00000E-0002  1.30000E-0001  2.40000E-0001 
+    2      Ex2    8         IN_B_V UNI  1.00000E-0002  3.00000E-0002  5.00000E-0002 
+    2      Ex2    9        OUT_B_V UNI  0.00000E+0000  1.00000E-0004  1.00000E-0002 
+    2      Ex2   10         IN_C_V UNI  1.00000E-0002  3.00000E-0002  5.00000E-0002 
+    2      Ex2   11        OUT_C_V UNI  0.00000E+0000  1.00000E-0004  2.00000E-0004 
+    2      Ex2   12       OUT_W_VI UNI  3.70000E-0001  1.31000E+0000  2.26000E+0000 
+    2      Ex2   13        IN_A_VI UNI  2.60000E-0001  6.10000E-0001  9.60000E-0001 
+    2      Ex2   14       OUT_A_VI UNI  5.00000E-0002  4.50000E-0001  8.50000E-0001 
+    2      Ex2   15        IN_B_VI UNI  4.00000E-0002  9.00000E-0002  1.40000E-0001 
+    2      Ex2   16       OUT_B_VI UNI  1.00000E-0002  6.00000E-0002  1.20000E-0001 
+    2      Ex2   17        IN_C_VI UNI  4.00000E-0002  9.00000E-0002  1.40000E-0001 
+    2      Ex2   18       OUT_C_VI UNI  1.00000E-0002  6.00000E-0002  1.20000E-0001 
+    2      Ex2   19      OUT_W_VII UNI  1.80000E+0000  6.37000E+0000  1.09300E+0001 
+    2      Ex2   20       IN_A_VII UNI  1.25000E+0000  2.98000E+0000  4.72000E+0000 
+    2      Ex2   21      OUT_A_VII UNI  2.20000E-0001  2.15000E+0000  4.08000E+0000 
+    2      Ex2   22       IN_B_VII UNI  1.80000E-0001  4.30000E-0001  6.70000E-0001 
+    2      Ex2   23      OUT_B_VII UNI  3.00000E-0002  3.00000E-0001  5.60000E-0001 
+    2      Ex2   24       IN_C_VII UNI  1.80000E-0001  4.30000E-0001  6.70000E-0001 
+    2      Ex2   25      OUT_C_VII UNI  3.00000E-0002  3.00000E-0001  5.60000E-0001 
+    2      Ex2   26     OUT_W_VIII UNI  1.80000E+0000  6.42000E+0000  1.10500E+0001 
+    2      Ex2   27      IN_A_VIII UNI  1.25000E+0000  2.98000E+0000  4.72000E+0000 
+    2      Ex2   28     OUT_A_VIII UNI  2.20000E-0001  2.18000E+0000  4.14000E+0000 
+    2      Ex2   29      IN_B_VIII UNI  1.80000E-0001  4.30000E-0001  6.70000E-0001 
+    2      Ex2   30     OUT_B_VIII UNI  3.00000E-0002  3.10000E-0001  5.90000E-0001 
+    2      Ex2   31      IN_C_VIII UNI  1.80000E-0001  4.30000E-0001  6.70000E-0001 
+    2      Ex2   32     OUT_C_VIII UNI  3.00000E-0002  3.10000E-0001  5.90000E-0001 
+    2      Ex2   33       OUT_W_IX UNI  2.90000E-0001  6.10000E-0001  9.30000E-0001 
+    2      Ex2   34        OUT_W_X UNI  1.90000E-0001  3.90000E-0001  5.90000E-0001 
+    2      Ex2   35       OUT_W_XI UNI  4.30000E-0001  9.00000E-0001  1.37000E+0000 
+    2      Ex2   36      OUT_W_XII UNI  2.60000E-0001  5.30000E-0001  8.10000E-0001 
+    2      Ex2   37     OUT_W_XIII UNI  3.60000E-0001  7.40000E-0001  1.13000E+0000 
+    2      Ex2   38      IN_Q_XIII UNI  7.20000E-0003  1.35000E-0002  1.99000E-0002 
+    2      Ex2   39     OUT_Q_XIII UNI  0.00000E+0000  1.44000E-0002  4.03000E-0002 
+    2      Ex2   40      IN_R_XIII UNI  6.33000E-0002  1.19800E-0001  1.76400E-0001 
+    2      Ex2   41  OUT_Rpre_XIII UNI  1.54000E-0002  8.75000E-0002  1.59600E-0001 
+    2      Ex2   42 OUT_Rpost_XIII UNI  1.80000E-0002  9.41000E-0002  1.70200E-0001 
+    2      Ex2   43     OUT_W_XIIb UNI  2.60000E-0001  5.30000E-0001  8.10000E-0001 
+    2      Ex2   44       IN_Q_XII UNI  5.10000E-0003  9.70000E-0003  1.43000E-0002 
+    2      Ex2   45      OUT_Q_XII UNI  0.00000E+0000  1.00000E-0004  2.00000E-0004 
+    2      Ex2   46       IN_R_XII UNI  4.54000E-0002  8.60000E-0002  1.26600E-0001 
+    2      Ex2   47   OUT_Rpre_XII UNI  1.10000E-0002  6.28000E-0002  1.14500E-0001 
+    2      Ex2   48  OUT_Rpost_XII UNI  0.00000E+0000  1.00000E-0004  2.00000E-0004 
+    2      Ex2   49      OUT_W_XIV UNI  1.27000E+0000  2.65000E+0000  4.03000E+0000 
+    2      Ex2   50       IN_Q_XIV UNI  2.55000E-0002  4.83000E-0002  7.11000E-0002 
+    2      Ex2   51      OUT_Q_XIV UNI  0.00000E+0000  6.02000E-0002  1.68600E-0001 
+    2      Ex2   52       IN_R_XIV UNI  2.25700E-0001  4.27500E-0001  6.29200E-0001 
+    2      Ex2   53   OUT_Rpre_XIV UNI  5.48000E-0002  3.12100E-0001  5.69300E-0001 
+    2      Ex2   54  OUT_Rpost_XIV UNI  7.53000E-0002  3.93900E-0001  7.12500E-0001 
+    2      Ex2   55       OUT_W_XV UNI  1.27000E+0000  2.65000E+0000  4.03000E+0000 
+    2      Ex2   56        IN_Q_XV UNI  2.55000E-0002  4.83000E-0002  7.11000E-0002 
+    2      Ex2   57       OUT_Q_XV UNI  0.00000E+0000  6.32000E-0002  1.77300E-0001 
+    2      Ex2   58        IN_R_XV UNI  2.25900E-0001  4.27300E-0001  6.28800E-0001 
+    2      Ex2   59    OUT_Rpre_XV UNI  5.46000E-0002  3.12000E-0001  5.69400E-0001 
+    2      Ex2   60   OUT_Rpost_XV UNI  7.96000E-0002  4.14800E-0001  7.50000E-0001 
+    3      Ex6    1        OUT_W_I UNI  7.36100E+0000  1.84000E+0001  3.68100E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    3      Ex6    2       OUT_W_II UNI  1.58500E+0001  4.36000E+0001  8.72000E+0001 
+    3      Ex6    3      OUT_W_III UNI  2.60500E+0000  7.16300E+0000  1.30200E+0001 
+    3      Ex6    4       OUT_W_IV UNI  5.88900E+0000  1.32500E+0001  2.65000E+0001 
+    3      Ex6    5        OUT_W_V UNI  1.12100E+0000  2.52300E+0000  5.04500E+0000 
+    3      Ex6    6         IN_A_V UNI  8.96800E-0001  1.68200E+0000  3.36300E+0000 
+    3      Ex6    7        OUT_A_V UNI  5.38100E-0001  1.26100E+0000  3.02700E+0000 
+    3      Ex6    8         IN_B_V UNI  5.12500E-0001  9.60900E-0001  1.92200E+0000 
+    3      Ex6    9        OUT_B_V UNI  2.30600E-0001  5.76500E-0001  1.44100E+0000 
+    3      Ex6   10         IN_C_V UNI  5.12500E-0001  9.60900E-0001  1.92200E+0000 
+    3      Ex6   11        OUT_C_V UNI  2.30600E-0001  5.76500E-0001  1.44100E+0000 
+    3      Ex6   12       OUT_W_VI UNI  2.83100E+0001  6.37000E+0001  1.27400E+0002 
+    3      Ex6   13        IN_A_VI UNI  1.11200E+0001  2.08500E+0001  4.17000E+0001 
+    3      Ex6   14       OUT_A_VI UNI  7.22800E+0000  1.66800E+0001  3.96200E+0001 
+    3      Ex6   15        IN_B_VI UNI  6.35500E+0000  1.19100E+0001  2.38300E+0001 
+    3      Ex6   16       OUT_B_VI UNI  3.17700E+0000  7.74500E+0000  1.90600E+0001 
+    3      Ex6   17        IN_C_VI UNI  6.35500E+0000  1.19100E+0001  2.38300E+0001 
+    3      Ex6   18       OUT_C_VI UNI  3.17700E+0000  7.74500E+0000  1.90600E+0001 
+    3      Ex6   19      OUT_W_VII UNI  2.26500E+0002  5.09600E+0002  1.01900E+0003 
+    3      Ex6   20       IN_A_VII UNI  1.92900E+0002  3.61800E+0002  7.23500E+0002 
+    3      Ex6   21      OUT_A_VII UNI  1.54400E+0002  3.25600E+0002  7.23500E+0002 
+    3      Ex6   22       IN_B_VII UNI  2.75600E+0001  5.16800E+0001  1.03400E+0002 
+    3      Ex6   23      OUT_B_VII UNI  1.65400E+0001  3.87600E+0001  9.30300E+0001 
+    3      Ex6   24       IN_C_VII UNI  2.75600E+0001  5.16800E+0001  1.03400E+0002 
+    3      Ex6   25      OUT_C_VII UNI  1.65400E+0001  3.87600E+0001  9.30300E+0001 
+    3      Ex6   26     OUT_W_VIII UNI  2.26500E+0002  5.09600E+0002  1.01900E+0003 
+    3      Ex6   27      IN_A_VIII UNI  1.92900E+0002  3.61800E+0002  7.23500E+0002 
+    3      Ex6   28     OUT_A_VIII UNI  1.54400E+0002  3.25600E+0002  7.23500E+0002 
+    3      Ex6   29      IN_B_VIII UNI  2.75600E+0001  5.16800E+0001  1.03400E+0002 
+    3      Ex6   30     OUT_B_VIII UNI  1.65400E+0001  3.87600E+0001  9.30300E+0001 
+    3      Ex6   31      IN_C_VIII UNI  2.75600E+0001  5.16800E+0001  1.03400E+0002 
+    3      Ex6   32     OUT_C_VIII UNI  1.65400E+0001  3.87600E+0001  9.30300E+0001 
+    3      Ex6   33       OUT_W_IX UNI  1.12100E-0001  2.80300E-0001  5.60600E-0001 
+    3      Ex6   34        OUT_W_X UNI  4.19000E-0001  1.04800E+0000  2.09500E+0000 
+    3      Ex6   35       OUT_W_XI UNI  3.85000E-0001  9.62600E-0001  1.92500E+0000 
+    3      Ex6   36      OUT_W_XII UNI  1.58500E-0001  3.96400E-0001  7.92700E-0001 
+    3      Ex6   37     OUT_W_XIII UNI  5.09600E-0001  1.27400E+0000  2.54800E+0000 
+    3      Ex6   38      IN_Q_XIII UNI  2.13200E-0001  4.56800E-0001  9.89700E-0001 
+    3      Ex6   39     OUT_Q_XIII UNI  1.47400E-0002  9.72400E-0002  3.57900E-0001 
+    3      Ex6   40      IN_R_XIII UNI  1.69700E+0000  3.63700E+0000  7.88000E+0000 
+    3      Ex6   41  OUT_Rpre_XIII UNI  1.01800E+0000  2.72800E+0000  7.09200E+0000 
+    3      Ex6   42 OUT_Rpost_XIII UNI  5.94000E-0001  1.81900E+0000  5.12200E+0000 
+    3      Ex6   43     OUT_W_XIIb UNI  1.58500E-0001  3.96400E-0001  7.92700E-0001 
+    3      Ex6   44       IN_Q_XII UNI  1.33200E-0002  2.85500E-0002  6.18600E-0002 
+    3      Ex6   45      OUT_Q_XII UNI  0.00000E+0000  1.00000E-0004  2.00000E-0004 
+    3      Ex6   46       IN_R_XII UNI  1.06100E-0001  2.27300E-0001  4.92500E-0001 
+    3      Ex6   47   OUT_Rpre_XII UNI  6.36500E-0002  1.70500E-0001  4.43300E-0001 
+    3      Ex6   48  OUT_Rpost_XII UNI  3.71300E-0002  1.13700E-0001  3.20100E-0001 
+    3      Ex6   49      OUT_W_XIV UNI  7.13500E+0000  1.78400E+0001  3.56700E+0001 
+    3      Ex6   50       IN_Q_XIV UNI  1.00800E+0000  2.16100E+0000  4.68200E+0000 
+    3      Ex6   51      OUT_Q_XIV UNI  4.97500E-0001  1.28400E+0000  3.63500E+0000 
+    3      Ex6   52       IN_R_XIV UNI  6.47100E+0000  1.38700E+0001  3.00400E+0001 
+    3      Ex6   53   OUT_Rpre_XIV UNI  5.17700E+0000  1.24800E+0001  3.00400E+0001 
+    3      Ex6   54  OUT_Rpost_XIV UNI  2.91200E+0000  9.01300E+0000  2.55400E+0001 
+    3      Ex6   55       OUT_W_XV UNI  7.13500E+0000  1.78400E+0001  3.56700E+0001 
+    3      Ex6   56        IN_Q_XV UNI  1.00800E+0000  2.16100E+0000  4.68200E+0000 
+    3      Ex6   57       OUT_Q_XV UNI  4.97500E-0001  1.28400E+0000  3.63500E+0000 
+    3      Ex6   58        IN_R_XV UNI  6.47100E+0000  1.38700E+0001  3.00400E+0001 
+    3      Ex6   59    OUT_Rpre_XV UNI  5.17700E+0000  1.24800E+0001  3.00400E+0001 
+    3      Ex6   60   OUT_Rpost_XV UNI  2.91200E+0000  9.01300E+0000  2.55400E+0001 
+    4      Ex4    1        OUT_W_I UNI  1.10000E+0001  3.60000E+0001  9.10000E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    4      Ex4    2       OUT_W_II UNI  2.40000E+0001  7.90000E+0001  1.97000E+0002 
+    4      Ex4    3      OUT_W_III UNI  7.00000E+0000  1.40000E+0001  2.00000E+0001 
+    4      Ex4    4       OUT_W_IV UNI  1.50000E+0001  2.90000E+0001  4.40000E+0001 
+    4      Ex4    5        OUT_W_V UNI  1.60000E+0000  5.40000E+0000  8.00000E+0000 
+    4      Ex4    6         IN_A_V UNI  1.45000E+0000  4.80000E+0000  7.20000E+0000 
+    4      Ex4    7        OUT_A_V UNI  1.45000E+0000  4.32000E+0000  5.76000E+0000 
+    4      Ex4    8         IN_B_V UNI  1.70000E-0001  5.70000E-0001  8.60000E-0001 
+    4      Ex4    9        OUT_B_V UNI  1.50000E-0001  4.00000E-0001  4.50000E-0001 
+    4      Ex4   10         IN_C_V UNI  1.70000E-0001  5.70000E-0001  8.60000E-0001 
+    4      Ex4   11        OUT_C_V UNI  1.40000E-0001  3.70000E-0001  3.90000E-0001 
+    4      Ex4   12       OUT_W_VI UNI  4.10000E+0001  1.38000E+0002  3.45000E+0002 
+    4      Ex4   13        IN_A_VI UNI  2.30000E+0001  7.70000E+0001  1.93000E+0002 
+    4      Ex4   14       OUT_A_VI UNI  2.30000E+0001  6.90000E+0001  1.54000E+0002 
+    4      Ex4   15        IN_B_VI UNI  2.90000E+0000  9.40000E+0000  2.36000E+0001 
+    4      Ex4   16       OUT_B_VI UNI  2.60000E+0000  6.60000E+0000  1.18000E+0001 
+    4      Ex4   17        IN_C_VI UNI  2.90000E+0000  9.40000E+0000  2.36000E+0001 
+    4      Ex4   18       OUT_C_VI UNI  2.50000E+0000  6.10000E+0000  1.06000E+0001 
+    4      Ex4   19      OUT_W_VII UNI  3.47000E+0002  1.15700E+0003  2.89200E+0003 
+    4      Ex4   20       IN_A_VII UNI  1.39000E+0002  4.63000E+0002  1.15700E+0003 
+    4      Ex4   21      OUT_A_VII UNI  1.39000E+0002  4.63000E+0002  1.15700E+0003 
+    4      Ex4   22       IN_B_VII UNI  1.98000E+0001  6.60000E+0001  1.65200E+0002 
+    4      Ex4   23      OUT_B_VII UNI  1.98000E+0001  6.60000E+0001  1.65200E+0002 
+    4      Ex4   24       IN_C_VII UNI  1.98000E+0001  6.60000E+0001  1.65200E+0002 
+    4      Ex4   25      OUT_C_VII UNI  1.98000E+0001  6.60000E+0001  1.65200E+0002 
+    4      Ex4   26     OUT_W_VIII UNI  5.78000E+0002  1.15700E+0003  1.73500E+0003 
+    4      Ex4   27      IN_A_VIII UNI  2.31000E+0002  4.62000E+0002  6.93000E+0002 
+    4      Ex4   28     OUT_A_VIII UNI  2.31000E+0002  4.62000E+0002  6.93000E+0002 
+    4      Ex4   29      IN_B_VIII UNI  3.30000E+0001  6.60000E+0001  9.90000E+0001 
+    4      Ex4   30     OUT_B_VIII UNI  3.30000E+0001  6.60000E+0001  9.90000E+0001 
+    4      Ex4   31      IN_C_VIII UNI  3.30000E+0001  6.60000E+0001  9.90000E+0001 
+    4      Ex4   32     OUT_C_VIII UNI  3.30000E+0001  6.60000E+0001  9.90000E+0001 
+    4      Ex4   33       OUT_W_IX UNI  4.20000E+0000  6.30000E+0000  1.05000E+0001 
+    4      Ex4   34        OUT_W_X UNI  1.58000E+0002  2.31000E+0002  2.62000E+0002 
+    4      Ex4   35       OUT_W_XI UNI  2.10000E+0001  3.20000E+0001  5.30000E+0001 
+    4      Ex4   36      OUT_W_XII UNI  4.20000E+0000  6.30000E+0000  1.05000E+0001 
+    4      Ex4   37     OUT_W_XIII UNI  6.70000E+0001  1.01000E+0002  1.68000E+0002 
+    4      Ex4   38      IN_Q_XIII UNI  4.00000E-0001  1.20000E+0000  1.30000E+0000 
+    4      Ex4   39     OUT_Q_XIII UNI  3.20000E-0001  8.20000E-0001  9.10000E-0001 
+    4      Ex4   40      IN_R_XIII UNI  8.00000E+0000  1.21000E+0001  2.00000E+0001 
+    4      Ex4   41  OUT_Rpre_XIII UNI  8.00000E+0000  1.09000E+0001  1.60000E+0001 
+    4      Ex4   42 OUT_Rpost_XIII UNI  6.00000E+0000  7.10000E+0000  8.80000E+0000 
+    4      Ex4   43     OUT_W_XIIb UNI  4.20000E+0000  6.30000E+0000  1.05000E+0001 
+    4      Ex4   44       IN_Q_XII UNI  2.30000E-0002  7.00000E-0002  1.40000E-0001 
+    4      Ex4   45      OUT_Q_XII UNI  0.00000E+0000  1.00000E-0004  1.20000E-0004 
+    4      Ex4   46       IN_R_XII UNI  1.80000E-0001  6.80000E-0001  1.14000E+0000 
+    4      Ex4   47   OUT_Rpre_XII UNI  1.80000E-0001  6.80000E-0001  1.14000E+0000 
+    4      Ex4   48  OUT_Rpost_XII UNI  0.00000E+0000  1.00000E-0004  1.00000E-0001 
+    4      Ex4   49      OUT_W_XIV UNI  2.54000E+0002  3.81000E+0002  6.36000E+0002 
+    4      Ex4   50       IN_Q_XIV UNI  1.50000E+0000  4.90000E+0000  8.50000E+0000 
+    4      Ex4   51      OUT_Q_XIV UNI  1.50000E+0000  4.60000E+0000  7.70000E+0000 
+    4      Ex4   52       IN_R_XIV UNI  9.20000E+0000  3.08000E+0001  5.39000E+0001 
+    4      Ex4   53   OUT_Rpre_XIV UNI  9.20000E+0000  3.08000E+0001  5.39000E+0001 
+    4      Ex4   54  OUT_Rpost_XIV UNI  8.70000E+0000  2.86000E+0001  4.85000E+0001 
+    4      Ex4   55       OUT_W_XV UNI  1.27000E+0002  2.54000E+0002  3.81000E+0002 
+    4      Ex4   56        IN_Q_XV UNI  2.45000E+0000  4.90000E+0000  7.40000E+0000 
+    4      Ex4   57       OUT_Q_XV UNI  2.10000E+0000  4.50000E+0000  6.50000E+0000 
+    4      Ex4   58        IN_R_XV UNI  1.54000E+0001  3.08000E+0001  4.62000E+0001 
+    4      Ex4   59    OUT_Rpre_XV UNI  1.54000E+0001  3.08000E+0001  4.50000E+0001 
+    4      Ex4   60   OUT_Rpost_XV UNI  1.50000E+0001  2.93000E+0001  4.10000E+0001 
+    5      Ex5    1        OUT_W_I UNI  5.56200E+0000  8.35500E+0000  1.28300E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    5      Ex5    2       OUT_W_II UNI  5.91900E+0000  1.18400E+0001  2.22100E+0001 
+    5      Ex5    3      OUT_W_III UNI  2.01500E+0000  3.02400E+0000  4.23600E+0000 
+    5      Ex5    4       OUT_W_IV UNI  4.33700E+0000  6.51700E+0000  1.00100E+0001 
+    5      Ex5    5        OUT_W_V UNI  8.53800E-0001  1.28100E+0000  1.79300E+0000 
+    5      Ex5    6         IN_A_V UNI  5.26300E-0001  7.89400E-0001  1.10500E+0000 
+    5      Ex5    7        OUT_A_V UNI  4.21000E-0001  6.31500E-0001  8.84100E-0001 
+    5      Ex5    8         IN_B_V UNI  7.51800E-0002  1.12800E-0001  1.57900E-0001 
+    5      Ex5    9        OUT_B_V UNI  5.26300E-0002  7.89400E-0002  1.10500E-0001 
+    5      Ex5   10         IN_C_V UNI  7.51800E-0002  1.12800E-0001  1.57900E-0001 
+    5      Ex5   11        OUT_C_V UNI  4.88700E-0002  7.33000E-0002  1.02600E-0001 
+    5      Ex5   12       OUT_W_VI UNI  5.21200E+0000  1.04200E+0001  1.95600E+0001 
+    5      Ex5   13        IN_A_VI UNI  3.20800E+0000  6.41600E+0000  1.20300E+0001 
+    5      Ex5   14       OUT_A_VI UNI  2.56600E+0000  5.13300E+0000  9.62300E+0000 
+    5      Ex5   15        IN_B_VI UNI  4.58300E-0001  9.16500E-0001  1.71900E+0000 
+    5      Ex5   16       OUT_B_VI UNI  3.20800E-0001  6.41600E-0001  1.20300E+0000 
+    5      Ex5   17        IN_C_VI UNI  4.58300E-0001  9.16500E-0001  1.71900E+0000 
+    5      Ex5   18       OUT_C_VI UNI  2.97900E-0001  5.95700E-0001  1.11700E+0000 
+    5      Ex5   19      OUT_W_VII UNI  9.66200E+0000  2.40600E+0001  9.38600E+0001 
+    5      Ex5   20       IN_A_VII UNI  5.03600E+0000  1.25900E+0001  4.91000E+0001 
+    5      Ex5   21      OUT_A_VII UNI  4.53200E+0000  1.13300E+0001  4.41900E+0001 
+    5      Ex5   22       IN_B_VII UNI  7.19400E-0001  1.79900E+0000  7.01400E+0000 
+    5      Ex5   23      OUT_B_VII UNI  6.11500E-0001  1.52900E+0000  5.96200E+0000 
+    5      Ex5   24       IN_C_VII UNI  7.19400E-0001  1.79900E+0000  7.01400E+0000 
+    5      Ex5   25      OUT_C_VII UNI  6.04300E-0001  1.51100E+0000  5.89200E+0000 
+    5      Ex5   26     OUT_W_VIII UNI  9.66200E+0000  2.40600E+0001  9.38600E+0001 
+    5      Ex5   27      IN_A_VIII UNI  5.03600E+0000  1.25900E+0001  4.91000E+0001 
+    5      Ex5   28     OUT_A_VIII UNI  4.53200E+0000  1.13300E+0001  4.41900E+0001 
+    5      Ex5   29      IN_B_VIII UNI  7.19400E-0001  1.79900E+0000  7.01400E+0000 
+    5      Ex5   30     OUT_B_VIII UNI  6.11500E-0001  1.52900E+0000  5.96200E+0000 
+    5      Ex5   31      IN_C_VIII UNI  7.19400E-0001  1.79900E+0000  7.01400E+0000 
+    5      Ex5   32     OUT_C_VIII UNI  6.04300E-0001  1.51100E+0000  5.89200E+0000 
+    5      Ex5   33       OUT_W_IX UNI  1.05900E-0001  1.59000E-0001  2.22600E-0001 
+    5      Ex5   34        OUT_W_X UNI  3.93100E-0001  5.90400E-0001  7.95600E-0001 
+    5      Ex5   35       OUT_W_XI UNI  2.74900E-0001  4.58500E-0001  7.55300E-0001 
+    5      Ex5   36      OUT_W_XII UNI  1.13800E-0001  1.89700E-0001  3.12500E-0001 
+    5      Ex5   37     OUT_W_XIII UNI  4.34300E-0001  6.52400E-0001  8.79000E-0001 
+    5      Ex5   38      IN_Q_XIII UNI  9.83300E-0003  1.47500E-0002  1.98600E-0002 
+    5      Ex5   39     OUT_Q_XIII UNI  5.90000E-0003  8.85000E-0003  1.19200E-0002 
+    5      Ex5   40      IN_R_XIII UNI  8.45000E-0002  1.26700E-0001  1.70700E-0001 
+    5      Ex5   41  OUT_Rpre_XIII UNI  6.76000E-0002  1.01400E-0001  1.36500E-0001 
+    5      Ex5   42 OUT_Rpost_XIII UNI  2.19700E-0002  3.29500E-0002  4.43800E-0002 
+    5      Ex5   43     OUT_W_XIIb UNI  1.02500E-0001  1.70900E-0001  2.81600E-0001 
+    5      Ex5   44       IN_Q_XII UNI  2.32500E-0003  3.87400E-0003  6.38500E-0003 
+    5      Ex5   45      OUT_Q_XII UNI  1.39500E-0003  2.32500E-0003  3.83100E-0003 
+    5      Ex5   46       IN_R_XII UNI  1.99800E-0002  3.32900E-0002  5.48700E-0002 
+    5      Ex5   47   OUT_Rpre_XII UNI  1.59800E-0002  2.66400E-0002  4.38900E-0002 
+    5      Ex5   48  OUT_Rpost_XII UNI  5.19400E-0003  8.65600E-0003  1.42700E-0002 
+    5      Ex5   49      OUT_W_XIV UNI  6.05000E-0001  9.08800E-0001  1.27300E+0000 
+    5      Ex5   50       IN_Q_XIV UNI  1.36900E-0002  2.05400E-0002  2.87500E-0002 
+    5      Ex5   51      OUT_Q_XIV UNI  8.21500E-0003  1.23200E-0002  1.72500E-0002 
+    5      Ex5   52       IN_R_XIV UNI  1.17700E-0001  1.76500E-0001  2.47100E-0001 
+    5      Ex5   53   OUT_Rpre_XIV UNI  9.41200E-0002  1.41200E-0001  1.97700E-0001 
+    5      Ex5   54  OUT_Rpost_XIV UNI  3.05900E-0002  4.58800E-0002  6.42400E-0002 
+    5      Ex5   55       OUT_W_XV UNI  6.05000E-0001  9.08800E-0001  1.27300E+0000 
+    5      Ex5   56        IN_Q_XV UNI  1.36900E-0002  2.05400E-0002  2.87500E-0002 
+    5      Ex5   57       OUT_Q_XV UNI  8.21500E-0003  1.23200E-0002  1.72500E-0002 
+    5      Ex5   58        IN_R_XV UNI  1.17700E-0001  1.76500E-0001  2.47100E-0001 
+    5      Ex5   59    OUT_Rpre_XV UNI  9.41200E-0002  1.41200E-0001  1.97700E-0001 
+    5      Ex5   60   OUT_Rpost_XV UNI  3.05900E-0002  4.58800E-0002  6.42400E-0002 
+    6      Ex7    1        OUT_W_I UNI  1.82600E+0001  2.43700E+0001  3.09100E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    6      Ex7    2       OUT_W_II UNI  3.94400E+0001  5.26200E+0001  6.67300E+0001 
+    6      Ex7    3      OUT_W_III UNI  6.53700E+0000  8.72300E+0000  1.10600E+0001 
+    6      Ex7    4       OUT_W_IV UNI  1.45300E+0001  1.93900E+0001  2.45900E+0001 
+    6      Ex7    5        OUT_W_V UNI  2.77700E+0000  3.70600E+0000  4.70100E+0000 
+    6      Ex7    6         IN_A_V UNI  1.31000E+0000  1.70700E+0000  2.11700E+0000 
+    6      Ex7    7        OUT_A_V UNI  1.31000E+0000  1.70700E+0000  2.11700E+0000 
+    6      Ex7    8         IN_B_V UNI  2.03900E-0001  2.62700E-0001  3.22100E-0001 
+    6      Ex7    9        OUT_B_V UNI  1.22300E-0001  1.70700E-0001  2.25500E-0001 
+    6      Ex7   10         IN_C_V UNI  2.03900E-0001  2.62700E-0001  3.22100E-0001 
+    6      Ex7   11        OUT_C_V UNI  9.17400E-0002  1.57600E-0001  2.41600E-0001 
+    6      Ex7   12       OUT_W_VI UNI  6.92000E+0001  9.23300E+0001  1.17100E+0002 
+    6      Ex7   13        IN_A_VI UNI  3.25600E+0001  4.24400E+0001  5.26200E+0001 
+    6      Ex7   14       OUT_A_VI UNI  3.25600E+0001  4.24400E+0001  5.26200E+0001 
+    6      Ex7   15        IN_B_VI UNI  5.06600E+0000  6.52700E+0000  8.00300E+0000 
+    6      Ex7   16       OUT_B_VI UNI  3.04000E+0000  4.24300E+0000  5.60200E+0000 
+    6      Ex7   17        IN_C_VI UNI  5.06600E+0000  6.52700E+0000  8.00300E+0000 
+    6      Ex7   18       OUT_C_VI UNI  2.28000E+0000  3.91600E+0000  6.00300E+0000 
+    6      Ex7   19      OUT_W_VII UNI  7.03600E+0001  9.38200E+0001  1.18900E+0002 
+    6      Ex7   20       IN_A_VII UNI  2.69300E+0002  3.50800E+0002  4.34800E+0002 
+    6      Ex7   21      OUT_A_VII UNI  2.69300E+0002  3.50800E+0002  4.34800E+0002 
+    6      Ex7   22       IN_B_VII UNI  4.18000E+0001  5.38600E+0001  6.60400E+0001 
+    6      Ex7   23      OUT_B_VII UNI  2.50800E+0001  3.50100E+0001  4.62300E+0001 
+    6      Ex7   24       IN_C_VII UNI  4.18000E+0001  5.38600E+0001  6.60400E+0001 
+    6      Ex7   25      OUT_C_VII UNI  1.88100E+0001  3.23200E+0001  4.95300E+0001 
+    6      Ex7   26     OUT_W_VIII UNI  7.03600E+0001  9.38200E+0001  1.18900E+0002 
+    6      Ex7   27      IN_A_VIII UNI  2.69300E+0002  3.50800E+0002  4.34800E+0002 
+    6      Ex7   28     OUT_A_VIII UNI  2.69300E+0002  3.50800E+0002  4.34800E+0002 
+    6      Ex7   29      IN_B_VIII UNI  4.18000E+0001  5.38600E+0001  6.60400E+0001 
+    6      Ex7   30     OUT_B_VIII UNI  2.50800E+0001  3.50100E+0001  4.62300E+0001 
+    6      Ex7   31      IN_C_VIII UNI  4.18000E+0001  5.38600E+0001  6.60400E+0001 
+    6      Ex7   32     OUT_C_VIII UNI  1.88100E+0001  3.23200E+0001  4.95300E+0001 
+    6      Ex7   33       OUT_W_IX UNI  2.27000E-0001  3.50500E-0001  4.97300E-0001 
+    6      Ex7   34        OUT_W_X UNI  8.48300E-0001  1.31000E+0000  1.85900E+0000 
+    6      Ex7   35       OUT_W_XI UNI  7.79500E-0001  1.20400E+0000  1.70800E+0000 
+    6      Ex7   36      OUT_W_XII UNI  3.21000E-0001  4.95700E-0001  7.03200E-0001 
+    6      Ex7   37     OUT_W_XIII UNI  1.02400E+0000  1.58400E+0000  2.25200E+0000 
+    6      Ex7   38      IN_Q_XIII UNI  2.14100E-0002  3.28800E-0002  4.63800E-0002 
+    6      Ex7   39     OUT_Q_XIII UNI  8.56300E-0003  1.64400E-0002  2.78300E-0002 
+    6      Ex7   40      IN_R_XIII UNI  1.64100E-0001  2.52000E-0001  3.55600E-0001 
+    6      Ex7   41  OUT_Rpre_XIII UNI  1.64100E-0001  2.52000E-0001  3.55600E-0001 
+    6      Ex7   42 OUT_Rpost_XIII UNI  9.84800E-0002  1.76400E-0001  2.84500E-0001 
+    6      Ex7   43     OUT_W_XIIb UNI  3.18500E-0001  4.92800E-0001  7.00500E-0001 
+    6      Ex7   44       IN_Q_XII UNI  6.66000E-0003  1.02300E-0002  1.44300E-0002 
+    6      Ex7   45      OUT_Q_XII UNI  2.66400E-0003  5.11400E-0003  8.65800E-0003 
+    6      Ex7   46       IN_R_XII UNI  5.10600E-0002  7.84200E-0002  1.10600E-0001 
+    6      Ex7   47   OUT_Rpre_XII UNI  5.10600E-0002  7.84200E-0002  1.10600E-0001 
+    6      Ex7   48  OUT_Rpost_XII UNI  3.06400E-0002  5.48900E-0002  8.85100E-0002 
+    6      Ex7   49      OUT_W_XIV UNI  1.44700E+0001  2.23500E+0001  3.17200E+0001 
+    6      Ex7   50       IN_Q_XIV UNI  2.99700E-0001  4.60300E-0001  6.49400E-0001 
+    6      Ex7   51      OUT_Q_XIV UNI  1.57200E-0001  2.77800E-0001  4.43500E-0001 
+    6      Ex7   52       IN_R_XIV UNI  2.29800E+0000  3.52900E+0000  4.97900E+0000 
+    6      Ex7   53   OUT_Rpre_XIV UNI  2.29800E+0000  3.52900E+0000  4.97900E+0000 
+    6      Ex7   54  OUT_Rpost_XIV UNI  1.56900E+0000  2.69000E+0000  4.18900E+0000 
+    6      Ex7   55       OUT_W_XV UNI  1.44700E+0001  2.23500E+0001  3.17200E+0001 
+    6      Ex7   56        IN_Q_XV UNI  2.99700E-0001  4.60300E-0001  6.49400E-0001 
+    6      Ex7   57       OUT_Q_XV UNI  1.57200E-0001  2.77800E-0001  4.43500E-0001 
+    6      Ex7   58        IN_R_XV UNI  2.29800E+0000  3.52900E+0000  4.97900E+0000 
+    6      Ex7   59    OUT_Rpre_XV UNI  2.29800E+0000  3.52900E+0000  4.97900E+0000 
+    6      Ex7   60   OUT_Rpost_XV UNI  1.56900E+0000  2.69000E+0000  4.18900E+0000 
+    7      Ex8    1        OUT_W_I UNI  8.03800E+0000  1.33600E+0001  2.04200E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    7      Ex8    2       OUT_W_II UNI  1.18500E+0001  1.96100E+0001  2.98400E+0001 
+    7      Ex8    3      OUT_W_III UNI  1.94600E+0000  3.35800E+0000  5.34200E+0000 
+    7      Ex8    4       OUT_W_IV UNI  6.85200E+0000  1.14100E+0001  1.74800E+0001 
+    7      Ex8    5        OUT_W_V UNI  1.22400E+0000  2.17300E+0000  3.55600E+0000 
+    7      Ex8    6         IN_A_V UNI  7.07700E-0001  1.00600E+0000  1.30400E+0000 
+    7      Ex8    7        OUT_A_V UNI  3.26000E-0001  7.34100E-0001  1.30300E+0000 
+    7      Ex8    8         IN_B_V UNI  1.25300E-0001  1.77800E-0001  2.30400E-0001 
+    7      Ex8    9        OUT_B_V UNI  2.81700E-0002  1.06700E-0001  2.24700E-0001 
+    7      Ex8   10         IN_C_V UNI  1.17100E-0001  1.66200E-0001  2.15300E-0001 
+    7      Ex8   11        OUT_C_V UNI  3.88300E-0002  5.51300E-0002  1.43900E-0001 
+    7      Ex8   12       OUT_W_VI UNI  4.46800E+0001  6.34900E+0001  8.23000E+0001 
+    7      Ex8   13        IN_A_VI UNI  1.71800E+0000  2.44200E+0000  3.16600E+0000 
+    7      Ex8   14       OUT_A_VI UNI  7.91700E-0001  1.78300E+0000  3.16300E+0000 
+    7      Ex8   15        IN_B_VI UNI  3.16300E+0000  4.49100E+0000  5.81800E+0000 
+    7      Ex8   16       OUT_B_VI UNI  7.11200E-0001  2.69500E+0000  5.67400E+0000 
+    7      Ex8   17        IN_C_VI UNI  2.95600E+0000  4.19700E+0000  5.43700E+0000 
+    7      Ex8   18       OUT_C_VI UNI  9.80600E-0001  1.39200E+0000  3.63300E+0000 
+    7      Ex8   19      OUT_W_VII UNI  2.44500E+0002  3.47500E+0002  4.50500E+0002 
+    7      Ex8   20       IN_A_VII UNI  5.14800E+0001  7.31600E+0001  9.48400E+0001 
+    7      Ex8   21      OUT_A_VII UNI  2.37200E+0001  5.34100E+0001  9.47700E+0001 
+    7      Ex8   22       IN_B_VII UNI  1.73200E+0001  2.45800E+0001  3.18500E+0001 
+    7      Ex8   23      OUT_B_VII UNI  3.89300E+0000  1.47500E+0001  3.10600E+0001 
+    7      Ex8   24       IN_C_VII UNI  1.61800E+0001  2.29700E+0001  2.97600E+0001 
+    7      Ex8   25      OUT_C_VII UNI  5.36800E+0000  7.62000E+0000  1.98900E+0001 
+    7      Ex8   26     OUT_W_VIII UNI  1.17000E+0002  1.66300E+0002  2.15600E+0002 
+    7      Ex8   27      IN_A_VIII UNI  2.46300E+0001  3.50100E+0001  4.53800E+0001 
+    7      Ex8   28     OUT_A_VIII UNI  1.13500E+0001  2.55500E+0001  4.53500E+0001 
+    7      Ex8   29      IN_B_VIII UNI  1.73200E+0001  2.45800E+0001  3.18500E+0001 
+    7      Ex8   30     OUT_B_VIII UNI  3.89300E+0000  1.47500E+0001  3.10600E+0001 
+    7      Ex8   31      IN_C_VIII UNI  1.61800E+0001  2.29700E+0001  2.97600E+0001 
+    7      Ex8   32     OUT_C_VIII UNI  5.36800E+0000  7.62000E+0000  1.98900E+0001 
+    7      Ex8   33       OUT_W_IX UNI  1.78300E-0001  5.42800E-0001  9.41200E-0001 
+    7      Ex8   34        OUT_W_X UNI  6.32700E-0001  1.88400E+0000  3.20000E+0000 
+    7      Ex8   35       OUT_W_XI UNI  5.82900E-0001  1.73900E+0000  2.96200E+0000 
+    7      Ex8   36      OUT_W_XII UNI  2.50900E-0001  7.77300E-0001  1.37000E+0000 
+    7      Ex8   37     OUT_W_XIII UNI  7.03900E-0001  2.35700E+0000  4.17300E+0000 
+    7      Ex8   38      IN_Q_XIII UNI  1.52400E-0002  4.41700E-0002  7.31000E-0002 
+    7      Ex8   39     OUT_Q_XIII UNI  6.57100E-0003  8.03200E-0003  7.31000E-0002 
+    7      Ex8   40      IN_R_XIII UNI  1.32500E-0001  3.84000E-0001  6.35400E-0001 
+    7      Ex8   41  OUT_Rpre_XIII UNI  6.10500E-0002  2.80300E-0001  6.35000E-0001 
+    7      Ex8   42 OUT_Rpost_XIII UNI  1.32500E-0001  3.84000E-0001  6.35400E-0001 
+    7      Ex8   43     OUT_W_XIIb UNI  4.85400E-0001  1.46600E+0000  2.44700E+0000 
+    7      Ex8   44       IN_Q_XII UNI  4.74300E-0003  1.37400E-0002  2.27400E-0002 
+    7      Ex8   45      OUT_Q_XII UNI  2.04400E-0003  2.49900E-0003  2.27400E-0002 
+    7      Ex8   46       IN_R_XII UNI  4.12200E-0002  1.19500E-0001  1.97700E-0001 
+    7      Ex8   47   OUT_Rpre_XII UNI  1.89900E-0002  8.72100E-0002  1.97600E-0001 
+    7      Ex8   48  OUT_Rpost_XII UNI  4.12200E-0002  1.19500E-0001  1.97700E-0001 
+    7      Ex8   49      OUT_W_XIV UNI  2.35300E+0001  7.13600E+0001  1.19200E+0002 
+    7      Ex8   50       IN_Q_XIV UNI  2.13400E-0001  6.18400E-0001  1.02400E+0000 
+    7      Ex8   51      OUT_Q_XIV UNI  9.19900E-0002  1.12400E-0001  1.02400E+0000 
+    7      Ex8   52       IN_R_XIV UNI  1.85500E+0000  5.37600E+0000  8.89600E+0000 
+    7      Ex8   53   OUT_Rpre_XIV UNI  8.54600E-0001  3.92400E+0000  8.89000E+0000 
+    7      Ex8   54  OUT_Rpost_XIV UNI  1.85500E+0000  5.37600E+0000  8.89600E+0000 
+    7      Ex8   55       OUT_W_XV UNI  1.12600E+0001  4.38500E+0001  7.36500E+0001 
+    7      Ex8   56        IN_Q_XV UNI  2.13400E-0001  6.18400E-0001  1.02400E+0000 
+    7      Ex8   57       OUT_Q_XV UNI  9.19900E-0002  1.12400E-0001  1.02400E+0000 
+    7      Ex8   58        IN_R_XV UNI  1.85500E+0000  5.37600E+0000  8.89600E+0000 
+    7      Ex8   59    OUT_Rpre_XV UNI  8.54600E-0001  3.92400E+0000  8.89000E+0000 
+    7      Ex8   60   OUT_Rpost_XV UNI  1.85500E+0000  5.37600E+0000  8.89600E+0000 
+    8      Ex9    1        OUT_W_I UNI  3.66100E+0001  7.64300E+0001  1.16300E+0002                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    8      Ex9    2       OUT_W_II UNI  3.99000E+0001  8.33000E+0001  1.26700E+0002 
+    8      Ex9    3      OUT_W_III UNI  5.45600E+0000  1.13600E+0001  1.72600E+0001 
+    8      Ex9    4       OUT_W_IV UNI  1.31700E+0001  2.74900E+0001  4.18200E+0001 
+    8      Ex9    5        OUT_W_V UNI  2.34900E+0000  4.89000E+0000  7.43100E+0000 
+    8      Ex9    6         IN_A_V UNI  9.45900E-0001  1.97000E+0000  2.99300E+0000 
+    8      Ex9    7        OUT_A_V UNI  6.44100E-0001  1.56600E+0000  3.45300E+0000 
+    8      Ex9    8         IN_B_V UNI  2.23500E-0001  4.65300E-0001  7.07200E-0001 
+    8      Ex9    9        OUT_B_V UNI  1.00200E-0001  2.91700E-0001  7.04300E-0001 
+    8      Ex9   10         IN_C_V UNI  9.66500E-0002  2.01200E-0001  3.05800E-0001 
+    8      Ex9   11        OUT_C_V UNI  5.27400E-0002  1.26100E-0001  3.39700E-0001 
+    8      Ex9   12       OUT_W_VI UNI  6.33100E+0001  1.32180E+0002  2.01000E+0002 
+    8      Ex9   13        IN_A_VI UNI  2.62000E+0001  5.47000E+0001  8.32100E+0001 
+    8      Ex9   14       OUT_A_VI UNI  1.78500E+0001  4.34800E+0001  9.61000E+0001 
+    8      Ex9   15        IN_B_VI UNI  5.45200E+0000  1.13800E+0001  1.73100E+0001 
+    8      Ex9   16       OUT_B_VI UNI  2.89400E+0000  7.13000E+0000  1.89400E+0001 
+    8      Ex9   17        IN_C_VI UNI  2.28100E+0000  4.76300E+0000  7.24500E+0000 
+    8      Ex9   18       OUT_C_VI UNI  1.25200E+0000  2.98300E+0000  8.07900E+0000 
+    8      Ex9   19      OUT_W_VII UNI  6.15000E+0002  1.64100E+0003  2.66800E+0003 
+    8      Ex9   20       IN_A_VII UNI  2.05300E+0002  5.48000E+0002  8.90800E+0002 
+    8      Ex9   21      OUT_A_VII UNI  1.29600E+0002  4.21200E+0002  1.03300E+0003 
+    8      Ex9   22       IN_B_VII UNI  4.12900E+0001  1.10200E+0002  1.79200E+0002 
+    8      Ex9   23      OUT_B_VII UNI  2.10000E+0001  6.52000E+0001  2.00700E+0002 
+    8      Ex9   24       IN_C_VII UNI  2.29700E+0001  6.13200E+0001  9.96700E+0001 
+    8      Ex9   25      OUT_C_VII UNI  1.17000E+0001  3.62700E+0001  1.11700E+0002 
+    8      Ex9   26     OUT_W_VIII UNI  5.06400E+0002  1.05700E+0003  1.60800E+0003 
+    8      Ex9   27      IN_A_VIII UNI  1.68600E+0002  3.52000E+0002  5.35500E+0002 
+    8      Ex9   28     OUT_A_VIII UNI  1.14900E+0002  2.79800E+0002  6.18600E+0002 
+    8      Ex9   29      IN_B_VIII UNI  3.36700E+0001  7.03000E+0001  1.06900E+0002 
+    8      Ex9   30     OUT_B_VIII UNI  1.86100E+0001  4.40300E+0001  1.19700E+0002 
+    8      Ex9   31      IN_C_VIII UNI  1.87100E+0001  3.90600E+0001  5.94100E+0001 
+    8      Ex9   32     OUT_C_VIII UNI  1.02800E+0001  2.44600E+0001  6.63000E+0001 
+    8      Ex9   33       OUT_W_IX UNI  1.61200E-0001  3.71900E-0001  5.82600E-0001 
+    8      Ex9   34        OUT_W_X UNI  8.13400E-0001  1.64700E+0000  2.48100E+0000 
+    8      Ex9   35       OUT_W_XI UNI  5.53500E-0001  1.27700E+0000  2.00100E+0000 
+    8      Ex9   36      OUT_W_XII UNI  2.27900E-0001  5.25900E-0001  8.23900E-0001 
+    8      Ex9   37     OUT_W_XIII UNI  9.89200E-0001  2.00400E+0000  3.01800E+0000 
+    8      Ex9   38      IN_Q_XIII UNI  2.27400E-0002  4.60500E-0002  6.93600E-0002 
+    8      Ex9   39     OUT_Q_XIII UNI  1.54500E-0003  1.20900E-0002  5.21700E-0002 
+    8      Ex9   40      IN_R_XIII UNI  1.07000E-0001  2.39800E-0001  3.72600E-0001 
+    8      Ex9   41  OUT_Rpre_XIII UNI  7.49700E-0002  1.90400E-0001  4.32100E-0001 
+    8      Ex9   42 OUT_Rpost_XIII UNI  5.47800E-0002  1.38400E-0001  3.33500E-0001 
+    8      Ex9   43     OUT_W_XIIb UNI  2.27900E-0001  5.25900E-0001  8.23900E-0001 
+    8      Ex9   44       IN_Q_XII UNI  5.58700E-0003  1.28900E-0002  2.02000E-0002 
+    8      Ex9   45      OUT_Q_XII UNI  1.39200E-0003  4.88700E-0003  1.52300E-0002 
+    8      Ex9   46       IN_R_XII UNI  2.64400E-0002  6.56900E-0002  1.04900E-0001 
+    8      Ex9   47   OUT_Rpre_XII UNI  1.75200E-0002  5.09500E-0002  1.20400E-0001 
+    8      Ex9   48  OUT_Rpost_XII UNI  7.77400E-0004  1.54600E-0002  8.74400E-0002 
+    8      Ex9   49      OUT_W_XIV UNI  1.51600E+0001  4.12000E+0001  6.72300E+0001 
+    8      Ex9   50       IN_Q_XIV UNI  3.53000E-0001  9.59100E-0001  1.56500E+0000 
+    8      Ex9   51      OUT_Q_XIV UNI  1.09100E-0001  4.07100E-0001  1.23600E+0000 
+    8      Ex9   52       IN_R_XIV UNI  1.74700E+0000  5.04400E+0000  8.34100E+0000 
+    8      Ex9   53   OUT_Rpre_XIV UNI  1.11400E+0000  3.84200E+0000  9.73100E+0000 
+    8      Ex9   54  OUT_Rpost_XIV UNI  8.28600E-0001  2.84000E+0000  7.77100E+0000 
+    8      Ex9   55       OUT_W_XV UNI  1.38500E+0001  2.80500E+0001  4.22500E+0001 
+    8      Ex9   56        IN_Q_XV UNI  3.25300E-0001  6.58900E-0001  9.92500E-0001 
+    8      Ex9   57       OUT_Q_XV UNI  1.11400E-0001  3.02700E-0001  7.84100E-0001 
+    8      Ex9   58        IN_R_XV UNI  1.58600E+0000  3.41800E+0000  5.24900E+0000 
+    8      Ex9   59    OUT_Rpre_XV UNI  1.11600E+0000  2.70400E+0000  6.09700E+0000 
+    8      Ex9   60   OUT_Rpost_XV UNI  8.29600E-0001  2.02400E+0000  4.86100E+0000 
+    9     Ex10    1        OUT_W_I UNI  2.02000E+0001  3.49000E+0001  5.33000E+0001                                                                                                 outgoing total nitrogen load (kg TN) from the sub-watershed over rain event I 
+    9     Ex10    2       OUT_W_II UNI  4.75000E+0001  8.23000E+0001  1.36800E+0002 
+    9     Ex10    3      OUT_W_III UNI  4.60000E+0000  9.40000E+0000  1.68000E+0001 
+    9     Ex10    4       OUT_W_IV UNI  1.31000E+0001  2.32000E+0001  3.90000E+0001 
+    9     Ex10    5        OUT_W_V UNI  2.10000E+0000  4.20000E+0000  7.40000E+0000 
+    9     Ex10    6         IN_A_V UNI  8.40000E-0001  1.68000E+0000  2.96000E+0000 
+    9     Ex10    7        OUT_A_V UNI  8.40000E-0001  1.68000E+0000  2.96000E+0000 
+    9     Ex10    8         IN_B_V UNI  1.60000E+0000  3.40000E+0000  6.50000E+0000 
+    9     Ex10    9        OUT_B_V UNI  6.00000E-0001  1.20000E+0000  1.90000E+0000 
+    9     Ex10   10         IN_C_V UNI  1.60000E+0000  3.40000E+0000  6.60000E+0000 
+    9     Ex10   11        OUT_C_V UNI  7.00000E-0001  1.40000E+0000  2.50000E+0000 
+    9     Ex10   12       OUT_W_VI UNI  8.52000E+0001  1.56000E+0002  2.61300E+0002 
+    9     Ex10   13        IN_A_VI UNI  3.40800E+0001  6.24000E+0001  1.04500E+0002 
+    9     Ex10   14       OUT_A_VI UNI  3.40800E+0001  6.24000E+0001  1.04500E+0002 
+    9     Ex10   15        IN_B_VI UNI  1.12000E+0001  2.39000E+0001  4.54000E+0001 
+    9     Ex10   16       OUT_B_VI UNI  1.01000E+0001  1.90000E+0001  3.37000E+0001 
+    9     Ex10   17        IN_C_VI UNI  1.13000E+0001  2.38000E+0001  4.55000E+0001 
+    9     Ex10   18       OUT_C_VI UNI  9.40000E+0000  1.93000E+0001  3.68000E+0001 
+    9     Ex10   19      OUT_W_VII UNI  7.01000E+0002  1.37100E+0003  2.46800E+0003 
+    9     Ex10   20       IN_A_VII UNI  2.80400E+0002  5.48600E+0002  9.87400E+0002 
+    9     Ex10   21      OUT_A_VII UNI  2.80400E+0002  5.48600E+0002  9.87400E+0002 
+    9     Ex10   22       IN_B_VII UNI  4.88000E+0001  1.04200E+0002  2.00800E+0002 
+    9     Ex10   23      OUT_B_VII UNI  4.75000E+0001  9.94000E+0001  1.91400E+0002 
+    9     Ex10   24       IN_C_VII UNI  4.94000E+0001  1.04500E+0002  2.05100E+0002 
+    9     Ex10   25      OUT_C_VII UNI  4.78000E+0001  1.01000E+0002  1.95500E+0002 
+    9     Ex10   26     OUT_W_VIII UNI  7.01000E+0002  1.37100E+0003  2.46800E+0003 
+    9     Ex10   27      IN_A_VIII UNI  2.80400E+0002  5.48600E+0002  9.87400E+0002 
+    9     Ex10   28     OUT_A_VIII UNI  2.80400E+0002  5.48600E+0002  9.87400E+0002 
+    9     Ex10   29      IN_B_VIII UNI  4.88000E+0001  1.04200E+0002  2.00800E+0002 
+    9     Ex10   30     OUT_B_VIII UNI  4.75000E+0001  9.94000E+0001  1.91400E+0002 
+    9     Ex10   31      IN_C_VIII UNI  4.94000E+0001  1.04500E+0002  2.05100E+0002 
+    9     Ex10   32     OUT_C_VIII UNI  4.78000E+0001  1.01000E+0002  1.95500E+0002 
+    9     Ex10   33       OUT_W_IX UNI  1.00000E+0000  3.90000E+0000  1.08000E+0001 
+    9     Ex10   34        OUT_W_X UNI  7.51000E+0001  2.58500E+0002  6.48200E+0002 
+    9     Ex10   35       OUT_W_XI UNI  7.40000E+0000  2.41000E+0001  6.74000E+0001 
+    9     Ex10   36      OUT_W_XII UNI  1.00000E+0000  3.90000E+0000  1.11000E+0001 
+    9     Ex10   37     OUT_W_XIII UNI  2.97000E+0001  9.67000E+0001  2.65200E+0002 
+    9     Ex10   38      IN_Q_XIII UNI  1.40000E-0001  8.70000E-0001  2.60000E+0000 
+    9     Ex10   39     OUT_Q_XIII UNI  1.10000E-0001  6.70000E-0001  2.20000E+0000 
+    9     Ex10   40      IN_R_XIII UNI  3.70000E+0000  1.20000E+0001  3.50000E+0001 
+    9     Ex10   41  OUT_Rpre_XIII UNI  3.70000E+0000  1.20000E+0001  3.50000E+0001 
+    9     Ex10   42 OUT_Rpost_XIII UNI  2.40000E+0000  1.00000E+0001  3.10000E+0001 
+    9     Ex10   43     OUT_W_XIIb UNI  1.00000E+0000  3.90000E+0000  1.11000E+0001 
+    9     Ex10   44       IN_Q_XII UNI  4.90000E-0003  1.60000E-0002  4.10000E-0002 
+    9     Ex10   45      OUT_Q_XII UNI  4.10000E-0003  1.50000E-0002  4.50000E-0002 
+    9     Ex10   46       IN_R_XII UNI  1.10000E-0001  4.50000E-0001  1.30000E+0000 
+    9     Ex10   47   OUT_Rpre_XII UNI  1.10000E-0001  4.50000E-0001  1.30000E+0000 
+    9     Ex10   48  OUT_Rpost_XII UNI  6.00000E-0002  3.20000E-0001  1.00000E+0000 
+    9     Ex10   49      OUT_W_XIV UNI  1.12700E+0002  3.92000E+0002  1.00000E+0003 
+    9     Ex10   50       IN_Q_XIV UNI  1.60000E+0000  5.40000E+0000  1.40000E+0001 
+    9     Ex10   51      OUT_Q_XIV UNI  1.30000E+0000  5.00000E+0000  1.30000E+0001 
+    9     Ex10   52       IN_R_XIV UNI  2.30000E+0001  8.20000E+0001  2.10000E+0002 
+    9     Ex10   53   OUT_Rpre_XIV UNI  2.30000E+0001  8.20000E+0001  2.10000E+0002 
+    9     Ex10   54  OUT_Rpost_XIV UNI  2.10000E+0001  8.00000E+0001  2.00000E+0002 
+    9     Ex10   55       OUT_W_XV UNI  1.12700E+0002  3.92000E+0002  1.00000E+0003 
+    9     Ex10   56        IN_Q_XV UNI  1.60000E+0000  5.40000E+0000  1.40000E+0001 
+    9     Ex10   57       OUT_Q_XV UNI  1.30000E+0000  5.00000E+0000  1.30000E+0001 
+    9     Ex10   58        IN_R_XV UNI  2.30000E+0001  8.20000E+0001  2.10000E+0002 
+    9     Ex10   59    OUT_Rpre_XV UNI  2.30000E+0001  8.20000E+0001  2.10000E+0002 
+    9     Ex10   60   OUT_Rpost_XV UNI  2.10000E+0001  8.00000E+0001  2.00000E+0002 

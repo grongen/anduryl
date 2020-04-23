@@ -138,3 +138,43 @@ class Items:
         vals = self.project.assessments.array[:, :, keep].copy()
         self.project.assessments.array.resize(vals.shape, refcheck=False)
         self.project.assessments.array[:, :, :] = vals
+
+    def as_dict(self, orient='columns'):
+        """
+        Returns an overview of the item data as a Python dictionary.
+        The result can easily be converted to a pandas DataFrame with
+        pandas.DataFrame.from_dict([results])
+               
+        Parameters
+        ----------
+        orient : str, optional
+            First dimensions in dictionary. If columns, the results
+            variables are the first dimension. If index, the experts.
+            By default 'columns', similar to the pandas default.
+        
+        Returns
+        -------
+        dictionary
+            Dictionary with information and calibration scores
+        """
+
+        if orient not in ['columns', 'index']:
+            raise KeyError(f"Orient {orient} should be 'columns' or 'index'.")
+
+        lists = (self.ids, self.scale, self.realizations, self.questions)
+        
+        dct = {}
+        for ID, scale, realization, question in zip(*lists):
+            dct[ID] = {
+                'Scale': scale,
+                'Realization': realization,
+                'Question': question
+            }
+        
+        if orient == 'columns':
+            # Transpose
+            keys = dct[ID].keys()
+            dct = {key:{k:dct[k][key] for k in dct if key in dct[k]} for key in keys}
+
+        return dct
+        

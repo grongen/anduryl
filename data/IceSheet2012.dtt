@@ -1,0 +1,901 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1       01    1             S1 UNI  2.00000E+0001  4.00000E+0001  7.00000E+0001                                                                                                                                                       SMB uncertainty Gt / yr                                                 01
+    1       01    2             S2 UNI  3.00000E+0002  5.00000E+0002  8.00000E+0002                                                                                                                                                           Runoff span Gt / yr 
+    1       01    3             S3 UNI  2.00000E+0002  5.00000E+0002  1.00000E+0003                                                                                                                                                         MWP-1A duration years 
+    1       01    4             S4 UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000                                                                                                                                              Irreversible SLR at 1000 ppmv, m 
+    1       01    5             S5 UNI  0.00000E+0000  2.00000E+0001  5.00000E+0001                                                                                                                                                      Greve 1997 ave. HtMax, m 
+    1       01    6             S6 UNI  4.00000E+0000  5.00000E+0000  7.00000E+0000                                                                                                                            La Nina terrestrial -> ocean mass transfer SLR, mm 
+    1       01    7             S8 UNI  3.00000E+0000  6.00000E+0000  2.00000E+0001                                                                                                                                                       Basal melt rate, m / yr 
+    1       01    8            S12 UNI  1.00000E+0002  3.00000E+0002  1.00000E+0003                                                                                                                                    ModelE-R time to 75% ultimate value, years 
+    1       01    9            S13 UNI -1.00000E+0000 -2.50000E-0001 -1.00000E-0001                                                                                                              Iceland glaciers 2009/2010 ave climatic balance, 000's Kg / sq m 
+    1       01   10            S14 UNI  7.00000E+0001  1.00000E+0002  1.50000E+0002                                                                                                          1990 March max Artic sea ice extent, %age of 1979-2000 March average 
+    1       01   11            S16 UNI  7.00000E+0001  1.00000E+0002  1.50000E+0002                                                                                                           1990 Sept min Arctic sea ice extent, %age of 1979-2000 Sept average 
+    1       01   12   Gr2t21kaccum UNI -1.30000E+0001 -3.00000E+0000  7.00000E+0000                                                                                                                                                   GrIS 2deg 2100 accumulation 
+    1       01   13  Gr2t21krunoff UNI  0.00000E+0000  2.60000E+0001  5.30000E+0001                                                                                                                                                         GrIS 2deg 2100 runoff 
+    1       01   14   Gr2t21kdisch UNI  0.00000E+0000  7.00000E+0000  2.60000E+0001                                                                                                                                                      GrIS 2deg 2100 discharge 
+    1       01   15   Gr3t21kaccum UNI -1.30000E+0001 -3.00000E+0000  7.00000E+0000                                                                                                                                                   GrIS 3deg 2100 accumulation 
+    1       01   16  Gr3t21krunoff UNI  0.00000E+0000  4.00000E+0001  7.00000E+0001                                                                                                                                                         GrIS 3deg 2100 runoff 
+    1       01   17   Gr3t21kdisch UNI  0.00000E+0000  1.30000E+0001  4.00000E+0001                                                                                                                                                      GrIS 3deg 2100 discharge 
+    1       01   18   Gr4t21kaccum UNI -1.30000E+0001 -3.00000E+0000  7.00000E+0000                                                                                                                                                   GrIS 4deg 2100 accumulation 
+    1       01   19  Gr4t21krunoff UNI  0.00000E+0000  5.30000E+0001  7.90000E+0001                                                                                                                                                         GrIS 4deg 2100 runoff 
+    1       01   20   Gr4t21kdisch UNI  0.00000E+0000  2.00000E+0001  5.30000E+0001                                                                                                                                                     GrIS 4 deg 2100 discharge 
+    1       01   21   Gr4t22kaccum UNI -5.60000E+0001 -6.00000E+0000  4.20000E+0001                                                                                                                                                   GrIS 4deg 2200 accumulation 
+    1       01   22  Gr4t22krunoff UNI  0.00000E+0000  1.12000E+0002  1.69000E+0002                                                                                                                                                         GrIS 4deg 2200 runoff 
+    1       01   23   Gr4t22kdisch UNI  0.00000E+0000  4.20000E+0001  1.12000E+0002                                                                                                                                                      GrIS 4deg 2200 discharge 
+    1       01   24   Gr6t22kaccum UNI -5.60000E+0001 -6.00000E+0000  4.20000E+0001                                                                                                                                                   GrIS 6deg 2200 accumulation 
+    1       01   25  Gr6t22krunoff UNI  0.00000E+0000  1.41000E+0002  2.12000E+0002                                                                                                                                                         GrIS 6deg 2200 runoff 
+    1       01   26   Gr6t22kdisch UNI  0.00000E+0000  5.60000E+0001  1.41000E+0002                                                                                                                                                      GrIS 6deg 2200 discharge 
+    1       01   27   Gr8t22kaccum UNI -5.60000E+0001 -6.00000E+0000  4.20000E+0001                                                                                                                                                   GrIS 8deg 2200 accumulation 
+    1       01   28  Gr8t22krunoff UNI  0.00000E+0000  1.69000E+0002  2.54000E+0002                                                                                                                                                         GrIS 8deg 2200 runoff 
+    1       01   29   Gr8t22kdisch UNI  0.00000E+0000  7.10000E+0001  1.97000E+0002                                                                                                                                                      GrIS 8deg 2200 discharge 
+    1       01   30      dT_negSMB UNI  5.00000E-0001  1.00000E+0000  3.00000E+0000                                                                                         Regional mean ann. temp. rel. 2000-2010 needed for neg.SMB average over several years 
+    1       01   31   WA2t21kaccum UNI -2.30000E+0001 -1.00000E+0001  3.00000E+0000                                                                                                                                                   WAIS 2deg 2100 accumulation 
+    1       01   32  WA2t21krunoff UNI  0.00000E+0000  3.00000E+0000  2.60000E+0001                                                                                                                                                         WAIS 2deg 2100 runoff 
+    1       01   33   WA2t21kdisch UNI -1.60000E+0001  1.00000E+0001  2.48000E+0002                                                                                                                                                      WAIS 2deg 2100 discharge 
+    1       01   34   WA3t21kaccum UNI -3.00000E+0001 -1.30000E+0001  0.00000E+0000                                                                                                                                                   WAIS 3deg 2100 accumulation 
+    1       01   35  WA3t21krunoff UNI  0.00000E+0000  7.00000E+0000  4.00000E+0001                                                                                                                                                         WAIS 3deg 2100 runoff 
+    1       01   36   WA3t21kdisch UNI -1.60000E+0001  3.60000E+0001  2.48000E+0002                                                                                                                                                      WAIS 3deg 2100 discharge 
+    1       01   37   WA4t21kaccum UNI -3.60000E+0001 -1.70000E+0001  3.00000E+0000                                                                                                                                                   WAIS 4deg 2100 accumulation 
+    1       01   38  WA4t21krunoff UNI  0.00000E+0000  1.00000E+0001  5.30000E+0001                                                                                                                                                         WAIS 4deg 2100 runoff 
+    1       01   39   WA4t21kdisch UNI -1.60000E+0001  6.20000E+0001  2.48000E+0002                                                                                                                                                      WAIS 4deg 2100 discharge 
+    1       01   40   WA4t22kaccum UNI -7.80000E+0001 -3.50000E+0001  7.00000E+0000                                                                                                                                                   WAIS 4deg 2200 accumulation 
+    1       01   41  WA4t22krunoff UNI  0.00000E+0000  2.80000E+0001  1.13000E+0002                                                                                                                                                         WAIS 4deg 2200 runoff 
+    1       01   42   WA4t22kdisch UNI -2.00000E+0001  1.34000E+0002  5.30000E+0002                                                                                                                                                      WAIS 4deg 2200 discharge 
+    1       01   43   WA6t22kaccum UNI -9.20000E+0001 -4.30000E+0001  7.00000E+0000                                                                                                                                                   WAIS 6deg 2200 accumulation 
+    1       01   44  WA6t22krunoff UNI  0.00000E+0000  4.20000E+0001  1.41000E+0002                                                                                                                                                         WAIS 6deg 2200 runoff 
+    1       01   45   WA6t22kdisch UNI -3.50000E+0001  2.47000E+0002  5.30000E+0002                                                                                                                                                      WAIS 6deg 2200 discharge 
+    1       01   46   WA8t22kaccum UNI -1.06000E+0002 -5.00000E+0001  7.00000E+0000                                                                                                                                                   WAIS 8deg 2200 accumulation 
+    1       01   47  WA8t22krunoff UNI  0.00000E+0000  5.60000E+0001  1.69000E+0002                                                                                                                                                         WAIS 8deg 2200 runoff 
+    1       01   48   WA8t22kdisch UNI -3.50000E+0001  3.60000E+0002  5.29000E+0002                                                                                                                                                      WAIS 8deg 2200 discharge 
+    1       01   49  dT1mWAretreat UNI  0.00000E+0000  2.00000E+0000  4.00000E+0000                                                                                                                                   Min. change ocean temp for >1m WAIS retreat 
+    1       01   50    TimeWA1mSLR UNI  3.00000E+0002  5.00000E+0002  1.00000E+0003                                                                                                                               Timescale for WAIS retreat to contribute 1m SLR 
+    1       01   51   EA2t21kaccum UNI -9.00000E+0000 -3.00000E+0000  4.00000E+0000                                                                                                                                                   EAIS 2deg 2100 accumulation 
+    1       01   52  EA2t21krunoff UNI  0.00000E+0000  3.00000E+0000  2.60000E+0001                                                                                                                                                         EAIS 2deg 2100 runoff 
+    1       01   53   EA2t21kdisch UNI -1.70000E+0001  9.00000E+0000  2.47000E+0002                                                                                                                                                      EAIS 2deg 2100 discharge 
+    1       01   54   EA3t21kaccum UNI -1.60000E+0001 -6.00000E+0000  4.00000E+0000                                                                                                                                                   EAIS 3deg 2100 accumulation 
+    1       01   55  EA3t21krunoff UNI  0.00000E+0000  7.00000E+0000  4.00000E+0001                                                                                                                                                         EAIS 3deg 2100 runoff 
+    1       01   56   EA3t21kdisch UNI -1.70000E+0001  3.60000E+0001  2.47000E+0002                                                                                                                                                      EAIS 3deg 2100 discharge 
+    1       01   57   EA4t21kaccum UNI -2.20000E+0001 -9.00000E+0000  4.00000E+0000                                                                                                                                                   EAIS 4deg 2100 accumulation 
+    1       01   58 EA4t2100runoff UNI  0.00000E+0000  1.00000E+0001  5.30000E+0001                                                                                                                                                         EAIS 4deg 2100 runoff 
+    1       01   59   EA4t21kdisch UNI -1.70000E+0001  6.20000E+0001  2.47000E+0002                                                                                                                                                      EAIS 4deg 2100 discharge 
+    1       01   60   EA4t22kaccum UNI -4.80000E+0001 -1.90000E+0001  9.00000E+0000                                                                                                                                                   EAIS 4deg 2200 accumulation 
+    1       01   61  EA4t22krunoff UNI  0.00000E+0000  2.80000E+0001  1.13000E+0002                                                                                                                                                         EAIS 4deg 2200 runoff 
+    1       01   62   EA4t22kdisch UNI -3.70000E+0001  1.13000E+0002  5.27000E+0002                                                                                                                                                      EAIS 4deg 2200 discharge 
+    1       01   63   EA6t22kaccum UNI -6.20000E+0001 -2.60000E+0001  9.00000E+0000                                                                                                                                                   EAIS 6deg 2200 accumulation 
+    1       01   64  EA6t22krunoff UNI  0.00000E+0000  4.20000E+0001  1.41000E+0002                                                                                                                                                         EAIS 6deg 2200 runoff 
+    1       01   65   EA6t22kdisch UNI -3.70000E+0001  2.45000E+0002  5.27000E+0002                                                                                                                                                      EAIS 6deg 2200 discharge 
+    1       01   66   EA8t22kaccum UNI -7.60000E+0001 -3.40000E+0001  9.00000E+0000                                                                                                                                                   EAIS 8deg 2200 accumulation 
+    1       01   67  EA8t22krunoff UNI  0.00000E+0000  5.60000E+0001  1.70000E+0002                                                                                                                                                         EAIS 8deg 2200 runoff 
+    1       01   68   EA8t22kdisch UNI -3.70000E+0001  3.58000E+0002  5.27000E+0002                                                                                                                                                      EAIS 8deg 2200 discharge 
+    1       01   69      dTEA100Gt UNI  0.00000E+0000  5.00000E-0001  2.00000E+0000                                                                                                                                           Temp rise for EAIS >100Gt/yr to SLR 
+    1       01   70  dT1mEAretreat uni  1.00000E+0000  2.00000E+0000  6.00000E+0000                                                                                                                                     Min ocean temp rise for > 1m retreat EAIS 
+    1       01   71    TimeEA1mSLR uni  5.00000E+0002  1.00000E+0003  2.00000E+0003                                                                                                                              Timescale for EAIS retreat to contriibute 1m SLR 
+    1       01   72   PrRetroWAsec UNI  6.00000E+0001  8.50000E+0001  1.00000E+0002                                                                                                              Prob current WAIS trend confirmed secular in 2100 restrospective 
+    1       01   73   PrRetroGrsec UNI  5.00000E+0001  7.50000E+0001  1.00000E+0002                                                                                                               Prob current GrIS trend confirmed secular in 2100 retrospective 
+    1       01   74 Gr%SLRmodelUnc UNI  1.00000E+0001  6.00000E+0001  8.00000E+0001                                                                                                                GrIS model uncertainty in SLR prediction for 4deg rise by 2100 
+    1       01   75 WA%SLRmodelUnc UNI  1.00000E+0001  8.00000E+0001  1.00000E+0002                                                                                                                WAIS model uncertainty in SLR prediction for 4deg rise by 2100 
+    1       01   76 EA%SLRmodelUnc UNI  1.00000E+0001  7.00000E+0001  1.00000E+0002                                                                                                                EAIS model uncertainty in SLR prediction for 4deg rise by 2100 
+    1       01   77  PrMissFactors UNI  6.00000E+0001  9.00000E+0001  1.00000E+0002                                                                                                    Likelihood cuurent models do not capture external forcing response factors 
+    1       01   78  PrWA_incr_sec uni  9.00000E-0002  1.00000E-0001  1.10000E-0001                                                                                                                      Prob increasing WAIS mass loss is start of secular trend 
+    1       01   79  PrGr_incr_sec uni  1.90000E-0001  2.00000E-0001  2.10000E-0001                                                                                                                      Prob increasing GrIS mass loss is start of secular trend 
+    1       01   80             S7 UNI  7.00000E+0003  1.00000E+0004  1.30000E+0004                                                                                                                               Odds against run of negative Artic Dipole years 
+    1       01   81             S9 UNI -3.60000E+0001 -9.00000E+0000 -1.00000E+0000                                                                                                                 New Jersey regional SL error squared rel. to Haq curve errors 
+    1       01   82            S10 UNI  2.00000E+0000  3.00000E+0000  1.60000E+0001                                                                                                                        Expert evaluation of model improvements (no. improved) 
+    1       01   83            S11 UNI  1.00000E-0001  3.00000E-0001  1.00000E+0000                                                                                                                                    Ratio Byrd/Siple station temp conf. ranges 
+    1       01   84            S18 UNI  1.60000E+0000  2.00000E+0000  3.00000E+0000                                                                                                                     PIOMAS 1979 winter/summer daily sea ice vol max/min ratio 
+    1       01   85            S19 UNI -5.00000E-0001 -1.00000E-0001 -5.00000E-0002                                                                                                                                 SDs Sept2012 sea ice vol. rel 1979-2011 trend 
+    1       01   86 PreMar13iceMax UNI  6.00000E+0001  8.00000E+0001  1.00000E+0002                                                                                                                  Predict March 2013 sea ice vol max as %age 1979-2000 average 
+    1       01   87 PreSep13iceMin UNI  5.00000E+0001  6.00000E+0001  9.00000E+0001                                                                                                                   Predict Sept 2013 sea ice vol min as %age 1979-2000 average 
+    1       01   88 Pre1312volrati UNI  1.60000E+0000  2.00000E+0000  2.40000E+0000                                                                                                                 Predict ratio 2013 winter max daily sea ice vol rel 2012 min. 
+    1       01   89    PreSep13SDs UNI -5.00000E-0001 -5.00000E-0002  1.00000E-0001                                                                                                         Predict no. SDs monthly ave Sept 2013 sea ice vol wrt 1979-2011 trend 
+    1       01   90    PreMar13SDs UNI -5.00000E-0001 -5.00000E-0002  1.00000E-0001                                                                                                          Predict no. SDs monthly ave Mar 2013 sea ice vol wrt 1979-2011 trend 
+    2       02    1             S1 UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001                                                                                                                                                       SMB uncertainty Gt / yr                                                 02
+    2       02    2             S2 UNI  2.00000E+0002  3.00000E+0002  5.00000E+0002 
+    2       02    3             S3 UNI  5.00000E+0002  1.00000E+0003  1.50000E+0003 
+    2       02    4             S4 UNI  5.00000E-0001  1.00000E+0000  1.50000E+0000 
+    2       02    5             S5 UNI  1.00000E+0002  2.00000E+0002  4.00000E+0002 
+    2       02    6             S6 UNI  0.00000E+0000  3.00000E-0001  5.00000E-0001 
+    2       02    7             S8 UNI  5.00000E+0000  2.00000E+0001  5.00000E+0001 
+    2       02    8            S12 UNI  5.00000E+0002  1.00000E+0003  2.00000E+0003 
+    2       02    9            S13 UNI -2.50000E+0000 -1.50000E+0000 -5.00000E-0001 
+    2       02   10            S14 UNI  7.50000E+0001  1.00000E+0002  1.25000E+0002 
+    2       02   11            S16 UNI  7.50000E+0001  1.00000E+0002  1.25000E+0002 
+    2       02   12   Gr2t21kaccum UNI -1.00000E+0001 -5.00000E+0000  0.00000E+0000 
+    2       02   13  Gr2t21krunoff UNI  1.00000E+0001  3.00000E+0001  6.00000E+0001 
+    2       02   14   Gr2t21kdisch UNI  1.00000E+0001  6.00000E+0001  1.10000E+0002 
+    2       02   15   Gr3t21kaccum UNI -2.00000E+0001 -1.00000E+0001  0.00000E+0000 
+    2       02   16  Gr3t21krunoff UNI  2.00000E+0001  5.00000E+0001  9.00000E+0001 
+    2       02   17   Gr3t21kdisch UNI  1.00000E+0001  6.00000E+0001  1.10000E+0002 
+    2       02   18   Gr4t21kaccum UNI -3.00000E+0001 -1.50000E+0001  0.00000E+0000 
+    2       02   19  Gr4t21krunoff UNI  5.00000E+0001  8.00000E+0001  1.20000E+0002 
+    2       02   20   Gr4t21kdisch UNI  1.00000E+0001  6.00000E+0001  1.10000E+0002 
+    2       02   21   Gr4t22kaccum UNI -5.00000E+0001 -3.00000E+0001  0.00000E+0000 
+    2       02   22  Gr4t22krunoff UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002 
+    2       02   23   Gr4t22kdisch UNI  2.00000E+0001  1.20000E+0002  2.20000E+0002 
+    2       02   24   Gr6t22kaccum UNI -6.00000E+0001 -4.00000E+0001  0.00000E+0000 
+    2       02   25  Gr6t22krunoff UNI  2.00000E+0002  3.00000E+0002  4.50000E+0002 
+    2       02   26   Gr6t22kdisch UNI  2.00000E+0001  1.20000E+0002  2.20000E+0002 
+    2       02   27   Gr8t22kaccum UNI -9.00000E+0001 -6.00000E+0001  0.00000E+0000 
+    2       02   28  Gr8t22krunoff UNI  3.00000E+0002  4.50000E+0002  7.00000E+0002 
+    2       02   29   Gr8t22kdisch UNI  2.00000E+0001  1.20000E+0002  2.20000E+0002 
+    2       02   30      dT_negSMB UNI -5.00000E-0001  0.00000E+0000  5.00000E-0001 
+    2       02   31   WA2t21kaccum UNI -1.50000E+0001 -1.00000E+0001  0.00000E+0000 
+    2       02   32  WA2t21krunoff UNI  0.00000E+0000  5.00000E+0000  1.00000E+0001 
+    2       02   33   WA2t21kdisch UNI  2.00000E+0000  7.00000E+0000  1.20000E+0001 
+    2       02   34   WA3t21kaccum UNI -2.50000E+0001 -1.50000E+0001  0.00000E+0000 
+    2       02   35  WA3t21krunoff UNI  0.00000E+0000  2.00000E+0001  3.50000E+0001 
+    2       02   36   WA3t21kdisch UNI  2.00000E+0000  7.00000E+0000  1.20000E+0001 
+    2       02   37   WA4t21kaccum UNI -3.00000E+0001 -2.00000E+0001  0.00000E+0000 
+    2       02   38  WA4t21krunoff UNI  5.00000E+0000  3.00000E+0001  5.50000E+0001 
+    2       02   39   WA4t21kdisch UNI  2.00000E+0000  7.00000E+0000  1.20000E+0001 
+    2       02   40   WA4t22kaccum UNI -6.00000E+0001 -4.00000E+0001  0.00000E+0000 
+    2       02   41  WA4t22krunoff UNI  2.00000E+0001  6.00000E+0001  1.10000E+0002 
+    2       02   42   WA4t22kdisch UNI  4.00000E+0000  1.40000E+0001  2.40000E+0001 
+    2       02   43   WA6t22kaccum UNI -1.05000E+0002 -7.00000E+0001  0.00000E+0000 
+    2       02   44  WA6t22krunoff UNI  5.00000E+0001  1.20000E+0002  2.40000E+0002 
+    2       02   45   WA6t22kdisch UNI  4.00000E+0000  2.10000E+0001  3.60000E+0001 
+    2       02   46   WA8t22kaccum UNI -1.75000E+0002 -1.00000E+0002  0.00000E+0000 
+    2       02   47  WA8t22krunoff UNI  1.00000E+0002  2.10000E+0002  3.90000E+0002 
+    2       02   48   WA8t22kdisch UNI  4.00000E+0000  2.80000E+0001  6.00000E+0001 
+    2       02   49  dT1mWAretreat UNI  1.00000E+0000  2.00000E+0000  2.50000E+0000 
+    2       02   50    TimeWA1mSLR UNI  2.00000E+0002  3.00000E+0002  6.00000E+0002 
+    2       02   51   EA2t21kaccum UNI -4.00000E+0001 -2.00000E+0001  0.00000E+0000 
+    2       02   52  EA2t21krunoff UNI  0.00000E+0000  1.00000E+0001  2.00000E+0001 
+    2       02   53   EA2t21kdisch UNI  0.00000E+0000  2.00000E+0001  4.00000E+0001 
+    2       02   54   EA3t21kaccum UNI -7.00000E+0001 -4.00000E+0001  0.00000E+0000 
+    2       02   55  EA3t21krunoff UNI  0.00000E+0000  1.50000E+0001  3.00000E+0001 
+    2       02   56   EA3t21kdisch UNI  0.00000E+0000  2.00000E+0001  4.00000E+0001 
+    2       02   57   EA4t21kaccum UNI -1.00000E+0002 -6.00000E+0001  0.00000E+0000 
+    2       02   58 EA4t2100runoff UNI  0.00000E+0000  2.00000E+0001  3.50000E+0001 
+    2       02   59   EA4t21kdisch UNI  0.00000E+0000  2.00000E+0001  4.00000E+0001 
+    2       02   60   EA4t22kaccum UNI -2.00000E+0002 -1.20000E+0002  0.00000E+0000 
+    2       02   61  EA4t22krunoff UNI  1.00000E+0001  4.00000E+0001  6.50000E+0001 
+    2       02   62   EA4t22kdisch UNI  0.00000E+0000  4.00000E+0001  8.00000E+0001 
+    2       02   63   EA6t22kaccum UNI -3.00000E+0002 -1.80000E+0002  0.00000E+0000 
+    2       02   64  EA6t22krunoff UNI  2.00000E+0001  6.00000E+0001  1.00000E+0002 
+    2       02   65   EA6t22kdisch UNI  0.00000E+0000  8.00000E+0001  1.60000E+0002 
+    2       02   66   EA8t22kaccum UNI -4.40000E+0002 -2.40000E+0002  0.00000E+0000 
+    2       02   67  EA8t22krunoff UNI  5.00000E+0001  1.00000E+0002  1.50000E+0002 
+    2       02   68   EA8t22kdisch UNI  0.00000E+0000  1.60000E+0002  3.00000E+0002 
+    2       02   69      dTEA100Gt UNI  4.00000E+0000  5.00000E+0000  7.00000E+0000 
+    2       02   70  dT1mEAretreat uni  1.00000E+0000  2.00000E+0000  2.50000E+0000 
+    2       02   71    TimeEA1mSLR uni  2.00000E+0002  3.00000E+0002  6.00000E+0002 
+    2       02   72   PrRetroWAsec UNI  5.00000E+0000  5.00000E+0001  9.50000E+0001 
+    2       02   73   PrRetroGrsec UNI  7.00000E+0001  8.50000E+0001  9.90000E+0001 
+    2       02   74 Gr%SLRmodelUnc UNI  2.50000E+0001  5.00000E+0001  7.50000E+0001 
+    2       02   75 WA%SLRmodelUnc UNI  2.50000E+0001  5.00000E+0001  7.50000E+0001 
+    2       02   76 EA%SLRmodelUnc UNI  2.50000E+0001  5.00000E+0001  7.50000E+0001 
+    2       02   77  PrMissFactors UNI  6.50000E+0001  8.00000E+0001  9.50000E+0001 
+    2       02   78  PrWA_incr_sec uni  4.90000E-0001  5.00000E-0001  5.10000E-0001 
+    2       02   79  PrGr_incr_sec uni  4.00000E-0002  5.00000E-0002  5.10000E-0002 
+    2       02   80             S7 UNI  1.00000E+0003  2.50000E+0003  5.00000E+0003 
+    2       02   81             S9 UNI -1.00000E+0001 -8.00000E+0000 -4.00000E+0000 
+    2       02   82            S10 UNI  1.00000E+0000  5.00000E+0000  1.00000E+0001 
+    2       02   83            S11 UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000 
+    2       02   84            S18 UNI  2.00000E+0000  2.50000E+0000  3.50000E+0000 
+    2       02   85            S19 UNI -3.00000E+0000 -2.00000E+0000 -1.00000E+0000 
+    2       02   86 PreMar13iceMax UNI  9.00000E+0001  9.50000E+0001  1.05000E+0002 
+    2       02   87 PreSep13iceMin UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    2       02   88 Pre1312volrati UNI  2.50000E+0000  3.50000E+0000  4.00000E+0000 
+    2       02   89    PreSep13SDs UNI -1.00000E+0000 -5.00000E-0001  0.00000E+0000 
+    2       02   90    PreMar13SDs UNI -5.00000E-0001  0.00000E+0000  5.00000E-0001 
+    3       03    1             S1 UNI  3.00000E+0001  1.00000E+0002  2.00000E+0002                                                                                                                                                       SMB uncertainty Gt / yr                                                 03
+    3       03    2             S2 UNI  3.50000E+0002  5.00000E+0002  6.00000E+0002 
+    3       03    3             S3 UNI  2.00000E+0003  5.00000E+0003  2.00000E+0004 
+    3       03    4             S4 UNI  1.00000E+0000  1.20000E+0000  1.50000E+0000 
+    3       03    5             S5 UNI  1.00000E+0002  1.00000E+0003  2.00000E+0003 
+    3       03    6             S6 UNI -1.00000E+0001 -5.00000E+0000 -3.00000E+0000 
+    3       03    7             S8 UNI  1.00000E+0000  2.00000E+0000  2.00000E+0001 
+    3       03    8            S12 UNI  1.00000E+0002  2.00000E+0002  5.00000E+0002 
+    3       03    9            S13 UNI -1.00000E+0001  0.00000E+0000  1.00000E+0001 
+    3       03   10            S14 UNI  9.00000E+0001  1.00000E+0002  1.10000E+0002 
+    3       03   11            S16 UNI  7.50000E+0001  8.50000E+0001  9.50000E+0001 
+    3       03   12   Gr2t21kaccum UNI -1.20000E+0001 -8.00000E+0000 -4.00000E+0000 
+    3       03   13  Gr2t21krunoff UNI  4.00000E+0001  5.00000E+0001  1.00000E+0002 
+    3       03   14   Gr2t21kdisch UNI  0.00000E+0000  2.00000E+0001  6.00000E+0001 
+    3       03   15   Gr3t21kaccum UNI -1.80000E+0001 -1.00000E+0001 -5.00000E+0000 
+    3       03   16  Gr3t21krunoff UNI  5.50000E+0001  7.50000E+0001  1.50000E+0002 
+    3       03   17   Gr3t21kdisch UNI  0.00000E+0000  4.50000E+0001  6.00000E+0001 
+    3       03   18   Gr4t21kaccum UNI -2.40000E+0001 -1.20000E+0001 -7.00000E+0000 
+    3       03   19  Gr4t21krunoff UNI  7.50000E+0001  1.00000E+0002  2.30000E+0002 
+    3       03   20   Gr4t21kdisch UNI  1.00000E+0001  9.00000E+0001  1.20000E+0002 
+    3       03   21   Gr4t22kaccum UNI -5.00000E+0001 -2.50000E+0001 -1.50000E+0001 
+    3       03   22  Gr4t22krunoff UNI  1.50000E+0002  2.50000E+0002  5.00000E+0002 
+    3       03   23   Gr4t22kdisch UNI  0.00000E+0000  1.50000E+0002  2.50000E+0002 
+    3       03   24   Gr6t22kaccum UNI -7.00000E+0001 -4.00000E+0001 -2.00000E+0001 
+    3       03   25  Gr6t22krunoff UNI  2.00000E+0002  3.50000E+0002  7.20000E+0002 
+    3       03   26   Gr6t22kdisch UNI  2.00000E+0001  1.80000E+0002  2.50000E+0002 
+    3       03   27   Gr8t22kaccum UNI -1.00000E+0002 -5.00000E+0001 -3.00000E+0001 
+    3       03   28  Gr8t22krunoff UNI  3.00000E+0002  5.00000E+0002  1.00000E+0003 
+    3       03   29   Gr8t22kdisch UNI  4.00000E+0001  6.00000E+0002  7.20000E+0002 
+    3       03   30      dT_negSMB UNI  5.00000E-0001  1.00000E+0000  3.00000E+0000 
+    3       03   31   WA2t21kaccum UNI -3.00000E+0001 -1.70000E+0001 -1.40000E+0001 
+    3       03   32  WA2t21krunoff UNI  0.00000E+0000  3.00000E+0001  6.00000E+0001 
+    3       03   33   WA2t21kdisch UNI  0.00000E+0000  7.50000E+0001  1.50000E+0002 
+    3       03   34   WA3t21kaccum UNI -4.50000E+0001 -2.50000E+0001 -2.00000E+0001 
+    3       03   35  WA3t21krunoff UNI  0.00000E+0000  4.50000E+0001  9.00000E+0001 
+    3       03   36   WA3t21kdisch UNI  0.00000E+0000  1.50000E+0002  3.00000E+0002 
+    3       03   37   WA4t21kaccum UNI -6.50000E+0001 -3.50000E+0001 -3.00000E+0001 
+    3       03   38  WA4t21krunoff UNI  0.00000E+0000  6.00000E+0001  1.20000E+0002 
+    3       03   39   WA4t21kdisch UNI  1.00000E+0001  3.00000E+0002  5.00000E+0002 
+    3       03   40   WA4t22kaccum UNI -2.60000E+0002 -1.50000E+0002 -1.20000E+0002 
+    3       03   41  WA4t22krunoff UNI  0.00000E+0000  1.20000E+0002  2.40000E+0002 
+    3       03   42   WA4t22kdisch UNI  1.20000E+0002  3.00000E+0002  6.00000E+0002 
+    3       03   43   WA6t22kaccum UNI -4.50000E+0002 -2.50000E+0002 -2.00000E+0002 
+    3       03   44  WA6t22krunoff UNI  0.00000E+0000  1.80000E+0002  3.60000E+0002 
+    3       03   45   WA6t22kdisch UNI  2.00000E+0002  6.00000E+0002  1.20000E+0003 
+    3       03   46   WA8t22kaccum UNI -6.50000E+0002 -3.50000E+0002 -2.60000E+0002 
+    3       03   47  WA8t22krunoff UNI  0.00000E+0000  2.50000E+0002  5.00000E+0002 
+    3       03   48   WA8t22kdisch UNI  2.60000E+0002  1.20000E+0003  2.00000E+0003 
+    3       03   49  dT1mWAretreat UNI  1.00000E-0001  1.00000E+0000  2.00000E+0000 
+    3       03   50    TimeWA1mSLR UNI  1.00000E+0002  5.00000E+0002  1.00000E+0003 
+    3       03   51   EA2t21kaccum UNI -3.00000E+0001 -2.00000E+0001 -1.50000E+0001 
+    3       03   52  EA2t21krunoff UNI  0.00000E+0000  1.00000E+0001  1.20000E+0002 
+    3       03   53   EA2t21kdisch UNI  0.00000E+0000  7.50000E+0001  1.50000E+0002 
+    3       03   54   EA3t21kaccum UNI -5.00000E+0001 -3.50000E+0001 -2.50000E+0001 
+    3       03   55  EA3t21krunoff UNI  0.00000E+0000  2.00000E+0001  1.80000E+0002 
+    3       03   56   EA3t21kdisch UNI  0.00000E+0000  1.50000E+0001  3.00000E+0002 
+    3       03   57   EA4t21kaccum UNI -7.00000E+0001 -5.00000E+0001 -3.00000E+0001 
+    3       03   58 EA4t2100runoff UNI  0.00000E+0000  1.00000E+0002  2.50000E+0002 
+    3       03   59   EA4t21kdisch UNI  0.00000E+0000  3.00000E+0002  5.00000E+0002 
+    3       03   60   EA4t22kaccum UNI -3.00000E+0002 -2.00000E+0002 -1.00000E+0002 
+    3       03   61  EA4t22krunoff UNI  0.00000E+0000  2.50000E+0002  5.00000E+0002 
+    3       03   62   EA4t22kdisch UNI  1.00000E+0002  4.00000E+0002  1.00000E+0003 
+    3       03   63   EA6t22kaccum UNI -5.00000E+0002 -3.00000E+0002 -2.00000E+0002 
+    3       03   64  EA6t22krunoff UNI  1.00000E+0002  3.50000E+0002  7.00000E+0002 
+    3       03   65   EA6t22kdisch UNI  1.00000E+0002  5.00000E+0002  1.00000E+0003 
+    3       03   66   EA8t22kaccum UNI -7.00000E+0002 -4.00000E+0002 -3.00000E+0002 
+    3       03   67  EA8t22krunoff UNI  2.00000E+0002  7.00000E+0002  1.00000E+0003 
+    3       03   68   EA8t22kdisch UNI  1.00000E+0002  1.00000E+0003  1.50000E+0003 
+    3       03   69      dTEA100Gt UNI  1.00000E+0000  2.00000E+0000  5.00000E+0000 
+    3       03   70  dT1mEAretreat uni  1.00000E-0001  1.00000E+0000  4.00000E+0000 
+    3       03   71    TimeEA1mSLR uni  1.00000E+0002  5.00000E+0002  5.00000E+0003 
+    3       03   72   PrRetroWAsec UNI  4.00000E+0001  8.00000E+0001  9.00000E+0001 
+    3       03   73   PrRetroGrsec UNI  2.00000E+0001  6.00000E+0001  7.00000E+0001 
+    3       03   74 Gr%SLRmodelUnc UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    3       03   75 WA%SLRmodelUnc UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    3       03   76 EA%SLRmodelUnc UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    3       03   77  PrMissFactors UNI  3.00000E+0001  5.00000E+0001  7.00000E+0001 
+    3       03   78  PrWA_incr_sec uni  1.90000E-0001  2.00000E-0001  2.10000E-0001 
+    3       03   79  PrGr_incr_sec uni  3.90000E-0001  4.00000E-0001  4.10000E-0001 
+    3       03   80             S7 UNI  1.20000E+0002  1.40000E+0002  1.60000E+0002 
+    3       03   81             S9 UNI -5.00000E+0000 -1.00000E-0001  5.00000E+0000 
+    3       03   82            S10 UNI  9.00000E+0000  1.30000E+0001  1.90000E+0001 
+    3       03   83            S11 UNI  1.00000E-0002  1.00000E+0000  1.00000E+0002 
+    3       03   84            S18 UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+    3       03   85            S19 UNI -2.00000E+0000 -1.50000E+0000 -2.50000E-0001 
+    3       03   86 PreMar13iceMax UNI  9.00000E+0001  1.00000E+0002  1.10000E+0002 
+    3       03   87 PreSep13iceMin UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+    3       03   88 Pre1312volrati UNI  8.50000E-0001  1.00000E+0000  1.10000E+0000 
+    3       03   89    PreSep13SDs UNI -3.00000E+0000 -1.00000E+0000  0.00000E+0000 
+    3       03   90    PreMar13SDs UNI -2.00000E+0000  0.00000E+0000  2.00000E+0000 
+    4       04    1             S1 UNI  1.00000E+0001  4.00000E+0001  8.00000E+0001                                                                                                                                                       SMB uncertainty Gt / yr                                                 04
+    4       04    2             S2 UNI  2.00000E+0000  1.00000E+0001  2.00000E+0001 
+    4       04    3             S3 UNI  5.00000E+0001  1.00000E+0002  2.00000E+0002 
+    4       04    4             S4 UNI  1.00000E-0001  2.00000E-0001  4.00000E-0001 
+    4       04    5             S5 UNI  5.00000E-0001  5.00000E+0000  1.00000E+0001 
+    4       04    6             S6 UNI -1.00000E+0000  5.00000E-0001  1.00000E+0000 
+    4       04    7             S8 UNI  1.00000E+0000  1.00000E+0001  2.00000E+0001 
+    4       04    8            S12 UNI  1.00000E+0001  5.00000E+0001  1.00000E+0002 
+    4       04    9            S13 UNI -1.00000E-0001 -1.00000E-0002  0.00000E+0000 
+    4       04   10            S14 UNI  8.00000E+0001  9.00000E+0001  9.90000E+0001 
+    4       04   11            S16 UNI  7.00000E+0001  9.00000E+0001  9.90000E+0001 
+    4       04   12   Gr2t21kaccum UNI -3.12000E+0001 -2.50000E+0001 -1.87000E+0001 
+    4       04   13  Gr2t21krunoff UNI  9.30000E+0000  1.25000E+0002  1.56000E+0002 
+    4       04   14   Gr2t21kdisch UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001 
+    4       04   15   Gr3t21kaccum UNI -7.00000E+0001 -5.60000E+0001 -4.20000E+0001 
+    4       04   16  Gr3t21krunoff UNI  2.52000E+0001  3.36000E+0001  4.20000E+0001 
+    4       04   17   Gr3t21kdisch UNI  3.36000E+0001  4.48000E+0001  5.60000E+0001 
+    4       04   18   Gr4t21kaccum UNI -8.62000E+0001 -6.90000E+0001 -5.17000E+0001 
+    4       04   19  Gr4t21krunoff UNI  3.62000E+0001  4.83000E+0001  6.03000E+0001 
+    4       04   20   Gr4t21kdisch UNI  4.39000E+0001  5.86000E+0001  7.32000E+0001 
+    4       04   21   Gr4t22kaccum UNI -7.00000E+0001 -5.00000E+0001 -3.00000E+0001 
+    4       04   22  Gr4t22krunoff UNI  1.50000E+0001  2.80000E+0001  3.50000E+0001 
+    4       04   23   Gr4t22kdisch UNI  2.40000E+0001  4.00000E+0001  5.60000E+0001 
+    4       04   24   Gr6t22kaccum UNI -1.56800E+0002 -1.12000E+0002 -6.72000E+0001 
+    4       04   25  Gr6t22krunoff UNI  4.03000E+0001  6.72000E+0001  9.40000E+0001 
+    4       04   26   Gr6t22kdisch UNI  5.37000E+0001  8.96000E+0001  1.25400E+0002 
+    4       04   27   Gr8t22kaccum UNI -1.93200E+0002 -1.38000E+0002 -8.28000E+0001 
+    4       04   28  Gr8t22krunoff UNI  5.79000E+0001  9.66000E+0001  1.35200E+0002 
+    4       04   29   Gr8t22kdisch UNI  6.99000E+0001  1.16600E+0002  1.63200E+0002 
+    4       04   30      dT_negSMB UNI  1.70000E+0000  5.00000E+0000  8.30000E+0000 
+    4       04   31   WA2t21kaccum UNI -7.50000E+0000 -6.00000E+0000 -4.50000E+0000 
+    4       04   32  WA2t21krunoff UNI  4.50000E-0002  6.00000E-0002  7.50000E-0002 
+    4       04   33   WA2t21kdisch UNI  4.50000E+0000  7.50000E+0000  7.60000E+0000 
+    4       04   34   WA3t21kaccum UNI -1.32000E+0001 -1.06000E+0001 -8.00000E-0001 
+    4       04   35  WA3t21krunoff UNI  2.25000E-0001  3.00000E-0001  3.75000E-0001 
+    4       04   36   WA3t21kdisch UNI  1.20000E+0001  1.60000E+0001  2.00000E+0001 
+    4       04   37   WA4t21kaccum UNI -1.90000E+0000 -1.52000E+0000 -1.14000E+0000 
+    4       04   38  WA4t21krunoff UNI  6.00000E-0001  8.00000E-0001  1.00000E+0000 
+    4       04   39   WA4t21kdisch UNI  2.28000E+0001  3.04000E+0001  3.80000E+0001 
+    4       04   40   WA4t22kaccum UNI -1.68000E+0001 -1.20000E+0001 -7.20000E+0000 
+    4       04   41  WA4t22krunoff UNI  7.00000E-0002  1.20000E-0001  1.68000E-0001 
+    4       04   42   WA4t22kdisch UNI  9.00000E+0000  1.50000E+0001  2.10000E+0001 
+    4       04   43   WA6t22kaccum UNI -2.96000E+0001 -2.12000E+0001 -1.27000E+0001 
+    4       04   44  WA6t22krunoff UNI  3.60000E-0001  6.00000E-0001  8.40000E-0001 
+    4       04   45   WA6t22kdisch UNI  2.28000E+0001  3.80000E+0001  5.32000E+0001 
+    4       04   46   WA8t22kaccum UNI -4.25000E+0001 -3.04000E+0001 -1.82000E+0001 
+    4       04   47  WA8t22krunoff UNI  9.60000E-0001  1.60000E+0000  2.24000E+0000 
+    4       04   48   WA8t22kdisch UNI  3.64000E+0001  6.08000E+0001  8.51000E+0001 
+    4       04   49  dT1mWAretreat UNI  3.50000E+0000  5.00000E+0000  6.50000E+0000 
+    4       04   50    TimeWA1mSLR UNI  1.80000E+0002  3.00000E+0002  4.20000E+0002 
+    4       04   51   EA2t21kaccum UNI -8.70000E+0000 -7.00000E+0000 -5.20000E+0000 
+    4       04   52  EA2t21krunoff UNI  5.00000E-0002  7.00000E-0002  8.00000E-0002 
+    4       04   53   EA2t21kdisch UNI  5.20000E+0000  7.00000E+0000  8.70000E+0000 
+    4       04   54   EA3t21kaccum UNI -1.55000E+0001 -1.24000E+0001 -9.30000E+0000 
+    4       04   55  EA3t21krunoff UNI  2.30000E-0001  3.10000E-0001  3.80000E-0001 
+    4       04   56   EA3t21kdisch UNI  1.02000E+0001  1.36000E+0001  1.70000E+0001 
+    4       04   57   EA4t21kaccum UNI -2.25000E+0001 -1.80000E+0001 -1.35000E+0001 
+    4       04   58 EA4t2100runoff UNI  7.00000E-0001  9.00000E-0001  1.12500E+0000 
+    4       04   59   EA4t21kdisch UNI  1.62000E+0001  2.16000E+0001  2.70000E+0001 
+    4       04   60   EA4t22kaccum UNI -1.96000E+0001 -1.40000E+0001 -8.40000E+0000 
+    4       04   61  EA4t22krunoff UNI  8.00000E-0002  1.40000E-0001  2.00000E-0001 
+    4       04   62   EA4t22kdisch UNI  8.40000E+0000  1.40000E+0001  1.96000E+0001 
+    4       04   63   EA6t22kaccum UNI -3.50000E+0001 -2.50000E+0001 -1.50000E+0001 
+    4       04   64  EA6t22krunoff UNI  4.00000E-0001  6.00000E-0001  8.00000E-0001 
+    4       04   65   EA6t22kdisch UNI  1.63000E+0001  2.72000E+0001  3.80000E+0001 
+    4       04   66   EA8t22kaccum UNI -5.04000E+0001 -3.60000E+0001 -2.16000E+0001 
+    4       04   67  EA8t22krunoff UNI  1.10000E+0000  1.80000E+0000  2.52000E+0000 
+    4       04   68   EA8t22kdisch UNI  2.59000E+0001  4.32000E+0001  6.05000E+0001 
+    4       04   69      dTEA100Gt UNI  1.50000E+0000  3.00000E+0000  4.50000E+0000 
+    4       04   70  dT1mEAretreat uni  1.12500E+0001  1.50000E+0001  1.87500E+0001 
+    4       04   71    TimeEA1mSLR uni  4.50000E+0002  6.00000E+0002  7.50000E+0002 
+    4       04   72   PrRetroWAsec UNI  1.00000E+0001  5.00000E+0001  9.00000E+0001 
+    4       04   73   PrRetroGrsec UNI  1.00000E+0001  5.00000E+0001  9.00000E+0001 
+    4       04   74 Gr%SLRmodelUnc UNI  1.00000E+0001  2.50000E+0001  4.00000E+0001 
+    4       04   75 WA%SLRmodelUnc UNI  4.00000E+0001  7.00000E+0001  9.00000E+0001 
+    4       04   76 EA%SLRmodelUnc UNI  2.00000E+0001  4.50000E+0001  7.00000E+0001 
+    4       04   77  PrMissFactors UNI  5.00000E+0001  7.50000E+0001  9.00000E+0001 
+    4       04   78  PrWA_incr_sec uni  2.40000E-0001  2.50000E-0001  2.60000E-0001 
+    4       04   79  PrGr_incr_sec uni  2.40000E-0001  2.50000E-0001  2.60000E-0001 
+    4       04   80             S7 UNI  1.00000E+0001  5.00000E+0001  1.00000E+0002 
+    4       04   81             S9 UNI -1.00000E-0002  1.00000E-0001  5.00000E-0001 
+    4       04   82            S10 UNI  3.00000E+0000  6.00000E+0000  1.00000E+0001 
+    4       04   83            S11 UNI  5.00000E-0002  2.10000E+0000  4.50000E+0000 
+    4       04   84            S18 UNI  1.00000E+0000  2.50000E+0000  5.00000E+0000 
+    4       04   85            S19 UNI -1.50000E+0000 -7.50000E-0001 -5.00000E-0001 
+    4       04   86 PreMar13iceMax UNI  7.00000E+0001  8.50000E+0001  9.00000E+0001 
+    4       04   87 PreSep13iceMin UNI  7.50000E+0001  8.70000E+0001  9.50000E+0001 
+    4       04   88 Pre1312volrati UNI  5.00000E-0001  2.00000E+0000  4.00000E+0000 
+    4       04   89    PreSep13SDs UNI -1.50000E+0000  2.50000E-0001  1.50000E+0000 
+    4       04   90    PreMar13SDs UNI -1.50000E+0000  2.50000E-0001  1.50000E+0000 
+    5       05    1             S1 UNI  5.00000E+0001  8.00000E+0001  9.50000E+0001                                                                                                                                                       SMB uncertainty Gt / yr                                                 05
+    5       05    2             S2 UNI  1.50000E+0002  1.80000E+0002  2.50000E+0002 
+    5       05    3             S3 UNI  4.00000E+0002  5.00000E+0002  8.00000E+0002 
+    5       05    4             S4 UNI  2.00000E+0000  4.00000E+0000  7.00000E+0000 
+    5       05    5             S5 UNI  2.00000E+0002  5.00000E+0002  8.00000E+0002 
+    5       05    6             S6 UNI -4.00000E+0000 -2.00000E+0000  2.00000E+0000 
+    5       05    7             S8 UNI  0.00000E+0000  4.00000E+0000  3.00000E+0001 
+    5       05    8            S12 UNI  5.00000E+0001  1.00000E+0002  2.00000E+0002 
+    5       05    9            S13 UNI -6.00000E-0001 -3.00000E-0001 -5.00000E-0002 
+    5       05   10            S14 UNI  7.00000E+0001  1.00000E+0002  1.30000E+0002 
+    5       05   11            S16 UNI  7.00000E+0001  1.00000E+0002  1.10000E+0002 
+    5       05   12   Gr2t21kaccum UNI -1.20000E+0001 -1.00000E+0001 -5.00000E+0000 
+    5       05   13  Gr2t21krunoff UNI  1.40000E+0001  2.70000E+0001  4.00000E+0001 
+    5       05   14   Gr2t21kdisch UNI  1.00000E+0001  2.70000E+0001  5.00000E+0001 
+    5       05   15   Gr3t21kaccum UNI -2.20000E+0001 -1.80000E+0001 -1.00000E+0001 
+    5       05   16  Gr3t21krunoff UNI  3.00000E+0001  4.90000E+0001  6.00000E+0001 
+    5       05   17   Gr3t21kdisch UNI  2.00000E+0001  5.00000E+0001  7.00000E+0001 
+    5       05   18   Gr4t21kaccum UNI -3.10000E+0001 -2.50000E+0001 -1.80000E+0001 
+    5       05   19  Gr4t21krunoff UNI  5.00000E+0001  7.00000E+0001  1.00000E+0002 
+    5       05   20   Gr4t21kdisch UNI  4.00000E+0001  7.00000E+0001  1.30000E+0002 
+    5       05   21   Gr4t22kaccum UNI -5.80000E+0001 -5.30000E+0001 -4.30000E+0001 
+    5       05   22  Gr4t22krunoff UNI  1.20000E+0002  1.50000E+0002  2.00000E+0002 
+    5       05   23   Gr4t22kdisch UNI  6.00000E+0001  1.30000E+0002  1.80000E+0002 
+    5       05   24   Gr6t22kaccum UNI -8.00000E+0001 -6.00000E+0001 -3.00000E+0001 
+    5       05   25  Gr6t22krunoff UNI  1.50000E+0002  2.40000E+0002  3.00000E+0002 
+    5       05   26   Gr6t22kdisch UNI  6.00000E+0001  1.80000E+0002  2.00000E+0002 
+    5       05   27   Gr8t22kaccum UNI -1.30000E+0002 -1.00000E+0002 -2.00000E+0001 
+    5       05   28  Gr8t22krunoff UNI  2.50000E+0002  3.30000E+0002  4.00000E+0002 
+    5       05   29   Gr8t22kdisch UNI  6.00000E+0001  2.40000E+0002  3.00000E+0002 
+    5       05   30      dT_negSMB UNI  3.00000E+0000  4.50000E+0000  6.00000E+0000 
+    5       05   31   WA2t21kaccum UNI -2.00000E+0001 -1.50000E+0001  0.00000E+0000 
+    5       05   32  WA2t21krunoff UNI  1.00000E-0006  1.00000E-0005  1.00000E-0004 
+    5       05   33   WA2t21kdisch UNI -3.00000E+0001  1.50000E+0001  5.00000E+0001 
+    5       05   34   WA3t21kaccum UNI -3.00000E+0001 -2.00000E+0001 -1.00000E+0001 
+    5       05   35  WA3t21krunoff UNI  1.00000E-0006  1.00000E-0005  1.00000E-0004 
+    5       05   36   WA3t21kdisch UNI  0.00000E+0000  6.00000E+0001  1.00000E+0002 
+    5       05   37   WA4t21kaccum UNI -4.00000E+0001 -3.00000E+0001 -2.00000E+0001 
+    5       05   38  WA4t21krunoff UNI  1.00000E-0006  1.00000E-0005  1.00000E-0004 
+    5       05   39   WA4t21kdisch UNI  1.00000E+0001  8.00000E+0001  1.50000E+0002 
+    5       05   40   WA4t22kaccum UNI -8.00000E+0001 -6.00000E+0001 -4.00000E+0001 
+    5       05   41  WA4t22krunoff UNI  0.00000E+0000  1.00000E+0001  2.00000E+0001 
+    5       05   42   WA4t22kdisch UNI  2.00000E+0001  1.50000E+0002  2.00000E+0002 
+    5       05   43   WA6t22kaccum UNI -1.00000E+0002 -8.00000E+0001 -6.00000E+0001 
+    5       05   44  WA6t22krunoff UNI  0.00000E+0000  2.00000E+0001  1.00000E+0002 
+    5       05   45   WA6t22kdisch UNI  5.00000E+0001  2.00000E+0002  5.00000E+0002 
+    5       05   46   WA8t22kaccum UNI -1.40000E+0002 -1.20000E+0002 -6.00000E+0001 
+    5       05   47  WA8t22krunoff UNI  2.00000E+0001  5.00000E+0001  2.00000E+0002 
+    5       05   48   WA8t22kdisch UNI  2.00000E+0002  3.20000E+0002  1.00000E+0003 
+    5       05   49  dT1mWAretreat UNI  3.00000E+0000  5.00000E+0000  6.00000E+0000 
+    5       05   50    TimeWA1mSLR UNI  1.00000E+0002  2.00000E+0002  5.00000E+0002 
+    5       05   51   EA2t21kaccum UNI -1.50000E+0001 -1.20000E+0001  0.00000E+0000 
+    5       05   52  EA2t21krunoff UNI  1.00000E-0006  1.00000E-0005  1.00000E-0004 
+    5       05   53   EA2t21kdisch UNI  0.00000E+0000  2.00000E+0001  5.00000E+0001 
+    5       05   54   EA3t21kaccum UNI -3.00000E+0001 -2.00000E+0001  0.00000E+0000 
+    5       05   55  EA3t21krunoff UNI  1.00000E-0006  1.00000E-0005  1.00000E-0004 
+    5       05   56   EA3t21kdisch UNI  0.00000E+0000  3.00000E+0001  7.00000E+0001 
+    5       05   57   EA4t21kaccum UNI -4.00000E+0001 -3.00000E+0001 -1.00000E+0001 
+    5       05   58 EA4t2100runoff UNI  1.00000E-0006  1.00000E-0005  1.00000E-0004 
+    5       05   59   EA4t21kdisch UNI  2.00000E+0001  5.00000E+0001  1.00000E+0002 
+    5       05   60   EA4t22kaccum UNI -8.00000E+0001 -6.00000E+0001 -2.00000E+0001 
+    5       05   61  EA4t22krunoff UNI  1.00000E-0006  1.00000E-0005  1.00000E-0004 
+    5       05   62   EA4t22kdisch UNI  2.00000E+0001  5.00000E+0001  1.50000E+0002 
+    5       05   63   EA6t22kaccum UNI -1.20000E+0002 -9.80000E+0001 -5.00000E+0001 
+    5       05   64  EA6t22krunoff UNI  0.00000E+0000  2.00000E+0001  5.00000E+0001 
+    5       05   65   EA6t22kdisch UNI  5.00000E+0001  1.00000E+0002  2.00000E+0002 
+    5       05   66   EA8t22kaccum UNI -1.40000E+0002 -1.25000E+0002 -6.00000E+0001 
+    5       05   67  EA8t22krunoff UNI  0.00000E+0000  5.00000E+0001  1.00000E+0002 
+    5       05   68   EA8t22kdisch UNI  5.00000E+0001  2.00000E+0002  4.00000E+0002 
+    5       05   69      dTEA100Gt UNI  4.00000E+0000  6.00000E+0000  8.00000E+0000 
+    5       05   70  dT1mEAretreat uni  4.00000E+0000  8.00000E+0000  1.00000E+0001 
+    5       05   71    TimeEA1mSLR uni  3.00000E+0002  5.00000E+0002  1.00000E+0003 
+    5       05   72   PrRetroWAsec UNI  1.00000E+0001  5.00000E+0001  9.00000E+0001 
+    5       05   73   PrRetroGrsec UNI  3.00000E+0001  8.00000E+0001  1.00000E+0002 
+    5       05   74 Gr%SLRmodelUnc UNI  2.00000E+0001  3.00000E+0001  6.00000E+0001 
+    5       05   75 WA%SLRmodelUnc UNI  4.00000E+0001  5.00000E+0001  1.00000E+0002 
+    5       05   76 EA%SLRmodelUnc UNI  1.00000E+0001  2.00000E+0001  5.00000E+0001 
+    5       05   77  PrMissFactors UNI  0.00000E+0000  5.00000E+0001  1.00000E+0002 
+    5       05   78  PrWA_incr_sec uni  9.90000E-0001  9.99000E-0001  1.00000E+0000 
+    5       05   79  PrGr_incr_sec uni  1.90000E-0001  2.00000E-0001  2.10000E-0001 
+    5       05   80             S7 UNI  2.00000E+0002  2.70000E+0002  4.00000E+0002 
+    5       05   81             S9 UNI  9.00000E+0000  1.60000E+0001  1.00000E+0002 
+    5       05   82            S10 UNI  4.00000E+0000  1.20000E+0001  1.40000E+0001 
+    5       05   83            S11 UNI  2.00000E-0001  1.00000E+0000  5.00000E+0000 
+    5       05   84            S18 UNI  3.00000E+0000  5.00000E+0000  6.00000E+0000 
+    5       05   85            S19 UNI -3.00000E+0000 -1.00000E+0000 -5.00000E-0001 
+    5       05   86 PreMar13iceMax UNI  6.00000E+0001  7.50000E+0001  1.00000E+0002 
+    5       05   87 PreSep13iceMin UNI  6.00000E+0001  7.00000E+0001  8.00000E+0001 
+    5       05   88 Pre1312volrati UNI  4.00000E+0000  5.00000E+0000  7.00000E+0000 
+    5       05   89    PreSep13SDs UNI -3.00000E+0000 -1.00000E+0000  0.00000E+0000 
+    5       05   90    PreMar13SDs UNI -5.00000E-0001  0.00000E+0000  5.00000E-0001 
+    6       06    1             S1 UNI  1.00000E+0001  3.00000E+0001  1.50000E+0002                                                                                                                                                       SMB uncertainty Gt / yr                                                 06
+    6       06    2             S2 UNI  2.00000E+0001  1.00000E+0002  2.00000E+0002 
+    6       06    3             S3 UNI  5.00000E+0002  6.50000E+0002  1.20000E+0003 
+    6       06    4             S4 UNI  1.20000E+0000  1.80000E+0000  2.50000E+0000 
+    6       06    5             S5 UNI  5.00000E+0001  7.00000E+0001  2.00000E+0002 
+    6       06    6             S6 UNI -5.00000E+0000 -2.00000E+0000  0.00000E+0000 
+    6       06    7             S8 UNI  2.00000E-0002  1.00000E-0001  1.00000E+0000 
+    6       06    8            S12 UNI  5.00000E+0000  1.20000E+0001  3.00000E+0001 
+    6       06    9            S13 UNI -1.00000E-0001 -5.00000E-0002 -2.00000E-0002 
+    6       06   10            S14 UNI  9.20000E+0001  1.00000E+0002  1.08000E+0002 
+    6       06   11            S16 UNI  9.00000E+0001  9.80000E+0001  1.10000E+0002 
+    6       06   12   Gr2t21kaccum UNI -2.20000E+0001 -1.50000E+0001 -8.00000E+0000 
+    6       06   13  Gr2t21krunoff UNI  8.00000E+0000  2.00000E+0001  5.00000E+0001 
+    6       06   14   Gr2t21kdisch UNI  0.00000E+0000  3.50000E+0001  1.00000E+0002 
+    6       06   15   Gr3t21kaccum UNI -5.00000E+0001 -3.00000E+0001 -9.00000E+0000 
+    6       06   16  Gr3t21krunoff UNI  1.60000E+0001  4.50000E+0001  1.00000E+0002 
+    6       06   17   Gr3t21kdisch UNI  1.00000E+0001  7.00000E+0001  1.40000E+0002 
+    6       06   18   Gr4t21kaccum UNI -8.00000E+0001 -4.50000E+0001 -1.00000E+0001 
+    6       06   19  Gr4t21krunoff UNI  3.20000E+0001  9.00000E+0001  1.70000E+0002 
+    6       06   20   Gr4t21kdisch UNI  2.00000E+0001  1.40000E+0002  2.10000E+0002 
+    6       06   21   Gr4t22kaccum UNI -8.00000E+0001 -4.50000E+0001 -1.00000E+0001 
+    6       06   22  Gr4t22krunoff UNI  3.20000E+0001  9.00000E+0001  2.70000E+0002 
+    6       06   23   Gr4t22kdisch UNI  2.00000E+0001  1.40000E+0002  2.10000E+0002 
+    6       06   24   Gr6t22kaccum UNI -1.20000E+0002 -7.50000E+0001  1.00000E+0001 
+    6       06   25  Gr6t22krunoff UNI  6.00000E+0001  1.80000E+0002  5.00000E+0002 
+    6       06   26   Gr6t22kdisch UNI  2.00000E+0001  2.77000E+0002  5.00000E+0002 
+    6       06   27   Gr8t22kaccum UNI -2.00000E+0002 -4.50000E+0001  2.00000E+0001 
+    6       06   28  Gr8t22krunoff UNI  1.20000E+0002  3.60000E+0002  1.00000E+0003 
+    6       06   29   Gr8t22kdisch UNI  2.00000E+0001  2.77000E+0002  1.00000E+0003 
+    6       06   30      dT_negSMB UNI  1.50000E+0000  2.70000E+0000  4.00000E+0000 
+    6       06   31   WA2t21kaccum UNI -2.40000E+0001 -1.20000E+0001  0.00000E+0000 
+    6       06   32  WA2t21krunoff UNI  1.00000E+0000  4.00000E+0000  1.80000E+0001 
+    6       06   33   WA2t21kdisch UNI -1.40000E+0001  7.10000E+0001  2.10000E+0002 
+    6       06   34   WA3t21kaccum UNI -4.20000E+0001 -2.10000E+0001 -8.00000E+0000 
+    6       06   35  WA3t21krunoff UNI  1.00000E+0001  1.50000E+0001  4.00000E+0001 
+    6       06   36   WA3t21kdisch UNI -1.40000E+0001  1.70000E+0002  3.10000E+0002 
+    6       06   37   WA4t21kaccum UNI -6.00000E+0001 -3.00000E+0001  0.00000E+0000 
+    6       06   38  WA4t21krunoff UNI  1.00000E+0001  3.00000E+0001  6.00000E+0001 
+    6       06   39   WA4t21kdisch UNI -1.40000E+0001  2.84000E+0002  4.10000E+0002 
+    6       06   40   WA4t22kaccum UNI -8.40000E+0001 -4.20000E+0001  0.00000E+0000 
+    6       06   41  WA4t22krunoff UNI  2.00000E+0001  3.00000E+0001  6.00000E+0001 
+    6       06   42   WA4t22kdisch UNI -1.40000E+0001  2.84000E+0002  4.10000E+0002 
+    6       06   43   WA6t22kaccum UNI -1.35000E+0002 -6.80000E+0001  0.00000E+0000 
+    6       06   44  WA6t22krunoff UNI  4.00000E+0001  6.00000E+0001  1.20000E+0002 
+    6       06   45   WA6t22kdisch UNI -1.40000E+0001  5.00000E+0002  8.00000E+0002 
+    6       06   46   WA8t22kaccum UNI -2.00000E+0002 -9.30000E+0001  0.00000E+0000 
+    6       06   47  WA8t22krunoff UNI  5.00000E+0001  1.00000E+0002  2.00000E+0002 
+    6       06   48   WA8t22kdisch UNI -1.40000E+0001  9.00000E+0001  1.20000E+0003 
+    6       06   49  dT1mWAretreat UNI  0.00000E+0000  4.00000E-0001  1.50000E+0000 
+    6       06   50    TimeWA1mSLR UNI  2.00000E+0002  5.00000E+0002  1.00000E+0003 
+    6       06   51   EA2t21kaccum UNI -2.00000E+0001 -1.00000E+0001  2.00000E+0000 
+    6       06   52  EA2t21krunoff UNI  0.00000E+0000  1.00000E+0000  9.00000E+0000 
+    6       06   53   EA2t21kdisch UNI  0.00000E+0000  1.50000E+0001  7.80000E+0001 
+    6       06   54   EA3t21kaccum UNI -5.00000E+0001 -1.80000E+0001  2.00000E+0000 
+    6       06   55  EA3t21krunoff UNI  0.00000E+0000  2.00000E+0000  1.80000E+0001 
+    6       06   56   EA3t21kdisch UNI  0.00000E+0000  9.40000E+0001  1.56000E+0002 
+    6       06   57   EA4t21kaccum UNI -7.50000E+0001 -2.50000E+0001  2.00000E+0000 
+    6       06   58 EA4t2100runoff UNI  0.00000E+0000  8.00000E+0000  3.20000E+0001 
+    6       06   59   EA4t21kdisch UNI  0.00000E+0000  1.88000E+0002  2.00000E+0002 
+    6       06   60   EA4t22kaccum UNI -7.50000E+0001 -2.50000E+0001  2.00000E+0000 
+    6       06   61  EA4t22krunoff UNI  0.00000E+0000  8.00000E+0000  3.20000E+0001 
+    6       06   62   EA4t22kdisch UNI  0.00000E+0000  1.88000E+0002  2.00000E+0002 
+    6       06   63   EA6t22kaccum UNI -1.35000E+0002 -6.80000E+0001  2.00000E+0000 
+    6       06   64  EA6t22krunoff UNI  2.00000E+0001  2.10000E+0001  6.00000E+0001 
+    6       06   65   EA6t22kdisch UNI  0.00000E+0000  3.00000E+0002  4.00000E+0002 
+    6       06   66   EA8t22kaccum UNI -2.00000E+0002 -9.30000E+0001  0.00000E+0000 
+    6       06   67  EA8t22krunoff UNI  4.00000E+0001  5.00000E+0001  1.20000E+0002 
+    6       06   68   EA8t22kdisch UNI  0.00000E+0000  6.00000E+0002  1.20000E+0003 
+    6       06   69      dTEA100Gt UNI  2.00000E-0001  5.00000E-0001  2.00000E+0000 
+    6       06   70  dT1mEAretreat uni  1.00000E-0001  5.00000E-0001  2.00000E+0000 
+    6       06   71    TimeEA1mSLR uni  2.00000E+0002  5.00000E+0002  1.00000E+0003 
+    6       06   72   PrRetroWAsec UNI  6.00000E+0001  8.00000E+0001  9.00000E+0001 
+    6       06   73   PrRetroGrsec UNI  6.00000E+0001  9.00000E+0001  9.10000E+0001 
+    6       06   74 Gr%SLRmodelUnc UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    6       06   75 WA%SLRmodelUnc UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    6       06   76 EA%SLRmodelUnc UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    6       06   77  PrMissFactors UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+    6       06   78  PrWA_incr_sec uni  1.90000E-0001  2.00000E-0001  2.10000E-0001 
+    6       06   79  PrGr_incr_sec uni  9.00000E-0002  1.00000E-0001  1.10000E-0001 
+    6       06   80             S7 UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+    6       06   81             S9 UNI -5.00000E+0000 -5.00000E-0001  5.00000E+0000 
+    6       06   82            S10 UNI  5.00000E+0000  1.30000E+0001  1.80000E+0001 
+    6       06   83            S11 UNI  1.00000E-0002  2.00000E-0001  8.00000E-0001 
+    6       06   84            S18 UNI  1.50000E+0000  2.00000E+0000  5.00000E+0000 
+    6       06   85            S19 UNI -3.00000E+0000 -2.00000E+0000 -1.00000E+0000 
+    6       06   86 PreMar13iceMax UNI  7.00000E+0001  8.50000E+0001  1.00000E+0002 
+    6       06   87 PreSep13iceMin UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    6       06   88 Pre1312volrati UNI  2.00000E+0000  5.00000E+0000  8.00000E+0000 
+    6       06   89    PreSep13SDs UNI -3.00000E+0000 -2.00000E+0000 -1.00000E+0000 
+    6       06   90    PreMar13SDs UNI -3.00000E+0000 -2.00000E+0000 -1.00000E+0000 
+    7       07    1             S1 UNI  1.00000E+0002  2.00000E+0002  6.00000E+0002                                                                                                                                                       SMB uncertainty Gt / yr                                                 07
+    7       07    2             S2 UNI  5.00000E+0001  1.00000E+0002  5.00000E+0002 
+    7       07    3             S3 UNI  1.00000E+0002  4.00000E+0002  1.00000E+0003 
+    7       07    4             S4 UNI  5.00000E-0001  9.00000E-0001  1.50000E+0000 
+    7       07    5             S5 UNI  1.00000E+0000  1.00000E+0001  2.00000E+0002 
+    7       07    6             S6 UNI -2.00000E+0000  0.00000E+0000  2.00000E+0000 
+    7       07    7             S8 UNI  0.00000E+0000  1.00000E+0001  1.00000E+0002 
+    7       07    8            S12 UNI  1.00000E+0002  4.00000E+0002  1.00000E+0003 
+    7       07    9            S13 UNI -5.00000E+0000 -5.00000E-0001  2.00000E+0000 
+    7       07   10            S14 UNI  8.00000E+0001  9.00000E+0001  1.20000E+0002 
+    7       07   11            S16 UNI  8.00000E+0001  9.00000E+0001  1.20000E+0002 
+    7       07   12   Gr2t21kaccum UNI -1.50000E+0001 -1.10000E+0001 -5.00000E+0000 
+    7       07   13  Gr2t21krunoff UNI  2.50000E+0001  8.10000E+0001  2.15000E+0002 
+    7       07   14   Gr2t21kdisch UNI  1.50000E+0001  3.00000E+0001  7.00000E+0001 
+    7       07   15   Gr3t21kaccum UNI -2.00000E+0001 -1.50000E+0001 -8.00000E+0000 
+    7       07   16  Gr3t21krunoff UNI  3.00000E+0001  1.50000E+0002  3.50000E+0002 
+    7       07   17   Gr3t21kdisch UNI  3.00000E+0001  5.00000E+0001  1.10000E+0002 
+    7       07   18   Gr4t21kaccum UNI -4.00000E+0001 -2.50000E+0001 -1.20000E+0001 
+    7       07   19  Gr4t21krunoff UNI  9.00000E+0001  2.50000E+0002  6.50000E+0002 
+    7       07   20   Gr4t21kdisch UNI  4.00000E+0001  7.00000E+0001  1.50000E+0002 
+    7       07   21   Gr4t22kaccum UNI -3.50000E+0001 -2.50000E+0001 -1.20000E+0001 
+    7       07   22  Gr4t22krunoff UNI  5.50000E+0001  2.00000E+0002  4.00000E+0002 
+    7       07   23   Gr4t22kdisch UNI  3.00000E+0001  7.00000E+0001  1.50000E+0002 
+    7       07   24   Gr6t22kaccum UNI -5.00000E+0001 -3.50000E+0001 -2.00000E+0001 
+    7       07   25  Gr6t22krunoff UNI  7.00000E+0001  3.20000E+0002  6.50000E+0002 
+    7       07   26   Gr6t22kdisch UNI  6.00000E+0001  1.20000E+0002  2.40000E+0002 
+    7       07   27   Gr8t22kaccum UNI -9.00000E+0001 -6.00000E+0001 -3.00000E+0001 
+    7       07   28  Gr8t22krunoff UNI  2.00000E+0002  4.50000E+0002  8.00000E+0002 
+    7       07   29   Gr8t22kdisch UNI  9.00000E+0001  1.20000E+0002  2.00000E+0002 
+    7       07   30      dT_negSMB UNI  1.50000E+0000  2.50000E+0000  5.00000E+0000 
+    7       07   31   WA2t21kaccum UNI -1.20000E+0001 -4.00000E+0000  0.00000E+0000 
+    7       07   32  WA2t21krunoff UNI  0.00000E+0000  1.00000E-0002  2.00000E+0000 
+    7       07   33   WA2t21kdisch UNI  8.00000E+0000  6.00000E+0001  1.20000E+0002 
+    7       07   34   WA3t21kaccum UNI -2.00000E+0001 -8.00000E+0000  0.00000E+0000 
+    7       07   35  WA3t21krunoff UNI  0.00000E+0000  1.00000E-0002  2.00000E+0000 
+    7       07   36   WA3t21kdisch UNI  8.00000E+0000  6.80000E+0001  1.35000E+0002 
+    7       07   37   WA4t21kaccum UNI -2.80000E+0001 -1.20000E+0001 -4.00000E+0000 
+    7       07   38  WA4t21krunoff UNI  0.00000E+0000  2.00000E+0000  4.00000E+0000 
+    7       07   39   WA4t21kdisch UNI  8.00000E+0000  2.40000E+0002  3.75000E+0002 
+    7       07   40   WA4t22kaccum UNI -2.40000E+0001 -8.00000E+0000  0.00000E+0000 
+    7       07   41  WA4t22krunoff UNI  0.00000E+0000  2.00000E+0000  4.00000E+0000 
+    7       07   42   WA4t22kdisch UNI  8.00000E+0000  1.50000E+0002  3.00000E+0002 
+    7       07   43   WA6t22kaccum UNI -4.00000E+0001 -1.60000E+0001  0.00000E+0000 
+    7       07   44  WA6t22krunoff UNI  0.00000E+0000  1.00000E+0000  4.00000E+0000 
+    7       07   45   WA6t22kdisch UNI  1.50000E+0001  1.50000E+0002  3.00000E+0002 
+    7       07   46   WA8t22kaccum UNI -6.00000E+0001 -2.40000E+0001 -8.00000E+0000 
+    7       07   47  WA8t22krunoff UNI  0.00000E+0000  4.00000E+0000  8.00000E+0000 
+    7       07   48   WA8t22kdisch UNI  8.00000E+0000  2.40000E+0002  4.50000E+0002 
+    7       07   49  dT1mWAretreat UNI  2.00000E-0001  2.00000E+0000  5.00000E+0000 
+    7       07   50    TimeWA1mSLR UNI  1.00000E+0003  3.00000E+0003  1.00000E+0004 
+    7       07   51   EA2t21kaccum UNI -1.80000E+0001 -6.00000E+0000  0.00000E+0000 
+    7       07   52  EA2t21krunoff UNI  0.00000E+0000  1.00000E+0000  2.00000E+0000 
+    7       07   53   EA2t21kdisch UNI  3.00000E+0000  2.00000E+0001  4.00000E+0001 
+    7       07   54   EA3t21kaccum UNI -3.00000E+0001 -1.20000E+0001  0.00000E+0000 
+    7       07   55  EA3t21krunoff UNI  0.00000E+0000  1.00000E+0000  3.00000E+0000 
+    7       07   56   EA3t21kdisch UNI  3.00000E+0000  2.30000E+0001  4.50000E+0001 
+    7       07   57   EA4t21kaccum UNI -4.20000E+0001 -1.80000E+0001 -6.00000E+0000 
+    7       07   58 EA4t2100runoff UNI  0.00000E+0000  3.00000E+0000  6.00000E+0000 
+    7       07   59   EA4t21kdisch UNI  3.00000E+0000  8.00000E+0001  1.25000E+0002 
+    7       07   60   EA4t22kaccum UNI -3.60000E+0001 -1.20000E+0001  0.00000E+0000 
+    7       07   61  EA4t22krunoff UNI  0.00000E+0000  2.00000E+0000  6.00000E+0000 
+    7       07   62   EA4t22kdisch UNI  3.00000E+0000  5.00000E+0001  1.00000E+0002 
+    7       07   63   EA6t22kaccum UNI -6.00000E+0001 -2.40000E+0001  0.00000E+0000 
+    7       07   64  EA6t22krunoff UNI  0.00000E+0000  1.00000E+0000  6.00000E+0000 
+    7       07   65   EA6t22kdisch UNI  5.00000E+0000  5.00000E+0001  1.00000E+0002 
+    7       07   66   EA8t22kaccum UNI -9.00000E+0001 -3.60000E+0001 -1.20000E+0001 
+    7       07   67  EA8t22krunoff UNI  0.00000E+0000  6.00000E+0000  1.20000E+0001 
+    7       07   68   EA8t22kdisch UNI  3.00000E+0000  8.00000E+0001  1.50000E+0002 
+    7       07   69      dTEA100Gt UNI  3.00000E+0000  7.00000E+0000  1.00000E+0001 
+    7       07   70  dT1mEAretreat uni  1.00000E+0000  4.00000E+0000  8.00000E+0000 
+    7       07   71    TimeEA1mSLR uni  2.00000E+0003  6.00000E+0003  2.00000E+0004 
+    7       07   72   PrRetroWAsec UNI  0.00000E+0000  2.00000E+0001  5.00000E+0001 
+    7       07   73   PrRetroGrsec UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+    7       07   74 Gr%SLRmodelUnc UNI  1.00000E+0001  4.00000E+0001  7.00000E+0001 
+    7       07   75 WA%SLRmodelUnc UNI  3.00000E+0001  6.00000E+0001  1.00000E+0002 
+    7       07   76 EA%SLRmodelUnc UNI  1.00000E+0001  5.00000E+0001  7.00000E+0001 
+    7       07   77  PrMissFactors UNI  1.00000E+0001  3.00000E+0001  7.00000E+0001 
+    7       07   78  PrWA_incr_sec uni  2.90000E-0001  3.00000E-0001  3.10000E-0001 
+    7       07   79  PrGr_incr_sec uni  7.90000E-0001  8.00000E-0001  8.10000E-0001 
+    7       07   80             S7 UNI  1.00000E+0001  1.00000E+0002  1.00000E+0003 
+    7       07   81             S9 UNI -1.00000E+0001  0.00000E+0000  1.00000E+0001 
+    7       07   82            S10 UNI  5.00000E+0000  1.00000E+0001  1.90000E+0001 
+    7       07   83            S11 UNI  2.00000E-0001  1.00000E+0000  5.00000E+0000 
+    7       07   84            S18 UNI  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    7       07   85            S19 UNI -2.00000E+0000 -1.00000E+0000 -2.00000E-0001 
+    7       07   86 PreMar13iceMax UNI  5.00000E+0001  6.00000E+0001  9.00000E+0001 
+    7       07   87 PreSep13iceMin UNI  3.00000E+0001  6.00000E+0001  7.00000E+0001 
+    7       07   88 Pre1312volrati UNI  1.00000E+0000  3.00000E+0000  6.00000E+0000 
+    7       07   89    PreSep13SDs UNI -2.00000E+0000 -1.00000E+0000 -2.00000E-0001 
+    7       07   90    PreMar13SDs UNI -3.00000E+0000 -1.00000E+0000 -2.00000E-0001 
+    8       08    1             S1 UNI  1.00000E+0001  3.00000E+0001  5.00000E+0001                                                                                                                                                       SMB uncertainty Gt / yr                                                 08
+    8       08    2             S2 UNI  1.00000E+0002  2.00000E+0002  4.00000E+0002 
+    8       08    3             S3 UNI  2.00000E+0002  5.00000E+0002  1.00000E+0003 
+    8       08    4             S4 UNI  1.00000E+0000  1.20000E+0000  2.00000E+0000 
+    8       08    5             S5 UNI  1.00000E+0002  5.00000E+0002  1.00000E+0003 
+    8       08    6             S6 UNI  3.00000E+0000  4.00000E+0000  6.00000E+0000 
+    8       08    7             S8 UNI  5.00000E-0001  2.00000E+0001  1.00000E+0002 
+    8       08    8            S12 UNI  2.00000E+0001  5.00000E+0001  2.00000E+0002 
+    8       08    9            S13 UNI -5.00000E+0000 -1.00000E+0000  0.00000E+0000 
+    8       08   10            S14 UNI  1.01000E+0002  1.10000E+0002  1.50000E+0002 
+    8       08   11            S16 UNI  5.00000E+0001  7.50000E+0001  8.50000E+0001 
+    8       08   12   Gr2t21kaccum UNI -4.00000E+0001 -2.20000E+0001  1.00000E+0001 
+    8       08   13  Gr2t21krunoff UNI  4.00000E+0001  7.00000E+0001  1.50000E+0002 
+    8       08   14   Gr2t21kdisch UNI  0.00000E+0000  2.00000E+0001  5.00000E+0001 
+    8       08   15   Gr3t21kaccum UNI -6.50000E+0001 -3.60000E+0001  0.00000E+0000 
+    8       08   16  Gr3t21krunoff UNI  6.00000E+0001  1.10000E+0002  2.50000E+0002 
+    8       08   17   Gr3t21kdisch UNI  0.00000E+0000  3.00000E+0001  6.00000E+0001 
+    8       08   18   Gr4t21kaccum UNI -1.00000E+0002 -5.10000E+0001  0.00000E+0000 
+    8       08   19  Gr4t21krunoff UNI  1.00000E+0002  2.00000E+0002  4.00000E+0002 
+    8       08   20   Gr4t21kdisch UNI  0.00000E+0000  4.00000E+0001  7.00000E+0001 
+    8       08   21   Gr4t22kaccum UNI -1.80000E+0002 -1.10000E+0002  0.00000E+0000 
+    8       08   22  Gr4t22krunoff UNI  8.00000E+0001  2.00000E+0002  5.00000E+0002 
+    8       08   23   Gr4t22kdisch UNI  0.00000E+0000  5.00000E+0001  1.00000E+0002 
+    8       08   24   Gr6t22kaccum UNI -3.25000E+0002 -1.80000E+0002  0.00000E+0000 
+    8       08   25  Gr6t22krunoff UNI  1.20000E+0002  3.00000E+0002  7.00000E+0002 
+    8       08   26   Gr6t22kdisch UNI  0.00000E+0000  5.00000E+0001  1.00000E+0002 
+    8       08   27   Gr8t22kaccum UNI -5.40000E+0002 -2.80000E+0002  0.00000E+0000 
+    8       08   28  Gr8t22krunoff UNI  1.50000E+0002  5.00000E+0002  1.00000E+0003 
+    8       08   29   Gr8t22kdisch UNI  0.00000E+0000  5.00000E+0001  1.00000E+0002 
+    8       08   30      dT_negSMB UNI  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    8       08   31   WA2t21kaccum UNI -4.00000E+0001 -2.50000E+0001  0.00000E+0000 
+    8       08   32  WA2t21krunoff UNI  0.00000E+0000  1.00000E-0001  1.00000E+0001 
+    8       08   33   WA2t21kdisch UNI  1.00000E+0001  2.00000E+0001  2.00000E+0002 
+    8       08   34   WA3t21kaccum UNI -6.50000E+0001 -3.90000E+0001  5.00000E+0000 
+    8       08   35  WA3t21krunoff UNI  0.00000E+0000  5.00000E+0000  2.00000E+0001 
+    8       08   36   WA3t21kdisch UNI  2.00000E+0001  3.00000E+0001  3.00000E+0002 
+    8       08   37   WA4t21kaccum UNI -9.10000E+0001 -5.50000E+0001  1.00000E+0001 
+    8       08   38  WA4t21krunoff UNI  0.00000E+0000  1.50000E+0001  3.00000E+0001 
+    8       08   39   WA4t21kdisch UNI  3.00000E+0001  2.00000E+0002  4.00000E+0002 
+    8       08   40   WA4t22kaccum UNI -1.80000E+0002 -1.10000E+0002  5.00000E+0000 
+    8       08   41  WA4t22krunoff UNI  0.00000E+0000  2.00000E+0001  4.00000E+0001 
+    8       08   42   WA4t22kdisch UNI  4.00000E+0001  1.00000E+0002  5.00000E+0002 
+    8       08   43   WA6t22kaccum UNI -3.20000E+0002 -1.80000E+0002  1.00000E+0001 
+    8       08   44  WA6t22krunoff UNI  0.00000E+0000  3.00000E+0001  6.00000E+0001 
+    8       08   45   WA6t22kdisch UNI  6.00000E+0001  4.00000E+0002  6.00000E+0002 
+    8       08   46   WA8t22kaccum UNI -5.00000E+0002 -2.70000E+0002  1.50000E+0001 
+    8       08   47  WA8t22krunoff UNI  0.00000E+0000  5.00000E+0001  1.00000E+0002 
+    8       08   48   WA8t22kdisch UNI  1.00000E+0002  6.00000E+0002  1.50000E+0003 
+    8       08   49  dT1mWAretreat UNI  1.00000E+0000  2.00000E+0000  5.00000E+0000 
+    8       08   50    TimeWA1mSLR UNI  1.50000E+0002  4.00000E+0002  1.00000E+0003 
+    8       08   51   EA2t21kaccum UNI -5.00000E+0001 -3.10000E+0001 -2.00000E+0001 
+    8       08   52  EA2t21krunoff UNI  0.00000E+0000  1.00000E+0000  2.00000E+0001 
+    8       08   53   EA2t21kdisch UNI  0.00000E+0000  2.00000E+0001  5.00000E+0001 
+    8       08   54   EA3t21kaccum UNI -8.00000E+0001 -4.50000E+0001 -3.00000E+0001 
+    8       08   55  EA3t21krunoff UNI  0.00000E+0000  1.00000E+0001  3.00000E+0001 
+    8       08   56   EA3t21kdisch UNI  1.00000E+0001  4.00000E+0001  1.00000E+0002 
+    8       08   57   EA4t21kaccum UNI -1.20000E+0002 -6.80000E+0001 -4.00000E+0001 
+    8       08   58 EA4t2100runoff UNI  1.00000E+0001  2.00000E+0001  5.00000E+0001 
+    8       08   59   EA4t21kdisch UNI  1.00000E+0001  5.00000E+0001  1.50000E+0002 
+    8       08   60   EA4t22kaccum UNI -2.24000E+0002 -1.36000E+0002 -8.00000E+0001 
+    8       08   61  EA4t22krunoff UNI  1.00000E+0001  2.00000E+0001  5.00000E+0001 
+    8       08   62   EA4t22kdisch UNI  1.00000E+0001  4.00000E+0001  1.00000E+0002 
+    8       08   63   EA6t22kaccum UNI -3.92000E+0002 -2.24000E+0002 -1.30000E+0002 
+    8       08   64  EA6t22krunoff UNI  1.00000E+0001  4.00000E+0001  1.00000E+0002 
+    8       08   65   EA6t22kdisch UNI  1.00000E+0001  8.00000E+0001  2.00000E+0002 
+    8       08   66   EA8t22kaccum UNI -6.10000E+0002 -3.31000E+0002 -1.30000E+0002 
+    8       08   67  EA8t22krunoff UNI  1.00000E+0001  6.00000E+0001  1.50000E+0002 
+    8       08   68   EA8t22kdisch UNI  1.00000E+0001  1.20000E+0002  3.00000E+0002 
+    8       08   69      dTEA100Gt UNI  2.00000E+0000  4.00000E+0000  8.00000E+0000 
+    8       08   70  dT1mEAretreat uni  2.00000E+0000  4.00000E+0000  8.00000E+0000 
+    8       08   71    TimeEA1mSLR uni  2.00000E+0002  5.00000E+0002  1.00000E+0003 
+    8       08   72   PrRetroWAsec UNI  5.00000E+0001  8.00000E+0001  9.50000E+0001 
+    8       08   73   PrRetroGrsec UNI  5.00000E+0001  8.00000E+0001  9.00000E+0001 
+    8       08   74 Gr%SLRmodelUnc UNI  1.00000E+0001  2.00000E+0001  4.00000E+0001 
+    8       08   75 WA%SLRmodelUnc UNI  5.00000E+0001  8.00000E+0001  1.00000E+0002 
+    8       08   76 EA%SLRmodelUnc UNI  5.00000E+0001  7.00000E+0001  1.00000E+0002 
+    8       08   77  PrMissFactors UNI  5.00000E+0001  7.00000E+0001  1.00000E+0002 
+    8       08   78  PrWA_incr_sec uni  1.90000E-0001  2.00000E-0001  2.10000E-0001 
+    8       08   79  PrGr_incr_sec uni  1.90000E-0001  2.00000E-0001  2.10000E-0001 
+    8       08   80             S7 UNI  1.00000E+0002  1.00000E+0003  1.00000E+0004 
+    8       08   81             S9 UNI  2.50000E+0001  1.00000E+0002  2.00000E+0002 
+    8       08   82            S10 UNI  2.00000E+0000  9.00000E+0000  1.50000E+0001 
+    8       08   83            S11 UNI  2.00000E-0001  1.00000E+0000  5.00000E+0000 
+    8       08   84            S18 UNI  1.50000E+0000  2.00000E+0000  5.00000E+0000 
+    8       08   85            S19 UNI -3.00000E+0000 -1.50000E+0000 -5.00000E-0001 
+    8       08   86 PreMar13iceMax UNI  1.01000E+0002  1.10000E+0002  1.50000E+0002 
+    8       08   87 PreSep13iceMin UNI  4.50000E+0001  5.50000E+0001  7.00000E+0001 
+    8       08   88 Pre1312volrati UNI  1.50000E+0000  3.00000E+0000  6.00000E+0000 
+    8       08   89    PreSep13SDs UNI -3.50000E+0000 -1.70000E+0000 -1.00000E+0000 
+    8       08   90    PreMar13SDs UNI -1.50000E+0000 -1.00000E+0000 -5.00000E-0001 
+    9       09    1             S1 UNI  5.00000E+0001  1.00000E+0002  3.00000E+0002                                                                                                                                                       SMB uncertainty Gt / yr                                                 09
+    9       09    2             S2 UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002 
+    9       09    3             S3 UNI  2.00000E+0002  1.00000E+0003  2.00000E+0003 
+    9       09    4             S4 UNI  8.00000E-0001  1.30000E+0000  2.00000E+0000 
+    9       09    5             S5 UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002 
+    9       09    6             S6 UNI  4.60000E+0000  6.00000E+0000  7.00000E+0000 
+    9       09    7             S8 UNI  7.00000E-0001  8.00000E+0000  1.00000E+0001 
+    9       09    8            S12 UNI  1.50000E+0002  2.00000E+0002  4.00000E+0002 
+    9       09    9            S13 UNI -5.00000E+0000 -2.00000E+0000  0.00000E+0000 
+    9       09   10            S14 UNI  9.00000E+0001  1.10000E+0002  1.20000E+0002 
+    9       09   11            S16 UNI  6.00000E+0001  7.50000E+0001  8.00000E+0001 
+    9       09   12   Gr2t21kaccum UNI -6.60000E+0001 -3.30000E+0001  0.00000E+0000 
+    9       09   13  Gr2t21krunoff UNI  0.00000E+0000  1.70000E+0001  4.10000E+0001 
+    9       09   14   Gr2t21kdisch UNI  0.00000E+0000  4.10000E+0001  1.38000E+0002 
+    9       09   15   Gr3t21kaccum UNI -6.60000E+0001 -5.00000E+0001 -1.70000E+0001 
+    9       09   16  Gr3t21krunoff UNI  8.00000E+0000  4.10000E+0001  5.00000E+0001 
+    9       09   17   Gr3t21kdisch UNI  2.80000E+0001  6.90000E+0001  1.93000E+0002 
+    9       09   18   Gr4t21kaccum UNI -9.90000E+0001 -8.30000E+0001 -1.70000E+0001 
+    9       09   19  Gr4t21krunoff UNI  1.70000E+0001  6.60000E+0001  8.30000E+0001 
+    9       09   20   Gr4t21kdisch UNI  4.10000E+0001  1.80000E+0002  2.76000E+0002 
+    9       09   21   Gr4t22kaccum UNI -7.00000E+0000  4.60000E+0001  9.90000E+0001 
+    9       09   22  Gr4t22krunoff UNI  1.16000E+0002  1.56000E+0002  2.15000E+0002 
+    9       09   23   Gr4t22kdisch UNI  1.93000E+0002  2.93000E+0002  5.25000E+0002 
+    9       09   24   Gr6t22kaccum UNI -2.70000E+0001 -3.00000E+0000  4.30000E+0001 
+    9       09   25  Gr6t22krunoff UNI  1.54000E+0002  2.40000E+0002  2.62000E+0002 
+    9       09   26   Gr6t22kdisch UNI  2.93000E+0002  4.01000E+0002  7.24000E+0002 
+    9       09   27   Gr8t22kaccum UNI -8.60000E+0001 -6.60000E+0001  1.30000E+0001 
+    9       09   28  Gr8t22krunoff UNI  2.15000E+0002  3.65000E+0002  4.14000E+0002 
+    9       09   29   Gr8t22kdisch UNI  4.01000E+0002  8.15000E+0002  1.10500E+0003 
+    9       09   30      dT_negSMB UNI  1.00000E+0000  3.00000E+0000  5.00000E+0000 
+    9       09   31   WA2t21kaccum UNI -7.70000E+0001 -5.10000E+0001  0.00000E+0000 
+    9       09   32  WA2t21krunoff UNI  0.00000E+0000  3.00000E+0000  1.40000E+0001 
+    9       09   33   WA2t21kdisch UNI  0.00000E+0000  2.80000E+0001  2.83000E+0002 
+    9       09   34   WA3t21kaccum UNI -1.28000E+0002 -7.70000E+0001 -5.10000E+0001 
+    9       09   35  WA3t21krunoff UNI  6.00000E+0000  8.00000E+0000  2.80000E+0001 
+    9       09   36   WA3t21kdisch UNI  5.70000E+0001  2.26000E+0002  5.66000E+0002 
+    9       09   37   WA4t21kaccum UNI -1.79000E+0002 -1.28000E+0002 -7.70000E+0001 
+    9       09   38  WA4t21krunoff UNI  8.00000E+0000  2.80000E+0001  5.50000E+0001 
+    9       09   39   WA4t21kdisch UNI  8.50000E+0001  4.24000E+0002  8.49000E+0002 
+    9       09   40   WA4t22kaccum UNI -5.41000E+0002 -4.80000E+0002 -3.57000E+0002 
+    9       09   41  WA4t22krunoff UNI  3.90000E+0001  4.50000E+0001  7.20000E+0001 
+    9       09   42   WA4t22kdisch UNI  3.96000E+0002  4.64000E+0002  1.07500E+0003 
+    9       09   43   WA6t22kaccum UNI -8.93000E+0002 -7.40000E+0002 -6.64000E+0002 
+    9       09   44  WA6t22krunoff UNI  5.90000E+0001  6.60000E+0001  1.16000E+0002 
+    9       09   45   WA6t22kdisch UNI  6.00000E+0002  1.04100E+0003  1.92400E+0003 
+    9       09   46   WA8t22kaccum UNI -9.99500E+0002 -9.99500E+0002 -8.40000E+0002 
+    9       09   47  WA8t22krunoff UNI  9.10000E+0001  1.55000E+0002  2.46000E+0002 
+    9       09   48   WA8t22kdisch UNI  9.31000E+0002  2.05100E+0003  3.45100E+0003 
+    9       09   49  dT1mWAretreat UNI  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    9       09   50    TimeWA1mSLR UNI  5.00000E+0001  2.00000E+0002  3.00000E+0002 
+    9       09   51   EA2t21kaccum UNI -9.40000E+0001 -6.20000E+0001  0.00000E+0000 
+    9       09   52  EA2t21krunoff UNI  0.00000E+0000  1.00000E+0000  1.40000E+0001 
+    9       09   53   EA2t21kdisch UNI  0.00000E+0000  3.10000E+0001  3.12000E+0002 
+    9       09   54   EA3t21kaccum UNI -1.56000E+0002 -1.25000E+0002 -6.20000E+0001 
+    9       09   55  EA3t21krunoff UNI  6.00000E+0000  1.10000E+0001  2.80000E+0001 
+    9       09   56   EA3t21kdisch UNI  6.20000E+0001  1.87000E+0002  6.28000E+0002 
+    9       09   57   EA4t21kaccum UNI -2.19000E+0002 -1.56000E+0002 -9.40000E+0001 
+    9       09   58 EA4t2100runoff UNI  8.00000E+0000  2.80000E+0001  5.50000E+0001 
+    9       09   59   EA4t21kdisch UNI  9.40000E+0001  3.12000E+0002  9.36000E+0002 
+    9       09   60   EA4t22kaccum UNI -6.62000E+0002 -5.87000E+0002 -4.37000E+0002 
+    9       09   61  EA4t22krunoff UNI  3.90000E+0001  4.00000E+0001  7.20000E+0001 
+    9       09   62   EA4t22kdisch UNI  4.37000E+0002  5.12000E+0002  1.18600E+0003 
+    9       09   63   EA6t22kaccum UNI -9.99500E+0002 -9.99500E+0002 -8.12000E+0002 
+    9       09   64  EA6t22krunoff UNI  5.90000E+0001  7.30000E+0001  1.16000E+0002 
+    9       09   65   EA6t22kdisch UNI  6.62000E+0002  9.86000E+0002  2.12300E+0003 
+    9       09   66   EA8t22kaccum UNI -9.99500E+0002 -9.99500E+0002 -9.99500E+0002 
+    9       09   67  EA8t22krunoff UNI  9.10000E+0001  1.55000E+0002  2.46000E+0002 
+    9       09   68   EA8t22kdisch UNI  1.02700E+0003  1.74800E+0003  3.80800E+0003 
+    9       09   69      dTEA100Gt UNI  2.00000E+0000  4.00000E+0000  6.00000E+0000 
+    9       09   70  dT1mEAretreat uni  2.00000E+0000  3.00000E+0000  6.00000E+0000 
+    9       09   71    TimeEA1mSLR uni  1.00000E+0002  2.00000E+0002  3.00000E+0002 
+    9       09   72   PrRetroWAsec UNI  6.00000E+0001  7.50000E+0001  9.00000E+0001 
+    9       09   73   PrRetroGrsec UNI  6.00000E+0001  7.50000E+0001  9.00000E+0001 
+    9       09   74 Gr%SLRmodelUnc UNI  4.00000E+0001  6.00000E+0001  8.00000E+0001 
+    9       09   75 WA%SLRmodelUnc UNI  3.50000E+0001  5.00000E+0001  8.00000E+0001 
+    9       09   76 EA%SLRmodelUnc UNI  3.00000E+0001  4.00000E+0001  7.00000E+0001 
+    9       09   77  PrMissFactors UNI  3.00000E+0001  5.00000E+0001  8.00000E+0001 
+    9       09   78  PrWA_incr_sec uni  2.90000E-0001  3.00000E-0001  3.10000E-0001 
+    9       09   79  PrGr_incr_sec uni  2.90000E-0001  3.00000E-0001  3.10000E-0001 
+    9       09   80             S7 UNI  1.00000E+0001  1.00000E+0002  1.00000E+0003 
+    9       09   81             S9 UNI -1.00000E+0000 -2.40000E-0001  5.00000E-0001 
+    9       09   82            S10 UNI  1.00000E+0000  4.00000E+0000  7.00000E+0000 
+    9       09   83            S11 UNI  8.00000E-0001  1.50000E+0000  1.90000E+0000 
+    9       09   84            S18 UNI  1.30000E+0000  1.80000E+0000  2.50000E+0000 
+    9       09   85            S19 UNI -1.50000E+0000 -1.00000E+0000 -5.00000E-0001 
+    9       09   86 PreMar13iceMax UNI  8.00000E+0001  9.00000E+0001  1.10000E+0002 
+    9       09   87 PreSep13iceMin UNI  6.00000E+0001  7.50000E+0001  9.00000E+0001 
+    9       09   88 Pre1312volrati UNI  1.50000E+0000  1.80000E+0000  2.30000E+0000 
+    9       09   89    PreSep13SDs UNI -1.50000E+0000 -1.00000E+0000 -5.00000E-0001 
+    9       09   90    PreMar13SDs UNI -1.50000E+0000 -1.00000E+0000 -5.00000E-0001 
+   10       10    1             S1 UNI  3.00000E+0001  5.00000E+0001  8.00000E+0001                                                                                                                                                       SMB uncertainty Gt / yr                                                 10
+   10       10    2             S2 UNI  5.00000E+0001  1.00000E+0002  1.50000E+0002 
+   10       10    3             S3 UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002 
+   10       10    4             S4 UNI  7.00000E-0001  1.40000E+0000  2.10000E+0000 
+   10       10    5             S5 UNI  8.00000E+0001  1.50000E+0002  2.40000E+0002 
+   10       10    6             S6 UNI -5.00000E-0001 -1.00000E-0001  5.00000E-0001 
+   10       10    7             S8 UNI  1.00000E+0000  3.00000E+0000  6.00000E+0000 
+   10       10    8            S12 UNI  4.00000E+0001  9.00000E+0001  1.50000E+0002 
+   10       10    9            S13 UNI -6.00000E-0001 -4.00000E-0001 -2.00000E-0001 
+   10       10   10            S14 UNI  7.50000E+0001  8.50000E+0001  9.50000E+0001 
+   10       10   11            S16 UNI  7.00000E+0001  8.00000E+0001  9.00000E+0001 
+   10       10   12   Gr2t21kaccum UNI -2.50000E+0001 -1.30000E+0001  0.00000E+0000 
+   10       10   13  Gr2t21krunoff UNI  4.90000E+0001  7.90000E+0001  1.29000E+0002 
+   10       10   14   Gr2t21kdisch UNI  0.00000E+0000  2.50000E+0001  7.50000E+0001 
+   10       10   15   Gr3t21kaccum UNI -3.00000E+0001 -2.00000E+0001 -1.00000E+0001 
+   10       10   16  Gr3t21krunoff UNI  6.90000E+0001  1.50000E+0002  2.30000E+0002 
+   10       10   17   Gr3t21kdisch UNI -5.00000E+0000  2.50000E+0001  1.05000E+0002 
+   10       10   18   Gr4t21kaccum UNI -5.00000E+0001 -3.00000E+0001 -1.00000E+0001 
+   10       10   19  Gr4t21krunoff UNI  1.30000E+0002  3.80000E+0002  5.30000E+0002 
+   10       10   20   Gr4t21kdisch UNI -2.50000E+0001  4.50000E+0001  1.25000E+0002 
+   10       10   21   Gr4t22kaccum UNI -2.50000E+0002 -2.10000E+0002 -1.50000E+0002 
+   10       10   22  Gr4t22krunoff UNI  3.30000E+0002  8.30000E+0002  1.13000E+0003 
+   10       10   23   Gr4t22kdisch UNI  7.50000E+0001  2.25000E+0002  3.75000E+0002 
+   10       10   24   Gr6t22kaccum UNI -3.50000E+0002 -2.50000E+0002 -1.80000E+0002 
+   10       10   25  Gr6t22krunoff UNI  8.30000E+0002  1.43000E+0003  1.63000E+0003 
+   10       10   26   Gr6t22kdisch UNI  7.50000E+0001  1.45000E+0002  3.75000E+0002 
+   10       10   27   Gr8t22kaccum UNI -3.80000E+0002 -2.70000E+0002 -1.90000E+0002 
+   10       10   28  Gr8t22krunoff UNI  1.13000E+0003  2.13000E+0003  2.73000E+0003 
+   10       10   29   Gr8t22kdisch UNI  7.50000E+0001  2.75000E+0002  3.75000E+0002 
+   10       10   30      dT_negSMB UNI -9.99600E+0002 -9.99600E+0002 -9.99600E+0002 
+   10       10   31   WA2t21kaccum UNI -5.00000E+0001 -3.00000E+0001 -1.00000E+0001 
+   10       10   32  WA2t21krunoff UNI  3.00000E+0001  4.00000E+0001  7.00000E+0001 
+   10       10   33   WA2t21kdisch UNI -6.00000E+0000  9.40000E+0001  1.34000E+0002 
+   10       10   34   WA3t21kaccum UNI -7.00000E+0001 -5.00000E+0001 -2.00000E+0001 
+   10       10   35  WA3t21krunoff UNI  2.00000E+0001  6.00000E+0001  1.00000E+0002 
+   10       10   36   WA3t21kdisch UNI -5.60000E+0001  2.44000E+0002  3.44000E+0002 
+   10       10   37   WA4t21kaccum UNI -1.70000E+0002 -7.00000E+0001  3.00000E+0001 
+   10       10   38  WA4t21krunoff UNI  5.00000E+0001  8.00000E+0001  1.30000E+0002 
+   10       10   39   WA4t21kdisch UNI  1.44000E+0002  4.44000E+0002  5.44000E+0002 
+   10       10   40   WA4t22kaccum UNI -5.70000E+0002 -3.70000E+0002 -1.70000E+0002 
+   10       10   41  WA4t22krunoff UNI  1.00000E+0002  1.50000E+0002  2.50000E+0002 
+   10       10   42   WA4t22kdisch UNI -4.40000E+0001  1.14400E+0003  1.34400E+0003 
+   10       10   43   WA6t22kaccum UNI -6.70000E+0002 -4.70000E+0002 -1.70000E+0002 
+   10       10   44  WA6t22krunoff UNI  1.00000E+0002  2.00000E+0002  3.60000E+0002 
+   10       10   45   WA6t22kdisch UNI  7.44000E+0002  1.34400E+0003  1.74400E+0003 
+   10       10   46   WA8t22kaccum UNI -7.70000E+0002 -5.70000E+0002 -2.70000E+0002 
+   10       10   47  WA8t22krunoff UNI  1.00000E+0002  2.50000E+0002  4.00000E+0002 
+   10       10   48   WA8t22kdisch UNI  8.44000E+0002  1.44400E+0003  1.94400E+0003 
+   10       10   49  dT1mWAretreat UNI  3.00000E+0000  4.00000E+0000  6.00000E+0000 
+   10       10   50    TimeWA1mSLR UNI  1.00000E+0002  1.50000E+0002  2.00000E+0002 
+   10       10   51   EA2t21kaccum UNI -3.70000E+0001 -1.70000E+0001  3.30000E+0001 
+   10       10   52  EA2t21krunoff UNI  0.00000E+0000  3.00000E+0001  5.00000E+0001 
+   10       10   53   EA2t21kdisch UNI  1.70000E+0001  6.70000E+0001  2.17000E+0002 
+   10       10   54   EA3t21kaccum UNI -4.70000E+0001 -2.70000E+0001  2.30000E+0001 
+   10       10   55  EA3t21krunoff UNI  1.00000E+0001  4.00000E+0001  6.00000E+0001 
+   10       10   56   EA3t21kdisch UNI  1.70000E+0001  1.17000E+0002  3.17000E+0002 
+   10       10   57   EA4t21kaccum UNI -6.70000E+0001 -3.70000E+0001  1.30000E+0001 
+   10       10   58 EA4t2100runoff UNI  2.00000E+0001  5.00000E+0001  7.00000E+0001 
+   10       10   59   EA4t21kdisch UNI  6.70000E+0001  2.17000E+0002  5.17000E+0002 
+   10       10   60   EA4t22kaccum UNI -4.17000E+0002 -3.57000E+0002 -2.57000E+0002 
+   10       10   61  EA4t22krunoff UNI  4.00000E+0001  1.00000E+0002  1.40000E+0002 
+   10       10   62   EA4t22kdisch UNI  4.17000E+0002  7.17000E+0002  1.31700E+0003 
+   10       10   63   EA6t22kaccum UNI -5.17000E+0002 -4.17000E+0002 -3.17000E+0002 
+   10       10   64  EA6t22krunoff UNI  8.00000E+0001  1.30000E+0002  1.80000E+0002 
+   10       10   65   EA6t22kdisch UNI  4.17000E+0002  8.17000E+0002  1.31700E+0003 
+   10       10   66   EA8t22kaccum UNI -7.17000E+0002 -4.67000E+0002 -3.17000E+0002 
+   10       10   67  EA8t22krunoff UNI  1.00000E+0002  1.60000E+0002  2.50000E+0002 
+   10       10   68   EA8t22kdisch UNI  5.17000E+0002  9.17000E+0002  1.41700E+0003 
+   10       10   69      dTEA100Gt UNI  2.50000E+0000  3.00000E+0000  4.00000E+0000 
+   10       10   70  dT1mEAretreat uni  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+   10       10   71    TimeEA1mSLR uni  5.00000E+0002  1.00000E+0003  2.00000E+0003 
+   10       10   72   PrRetroWAsec UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+   10       10   73   PrRetroGrsec UNI  7.00000E+0001  9.00000E+0001  1.00000E+0002 
+   10       10   74 Gr%SLRmodelUnc UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+   10       10   75 WA%SLRmodelUnc UNI  4.00000E+0001  5.00000E+0001  7.00000E+0001 
+   10       10   76 EA%SLRmodelUnc UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+   10       10   77  PrMissFactors UNI  5.00000E+0001  7.00000E+0001  9.00000E+0001 
+   10       10   78  PrWA_incr_sec uni  2.90000E-0001  3.00000E-0001  3.10000E-0001 
+   10       10   79  PrGr_incr_sec uni  1.00000E-0006  1.00000E-0005  2.00000E-0005 
+   10       10   80             S7 UNI  3.00000E+0002  1.00000E+0003  3.00000E+0003 
+   10       10   81             S9 UNI -2.50000E+0001 -1.00000E+0001  2.50000E+0001 
+   10       10   82            S10 UNI  8.00000E+0000  1.30000E+0001  1.90000E+0001 
+   10       10   83            S11 UNI  3.00000E-0001  1.00000E+0000  1.30000E+0000 
+   10       10   84            S18 UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+   10       10   85            S19 UNI -2.00000E+0000 -1.50000E+0000 -1.00000E+0000 
+   10       10   86 PreMar13iceMax UNI  4.50000E+0001  5.50000E+0001  6.50000E+0001 
+   10       10   87 PreSep13iceMin UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+   10       10   88 Pre1312volrati UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000 
+   10       10   89    PreSep13SDs UNI -2.00000E+0000 -1.50000E+0000 -1.00000E+0000 
+   10       10   90    PreMar13SDs UNI -1.50000E+0000 -1.00000E+0000 -5.00000E-0001 

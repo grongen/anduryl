@@ -1,16 +1,16 @@
+import sys
+import types
 from copy import deepcopy
 
 import numpy as np
 from numpy.core.multiarray import interp as compiled_interp
 
+from anduryl.core import calculate
 from anduryl.core.assessments import Assessment
 from anduryl.core.experts import Experts
 from anduryl.core.items import Items
-from anduryl.core import calculate
-
 from anduryl.io import ProjectIO
 
-import sys
 
 class Project:
     """
@@ -45,6 +45,24 @@ class Project:
 
         # Add derived results
         self.results = {}
+
+    def __repr__(self):
+        methods = []
+        properties = []
+        for attr in dir(self):
+            if attr.startswith('_'):
+                continue
+            elif isinstance(getattr(self, attr), types.MethodType):
+                methods.append(attr)
+            else:
+                properties.append(attr)
+        methods = '\n - '.join(methods)
+        properties = '\n - '.join(properties)
+        
+        return f'Main project class.\nProperties:\n - {properties}\nMethods:\n - {methods}'
+
+                
+
 
     def __deepcopy__(self, memo):
         """
@@ -103,7 +121,7 @@ class Project:
             items=projectcopy.items,
         )
 
-    def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None):
+    def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None, overwrite=False):
         """
         Convenience function for calculating the DM for the main results.
         For parameters see the method calculate_decision_maker in the Result class.
@@ -114,7 +132,8 @@ class Project:
             exp_id=exp_id,
             calpower=calpower,
             exp_name=exp_name,
-            alpha=alpha
+            alpha=alpha,
+            overwrite=overwrite
         )
 
     def calculate_item_robustness(self, weight_type, overshoot, max_exclude, min_exclude=0, calpower=1.0, alpha=None):
@@ -277,7 +296,7 @@ class Results:
         self.item_robustness = {}
         self.expert_robustness = {}
 
-    def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None, main_results=None):
+    def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None, overwrite=False, main_results=None):
         """
         Method to calculate the decision maker, given some settings from the parameters.
         
@@ -312,7 +331,7 @@ class Results:
 
         # Add to experts and calculate weight for DM
         exp_name = exp_id if exp_name is None else exp_name
-        self.experts.add_expert(exp_id=exp_id, exp_name=exp_name, assessment=DM, exp_type='dm', overwrite=False, full_cdf=F_DM)
+        self.experts.add_expert(exp_id=exp_id, exp_name=exp_name, assessment=DM, exp_type='dm', overwrite=overwrite, full_cdf=F_DM)
         self.experts.calculate_weights(overshoot=overshoot, experts=[exp_id], alpha=self.alpha_opt, calpower=calpower)
 
         # Add to main results. When using only the code (without GUI) this is not necessary.

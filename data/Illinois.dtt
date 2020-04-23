@@ -1,0 +1,151 @@
+* CLASS ASCII OUTPUT FILE. NQ=   5   QU=   5  25  50  75  95
+    1     IL01    1     unins Cook UNI  1.50000E+0001  1.70000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001                                                                      What was the rate of uninsurance among children residing in Cook county (Chicago included) in 2009/2010? 
+    1     IL01    2   unins collar UNI  1.20000E+0001  2.20000E+0001  3.30000E+0001  3.90000E+0001  4.40000E+0001                                                                                     What was the rate of uninsurance among children residing in collar counties in 2009/2010? 
+    1     IL01    3    unins other UNI  1.50000E+0001  1.70000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001                                              What was the rate of uninsurance among children residing in other counties (remainder of the counties in Illinois) in 2009/2010? 
+    1     IL01    4       govt ins UNI  2.20000E+0001  2.70000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001                                                                    What percent of children from households under 200% FPL had government sponsored health insurance in 2009? 
+    1     IL01    5    <134%FPL un UNI  1.20000E+0001  1.80000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001                                                                                          What percent of children from households under 134% FPL were uninsured in 2009/2010? 
+    1     IL01    6  change in ins UNI -1.50000E+0001 -1.30000E+0001 -1.00000E+0001 -9.00000E+0000 -8.00000E+0000                                        What was the percentage point change in the rate of insurance from 2005/2006 to 2009/2010 for children from households above 200% FPL? 
+    1     IL01    7   dental visit UNI  3.30000E+0001  3.50000E+0001  4.00000E+0001  4.80000E+0001  5.50000E+0001                                                                                  What percent of All Kids enrollees went for at least one dental visit in the past 12 months? 
+    1     IL01    8       provider UNI  5.00000E+0000  9.00000E+0000  2.00000E+0001  2.20000E+0001  2.50000E+0001                                            What percent of families of All Kids enrollees reported "no problem" seeing a health care provider as soon as a child needed care? 
+    1     IL01    9       ER visit UNI  5.00000E+0000  1.20000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001                                                                          What percent of All Kids enrollees went for at least one emergency room visit in the past 21 months? 
+    1     IL01   10    IL:IN unins UNI  3.33000E-0001  2.00000E+0000  3.00000E+0000  3.50000E+0000  4.00000E+0000                                                    What is the ratio: # of children without health insurance in Illinois / # of children without health insurance in Indiana? 
+    1     IL01   11        IWCV -$ UNI  7.50000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.50000E+0001                                                                                      What would the infant well-care visit rate have been in 2007 without RWJF Covering Kids? 
+    1     IL01   12      IWCV 2020 UNI  7.40000E+0001  7.50000E+0001  7.90000E+0001  8.20000E+0001  8.50000E+0001                                                                                                                         What will the infant well-care visit rate be in 2020? 
+    1     IL01   13   IWCV 2020 -$ UNI  6.50000E+0001  6.80000E+0001  7.20000E+0001  7.50000E+0001  8.00000E+0001                                                                                             What would the infant well-care visit rate be in 2020 without RWJF Covering Kids? 
+    1     IL01   14  IWCV 2020 - L UNI  6.00000E+0001  6.50000E+0001  6.80000E+0001  7.20000E+0001  7.70000E+0001                                                                                     What would the infant well-care visit rate be in 2020 if CHIPRA were not renewed in 2013? 
+    1     IL01   15  IWCV 2020 -$L UNI  4.50000E+0001  5.50000E+0001  6.50000E+0001  6.80000E+0001  7.00000E+0001                                                      What would the infant well-care visit rate be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     IL01   16        AWCV -$ UNI  5.70000E+0001  5.80000E+0001  6.10000E+0001  6.20000E+0001  6.30000E+0001                                                                                  What would the adolescent well-care visit rate have been in 2007 without RWJF Covering Kids? 
+    1     IL01   17      AWCV 2020 UNI  4.40000E+0001  4.80000E+0001  5.00000E+0001  5.40000E+0001  5.80000E+0001                                                                                                                     What will the adolescent well-care visit rate be in 2020? 
+    1     IL01   18   AWCV 2020 -$ UNI  4.50000E+0001  4.60000E+0001  4.80000E+0001  5.00000E+0001  5.20000E+0001                                                                                         What would the adolescent well-care visit rate be in 2020 without RWJF Covering Kids? 
+    1     IL01   19   AWCV 2020 -L UNI  3.80000E+0001  4.20000E+0001  4.50000E+0001  4.70000E+0001  5.00000E+0001                                                                                 What would the adolescent well-care visit rate be in 2020 if CHIPRA were not renewed in 2013? 
+    1     IL01   20  AWCV 2020 -$L UNI  3.50000E+0001  3.80000E+0001  4.00000E+0001  4.40000E+0001  4.80000E+0001                                                  What would the adolescent well-care visit rate be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     IL01   21        CHIP -$ UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001                                                                                    What would the % change in monthly caseload have been for 2008 without RWJF Covering Kids? 
+    1     IL01   22      CHIP 2020 UNI -2.00000E+0001 -1.50000E+0001 -1.00000E+0001  2.00000E+0000  1.00000E+0001                                                                                                              What will the % change in monthly caseload be for December 2020? 
+    1     IL01   23   CHIP 2020 -$ UNI -2.50000E+0001 -2.00000E+0001 -1.50000E+0001  5.00000E+0000  8.00000E+0000                                                                                                             What would the % change in monthly caseload be for December 2020? 
+    1     IL01   24   CHIP 2020 -L UNI -2.50000E+0001 -2.20000E+0001 -2.00000E+0001 -1.00000E+0001  2.00000E+0000                                                                          What would the % change in monthly caseload be for December 2020 if CHIPRA were not renewed in 2013? 
+    1     IL01   25  CHIP 2020 -$L UNI -3.50000E+0001 -3.00000E+0001 -2.50000E+0001 -1.30000E+0001  1.00000E+0000                                           What would the % change in monthly caseload be for December 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     IL01   26        Part -$ UNI  5.00000E+0001  5.50000E+0001  6.00000E+0001  7.00000E+0001  8.00000E+0001                                                                          What would the participation rate for public insurance have been in 2008 without RWJF Covering Kids? 
+    1     IL01   27      Part 2020 UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001                                                                                                             What will the participation rate for public insurance be in 2020? 
+    1     IL01   28   Part 2020 -$ UNI  3.50000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001                                                                                 What would the participation rate for public insurance be in 2020 without RWJF Covering Kids? 
+    1     IL01   29   Part 2020 -L UNI  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001                                                                         What would the participation rate for public insurance be in 2020 if CHIPRA were not renewed in 2013? 
+    1     IL01   30  Part 2020 -$L UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001                                          What would the participation rate for public insurance be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    2     IL03    1     unins Cook UNI  4.00000E+0000  5.00000E+0000  7.00000E+0000  1.00000E+0001  1.20000E+0001                                                                      What was the rate of uninsurance among children residing in Cook county (Chicago included) in 2009/2010? 
+    2     IL03    2   unins collar UNI  4.00000E+0000  5.00000E+0000  6.00000E+0000  8.00000E+0000  1.20000E+0001 
+    2     IL03    3    unins other UNI  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.00000E+0001  1.30000E+0001 
+    2     IL03    4       govt ins UNI  8.00000E+0000  1.00000E+0001  1.40000E+0001  2.50000E+0001  3.00000E+0001 
+    2     IL03    5    <134%FPL un UNI  5.00000E+0000  7.00000E+0000  1.00000E+0001  1.50000E+0001  2.50000E+0001 
+    2     IL03    6  change in ins UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000  1.20000E+0001  1.50000E+0001 
+    2     IL03    7   dental visit UNI  1.50000E+0001  2.50000E+0001  5.00000E+0001  6.50000E+0001  8.50000E+0001 
+    2     IL03    8       provider UNI  3.50000E+0001  4.50000E+0001  6.50000E+0001  7.20000E+0001  9.00000E+0001 
+    2     IL03    9       ER visit UNI  2.00000E+0001  3.00000E+0001  3.50000E+0001  5.50000E+0001  7.00000E+0001 
+    2     IL03   10    IL:IN unins UNI  5.00000E-0001  7.14000E-0001  8.33000E-0001  8.70000E-0001  1.00000E+0000 
+    2     IL03   11        IWCV -$ UNI  4.50000E+0001  5.00000E+0001  7.00000E+0001  8.00000E+0001  8.50000E+0001 
+    2     IL03   12      IWCV 2020 UNI  9.00000E+0001  9.20000E+0001  9.75000E+0001  9.90000E+0001  9.99000E+0001 
+    2     IL03   13   IWCV 2020 -$ UNI  7.20000E+0001  7.60000E+0001  8.20000E+0001  8.50000E+0001  9.60000E+0001 
+    2     IL03   14  IWCV 2020 - L UNI  9.00000E+0001  9.40000E+0001  9.70000E+0001  9.80000E+0001  9.99000E+0001 
+    2     IL03   15  IWCV 2020 -$L UNI  7.00000E+0001  7.50000E+0001  8.20000E+0001  8.80000E+0001  9.99000E+0001 
+    2     IL03   16        AWCV -$ UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    2     IL03   17      AWCV 2020 UNI  6.64000E+0001  6.90000E+0001  7.50000E+0001  9.00000E+0001  9.99000E+0001 
+    2     IL03   18   AWCV 2020 -$ UNI  5.00000E+0001  5.50000E+0001  5.80000E+0001  8.00000E+0001  9.00000E+0001 
+    2     IL03   19   AWCV 2020 -L UNI  6.64000E+0001  6.70000E+0001  7.00000E+0001  8.80000E+0001  9.50000E+0001 
+    2     IL03   20  AWCV 2020 -$L UNI  5.20000E+0001  5.40000E+0001  5.70000E+0001  7.90000E+0001  8.90000E+0001 
+    2     IL03   21        CHIP -$ UNI  8.53000E+0000  2.15500E+0001  5.19400E+0001  6.27900E+0001  1.00770E+0002 
+    2     IL03   22      CHIP 2020 UNI  1.13260E+0002  1.17050E+0002  1.49610E+0002  1.87590E+0002  2.03870E+0002 
+    2     IL03   23   CHIP 2020 -$ UNI  3.02300E+0001  5.19400E+0001  7.36400E+0001  8.99200E+0001  1.17050E+0002 
+    2     IL03   24   CHIP 2020 -L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    2     IL03   25  CHIP 2020 -$L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    2     IL03   26        Part -$ UNI  6.00000E+0001  7.00000E+0001  7.70000E+0001  8.00000E+0001  8.50000E+0001 
+    2     IL03   27      Part 2020 UNI  8.77000E+0001  9.20000E+0001  9.70000E+0001  9.80000E+0001  9.90000E+0001 
+    2     IL03   28   Part 2020 -$ UNI  7.50000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.50000E+0001 
+    2     IL03   29   Part 2020 -L UNI  8.30000E+0001  8.60000E+0001  8.70000E+0001  9.20000E+0001  9.60000E+0001 
+    2     IL03   30  Part 2020 -$L UNI  7.60000E+0001  8.00000E+0001  8.40000E+0001  8.90000E+0001  9.40000E+0001 
+    3     IL04    1     unins Cook UNI  4.00000E+0000  5.00000E+0000  6.00000E+0000  1.00000E+0001  1.20000E+0001                                                                      What was the rate of uninsurance among children residing in Cook county (Chicago included) in 2009/2010? 
+    3     IL04    2   unins collar UNI  3.00000E+0000  3.50000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    3     IL04    3    unins other UNI  3.00000E+0000  3.50000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000 
+    3     IL04    4       govt ins UNI  4.00000E+0001  5.00000E+0001  5.50000E+0001  6.50000E+0001  7.00000E+0001 
+    3     IL04    5    <134%FPL un UNI  1.50000E+0001  1.75000E+0001  2.00000E+0001  2.25000E+0001  2.50000E+0001 
+    3     IL04    6  change in ins UNI -1.00000E+0001 -7.00000E+0000 -5.00000E+0000 -3.50000E+0000 -2.00000E+0000 
+    3     IL04    7   dental visit UNI  1.00000E+0001  1.20000E+0001  1.50000E+0001  1.70000E+0001  2.50000E+0001 
+    3     IL04    8       provider UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001  1.10000E+0001  1.20000E+0001 
+    3     IL04    9       ER visit UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.30000E+0001 
+    3     IL04   10    IL:IN unins UNI  1.11000E+0000  1.25000E+0000  1.43000E+0000  2.00000E+0000  2.50000E+0000 
+    3     IL04   11        IWCV -$ UNI  7.50000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.20000E+0001 
+    3     IL04   12      IWCV 2020 UNI  9.40000E+0001  9.50000E+0001  9.70000E+0001  9.80000E+0001  9.90000E+0001 
+    3     IL04   13   IWCV 2020 -$ UNI  7.80000E+0001  8.30000E+0001  8.80000E+0001  9.30000E+0001  9.50000E+0001 
+    3     IL04   14  IWCV 2020 - L UNI  8.50000E+0001  8.70000E+0001  9.00000E+0001  9.20000E+0001  9.50000E+0001 
+    3     IL04   15  IWCV 2020 -$L UNI  7.50000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.20000E+0001 
+    3     IL04   16        AWCV -$ UNI  5.00000E+0001  5.40000E+0001  5.80000E+0001  6.00000E+0001  6.30000E+0001 
+    3     IL04   17      AWCV 2020 UNI  6.50000E+0001  6.80000E+0001  7.00000E+0001  7.30000E+0001  7.50000E+0001 
+    3     IL04   18   AWCV 2020 -$ UNI  5.50000E+0001  6.00000E+0001  6.60000E+0001  6.80000E+0001  7.00000E+0001 
+    3     IL04   19   AWCV 2020 -L UNI  6.00000E+0001  6.30000E+0001  6.60000E+0001  6.80000E+0001  7.00000E+0001 
+    3     IL04   20  AWCV 2020 -$L UNI  5.50000E+0001  5.80000E+0001  6.20000E+0001  6.60000E+0001  6.80000E+0001 
+    3     IL04   21        CHIP -$ UNI  6.00000E+0001  7.20000E+0001  8.00000E+0001  9.00000E+0001  1.00000E+0002 
+    3     IL04   22      CHIP 2020 UNI  1.00000E+0002  1.05000E+0002  1.13250E+0002  1.18000E+0002  1.20000E+0002 
+    3     IL04   23   CHIP 2020 -$ UNI  7.00000E+0001  8.20000E+0001  9.00000E+0001  1.00000E+0002  1.10000E+0002 
+    3     IL04   24   CHIP 2020 -L UNI  9.00000E+0001  9.50000E+0001  1.05000E+0002  1.08000E+0002  1.12000E+0002 
+    3     IL04   25  CHIP 2020 -$L UNI  6.50000E+0001  8.00000E+0001  8.50000E+0001  1.00000E+0002  1.05000E+0002 
+    3     IL04   26        Part -$ UNI  7.00000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001  8.50000E+0001 
+    3     IL04   27      Part 2020 UNI  8.60000E+0001  9.00000E+0001  9.40000E+0001  9.50000E+0001  9.60000E+0001 
+    3     IL04   28   Part 2020 -$ UNI  7.80000E+0001  8.20000E+0001  8.60000E+0001  8.80000E+0001  9.00000E+0001 
+    3     IL04   29   Part 2020 -L UNI  8.20000E+0001  8.60000E+0001  9.00000E+0001  9.10000E+0001  9.20000E+0001 
+    3     IL04   30  Part 2020 -$L UNI  7.80000E+0001  8.20000E+0001  8.60000E+0001  8.80000E+0001  9.00000E+0001 
+    4     IL05    1     unins Cook UNI  1.50000E+0001  1.70000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001                                                                      What was the rate of uninsurance among children residing in Cook county (Chicago included) in 2009/2010? 
+    4     IL05    2   unins collar UNI  1.00000E+0001  1.30000E+0001  1.50000E+0001  1.80000E+0001  2.00000E+0001 
+    4     IL05    3    unins other UNI  1.50000E+0001  1.70000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    4     IL05    4       govt ins UNI  6.00000E+0001  7.20000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001 
+    4     IL05    5    <134%FPL un UNI  5.00000E+0000  7.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    4     IL05    6  change in ins UNI  0.00000E+0000  2.00000E+0000  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+    4     IL05    7   dental visit UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001  5.00000E+0001 
+    4     IL05    8       provider UNI  5.00000E+0001  7.00000E+0001  8.00000E+0001  9.00000E+0001  1.00000E+0002 
+    4     IL05    9       ER visit UNI  5.00000E+0000  1.50000E+0001  3.50000E+0001  4.50000E+0001  6.50000E+0001 
+    4     IL05   10    IL:IN unins UNI  5.00000E-0001  6.70000E-0001  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    4     IL05   11        IWCV -$ UNI  7.00000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.50000E+0001 
+    4     IL05   12      IWCV 2020 UNI  9.50000E+0001  9.60000E+0001  9.80000E+0001  9.90000E+0001  1.00000E+0002 
+    4     IL05   13   IWCV 2020 -$ UNI  9.50000E+0001  9.60000E+0001  9.80000E+0001  9.90000E+0001  1.00000E+0002 
+    4     IL05   14  IWCV 2020 - L UNI  9.50000E+0001  9.60000E+0001  9.80000E+0001  9.90000E+0001  1.00000E+0002 
+    4     IL05   15  IWCV 2020 -$L UNI  9.50000E+0001  9.60000E+0001  9.80000E+0001  9.90000E+0001  1.00000E+0002 
+    4     IL05   16        AWCV -$ UNI  5.00000E+0001  5.30000E+0001  5.50000E+0001  6.00000E+0001  6.64000E+0001 
+    4     IL05   17      AWCV 2020 UNI  6.64000E+0001  7.20000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001 
+    4     IL05   18   AWCV 2020 -$ UNI  6.64000E+0001  7.20000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001 
+    4     IL05   19   AWCV 2020 -L UNI  6.64000E+0001  7.20000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001 
+    4     IL05   20  AWCV 2020 -$L UNI  6.64000E+0001  7.20000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001 
+    4     IL05   21        CHIP -$ UNI  2.50000E+0001  3.50000E+0001  5.00000E+0001  6.00000E+0001  1.13300E+0002 
+    4     IL05   22      CHIP 2020 UNI  1.10000E+0002  1.20000E+0002  1.30000E+0002  1.40000E+0002  1.50000E+0002 
+    4     IL05   23   CHIP 2020 -$ UNI  1.10000E+0002  1.20000E+0002  1.30000E+0002  1.40000E+0002  1.50000E+0002 
+    4     IL05   24   CHIP 2020 -L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    4     IL05   25  CHIP 2020 -$L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    4     IL05   26        Part -$ UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001  8.77000E+0001 
+    4     IL05   27      Part 2020 UNI  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.30000E+0001  9.50000E+0001 
+    4     IL05   28   Part 2020 -$ UNI  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.30000E+0001  9.50000E+0001 
+    4     IL05   29   Part 2020 -L UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    4     IL05   30  Part 2020 -$L UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    5     IL10    1     unins Cook UNI  5.00000E+0000  7.00000E+0000  1.00000E+0001  1.20000E+0001  1.50000E+0001                                                                      What was the rate of uninsurance among children residing in Cook county (Chicago included) in 2009/2010? 
+    5     IL10    2   unins collar UNI  5.00000E+0000  6.00000E+0000  8.00000E+0000  9.00000E+0000  1.00000E+0001 
+    5     IL10    3    unins other UNI  5.00000E+0000  7.00000E+0000  9.00000E+0000  1.00000E+0001  1.20000E+0001 
+    5     IL10    4       govt ins UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001 
+    5     IL10    5    <134%FPL un UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    5     IL10    6  change in ins UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000  8.00000E+0000  1.00000E+0001 
+    5     IL10    7   dental visit UNI  5.00000E+0000  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    5     IL10    8       provider UNI  5.00000E+0001  6.00000E+0001  6.80000E+0001  7.20000E+0001  7.50000E+0001 
+    5     IL10    9       ER visit UNI  2.00000E+0000  8.00000E+0000  1.00000E+0001  1.20000E+0001  1.50000E+0001 
+    5     IL10   10    IL:IN unins UNI  5.00000E-0001  7.00000E-0001  8.00000E-0001  9.00000E-0001  1.00000E+0000 
+    5     IL10   11        IWCV -$ UNI  8.00000E+0001  8.50000E+0001  9.00000E+0001  9.30000E+0001  9.50000E+0001 
+    5     IL10   12      IWCV 2020 UNI  9.50000E+0001  9.70000E+0001  9.80000E+0001  9.90000E+0001  1.00000E+0002 
+    5     IL10   13   IWCV 2020 -$ UNI  9.00000E+0001  9.30000E+0001  9.50000E+0001  9.70000E+0001  9.80000E+0001 
+    5     IL10   14  IWCV 2020 - L UNI  9.00000E+0001  9.30000E+0001  9.50000E+0001  9.70000E+0001  9.80000E+0001 
+    5     IL10   15  IWCV 2020 -$L UNI  9.00000E+0001  9.30000E+0001  9.50000E+0001  9.70000E+0001  9.80000E+0001 
+    5     IL10   16        AWCV -$ UNI  5.50000E+0001  5.80000E+0001  6.00000E+0001  6.20000E+0001  6.40000E+0001 
+    5     IL10   17      AWCV 2020 UNI  5.50000E+0001  6.00000E+0001  6.70000E+0001  6.80000E+0001  7.00000E+0001 
+    5     IL10   18   AWCV 2020 -$ UNI  5.50000E+0001  5.80000E+0001  6.00000E+0001  6.20000E+0001  6.40000E+0001 
+    5     IL10   19   AWCV 2020 -L UNI  5.50000E+0001  6.00000E+0001  6.40000E+0001  6.80000E+0001  7.00000E+0001 
+    5     IL10   20  AWCV 2020 -$L UNI  5.50000E+0001  5.70000E+0001  5.80000E+0001  6.00000E+0001  6.40000E+0001 
+    5     IL10   21        CHIP -$ UNI -2.00000E+0000 -1.00000E+0000  0.00000E+0000  1.00000E+0000  2.00000E+0000 
+    5     IL10   22      CHIP 2020 UNI  1.13800E+0002  1.17050E+0002  1.22480E+0002  1.27900E+0002  1.38760E+0002 
+    5     IL10   23   CHIP 2020 -$ UNI  7.00000E+0001  7.50000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001 
+    5     IL10   24   CHIP 2020 -L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    5     IL10   25  CHIP 2020 -$L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001 
+    5     IL10   26        Part -$ UNI  5.50000E+0001  5.70000E+0001  6.00000E+0001  6.30000E+0001  6.50000E+0001 
+    5     IL10   27      Part 2020 UNI  8.50000E+0001  8.60000E+0001  8.77000E+0001  8.90000E+0001  9.50000E+0001 
+    5     IL10   28   Part 2020 -$ UNI  6.50000E+0001  6.70000E+0001  7.00000E+0001  8.00000E+0001  9.50000E+0001 
+    5     IL10   29   Part 2020 -L UNI  8.50000E+0001  8.60000E+0001  8.77000E+0001  8.90000E+0001  9.50000E+0001 
+    5     IL10   30  Part 2020 -$L UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001  9.50000E+0001 

@@ -88,9 +88,9 @@ class Experts:
         """
         if isinstance(experts, list):
             return np.array([self.ids.index(exp) for exp in experts])
-        elif experts is 'actual':
+        elif experts == 'actual':
             return np.array(self.actual_experts)
-        elif experts is 'dm':
+        elif experts == 'dm':
             return np.array(self.decision_makers)
         elif isinstance(experts, str):
             return self.ids.index(experts)
@@ -616,7 +616,7 @@ class Experts:
         the realizations and the calibration scores for
         all experts as a Python dictionary. The result
         can easily be converted to a pandas DataFrame with
-        pandas.DataFrame.frm_dict([results])
+        pandas.DataFrame.from_dict([results])
                
         Parameters
         ----------
@@ -631,26 +631,25 @@ class Experts:
             Dictionary with information and calibration scores
         """
         
-        lists = (self.ids, self.info_total, self.info_real, self.calibration)
-        
-        if orient == 'index':
-            dct = {}
-            for exp_id, infotot, inforeal, cal in zip(*lists):
-                dct[exp_id] = {
-                    'Info. score total': infotot,
-                    'Info. score real.': inforeal,
-                    'Calibration score': cal
-                }
+        lists = (self.ids, self.names, self.info_total, self.info_real, self.calibration, self.weights, self.user_weights)
 
-        elif orient == 'columns':
-            dct = {
-                'Info. score total': {},
-                'Info. score real.': {},
-                'Calibration score': {}
+        if orient not in ['columns', 'index']:
+            raise KeyError(f"Orient {orient} should be 'columns' or 'index'.")
+        
+        dct = {}
+        for exp_id, name, infotot, inforeal, cal, weight, user_weight in zip(*lists):
+            dct[exp_id] = {
+                'Name': name,
+                'Info. score total': infotot,
+                'Info. score real.': inforeal,
+                'Calibration score': cal,
+                'Weight': weight,
+                'User weight': user_weight
             }
-            for exp_id, infotot, inforeal, cal in zip(*lists):
-                dct['Info. score total'][exp_id] = infotot
-                dct['Info. score real.'][exp_id] = inforeal
-                dct['Calibration score'][exp_id] = cal
+
+        if orient == 'columns':
+            # Transpose
+            keys = dct[exp_id].keys()
+            dct = {key:{k:dct[k][key] for k in dct if key in dct[k]} for key in keys}
 
         return dct

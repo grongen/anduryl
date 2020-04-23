@@ -286,6 +286,8 @@ class QuantileDialog(QtWidgets.QDialog):
         self.assessments = assessmentswidget.project.assessments
         super(QuantileDialog, self).__init__()
 
+        self.icon = assessmentswidget.mainwindow.icon
+
         self.succeeded = False
         self._init_ui()
         
@@ -295,6 +297,9 @@ class QuantileDialog(QtWidgets.QDialog):
         """
 
         self.setWindowTitle('Quantiles')
+        self.setWindowIcon(self.icon)
+        self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
+
         self.table = QtWidgets.QTableWidget()
         self.table.horizontalHeader().setVisible(False)
         self.table.verticalHeader().setDefaultSectionSize(24)

@@ -1,0 +1,11 @@
+    1    Airprox_rep  2.50000E+0001 LOG                                                                                                                         Number of airprox reports in the netherlands in 2005. 
+    2    Missed_rate  1.10000E-0003 LOG                                                                                                                       Missed approach rate at Schiphol (based on RWY 06 data) 
+    3  Infringements  2.14000E+0002 LOG                                                                                                          Number of infringements of controlled airspace in Amsterdam FIR 2006 
+    4          Fleet  1.08400E+0004 LOG                                                                                                                                Size of the world fleet commercial jet in 2003 
+    5       Readback  1.00000E+0000 LOG                                         Percentage of communication probles between ATCo and pilot related to lacking of pilot readback march2004-april2005 european airspace 
+    6  Overrun_fatal  6.00000E+0000 LOG                                                                                                               Percent of onboard fatalities due to runway overrun (1991-2005) 
+    7          BadTO  2.00000E+0001 LOG                                                           Percent of annual take-offs and landings in the netherlands is performed on wet or contaminated runway  (1976-1995) 
+    8       FirstGen  2.30000E-0001 LOG                                                                               What part of flights at schiphol is operated with first generation aircraft at schiphol in 2005 
+    9     Overrun_TO  6.50000E-0008 LOG                                                                                                              Probability of a runway overrun during TO per flight at Schiphol 
+   10      Incursion  1.60000E-0005 LOG                                                                            Probability of runway incursion with significant potential for collision per flight ECAC area 2002 
+   11          Error -9.99600E+0002 LOG                                                                                                                                                                               

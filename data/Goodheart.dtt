@@ -1,0 +1,193 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1        A    1            CQ1 UNI  2.50000E+0001  1.50000E+0002  3.00000E+0002                                                During the period between 1988 and 1999, the total number of runway incursions reported in the U.S. increased by what percent? 
+    1        A    2            CQ2 UNI  7.00000E+0001  1.50000E+0002  3.00000E+0002                                 During the period between 1988 and 1999, the number of U.S. runway incursions resulting from pilot deviations (PD) increased by what percent? 
+    1        A    3            CQ3 UNI  1.00000E+0006  1.80000E+0006  4.00000E+0006                                                       How many airline departures per year occurred in the US.S. during the period from April 1, 2012 through March 31, 2013? 
+    1        A    4            CQ4 UNI  2.00000E+0000  1.00000E+0001  2.00000E+0001                                                          What was the reported General Aviation accident rate for FAA FY2011 expressed as accidents per 100,000 flight hours? 
+    1        A    5            CQ5 UNI  5.00000E-0003  3.00000E-0002  1.00000E+0000                                             For the same period in CQ4, what was the reported Part 121 airline accident rate expressed as accidents per 100,000 flight hours? 
+    1        A    6            CQ6 UNI  1.50000E+0003  2.20000E+0003  3.50000E+0003 The FAA identifies airport “hot spots” as “a location on an airport movement area with a history of potential risk of collision or runway incursion, and where heightened att 
+    1        A    7            CQ7 UNI  3.50000E+0001  7.50000E+0001  1.50000E+0002                                                                 How many Runway Incursions were reported in the U.S in the period from January 1, 2013 through June 30, 2013? 
+    1        A    8            CQ8 UNI  5.50000E+0001  7.00000E+0001  8.50000E+0001                                                                               Of the Runway Incursions reported in CQ7, what percentage of these were pilot deviation events? 
+    1        A    9            CQ9 UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001                                                                  Of the Runway Incursions reported in CQ7, what percentage of these were vehicle/pedestrian deviation events? 
+    1        A   10           CQ10 UNI  7.00000E+0001  8.50000E+0001  9.20000E+0001                                                                                    What percentage of aviation accidents may be attributed, at least in part, to human error? 
+    1        A   11             Q1 UNI  4.00000E+0003  1.00000E+0004  1.50000E+0004 Consider 100,000 randomly chosen flights within the U.S. under the general model conditions.  On how many of these flights will a DEVIATION FROM PROCEDURE be committed by th 
+    1        A   12             Q2 UNI  2.00000E+0003  7.00000E+0003  1.50000E+0004  Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  In what proportion these operations might INADEQUATE SUPERVISION, as 
+    1        A   13             Q3 UNI  1.50000E+0004  2.00000E+0004  3.30000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What percentage of these operations involves HIGH WORKLOAD as defined 
+    1        A   14             Q4 UNI  1.70000E+0004  2.50000E+0004  3.30000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What percentage of these operations will experience an abnormal ORGAN 
+    1        A   15             Q5 UNI  7.00000E+0003  1.50000E+0004  2.50000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What proportion of these operations involve navigating  an airport in 
+    1        A   16             Q6 UNI  2.00000E+0003  5.00000E+0003  1.00000E+0004 Consider 100,000 randomly chosen operations within the U.S. under the general model conditions.  What proportion of these operations experiences IRREGULAR OR NONCOMPLIANT SI 
+    1        A   17             Q7 UNI  3.00000E+0003  8.00000E+0003  1.50000E+0004  Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  On how many of these operations might an operator encounter AIRFIELD 
+    1        A   18             Q8 UNI  6.50000E+0004  7.50000E+0004  9.00000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  How many of these operations might utilize a 14CFR PART 139 AIRFIELD? 
+    1        A   19             Q9 UNI  1.00000E+0004  2.50000E+0004  3.30000E+0004  Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  How many of these operations might utilize an UNCONTROLLED AIRFIELD? 
+    1        A   20            Q10 UNI  1.00000E+0001  1.50000E+0001  3.00000E+0001 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What proportion of these operations might experience CONFLICTING VEHI 
+    1        A   21            Q11 UNI  3.50000E+0004  4.50000E+0004  5.50000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What percentage of these operations will experience an abnormal OPERA 
+    1        A   22            Q12 UNI  3.00000E+0003  6.00000E+0003  1.20000E+0004 Consider 100,000 randomly chosen aviation operations within the U.S. under the general model conditions.  On how many of these operations might TASK SATURATION, as defined i 
+    1        A   23            Q13 UNI  5.00000E+0000  2.50000E+0001  4.00000E+0001 Consider 100,000 randomly chosen flight/airport vehicle operations within the U.S. under the general model conditions.  On how many of these operations might a FAILURE TO HO 
+    1        A   24            Q14 UNI  3.00000E+0003  8.00000E+0003  1.50000E+0004 Consider 100,000 randomly chosen operations within the U.S. under the general model conditions.  On how many of these operations might a LOSS OF SITUATIONAL AWARENESS, as de 
+    1        A   25            Q15 UNI  6.00000E+0004  7.50000E+0004  8.80000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What percentage of these operations will experience an abnormal HUMAN 
+    1        A   26            Q16 UNI  2.50000E+0002  5.00000E+0002  7.00000E+0002 Consider 100,000 randomly chosen operations within the U.S. under the general model conditions.  On how many of these operations might SUN GLARE, as defined in the materials 
+    1        A   27            Q17 UNI  5.00000E+0003  1.00000E+0004  1.50000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What percentage of these operations will experience an abnormal WEATH 
+    1        A   28            Q18 UNI  1.00000E+0001  4.00000E+0001  8.00000E+0001 Consider 100,000 randomly chosen operations within the U.S. under the general model conditions.  On how many of these operations might an ATC EQUIPMENT FAILURE, as defined i 
+    1        A   29            Q19 UNI  1.50000E+0002  5.00000E+0002  1.00000E+0003 Consider 100,000 randomly chosen operations within the U.S. under the general model conditions.  On how many of these operations might an IN-VEHICLE DISPLAY, as defined in t 
+    1        A   30            Q20 UNI  1.70000E+0004  3.00000E+0004  4.50000E+0004 Consider 100,000 randomly chosen operations within the U.S. under the general model conditions.  On how many of these operations might RADIO CONGESTION, as defined in the ma 
+    1        A   31            Q21 UNI  1.80000E+0004  3.00000E+0004  4.20000E+0004 Consider 100,000 randomly chosen flight operations within the U.S. under the general model conditions.  What percentage of these operations will experience an abnormal TECHN 
+    1        A   32            Q22 UNI  1.00000E+0002  3.00000E+0002  4.00000E+0002 Consider 100,000 randomly chosen airport surface operations within the U.S. under the general model conditions.  What percentage of these operations will, during movement on 
+    2        B    1            CQ1 UNI  1.50000E+0002  2.00000E+0002  2.80000E+0002                                                During the period between 1988 and 1999, the total number of runway incursions reported in the U.S. increased by what percent? 
+    2        B    2            CQ2 UNI  2.00000E+0002  3.00000E+0002  5.00000E+0002 
+    2        B    3            CQ3 UNI  1.50000E+0006  5.00000E+0006  1.00000E+0007 
+    2        B    4            CQ4 UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+    2        B    5            CQ5 UNI  1.00000E+0000  3.00000E+0000  5.00000E+0000 
+    2        B    6            CQ6 UNI  4.00000E+0002  5.50000E+0002  1.00000E+0003 
+    2        B    7            CQ7 UNI  1.00000E+0002  1.75000E+0002  2.25000E+0002 
+    2        B    8            CQ8 UNI  6.00000E+0001  8.50000E+0001  9.50000E+0001 
+    2        B    9            CQ9 UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    2        B   10           CQ10 UNI  6.50000E+0001  8.00000E+0001  9.50000E+0001 
+    2        B   11             Q1 UNI  5.00000E+0004  7.00000E+0004  8.50000E+0004 
+    2        B   12             Q2 UNI  3.00000E+0002  1.30000E+0003  4.00000E+0003 
+    2        B   13             Q3 UNI  3.50000E+0004  6.50000E+0004  8.00000E+0004 
+    2        B   14             Q4 UNI  7.00000E+0004  8.00000E+0004  9.00000E+0004 
+    2        B   15             Q5 UNI  1.50000E+0004  3.50000E+0004  5.00000E+0004 
+    2        B   16             Q6 UNI  5.00000E+0003  1.00000E+0004  2.00000E+0004 
+    2        B   17             Q7 UNI  2.00000E+0003  5.00000E+0003  1.00000E+0004 
+    2        B   18             Q8 UNI  2.00000E+0004  5.00000E+0004  6.80000E+0004 
+    2        B   19             Q9 UNI  3.00000E+0004  4.00000E+0004  6.00000E+0004 
+    2        B   20            Q10 UNI  2.00000E+0003  1.00000E+0004  2.00000E+0004 
+    2        B   21            Q11 UNI  3.00000E+0004  5.00000E+0004  7.00000E+0004 
+    2        B   22            Q12 UNI  1.00000E+0004  2.00000E+0004  3.50000E+0004 
+    2        B   23            Q13 UNI  2.00000E+0003  7.00000E+0003  1.20000E+0004 
+    2        B   24            Q14 UNI  2.00000E+0003  5.00000E+0003  1.00000E+0004 
+    2        B   25            Q15 UNI  3.00000E+0003  7.00000E+0003  1.00000E+0004 
+    2        B   26            Q16 UNI  8.00000E+0003  1.20000E+0004  2.00000E+0004 
+    2        B   27            Q17 UNI  1.00000E+0004  1.50000E+0004  2.50000E+0004 
+    2        B   28            Q18 UNI  1.00000E+0002  5.00000E+0002  1.50000E+0003 
+    2        B   29            Q19 UNI  1.50000E+0004  3.00000E+0004  4.00000E+0004 
+    2        B   30            Q20 UNI  1.00000E+0004  1.50000E+0004  2.00000E+0004 
+    2        B   31            Q21 UNI  2.00000E+0003  5.00000E+0003  1.00000E+0004 
+    2        B   32            Q22 UNI  1.00000E+0003  2.50000E+0003  7.00000E+0003 
+    3        C    1            CQ1 UNI  2.50000E+0001  9.50000E+0001  2.00000E+0002                                                During the period between 1988 and 1999, the total number of runway incursions reported in the U.S. increased by what percent? 
+    3        C    2            CQ2 UNI  5.00000E+0001  1.10000E+0002  2.10000E+0002 
+    3        C    3            CQ3 UNI  7.00000E+0006  1.00000E+0007  2.00000E+0007 
+    3        C    4            CQ4 UNI  5.00000E-0001  1.20000E+0000  2.50000E+0000 
+    3        C    5            CQ5 UNI  5.00000E-0003  1.00000E-0002  1.00000E-0001 
+    3        C    6            CQ6 UNI  2.75000E+0002  7.50000E+0002  1.50000E+0003 
+    3        C    7            CQ7 UNI  7.00000E+0002  1.90000E+0003  2.75000E+0003 
+    3        C    8            CQ8 UNI  5.80000E+0001  6.50000E+0001  7.00000E+0001 
+    3        C    9            CQ9 UNI  1.20000E+0001  1.80000E+0001  2.30000E+0001 
+    3        C   10           CQ10 UNI  6.50000E+0001  7.80000E+0001  9.20000E+0001 
+    3        C   11             Q1 UNI  5.00000E+0004  7.50000E+0004  9.00000E+0004 
+    3        C   12             Q2 UNI  5.00000E+0004  7.80000E+0004  9.50000E+0004 
+    3        C   13             Q3 UNI  5.00000E+0003  2.00000E+0004  5.00000E+0004 
+    3        C   14             Q4 UNI  2.00000E+0004  5.50000E+0004  8.50000E+0004 
+    3        C   15             Q5 UNI  1.00000E+0004  2.00000E+0004  5.00000E+0004 
+    3        C   16             Q6 UNI  5.00000E+0003  1.50000E+0004  4.00000E+0004 
+    3        C   17             Q7 UNI  5.00000E+0003  2.00000E+0004  5.00000E+0004 
+    3        C   18             Q8 UNI  4.00000E+0004  6.00000E+0004  8.00000E+0004 
+    3        C   19             Q9 UNI  5.00000E+0003  1.50000E+0004  3.50000E+0004 
+    3        C   20            Q10 UNI  1.00000E+0003  3.00000E+0003  1.20000E+0004 
+    3        C   21            Q11 UNI  3.00000E+0003  1.00000E+0004  2.00000E+0004 
+    3        C   22            Q12 UNI  5.00000E+0003  1.00000E+0004  2.00000E+0004 
+    3        C   23            Q13 UNI  5.00000E+0002  1.00000E+0003  5.00000E+0003 
+    3        C   24            Q14 UNI  1.00000E+0003  7.00000E+0003  1.70000E+0004 
+    3        C   25            Q15 UNI  2.00000E+0003  8.00000E+0003  1.40000E+0004 
+    3        C   26            Q16 UNI  2.50000E+0002  5.00000E+0002  1.00000E+0003 
+    3        C   27            Q17 UNI  5.00000E+0003  1.50000E+0004  2.50000E+0004 
+    3        C   28            Q18 UNI  5.00000E-0002  1.00000E-0001  1.00000E+0000 
+    3        C   29            Q19 UNI  1.50000E+0004  4.00000E+0004  6.00000E+0004 
+    3        C   30            Q20 UNI  5.00000E+0003  1.50000E+0004  3.50000E+0004 
+    3        C   31            Q21 UNI  1.00000E-0001  3.00000E-0001  1.50000E+0000 
+    3        C   32            Q22 UNI  4.00000E-0001  8.00000E-0001  2.50000E+0000 
+    4        D    1            CQ1 UNI  1.05000E+0002  1.60000E+0002  2.10000E+0002                                                During the period between 1988 and 1999, the total number of runway incursions reported in the U.S. increased by what percent? 
+    4        D    2            CQ2 UNI  1.15000E+0002  1.70000E+0002  2.20000E+0002 
+    4        D    3            CQ3 UNI  3.50000E+0006  4.40000E+0006  5.00000E+0006 
+    4        D    4            CQ4 UNI  1.00000E+0000  2.10000E+0000  4.00000E+0000 
+    4        D    5            CQ5 UNI  4.00000E-0002  4.00000E-0001  9.00000E-0001 
+    4        D    6            CQ6 UNI  7.00000E+0002  1.00000E+0003  1.40000E+0003 
+    4        D    7            CQ7 UNI  5.00000E+0002  7.00000E+0002  1.50000E+0003 
+    4        D    8            CQ8 UNI  5.50000E+0001  7.00000E+0001  8.50000E+0001 
+    4        D    9            CQ9 UNI  5.00000E+0000  1.00000E+0001  1.70000E+0001 
+    4        D   10           CQ10 UNI  7.00000E+0001  8.00000E+0001  9.50000E+0001 
+    4        D   11             Q1 UNI  3.00000E+0004  4.50000E+0004  7.00000E+0004 
+    4        D   12             Q2 UNI  2.00000E+0004  3.50000E+0004  5.50000E+0004 
+    4        D   13             Q3 UNI  2.20000E+0004  3.50000E+0004  4.80000E+0004 
+    4        D   14             Q4 UNI  3.50000E+0004  5.50000E+0004  7.00000E+0004 
+    4        D   15             Q5 UNI  1.00000E+0004  2.50000E+0004  4.00000E+0004 
+    4        D   16             Q6 UNI  6.00000E+0003  1.20000E+0004  1.80000E+0004 
+    4        D   17             Q7 UNI  4.00000E+0003  8.00000E+0003  1.60000E+0004 
+    4        D   18             Q8 UNI  5.00000E+0004  6.00000E+0004  8.50000E+0004 
+    4        D   19             Q9 UNI  5.50000E+0004  7.00000E+0004  8.80000E+0004 
+    4        D   20            Q10 UNI  5.00000E+0003  1.00000E+0004  1.80000E+0004 
+    4        D   21            Q11 UNI  2.70000E+0004  4.00000E+0004  5.80000E+0004 
+    4        D   22            Q12 UNI  2.00000E+0004  3.50000E+0004  4.80000E+0004 
+    4        D   23            Q13 UNI  3.00000E+0003  1.00000E+0004  2.50000E+0004 
+    4        D   24            Q14 UNI  1.00000E+0004  2.20000E+0004  3.50000E+0004 
+    4        D   25            Q15 UNI  2.20000E+0004  4.50000E+0004  6.70000E+0004 
+    4        D   26            Q16 UNI  5.00000E+0003  1.00000E+0004  1.50000E+0004 
+    4        D   27            Q17 UNI  9.00000E+0003  1.70000E+0004  3.50000E+0004 
+    4        D   28            Q18 UNI  3.00000E+0003  7.00000E+0003  1.40000E+0004 
+    4        D   29            Q19 UNI  7.00000E+0003  1.20000E+0004  2.50000E+0004 
+    4        D   30            Q20 UNI  4.00000E+0004  6.00000E+0004  8.50000E+0004 
+    4        D   31            Q21 UNI  8.00000E+0003  1.70000E+0004  2.70000E+0004 
+    4        D   32            Q22 UNI  8.00000E+0003  2.20000E+0004  3.50000E+0004 
+    5        E    1            CQ1 UNI  1.00000E+0002  3.00000E+0002  5.00000E+0002                                                During the period between 1988 and 1999, the total number of runway incursions reported in the U.S. increased by what percent? 
+    5        E    2            CQ2 UNI  1.00000E-0001  2.00000E+0000  1.00000E+0001 
+    5        E    3            CQ3 UNI  2.00000E+0007  2.30000E+0007  2.60000E+0007 
+    5        E    4            CQ4 UNI  3.00000E+0000  5.50000E+0000  7.00000E+0000 
+    5        E    5            CQ5 UNI  1.00000E-0004  5.00000E-0003  7.00000E-0002 
+    5        E    6            CQ6 UNI  1.00000E+0002  2.50000E+0002  5.00000E+0002 
+    5        E    7            CQ7 UNI  4.50000E+0002  5.00000E+0002  5.50000E+0002 
+    5        E    8            CQ8 UNI  5.80000E+0001  6.00000E+0001  6.70000E+0001 
+    5        E    9            CQ9 UNI  1.60000E+0001  1.80000E+0001  2.20000E+0001 
+    5        E   10           CQ10 UNI  6.50000E+0001  8.00000E+0001  9.50000E+0001 
+    5        E   11             Q1 UNI  4.00000E+0004  7.50000E+0004  8.50000E+0004 
+    5        E   12             Q2 UNI  2.50000E+0004  3.50000E+0004  6.00000E+0004 
+    5        E   13             Q3 UNI  7.50000E+0004  8.00000E+0004  9.90000E+0004 
+    5        E   14             Q4 UNI  7.50000E+0003  1.50000E+0004  6.00000E+0004 
+    5        E   15             Q5 UNI  8.00000E+0003  2.50000E+0004  5.00000E+0004 
+    5        E   16             Q6 UNI  2.00000E+0003  4.00000E+0003  7.50000E+0003 
+    5        E   17             Q7 UNI  2.00000E+0004  3.00000E+0004  6.00000E+0004 
+    5        E   18             Q8 UNI  2.50000E+0004  4.50000E+0004  6.50000E+0004 
+    5        E   19             Q9 UNI  4.00000E+0004  6.00000E+0004  7.00000E+0004 
+    5        E   20            Q10 UNI  1.20000E+0004  1.80000E+0004  2.50000E+0004 
+    5        E   21            Q11 UNI  5.00000E+0001  3.00000E+0002  8.00000E+0002 
+    5        E   22            Q12 UNI  3.00000E+0003  1.00000E+0004  2.00000E+0004 
+    5        E   23            Q13 UNI  1.00000E+0002  4.00000E+0002  6.00000E+0002 
+    5        E   24            Q14 UNI  5.00000E+0003  2.50000E+0004  5.00000E+0004 
+    5        E   25            Q15 UNI  4.00000E+0004  6.00000E+0004  9.00000E+0004 
+    5        E   26            Q16 UNI  7.00000E+0003  2.00000E+0004  5.00000E+0004 
+    5        E   27            Q17 UNI  5.00000E+0003  1.50000E+0004  3.00000E+0004 
+    5        E   28            Q18 UNI  1.00000E+0001  1.00000E+0002  5.00000E+0002 
+    5        E   29            Q19 UNI  1.00000E+0004  2.50000E+0004  7.00000E+0004 
+    5        E   30            Q20 UNI  6.00000E+0004  7.50000E+0004  9.00000E+0004 
+    5        E   31            Q21 UNI  1.00000E-0004  1.00000E-0001  1.00000E+0000 
+    5        E   32            Q22 UNI  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    6        F    1            CQ1 UNI  1.00000E+0002  2.00000E+0002  3.00000E+0002                                                During the period between 1988 and 1999, the total number of runway incursions reported in the U.S. increased by what percent? 
+    6        F    2            CQ2 UNI  1.50000E+0002  2.50000E+0002  4.00000E+0002 
+    6        F    3            CQ3 UNI  1.00000E+0007  3.00000E+0007  5.00000E+0007 
+    6        F    4            CQ4 UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001 
+    6        F    5            CQ5 UNI  1.00000E-0001  5.00000E-0001  1.00000E+0000 
+    6        F    6            CQ6 UNI  5.00000E+0001  9.00000E+0001  5.00000E+0002 
+    6        F    7            CQ7 UNI  3.00000E+0001  5.00000E+0001  1.00000E+0002 
+    6        F    8            CQ8 UNI  2.50000E+0001  3.50000E+0001  4.00000E+0001 
+    6        F    9            CQ9 UNI  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    6        F   10           CQ10 UNI  5.00000E+0001  7.50000E+0001  9.00000E+0001 
+    6        F   11             Q1 UNI  5.00000E+0003  1.00000E+0004  5.00000E+0004 
+    6        F   12             Q2 UNI  2.00000E+0003  5.00000E+0003  7.00000E+0003 
+    6        F   13             Q3 UNI  2.50000E+0004  5.00000E+0004  8.00000E+0004 
+    6        F   14             Q4 UNI  5.00000E+0002  1.00000E+0003  5.00000E+0003 
+    6        F   15             Q5 UNI  5.00000E+0004  7.50000E+0004  9.00000E+0004 
+    6        F   16             Q6 UNI  2.00000E+0003  5.00000E+0003  1.00000E+0004 
+    6        F   17             Q7 UNI  2.00000E+0003  5.00000E+0003  1.00000E+0004 
+    6        F   18             Q8 UNI  5.00000E+0003  1.00000E+0004  3.00000E+0004 
+    6        F   19             Q9 UNI  5.00000E+0003  1.50000E+0004  2.50000E+0004 
+    6        F   20            Q10 UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001 
+    6        F   21            Q11 UNI  7.00000E+0003  1.00000E+0004  1.50000E+0004 
+    6        F   22            Q12 UNI  1.50000E+0004  2.50000E+0004  4.00000E+0004 
+    6        F   23            Q13 UNI  5.00000E+0000  1.00000E+0001  7.00000E+0001 
+    6        F   24            Q14 UNI  5.00000E+0003  1.00000E+0004  2.50000E+0004 
+    6        F   25            Q15 UNI  1.00000E+0004  1.50000E+0004  2.50000E+0004 
+    6        F   26            Q16 UNI  2.50000E+0004  3.50000E+0004  5.00000E+0004 
+    6        F   27            Q17 UNI  1.50000E+0004  3.00000E+0004  5.00000E+0004 
+    6        F   28            Q18 UNI  2.00000E+0001  5.00000E+0001  1.00000E+0002 
+    6        F   29            Q19 UNI  5.00000E+0003  1.00000E+0004  1.50000E+0004 
+    6        F   30            Q20 UNI  3.00000E+0004  5.00000E+0004  7.50000E+0004 
+    6        F   31            Q21 UNI  5.00000E+0001  1.00000E+0002  5.00000E+0002 
+    6        F   32            Q22 UNI  5.00000E+0001  1.00000E+0002  1.00000E+0003 

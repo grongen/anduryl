@@ -1,0 +1,56 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1        A    1    Airprox_rep LOG  1.00000E+0000  6.00000E+0000  2.00000E+0001                                                                                                                         Number of airprox reports in the netherlands in 2005. 
+    1        A    2    Missed_rate LOG  1.00000E-0009  1.00000E-0004  2.00000E-0003                                                                                                                       Missed approach rate at Schiphol (based on RWY 06 data) 
+    1        A    3  Infringements LOG  5.00000E+0000  1.50000E+0002  9.00000E+0002                                                                                                          Number of infringements of controlled airspace in Amsterdam FIR 2006 
+    1        A    4          Fleet LOG  1.00000E+0003  1.00000E+0004  6.50000E+0004                                                                                                                                Size of the world fleet commercial jet in 2003 
+    1        A    5       Readback LOG  5.00000E+0000  6.50000E+0001  9.50000E+0001                                         Percentage of communication probles between ATCo and pilot related to lacking of pilot readback march2004-april2005 european airspace 
+    1        A    6  Overrun_fatal LOG  1.00000E-0001  6.00000E+0000  5.00000E+0001                                                                                                               Percent of onboard fatalities due to runway overrun (1991-2005) 
+    1        A    7          BadTO LOG  2.00000E+0000  4.00000E+0001  9.90000E+0001                                                           Percent of annual take-offs and landings in the netherlands is performed on wet or contaminated runway  (1976-1995) 
+    1        A    8       FirstGen LOG  1.00000E-0001  5.00000E+0000  4.00000E+0001                                                                               What part of flights at schiphol is operated with first generation aircraft at schiphol in 2005 
+    1        A    9     Overrun_TO LOG  1.00000E-0006  1.00000E-0005  1.00000E-0004                                                                                                              Probability of a runway overrun during TO per flight at Schiphol 
+    1        A   10      Incursion LOG  4.00000E-0007  1.00000E-0006  2.00000E-0006                                                                            Probability of runway incursion with significant potential for collision per flight ECAC area 2002 
+    1        A   11          Error LOG  1.00000E+0000  7.00000E+0000  2.00000E+0001 
+    2        B    1    Airprox_rep LOG  1.50000E+0001  2.50000E+0001  3.00000E+0001                                                                                                                         Number of airprox reports in the netherlands in 2005. 
+    2        B    2    Missed_rate LOG  1.00000E-0002  3.00000E-0002  1.00000E-0001 
+    2        B    3  Infringements LOG  5.00000E+0000  1.20000E+0001  3.20000E+0001 
+    2        B    4          Fleet LOG  5.00000E+0003  1.00000E+0004  5.00000E+0004 
+    2        B    5       Readback LOG  3.00000E+0001  7.00000E+0001  9.00000E+0001 
+    2        B    6  Overrun_fatal LOG  1.00000E+0000  5.00000E+0000  4.00000E+0001 
+    2        B    7          BadTO LOG  1.00000E+0001  4.00000E+0001  6.00000E+0001 
+    2        B    8       FirstGen LOG  5.00000E+0000  1.00000E+0001  2.50000E+0001 
+    2        B    9     Overrun_TO LOG  1.00000E-0009  1.00000E-0002  5.00000E-0002 
+    2        B   10      Incursion LOG  1.00000E-0009  1.00000E-0002  5.00000E-0002 
+    2        B   11          Error LOG  1.00000E+0000  3.00000E+0000  5.00000E+0000 
+    3        C    1    Airprox_rep LOG  1.00000E+0001  1.50000E+0001  3.00000E+0001                                                                                                                         Number of airprox reports in the netherlands in 2005. 
+    3        C    2    Missed_rate LOG  1.00000E-0002  2.00000E-0002  5.00000E-0002 
+    3        C    3  Infringements LOG  4.00000E+0000  1.00000E+0001  1.00000E+0002 
+    3        C    4          Fleet LOG  3.00000E+0003  6.00000E+0003  7.00000E+0003 
+    3        C    5       Readback LOG  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+    3        C    6  Overrun_fatal LOG  3.00000E+0000  1.00000E+0001  1.50000E+0001 
+    3        C    7          BadTO LOG  1.00000E+0001  5.50000E+0001  7.00000E+0001 
+    3        C    8       FirstGen LOG  2.00000E+0000  5.00000E+0000  8.00000E+0000 
+    3        C    9     Overrun_TO LOG  1.00000E-0006  2.50000E-0006  1.00000E-0005 
+    3        C   10      Incursion LOG  2.50000E-0006  1.00000E-0005  3.00000E-0005 
+    3        C   11          Error LOG  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    4        D    1    Airprox_rep LOG  8.00000E+0000  1.30000E+0001  1.50000E+0001                                                                                                                         Number of airprox reports in the netherlands in 2005. 
+    4        D    2    Missed_rate LOG  3.00000E-0002  1.00000E-0001  2.00000E-0001 
+    4        D    3  Infringements LOG  2.50000E+0002  3.60000E+0002  5.00000E+0002 
+    4        D    4          Fleet LOG  1.50000E+0004  2.00000E+0004  3.00000E+0004 
+    4        D    5       Readback LOG  4.00000E+0001  6.00000E+0001  7.00000E+0001 
+    4        D    6  Overrun_fatal LOG  1.00000E+0000  2.00000E+0000  1.00000E+0001 
+    4        D    7          BadTO LOG  3.50000E+0001  5.50000E+0001  7.50000E+0001 
+    4        D    8       FirstGen LOG  1.00000E+0001  1.50000E+0001  2.50000E+0001 
+    4        D    9     Overrun_TO LOG  3.00000E-0006  1.00000E-0005  2.00000E-0005 
+    4        D   10      Incursion LOG  1.00000E-0002  5.00000E-0002  1.00000E-0001 
+    4        D   11          Error LOG  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    5        E    1    Airprox_rep LOG  1.00000E+0001  4.00000E+0001  6.00000E+0001                                                                                                                         Number of airprox reports in the netherlands in 2005. 
+    5        E    2    Missed_rate LOG  2.00000E-0003  2.00000E-0002  5.00000E-0002 
+    5        E    3  Infringements LOG  5.00000E+0000  8.00000E+0001  1.50000E+0002 
+    5        E    4          Fleet LOG  3.00000E+0004  6.00000E+0004  2.00000E+0005 
+    5        E    5       Readback LOG  5.00000E+0000  1.30000E+0001  3.00000E+0001 
+    5        E    6  Overrun_fatal LOG  2.00000E+0000  1.50000E+0001  5.00000E+0001 
+    5        E    7          BadTO LOG  3.00000E+0001  4.50000E+0001  6.00000E+0001 
+    5        E    8       FirstGen LOG  3.00000E+0000  8.00000E+0000  1.20000E+0001 
+    5        E    9     Overrun_TO LOG  1.00000E-0004  1.00000E-0003  5.00000E-0002 
+    5        E   10      Incursion LOG  1.00000E-0005  1.00000E-0004  5.00000E-0003 
+    5        E   11          Error LOG  1.00000E+0004  6.00000E+0004  9.50000E+0004 

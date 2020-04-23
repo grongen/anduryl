@@ -1,0 +1,199 @@
+* CLASS ASCII OUTPUT FILE. NQ=   3   QU=   5  50  95
+    1      ex1    1   ratio_damage UNI  5.00000E-0002  1.00000E-0001  1.50000E-0001 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    1      ex1    2 repported_digg LOG  7.00000E+0004  8.00000E+0004  8.50000E+0004                          There were 59,432 reported digging activities in the Liander gas network in 2004 (KLIC database). How many digging activities were reported in 2009? 
+    1      ex1    3      leak_3rdp UNI  6.50000E+0001  7.50000E+0001  8.00000E+0001                                                                                      What percent of all leakages in 2008 in the Liander gas network was caused by 3rd party? 
+    1      ex1    4 min_tensil_str UNI  1.51937E+0001  1.52957E+0001  1.53977E+0001            What is the minimum tensile strength (in kg/mm2) required during manufacturing proof tests for centrifugal in coquille gegoten pijpen with nominal diameter 600mm? 
+    1      ex1    5     gci_km_ams LOG  1.00000E+0003  1.50000E+0003  1.70000E+0003                                                                 How many kilometers of grey cast iron gas main pipelines (hoofdleiding) were in Amsterdam at the end of 2009? 
+    1      ex1    6 150mm diameter UNI  5.00000E+0001  7.50000E+0001  8.00000E+0001                                                                                       What percent of all 100 mbar grey cast iron gas pipes in Amsterdam have 150mm diameter? 
+    1      ex1    7 fatalities_gas UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000      In years 1993-2004 there were 41 accidents (fatalities, injured people, evacuees, economic loss) in Dutch gas networks. How many fatalities occurred in these accidents? 
+    1      ex1    8 Australia_leak UNI  1.00000E-0002  2.00000E-0002  1.00000E-0001    Consider gas network in Western Victoria, Australia. There are 3102 km of polyethylene gas pipes and 1031 km of cast iron gas pipes.  What is the ratio of the number of l 
+    1      ex1    9 leak_corrosion UNI  2.00000E+0001  2.50000E+0001  3.50000E+0001                                                                           What percent of all leakages in 2008 in the gas network managed by Liander was caused by corrosion? 
+    1      ex1   10 injury_Germany UNI  1.20000E-0001  1.50000E-0001  1.70000E-0001  The risk of injury due to failure of company gas installation network in Germany in 1981, estimated as the number of injured people per 1000 km pipeline, was 0.185. What is 
+    1      ex1   11  small leakage UNI  1.00000E-0003  5.00000E-0003  1.00000E-0002    Consider a gray cast iron pipe with small leakage located in the distance smaller than 1 meter form a nearby property. What is the probability of explosion caused by this 
+    1      ex1   12    big leakage UNI  8.00000E-0001  9.50000E-0001  9.90000E-0001 Consider a gray cast iron pipe with big leakage located in the distance smaller than 1 meter form a nearby property. What is the probability of explosion caused by this leak 
+    1      ex1   13    alkaline ph UNI  5.00000E+0001  1.00000E+0002  1.50000E+0002                                                                     What would be the remaining lifetime for such a pipe situated in more alkaline soil (with pH equal to 9)? 
+    1      ex1   14      acidic ph UNI  1.50000E+0001  2.50000E+0001  3.00000E+0001                                                                       What would be the remaining lifetime for such a pipe situated in more acidic soil (with pH equal to 5)? 
+    1      ex1   15    low traffic UNI  2.00000E-0002  3.00000E-0002  3.60000E-0002            What will be the probability of leakage due to bending stress for a pipe from this population knowing that it is in the neighborhood of a street with low traffic? 
+    1      ex1   16   high traffic UNI  3.60000E-0002  5.00000E-0002  6.00000E-0002           What will be the probability of leakage due to bending stress for a pipe from this population knowing that it is in the neighborhood of a street with high traffic? 
+    1      ex1   17  30% corrosion UNI  8.00000E-0002  1.00000E-0001  1.20000E-0001        What will be the probability of leakage due to bending stress for a pipe with 30% loss of wall thickness located in the neighborhood of a street with average traffic? 
+    1      ex1   18 leak dt damage UNI  4.00000E-0002  5.00000E-0002  1.00000E-0001        Consider a pipe that was damaged due to third party activities. What is the probability of unreported, undetected and not immediately repaired leakage from this pipe? 
+    2      ex2    1   ratio_damage UNI  3.33333E-0001  5.00000E-0001  6.66667E-0001 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    2      ex2    2 repported_digg LOG  6.00000E+0004  8.00000E+0004  1.00000E+0005 
+    2      ex2    3      leak_3rdp UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    2      ex2    4 min_tensil_str UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+    2      ex2    5     gci_km_ams LOG  1.00000E+0003  1.50000E+0003  2.00000E+0003 
+    2      ex2    6 150mm diameter UNI  1.00000E+0001  2.00000E+0001  3.00000E+0001 
+    2      ex2    7 fatalities_gas UNI  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    2      ex2    8 Australia_leak UNI  3.00000E+0000  5.00000E+0000  7.00000E+0000 
+    2      ex2    9 leak_corrosion UNI  5.00000E+0000  1.00000E+0001  2.00000E+0001 
+    2      ex2   10 injury_Germany UNI  2.00000E-0001  3.00000E-0001  4.00000E-0001 
+    2      ex2   11  small leakage UNI  2.00000E-0003  5.00000E-0003  1.00000E-0002 
+    2      ex2   12    big leakage UNI  3.33330E-0002  5.00000E-0002  1.00000E-0001 
+    2      ex2   13    alkaline ph UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+    2      ex2   14      acidic ph UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    2      ex2   15    low traffic UNI  2.00000E-0003  5.00000E-0003  1.00000E-0002 
+    2      ex2   16   high traffic UNI  4.00000E-0002  6.00000E-0002  7.00000E-0002 
+    2      ex2   17  30% corrosion UNI  4.00000E-0002  5.00000E-0002  7.00000E-0002 
+    2      ex2   18 leak dt damage UNI  5.00000E-0002  1.00000E-0001  2.00000E-0001 
+    3      ex3    1   ratio_damage UNI  7.69230E-0001  1.00000E+0000  1.30000E+0000 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    3      ex3    2 repported_digg LOG  5.50000E+0004  6.00000E+0004  6.50000E+0004 
+    3      ex3    3      leak_3rdp UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001 
+    3      ex3    4 min_tensil_str UNI  1.77400E+0001  1.78400E+0001  1.79400E+0001 
+    3      ex3    5     gci_km_ams LOG  1.00000E+0003  1.20000E+0003  1.50000E+0003 
+    3      ex3    6 150mm diameter UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001 
+    3      ex3    7 fatalities_gas UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+    3      ex3    8 Australia_leak UNI  2.00000E-0001  2.50000E-0001  3.33333E-0001 
+    3      ex3    9 leak_corrosion UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001 
+    3      ex3   10 injury_Germany UNI  1.40000E-0001  1.50000E-0001  1.60000E-0001 
+    3      ex3   11  small leakage UNI  1.00000E-0005  1.00000E-0004  2.20000E-0004 
+    3      ex3   12    big leakage UNI  5.00000E-0002  1.00000E-0001  5.00000E-0001 
+    3      ex3   13    alkaline ph UNI  5.20000E+0001  5.40000E+0001  5.60000E+0001 
+    3      ex3   14      acidic ph UNI  1.50000E+0001  2.00000E+0001  3.00000E+0001 
+    3      ex3   15    low traffic UNI  1.50000E-0002  2.00000E-0002  2.50000E-0002 
+    3      ex3   16   high traffic UNI  8.00000E-0002  1.00000E-0001  1.20000E-0001 
+    3      ex3   17  30% corrosion UNI  5.00000E-0002  7.00000E-0002  9.00000E-0002 
+    3      ex3   18 leak dt damage UNI  7.00000E-0001  8.00000E-0001  9.00000E-0001 
+    4      ex4    1   ratio_damage UNI  5.00000E-0001  3.00000E+0000  1.00000E+0001 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    4      ex4    2 repported_digg LOG  4.00000E+0004  6.00000E+0004  9.00000E+0004 
+    4      ex4    3      leak_3rdp UNI  3.00000E+0001  5.00000E+0001  8.00000E+0001 
+    4      ex4    4 min_tensil_str UNI  1.00000E+0000  5.00000E+0000  2.00000E+0001 
+    4      ex4    5     gci_km_ams LOG  8.00000E+0002  1.00000E+0003  1.20000E+0003 
+    4      ex4    6 150mm diameter UNI  5.00000E+0001  8.00000E+0001  9.50000E+0001 
+    4      ex4    7 fatalities_gas UNI  1.00000E+0000  3.00000E+0000  1.00000E+0001 
+    4      ex4    8 Australia_leak UNI  3.00000E-0001  1.00000E+0000  2.00000E+0000 
+    4      ex4    9 leak_corrosion UNI  5.00000E+0000  1.00000E+0001  3.00000E+0001 
+    4      ex4   10 injury_Germany UNI  1.00000E-0001  3.00000E-0001  2.00000E+0000 
+    4      ex4   11  small leakage UNI  1.00000E-0004  1.00000E-0003  1.00000E-0001 
+    4      ex4   12    big leakage UNI  1.00000E-0003  1.00000E-0002  1.00000E-0001 
+    4      ex4   13    alkaline ph UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    4      ex4   14      acidic ph UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    4      ex4   15    low traffic UNI  1.00000E-0003  1.00000E-0002  3.00000E-0002 
+    4      ex4   16   high traffic UNI  3.00000E-0002  1.00000E-0001  3.00000E-0001 
+    4      ex4   17  30% corrosion UNI  4.00000E-0002  7.00000E-0002  1.00000E-0001 
+    4      ex4   18 leak dt damage UNI  4.00000E-0001  5.00000E-0001  7.00000E-0001 
+    5      ex5    1   ratio_damage UNI  1.00000E-0001  3.33333E-0001  6.66660E-0001 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    5      ex5    2 repported_digg LOG  2.50000E+0004  7.00000E+0004  8.50000E+0004 
+    5      ex5    3      leak_3rdp UNI  6.00000E+0000  2.50000E+0001  4.00000E+0001 
+    5      ex5    4 min_tensil_str UNI  1.00000E+0002  3.00000E+0002  5.00000E+0002 
+    5      ex5    5     gci_km_ams LOG  8.00000E+0002  8.50000E+0002  9.00000E+0002 
+    5      ex5    6 150mm diameter UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    5      ex5    7 fatalities_gas UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+    5      ex5    8 Australia_leak UNI  2.50000E-0001  3.33333E-0001  5.00000E-0001 
+    5      ex5    9 leak_corrosion UNI  6.00000E+0000  1.00000E+0001  1.50000E+0001 
+    5      ex5   10 injury_Germany UNI  1.00000E-0001  1.50000E-0001  2.00000E-0001 
+    5      ex5   11  small leakage UNI  1.00000E-0002  2.00000E-0002  3.00000E-0002 
+    5      ex5   12    big leakage UNI  1.00000E-0001  2.00000E-0001  3.00000E-0001 
+    5      ex5   13    alkaline ph UNI  5.00000E+0001  7.00000E+0001  1.00000E+0002 
+    5      ex5   14      acidic ph UNI  2.00000E+0001  4.00000E+0001  5.00000E+0001 
+    5      ex5   15    low traffic UNI  2.50000E-0002  3.10000E-0002  3.60000E-0002 
+    5      ex5   16   high traffic UNI  3.00000E-0002  5.20000E-0002  7.00000E-0002 
+    5      ex5   17  30% corrosion UNI  7.00000E-0002  1.50000E-0001  2.00000E-0001 
+    5      ex5   18 leak dt damage UNI  7.50000E-0001  8.50000E-0001  9.80000E-0001 
+    6      ex6    1   ratio_damage UNI  1.00000E+0000  3.00000E+0000  4.00000E+0000 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    6      ex6    2 repported_digg LOG  5.94320E+0004  7.00000E+0004  1.00000E+0005 
+    6      ex6    3      leak_3rdp UNI  2.50000E+0001  3.50000E+0001  4.50000E+0001 
+    6      ex6    4 min_tensil_str UNI  2.50000E-0001  1.00000E+0000  5.00000E+0000 
+    6      ex6    5     gci_km_ams LOG  1.10000E+0003  1.20000E+0003  1.40000E+0003 
+    6      ex6    6 150mm diameter UNI  3.50000E+0001  5.00000E+0001  6.00000E+0001 
+    6      ex6    7 fatalities_gas UNI  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    6      ex6    8 Australia_leak UNI  2.00000E-0001  3.33333E-0001  5.00000E-0001 
+    6      ex6    9 leak_corrosion UNI  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    6      ex6   10 injury_Germany UNI  8.50000E-0002  9.50000E-0002  1.85000E-0001 
+    6      ex6   11  small leakage UNI  1.00000E-0004  1.00000E-0003  1.00000E-0002 
+    6      ex6   12    big leakage UNI  1.00000E-0002  2.00000E-0002  5.00000E-0002 
+    6      ex6   13    alkaline ph UNI  6.00000E+0001  8.00000E+0001  1.00000E+0002 
+    6      ex6   14      acidic ph UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001 
+    6      ex6   15    low traffic UNI  2.00000E-0002  2.50000E-0002  3.00000E-0002 
+    6      ex6   16   high traffic UNI  7.50000E-0002  8.50000E-0002  9.50000E-0002 
+    6      ex6   17  30% corrosion UNI  8.50000E-0002  1.00000E-0001  1.10000E-0001 
+    6      ex6   18 leak dt damage UNI  4.00000E-0001  5.00000E-0001  6.00000E-0001 
+    7      ex7    1   ratio_damage UNI  1.66666E-0001  2.50000E-0001  5.00000E-0001 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    7      ex7    2 repported_digg LOG  8.00000E+0004  1.00000E+0005  1.30000E+0005 
+    7      ex7    3      leak_3rdp UNI  4.00000E+0001  5.00000E+0001  7.00000E+0001 
+    7      ex7    4 min_tensil_str UNI  5.00000E+0001  1.00000E+0002  5.00000E+0002 
+    7      ex7    5     gci_km_ams LOG  8.00000E+0002  1.00000E+0003  1.20000E+0003 
+    7      ex7    6 150mm diameter UNI  6.00000E+0001  6.50000E+0001  7.50000E+0001 
+    7      ex7    7 fatalities_gas UNI  8.00000E+0000  1.00000E+0001  2.00000E+0001 
+    7      ex7    8 Australia_leak UNI  7.69231E-0002  1.00000E-0001  1.25000E-0001 
+    7      ex7    9 leak_corrosion UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+    7      ex7   10 injury_Germany UNI  1.00000E-0001  1.50000E-0001  1.70000E-0001 
+    7      ex7   11  small leakage UNI  1.00000E-0003  5.00000E-0003  2.00000E-0002 
+    7      ex7   12    big leakage UNI  5.00000E-0003  1.00000E-0002  5.00000E-0002 
+    7      ex7   13    alkaline ph UNI  3.50000E+0001  4.00000E+0001  4.50000E+0001 
+    7      ex7   14      acidic ph UNI  3.50000E+0001  4.00000E+0001  4.50000E+0001 
+    7      ex7   15    low traffic UNI  1.50000E-0002  2.00000E-0002  3.00000E-0002 
+    7      ex7   16   high traffic UNI  4.00000E-0002  5.00000E-0002  6.00000E-0002 
+    7      ex7   17  30% corrosion UNI  1.00000E-0001  3.00000E-0001  5.00000E-0001 
+    7      ex7   18 leak dt damage UNI  5.00000E-0002  2.00000E-0001  2.50000E-0001 
+    8      ex8    1   ratio_damage UNI  1.00000E+0000  1.50000E+0000  2.25000E+0000 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    8      ex8    2 repported_digg LOG  5.30000E+0004  8.00000E+0004  9.70000E+0004 
+    8      ex8    3      leak_3rdp UNI  1.00000E+0001  2.00000E+0001  3.50000E+0001 
+    8      ex8    4 min_tensil_str UNI  4.00000E+0001  1.50000E+0002  3.00000E+0002 
+    8      ex8    5     gci_km_ams LOG  1.00000E+0003  1.20000E+0003  1.40000E+0003 
+    8      ex8    6 150mm diameter UNI  2.00000E+0001  4.00000E+0001  6.00000E+0001 
+    8      ex8    7 fatalities_gas UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+    8      ex8    8 Australia_leak UNI  1.42857E-0001  2.50000E-0001  5.00000E-0001 
+    8      ex8    9 leak_corrosion UNI  1.00000E+0001  2.00000E+0001  3.50000E+0001 
+    8      ex8   10 injury_Germany UNI  5.00000E-0002  1.00000E-0001  1.85000E-0001 
+    8      ex8   11  small leakage UNI  8.30000E-0005  2.00000E-0004  5.00000E-0004 
+    8      ex8   12    big leakage UNI  8.00000E-0004  2.00000E-0003  5.00000E-0003 
+    8      ex8   13    alkaline ph UNI  5.40000E+0001  1.00000E+0002  1.60000E+0002 
+    8      ex8   14      acidic ph UNI  1.50000E+0001  2.50000E+0001  4.50000E+0001 
+    8      ex8   15    low traffic UNI  2.40000E-0002  3.00000E-0002  3.60000E-0002 
+    8      ex8   16   high traffic UNI  3.80000E-0002  6.00000E-0002  9.00000E-0002 
+    8      ex8   17  30% corrosion UNI  5.00000E-0002  8.50000E-0002  1.20000E-0001 
+    8      ex8   18 leak dt damage UNI  2.00000E-0002  5.00000E-0002  1.00000E-0001 
+    9      ex9    1   ratio_damage UNI  6.00000E-0001  1.00000E+0000  1.50000E+0000 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+    9      ex9    2 repported_digg LOG  6.00000E+0004  9.00000E+0004  1.50000E+0005 
+    9      ex9    3      leak_3rdp UNI  2.00000E+0001  3.00000E+0001  4.50000E+0001 
+    9      ex9    4 min_tensil_str UNI  3.00000E+0001  6.00000E+0001  1.00000E+0002 
+    9      ex9    5     gci_km_ams LOG  8.00000E+0002  1.00000E+0003  1.50000E+0003 
+    9      ex9    6 150mm diameter UNI  6.00000E+0001  7.50000E+0001  9.00000E+0001 
+    9      ex9    7 fatalities_gas UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+    9      ex9    8 Australia_leak UNI  2.00000E-0001  3.00000E-0001  5.00000E-0001 
+    9      ex9    9 leak_corrosion UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001 
+    9      ex9   10 injury_Germany UNI  1.20000E-0001  1.50000E-0001  2.00000E-0001 
+    9      ex9   11  small leakage UNI  1.00000E-0007  1.00000E-0005  1.00000E-0004 
+    9      ex9   12    big leakage UNI  1.00000E-0003  1.00000E-0002  2.00000E-0002 
+    9      ex9   13    alkaline ph UNI  5.00000E+0001  6.00000E+0001  7.00000E+0001 
+    9      ex9   14      acidic ph UNI  2.50000E+0001  3.00000E+0001  4.00000E+0001 
+    9      ex9   15    low traffic UNI  2.00000E-0002  3.00000E-0002  3.50000E-0002 
+    9      ex9   16   high traffic UNI  5.00000E-0002  7.00000E-0002  1.00000E-0001 
+    9      ex9   17  30% corrosion UNI  5.00000E-0002  7.00000E-0002  1.00000E-0001 
+    9      ex9   18 leak dt damage UNI  3.00000E-0002  5.00000E-0002  6.00000E-0002 
+   10     ex10    1   ratio_damage UNI  5.00000E-0001  2.00000E+0000  4.00000E+0000 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+   10     ex10    2 repported_digg LOG  4.00000E+0004  7.00000E+0004  8.00000E+0004 
+   10     ex10    3      leak_3rdp UNI  1.50000E+0001  3.00000E+0001  4.00000E+0001 
+   10     ex10    4 min_tensil_str UNI  8.00000E+0000  1.60000E+0001  2.40000E+0001 
+   10     ex10    5     gci_km_ams LOG  7.00000E+0002  7.50000E+0002  8.00000E+0002 
+   10     ex10    6 150mm diameter UNI  1.00000E+0001  2.50000E+0001  4.00000E+0001 
+   10     ex10    7 fatalities_gas UNI  3.00000E+0000  8.00000E+0000  1.50000E+0001 
+   10     ex10    8 Australia_leak UNI  1.25000E-0001  2.50000E-0001  5.00000E-0001 
+   10     ex10    9 leak_corrosion UNI  1.50000E+0001  2.50000E+0001  3.50000E+0001 
+   10     ex10   10 injury_Germany UNI  7.00000E-0003  9.00000E-0003  1.35000E-0002 
+   10     ex10   11  small leakage UNI  1.00000E-0004  1.00000E-0002  1.00000E-0001 
+   10     ex10   12    big leakage UNI  1.00000E-0002  1.00000E-0001  2.00000E-0001 
+   10     ex10   13    alkaline ph UNI  6.00000E+0001  1.00000E+0002  1.00000E+0003 
+   10     ex10   14      acidic ph UNI  3.00000E+0000  7.00000E+0000  2.50000E+0001 
+   10     ex10   15    low traffic UNI  1.00000E-0003  5.00000E-0003  3.65000E-0002 
+   10     ex10   16   high traffic UNI  2.80000E-0002  3.65000E-0002  1.50000E-0001 
+   10     ex10   17  30% corrosion UNI  3.65000E-0002  5.00000E-0002  2.00000E-0001 
+   10     ex10   18 leak dt damage UNI  2.00000E-0002  1.00000E-0001  2.50000E-0001 
+   11     ex11    1   ratio_damage UNI  5.00000E-0001  1.00000E+0000  2.00000E+0000 What is the ratio of damages due to reported and unreported digging activities in the Liander gas network in 2009? (consider: pipes with high and low pressure and connection 
+   11     ex11    2 repported_digg LOG  1.50000E+0005  2.00000E+0005  2.50000E+0005 
+   11     ex11    3      leak_3rdp UNI  1.50000E+0001  2.50000E+0001  3.50000E+0001 
+   11     ex11    4 min_tensil_str UNI  2.50000E+0001  5.00000E+0001  1.00000E+0002 
+   11     ex11    5     gci_km_ams LOG  1.00000E+0003  1.25000E+0003  1.50000E+0003 
+   11     ex11    6 150mm diameter UNI  2.50000E+0001  5.00000E+0001  7.50000E+0001 
+   11     ex11    7 fatalities_gas UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000 
+   11     ex11    8 Australia_leak UNI  2.50000E-0001  3.33333E-0001  5.00000E-0001 
+   11     ex11    9 leak_corrosion UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001 
+   11     ex11   10 injury_Germany UNI  5.00000E-0002  1.00000E-0001  1.50000E-0001 
+   11     ex11   11  small leakage UNI  1.00000E-0003  3.00000E-0003  1.00000E-0002 
+   11     ex11   12    big leakage UNI  1.00000E-0003  3.00000E-0003  1.00000E-0002 
+   11     ex11   13    alkaline ph UNI  5.00000E+0001  1.00000E+0002  1.50000E+0002 
+   11     ex11   14      acidic ph UNI  1.00000E+0001  2.00000E+0001  4.00000E+0001 
+   11     ex11   15    low traffic UNI  2.00000E-0002  3.00000E-0002  4.00000E-0002 
+   11     ex11   16   high traffic UNI  5.00000E-0002  1.00000E-0001  2.00000E-0001 
+   11     ex11   17  30% corrosion UNI  5.00000E-0002  1.00000E-0001  2.00000E-0001 
+   11     ex11   18 leak dt damage UNI  1.00000E-0001  2.50000E-0001  5.00000E-0001 

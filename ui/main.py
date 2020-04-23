@@ -31,6 +31,17 @@ QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 # mainfont.setPixelSize(11)
 # QtWidgets.QApplication.setFont(mainfont)
 
+def get_icon():
+    # In case of PyInstaller exe
+    if getattr(sys, 'frozen', False):
+        application_path = sys._MEIPASS
+        iconpath = os.path.join(application_path, 'data', 'icon.ico')
+    # In case of regular python
+    else:
+        application_path = os.path.dirname(os.path.abspath(__file__))
+        iconpath = os.path.join(application_path, '..', 'data', 'icon.ico')
+
+    return QtGui.QIcon(iconpath)
 
 class MainWindow(QtWidgets.QMainWindow):
     """
@@ -54,7 +65,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.profiling = False
 
-        self.setWindowIcon(self.style().standardIcon(QtWidgets.QStyle.SP_DialogApplyButton))
+        self.icon = get_icon()
+        self.setWindowIcon(self.icon)
 
         self.setCursor(Qt.Qt.ArrowCursor)
 
@@ -226,7 +238,7 @@ class MainWindow(QtWidgets.QMainWindow):
         exitAction = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_TitleBarCloseButton), 'Exit', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip('Close Anduryl')
-        exitAction.triggered.connect(self.exit)
+        exitAction.triggered.connect(self.close)
 
         file_menu = menubar.addMenu('&File')
         file_menu.addAction(new_action)
@@ -373,12 +385,6 @@ class MainWindow(QtWidgets.QMainWindow):
         if len(self.subresultsmenu) == 0:
             self.result_menu.setEnabled(False)
 
-    def exit(self):
-        """
-        Method that passes to close event.
-        """
-        self.closeEvent(None)
-
     def closeEvent(self, event):
         """
         Method called when application is closed. The method checks
@@ -431,7 +437,7 @@ class MainWindow(QtWidgets.QMainWindow):
         currentdir = self.appsettings.value('currentdir', '.', type=str)
 
         # Open dialog to select file
-        fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Anduryl - Open project', currentdir, "JSON (*.json);;Excalibar (*.dtt)", options=options)
+        fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Anduryl - Open project', currentdir, "All data files (*.json *.dtt);;JSON (*.json);;Excalibar (*.dtt)", options=options)
 
         return fname
 

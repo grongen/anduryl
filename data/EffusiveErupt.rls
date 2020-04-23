@@ -1,0 +1,8 @@
+    1       Lidar_sd  2.30000E+0001 uni                                                                                                                             +/- 1sd LIDAR ash conc over France microgram/cu m 
+    2       LakiArea  5.00000E+0002 uni                                                                                                                                                 Area of Laki lava flows sq km 
+    3         CO2_Mt  3.49000E+0002 uni                                                                                                                                         Est production of Laki CO2 megatonnes 
+    4    EngMortIncr  4.00000E+0001 uni                                                                                                                                   %age incr mortality in England Aug-Sep 1783 
+    5     Teph2@50km  2.40000E+0000 uni                                                                                                                                             Ash loading at 50km, in kg / sq m 
+    6       Variance  7.90000E+0001 uni                                                                                                                   Combined amount variance from anthro and volc aerosol concs 
+    7     PlumeWidth  2.70000E+0001 uni                                                                                                                              NAME predict plume width @ 130km windspeed 8 m/s 
+    8 RatioOzoneGone  2.50000E+0001 uni                                                                                                                     Ratio Rose upper volc ozone destroyed wrt background rate 

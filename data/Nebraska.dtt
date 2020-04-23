@@ -1,0 +1,121 @@
+* CLASS ASCII OUTPUT FILE. NQ=   5   QU=   5  25  50  75  95
+    1     NE01    1     % Unins OC UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001                                                                                What % of children living in the city of Omaha did not have health insurance coverage in 2008? 
+    1     NE01    2  % Unins Urban UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.70000E+0001  2.90000E+0001                                                                       What % of children living in the urban areas of Nebraska did not have health insurance coverage in 2008 
+    1     NE01    3   % Unins Rest UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001  3.60000E+0001  3.70000E+0001                                                          What % of children living in the rest of the state (non-urban areas) did not have health insurance coverage in 2008? 
+    1     NE01    4 change % unins UNI -2.00000E+0001 -1.70000E+0001 -1.50000E+0001 -9.00000E+0000 -8.00000E+0000                                                         What was the change in rate of uninsurance among children under 200% FPL from 1996 - 1998 to 2006 - 2008 in Nebraska? 
+    1     NE01    5 % Medicaid kid UNI  6.00000E+0001  6.30000E+0001  6.60000E+0001  6.80000E+0001  7.00000E+0001                                                                                                         What % of total Medicaid enrollees in Nebraska were children in 2007? 
+    1     NE01    6 unduplicate en UNI  3.85100E+0001  4.33300E+0001  4.81400E+0001  5.77700E+0001  7.22100E+0001                         How much did the unduplicated number of children (in hundreds) ever enrolled in the CHIP Medicaid Expansion Program change from FFY 2009 to FFY 2010? 
+    1     NE01    7    09:10 phone UNI  8.93000E-0001  9.01000E-0001  9.09000E-0001  9.17000E-0001  9.26000E-0001                                                 What is the RATIO: # phone contacts made with potentially eligible Kids Connection children in 2009/ # such contacts in 2010? 
+    1     NE01    8  % well screen UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001  6.50000E+0001  7.00000E+0001                                                                            What % of Kids Connection enrollees received wellness screening through the EPSDT program in 2009? 
+    1     NE01    9     % p dental UNI  2.00000E+0001  2.20000E+0001  2.50000E+0001  3.00000E+0001  4.00000E+0001                                                     What % of EPSDT  eligibles enrolled in the CHIP Medicaid Expansion Program received preventative dental services in 2009? 
+    1     NE01   10  NE:KS # unins UNI  1.10000E+0000  1.30000E+0000  1.50000E+0000  1.70000E+0000  2.00000E+0000                                                     What is the RATIO: # of children without health insurance in Nebraska / # of children without health insurance in Kansas? 
+    1     NE01   11        IWCV -$ UNI  3.50000E+0001  3.80000E+0001  4.00000E+0001  4.20000E+0001  4.40000E+0001                                                                                      What would the infant well-care visit rate have been in 2008 without RWJF Covering Kids? 
+    1     NE01   12      IWCV 2020 UNI  2.00000E+0001  2.20000E+0001  2.50000E+0001  2.60000E+0001  2.70000E+0001                                                                                                                         What will the infant well-care visit rate be in 2020? 
+    1     NE01   13   IWCV 2020 -$ UNI  1.80000E+0001  1.90000E+0001  2.00000E+0001  2.10000E+0001  2.20000E+0001                                                                                             What would the infant well-care visit rate be in 2020 without RWJF Covering Kids? 
+    1     NE01   14  IWCV 2020 - L UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000  7.00000E+0000                                                                                     What would the infant well-care visit rate be in 2020 if CHIPRA were not renewed in 2013? 
+    1     NE01   15  IWCV 2020 -$L UNI  2.00000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000                                                      What would the infant well-care visit rate be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     NE01   16        CWCV -$ UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.80000E+0001  3.10000E+0001                                                                            What would the children (3 - 6) well-care visit rate have been in 2008 without RWJF Covering Kids? 
+    1     NE01   17      CWCV 2020 UNI  1.50000E+0001  1.80000E+0001  2.00000E+0001  2.20000E+0001  2.50000E+0001                                                                                                               What will the children (3 - 6) well-care visit rate be in 2020? 
+    1     NE01   18   CWCV 2020 -$ UNI  1.10000E+0001  1.30000E+0001  1.50000E+0001  1.70000E+0001  1.90000E+0001                                                                                    What would the children (3 - 6)well-care visit rate be in 2020 without RWJF Covering Kids? 
+    1     NE01   19   CWCV 2020 -L UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000  6.00000E+0000  7.00000E+0000                                                                           What would the children (3 - 6) well-care visit rate be in 2020 if CHIPRA were not renewed in 2013? 
+    1     NE01   20  CWCV 2020 -$L UNI  1.00000E+0000  2.00000E+0000  3.00000E+0000  4.00000E+0000  5.00000E+0000                                            What would the children (3 - 6) well-care visit rate be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     NE01   21        CHIP -$ UNI  1.00000E+0000  1.50000E+0000  2.00000E+0000  2.50000E+0000  3.00000E+0000                                                                                    What would the % change in monthly caseload have been for 2008 without RWJF Covering Kids? 
+    1     NE01   22      CHIP 2020 UNI  0.00000E+0000  1.00000E+0000  2.00000E+0000  3.00000E+0000  4.00000E+0000                                                                                                              What will the % change in monthly caseload be for December 2020? 
+    1     NE01   23   CHIP 2020 -$ UNI -2.00000E+0000 -1.00000E+0000  0.00000E+0000  1.00000E+0000  2.00000E+0000                                                                                                             What would the % change in monthly caseload be for December 2020? 
+    1     NE01   24   CHIP 2020 -L UNI -9.20000E+0001 -9.10000E+0001 -9.00000E+0001 -8.90000E+0001 -8.80000E+0001                                                                          What would the % change in monthly caseload be for December 2020 if CHIPRA were not renewed in 2013? 
+    1     NE01   25  CHIP 2020 -$L UNI -1.00000E+0002 -9.99900E+0001 -9.99800E+0001 -9.99700E+0001 -9.99600E+0001                                           What would the % change in monthly caseload be for December 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    1     NE01   26        Part -$ UNI  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001                                                                          What would the participation rate for public insurance have been in 2008 without RWJF Covering Kids? 
+    1     NE01   27      Part 2020 UNI  5.50000E+0001  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.20000E+0001                                                                                                             What will the participation rate for public insurance be in 2020? 
+    1     NE01   28   Part 2020 -$ UNI  2.00000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001                                                                                 What would the participation rate for public insurance be in 2020 without RWJF Covering Kids? 
+    1     NE01   29   Part 2020 -L UNI  1.80000E+0001  1.90000E+0001  2.00000E+0001  2.10000E+0001  2.20000E+0001                                                                         What would the participation rate for public insurance be in 2020 if CHIPRA were not renewed in 2013? 
+    1     NE01   30  Part 2020 -$L UNI  5.00000E+0000  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001                                          What would the participation rate for public insurance be in 2020 without RWJF Covering Kids and if CHIPRA were not renewed in 2013? 
+    2     NE02    1     % Unins OC UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001                                                                                What % of children living in the city of Omaha did not have health insurance coverage in 2008? 
+    2     NE02    2  % Unins Urban UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001  4.00000E+0001 
+    2     NE02    3   % Unins Rest UNI  4.00000E+0000  6.00000E+0000  8.00000E+0000  1.50000E+0001  2.00000E+0001 
+    2     NE02    4 change % unins UNI -2.50000E+0001 -1.70000E+0001 -1.00000E+0001 -5.00000E+0000  0.00000E+0000 
+    2     NE02    5 % Medicaid kid UNI  8.00000E+0000  1.70000E+0001  2.50000E+0001  3.50000E+0001  5.00000E+0001 
+    2     NE02    6 unduplicate en UNI  1.44400E+0001  2.88800E+0001  4.81400E+0001  7.22100E+0001  9.62800E+0001 
+    2     NE02    7    09:10 phone UNI  3.00000E+0000  4.00000E+0000  5.00000E+0000  1.00000E+0001  2.50000E+0003 
+    2     NE02    8  % well screen UNI  5.00000E+0000  1.50000E+0001  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+    2     NE02    9     % p dental UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  3.00000E+0001  5.00000E+0001 
+    2     NE02   10  NE:KS # unins UNI  4.00000E-0001  8.00000E-0001  1.00000E+0000  1.50000E+0000  2.00000E+0000 
+    2     NE02   11        IWCV -$ UNI  3.00000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001 
+    2     NE02   12      IWCV 2020 UNI  4.00000E+0001  5.00000E+0001  6.20000E+0001  7.00000E+0001  7.50000E+0001 
+    2     NE02   13   IWCV 2020 -$ UNI  3.00000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001 
+    2     NE02   14  IWCV 2020 - L UNI  1.00000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    2     NE02   15  IWCV 2020 -$L UNI  1.00000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    2     NE02   16        CWCV -$ UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001 
+    2     NE02   17      CWCV 2020 UNI  4.00000E+0001  5.00000E+0001  6.00000E+0001  6.50000E+0001  7.00000E+0001 
+    2     NE02   18   CWCV 2020 -$ UNI  3.00000E+0001  3.50000E+0001  4.00000E+0001  5.00000E+0001  5.50000E+0001 
+    2     NE02   19   CWCV 2020 -L UNI  1.50000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    2     NE02   20  CWCV 2020 -$L UNI  1.50000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001 
+    2     NE02   21        CHIP -$ UNI  2.00000E+0000  4.00000E+0000  7.00000E+0000  1.00000E+0001  1.20000E+0001 
+    2     NE02   22      CHIP 2020 UNI  1.86500E+0001  2.10000E+0001  2.50000E+0001  3.00000E+0001  3.50000E+0001 
+    2     NE02   23   CHIP 2020 -$ UNI  2.00000E+0000  5.00000E+0000  1.00000E+0001  1.10000E+0001  1.20000E+0001 
+    2     NE02   24   CHIP 2020 -L UNI -2.00000E+0001 -1.50000E+0001 -1.00000E+0001 -5.00000E+0000 -2.00000E+0000 
+    2     NE02   25  CHIP 2020 -$L UNI -2.00000E+0001 -1.50000E+0001 -1.00000E+0001 -5.00000E+0000 -2.00000E+0000 
+    2     NE02   26        Part -$ UNI  3.00000E+0001  4.00000E+0001  6.00000E+0001  6.50000E+0001  7.00000E+0001 
+    2     NE02   27      Part 2020 UNI  7.50000E+0001  8.50000E+0001  9.00000E+0001  9.50000E+0001  9.80000E+0001 
+    2     NE02   28   Part 2020 -$ UNI  4.50000E+0001  6.50000E+0001  7.50000E+0001  8.00000E+0001  8.50000E+0001 
+    2     NE02   29   Part 2020 -L UNI  3.50000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  6.50000E+0001 
+    2     NE02   30  Part 2020 -$L UNI  3.50000E+0001  4.00000E+0001  5.50000E+0001  6.00000E+0001  6.50000E+0001 
+    3     NE03    1     % Unins OC UNI  5.00000E+0000  8.00000E+0000  1.50000E+0001  2.00000E+0001  2.50000E+0001                                                                                What % of children living in the city of Omaha did not have health insurance coverage in 2008? 
+    3     NE03    2  % Unins Urban UNI  5.00000E+0000  8.00000E+0000  1.00000E+0001  1.80000E+0001  2.00000E+0001 
+    3     NE03    3   % Unins Rest UNI  1.00000E+0001  1.80000E+0001  2.00000E+0001  2.20000E+0001  2.50000E+0001 
+    3     NE03    4 change % unins UNI -1.00000E+0001 -8.00000E+0000 -4.00000E+0000 -3.00000E+0000 -2.00000E+0000 
+    3     NE03    5 % Medicaid kid UNI  5.50000E+0001  5.80000E+0001  6.00000E+0001  6.30000E+0001  6.50000E+0001 
+    3     NE03    6 unduplicate en UNI  5.00000E+0001  8.00000E+0001  1.00000E+0002  1.20000E+0002  1.50000E+0002 
+    3     NE03    7    09:10 phone UNI  1.00000E+0000  1.50000E+0000  2.00000E+0000  3.00000E+0000  5.00000E+0000 
+    3     NE03    8  % well screen UNI  5.00000E+0001  6.00000E+0001  7.50000E+0001  8.50000E+0001  9.50000E+0001 
+    3     NE03    9     % p dental UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  6.00000E+0001  7.50000E+0001 
+    3     NE03   10  NE:KS # unins UNI  2.50000E-0001  5.00000E-0001  1.00000E+0000  2.00000E+0000  4.00000E+0000 
+    3     NE03   11        IWCV -$ UNI  5.50000E+0001  5.80000E+0001  5.90000E+0001  6.00000E+0001  6.19000E+0001 
+    3     NE03   12      IWCV 2020 UNI  6.19000E+0001  7.00000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001 
+    3     NE03   13   IWCV 2020 -$ UNI  6.19000E+0001  7.00000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001 
+    3     NE03   14  IWCV 2020 - L UNI  6.19000E+0001  6.50000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001 
+    3     NE03   15  IWCV 2020 -$L UNI  6.19000E+0001  6.50000E+0001  7.50000E+0001  7.80000E+0001  8.00000E+0001 
+    3     NE03   16        CWCV -$ UNI  5.00000E+0001  5.30000E+0001  5.50000E+0001  5.60000E+0001  5.83000E+0001 
+    3     NE03   17      CWCV 2020 UNI  5.83000E+0001  6.00000E+0001  7.50000E+0001  8.00000E+0001  9.00000E+0001 
+    3     NE03   18   CWCV 2020 -$ UNI  5.83000E+0001  6.00000E+0001  7.50000E+0001  8.00000E+0001  9.00000E+0001 
+    3     NE03   19   CWCV 2020 -L UNI  5.40000E+0001  5.60000E+0001  5.83000E+0001  6.20000E+0001  6.50000E+0001 
+    3     NE03   20  CWCV 2020 -$L UNI  5.40000E+0001  5.60000E+0001  5.83000E+0001  6.20000E+0001  6.50000E+0001 
+    3     NE03   21        CHIP -$ UNI -2.90000E+0000 -7.00000E-0001  1.50000E+0000  5.90000E+0000  1.47000E+0001 
+    3     NE03   22      CHIP 2020 UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.60000E+0001  2.70000E+0001 
+    3     NE03   23   CHIP 2020 -$ UNI  1.50000E+0001  2.00000E+0001  2.50000E+0001  2.60000E+0001  2.70000E+0001 
+    3     NE03   24   CHIP 2020 -L UNI -2.50000E+0001 -1.50000E+0001 -1.00000E+0001 -5.00000E+0000  0.00000E+0000 
+    3     NE03   25  CHIP 2020 -$L UNI -2.50000E+0001 -1.50000E+0001 -1.00000E+0001 -5.00000E+0000  0.00000E+0000 
+    3     NE03   26        Part -$ UNI  6.50000E+0001  6.70000E+0001  6.80000E+0001  6.90000E+0001  7.00000E+0001 
+    3     NE03   27      Part 2020 UNI  6.80000E+0001  7.00000E+0001  7.50000E+0001  7.80000E+0001  8.28000E+0001 
+    3     NE03   28   Part 2020 -$ UNI  6.80000E+0001  7.00000E+0001  7.50000E+0001  7.80000E+0001  8.28000E+0001 
+    3     NE03   29   Part 2020 -L UNI  7.50000E+0001  7.70000E+0001  8.00000E+0001  8.50000E+0001  8.90000E+0001 
+    3     NE03   30  Part 2020 -$L UNI  7.50000E+0001  7.70000E+0001  8.00000E+0001  8.50000E+0001  8.90000E+0001 
+    4     NE04    1     % Unins OC UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001                                                                                What % of children living in the city of Omaha did not have health insurance coverage in 2008? 
+    4     NE04    2  % Unins Urban UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001 
+    4     NE04    3   % Unins Rest UNI  5.00000E+0001  5.50000E+0001  6.00000E+0001  6.50000E+0001  7.00000E+0001 
+    4     NE04    4 change % unins UNI -1.50000E+0001 -1.40000E+0001 -1.30000E+0001 -1.10000E+0001 -1.00000E+0001 
+    4     NE04    5 % Medicaid kid UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.20000E+0001  7.50000E+0001 
+    4     NE04    6 unduplicate en UNI -1.00000E+0002 -7.50000E+0001 -5.00000E+0001 -2.50000E+0001 -1.00000E+0001 
+    4     NE04    7    09:10 phone UNI  1.05000E+0000  1.08000E+0000  1.18000E+0000  1.21000E+0000  1.25000E+0000 
+    4     NE04    8  % well screen UNI  5.00000E+0000  6.00000E+0001  8.00000E+0001  9.00000E+0001  9.50000E+0001 
+    4     NE04    9     % p dental UNI  5.00000E+0000  6.00000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001 
+    4     NE04   10  NE:KS # unins UNI  1.00000E+0000  1.11000E+0000  1.25000E+0000  1.43000E+0000  1.67000E+0000 
+    4     NE04   11        IWCV -$ UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  5.10000E+0001  5.19000E+0001 
+    4     NE04   12      IWCV 2020 UNI  2.00000E+0001  3.00000E+0001  6.00000E+0001  8.00000E+0001  9.00000E+0001 
+    4     NE04   13   IWCV 2020 -$ UNI  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001  5.00000E+0001 
+    4     NE04   14  IWCV 2020 - L UNI  2.00000E+0001  2.50000E+0001  2.75000E+0001  3.00000E+0001  4.00000E+0001 
+    4     NE04   15  IWCV 2020 -$L UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    4     NE04   16        CWCV -$ UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001 
+    4     NE04   17      CWCV 2020 UNI  4.00000E+0001  4.50000E+0001  5.00000E+0001  5.50000E+0001  6.00000E+0001 
+    4     NE04   18   CWCV 2020 -$ UNI  2.50000E+0001  3.00000E+0001  3.50000E+0001  4.00000E+0001  4.50000E+0001 
+    4     NE04   19   CWCV 2020 -L UNI  2.00000E+0001  3.00000E+0001  3.50000E+0001  3.75000E+0001  4.00000E+0001 
+    4     NE04   20  CWCV 2020 -$L UNI  1.00000E+0001  1.50000E+0001  2.00000E+0001  2.50000E+0001  3.00000E+0001 
+    4     NE04   21        CHIP -$ UNI  5.00000E+0000  8.50000E+0000  1.00000E+0001  1.20000E+0001  1.40000E+0001 
+    4     NE04   22      CHIP 2020 UNI  7.50000E+0000  1.00000E+0001  1.50000E+0001  1.65000E+0001  1.80000E+0001 
+    4     NE04   23   CHIP 2020 -$ UNI  5.00000E+0000  6.00000E+0000  6.50000E+0000  1.00000E+0001  1.60000E+0001 
+    4     NE04   24   CHIP 2020 -L UNI -1.00000E+0002 -7.50000E+0001 -5.00000E+0001  0.00000E+0000  5.00000E+0000 
+    4     NE04   25  CHIP 2020 -$L UNI -1.00000E+0002 -7.50000E+0001 -5.00000E+0001  0.00000E+0000  5.00000E+0000 
+    4     NE04   26        Part -$ UNI  5.50000E+0001  6.00000E+0001  7.00000E+0001  7.40000E+0001  7.50000E+0001 
+    4     NE04   27      Part 2020 UNI  7.00000E+0001  7.50000E+0001  8.00000E+0001  8.50000E+0001  9.00000E+0001 
+    4     NE04   28   Part 2020 -$ UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    4     NE04   29   Part 2020 -L UNI  6.00000E+0001  6.50000E+0001  7.00000E+0001  7.50000E+0001  8.00000E+0001 
+    4     NE04   30  Part 2020 -$L UNI  3.00000E+0001  4.00000E+0001  5.00000E+0001  7.00000E+0001  7.50000E+0001 

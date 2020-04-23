@@ -1,5 +1,5 @@
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
-
+from anduryl.ui import main        
 
 class NotificationDialog(QtWidgets.QMessageBox):
     """
@@ -35,7 +35,9 @@ class NotificationDialog(QtWidgets.QMessageBox):
             icon = self.style().standardIcon(QtWidgets.QStyle.SP_MessageBoxInformation)
             self.setWindowTitle("Notification")
 
-        self.setIconPixmap(icon.pixmap(icon.actualSize(QtCore.QSize(48, 48))))
+        self.setIconPixmap(icon.pixmap(icon.actualSize(QtCore.QSize(36, 36))))
+
+        self.setWindowIcon(main.get_icon())
 
         if details:
             self.setDetailedText("Details:\n{}".format(details))
