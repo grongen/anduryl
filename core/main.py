@@ -61,9 +61,6 @@ class Project:
         
         return f'Main project class.\nProperties:\n - {properties}\nMethods:\n - {methods}'
 
-                
-
-
     def __deepcopy__(self, memo):
         """
         Create a deepcopy without the results, since this would lead

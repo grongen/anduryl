@@ -446,8 +446,8 @@ class PlotExcludedDialog(QtWidgets.QDialog):
 
         # Count number of combinations
         self.maxexclude = {
-            'experts': len(self.results.experts.actual_experts)-1,
-            'items': self.results.items.get_idx('seed').sum()-1
+            'experts': len(self.results.experts.actual_experts) - 1,
+            'items': self.results.items.get_idx('seed').sum() - 1
         }
         
         self.ncombs = {}
@@ -456,7 +456,7 @@ class PlotExcludedDialog(QtWidgets.QDialog):
         
         for typ in ['experts', 'items']:
 
-            maxtyp = self.maxexclude[typ]
+            maxtyp = self.maxexclude[typ] + 1
             self.ncombs[typ] = np.cumsum([nCr(maxtyp, n+1) for n in range(maxtyp)])
             
         self.construct_widget()
