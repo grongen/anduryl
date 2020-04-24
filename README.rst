@@ -4,7 +4,7 @@ Anduryl
 
 A Python module and GUI for expert elicitation based on Cooke's classical method.
 
-The software is based on an older application called Excalibur, and previous MATLAB and Python versions described in  [ANDURIL — A MATLAB toolbox for ANalysis and Decisions with UnceRtaInty: Learning from expert judgments](https://www.sciencedirect.com/science/article/pii/S2352711018300608?via%3Dihub) and [Update (1.1) to ANDURIL — A MATLAB toolbox for ANalysis and Decisions with UnceRtaInty: Learning from expert judgments: ANDURYL](https://www.sciencedirect.com/science/article/pii/S2352711019302419?via%3Dihub.)
+The software is based on an older application called Excalibur, and previous MATLAB and Python versions described in ![ANDURIL — A MATLAB toolbox for ANalysis and Decisions with UnceRtaInty: Learning from expert judgments](https://www.sciencedirect.com/science/article/pii/S2352711018300608?via%3Dihub) and ![Update (1.1) to ANDURIL — A MATLAB toolbox for ANalysis and Decisions with UnceRtaInty: Learning from expert judgments: ANDURYL](https://www.sciencedirect.com/science/article/pii/S2352711019302419?via%3Dihub).
 
 * Free software: GNU license
 
