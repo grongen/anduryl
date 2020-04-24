@@ -1,5 +1,14 @@
-
+# Visual studio code settings
 .vscode/settings.json
+
+# Compiled python files
 *.pyc
 *.pyo
 *.pyd
+
+# Pyinstaller
+pyinstaller/build
+pyinstaller/dist/Anduryl_selection
+
+# Pycache
+__pycache__
