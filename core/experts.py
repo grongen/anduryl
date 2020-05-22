@@ -199,7 +199,12 @@ class Experts:
             shape = self.project.assessments.array.shape
             self.project.assessments.array.resize((shape[0]+1, shape[1], shape[2]), refcheck=False)
             if assessment is not None:
-                self.project.assessments.array[-1, :, :] = assessment.T[None, 1:-1, :]
+                if len(self.project.assessments.quantiles) == assessment.shape[1]:
+                    self.project.assessments.array[-1, :, :] = assessment.T[None, :, :]
+                elif len(self.project.assessments.quantiles) == assessment.shape[1] - 2:
+                    self.project.assessments.array[-1, :, :] = assessment.T[None, 1:-1, :]
+                else:
+                    raise ValueError()
             else:
                 self.project.assessments.array[-1, :, :] = np.nan
 

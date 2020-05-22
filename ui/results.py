@@ -58,7 +58,7 @@ class ResultsWidget(QtWidgets.QFrame):
         
         self.setLayout(widgets.VLayout([label, self.tabs]))
 
-    def add_results(self, settings):
+    def add_results(self, resultid):
         """
         Add results in an Resultsoverview to the tabs. The specific
         results are derived from the settings, and passed to the
@@ -71,12 +71,12 @@ class ResultsWidget(QtWidgets.QFrame):
         """
 
         # Get results to create overview
-        results = self.project.results[settings['id']]
-        resultsoverview = ResultOverview(self.mainwindow, results, settings)
+        results = self.project.results[resultid]
+        resultsoverview = ResultOverview(self.mainwindow, results)
 
-        # Add to tabs
-        self.tabs.addTab(resultsoverview, settings['id'] + ' (' + settings['name'] + ')')
-        self.dm_ids.append(settings['id'])
+        # Add to tabs        
+        self.tabs.addTab(resultsoverview, resultid + ' (' + results.settings['name'] + ')')
+        self.dm_ids.append(resultid)
 
         # Add to export menu
         self.mainwindow.add_export_actions(resultsoverview)
@@ -131,7 +131,7 @@ class ResultOverview(QtWidgets.QScrollArea):
     Widget with results for a decision maker.
     """
     
-    def __init__(self, mainwindow, results, settings):
+    def __init__(self, mainwindow, results):
         """
         Copy results from current project. Note that the results are copied
         and not refered to, since we want to 'freeze' the current project in
@@ -142,12 +142,12 @@ class ResultOverview(QtWidgets.QScrollArea):
 
         self.mainwindow = mainwindow
 
-        # Copy project
+        # TODO Copy results and settings
         self.results = results
-        self.settings = settings
+        self.settings = self.results.settings
         
         # Calculate lower bounds once. Since these results are frozen the bounds won't change
-        self.results.lower_k, self.results.upper_k = self.results.assessments.get_bounds(overshoot=settings['overshoot'])
+        self.results.lower_k, self.results.upper_k = self.results.assessments.get_bounds(overshoot=self.settings['overshoot'])
         self.results.lower, self.results.upper = self.results.assessments.get_bounds()
 
         self.robustness_model = {}
@@ -437,6 +437,7 @@ class PlotExcludedDialog(QtWidgets.QDialog):
         """
         super(PlotExcludedDialog, self).__init__()
 
+        # Pointer to results and settings from ResultsOverview
         self.results = parent.results
         self.settings = parent.settings
 
@@ -588,7 +589,6 @@ class PlotExcludedDialog(QtWidgets.QDialog):
             done = 0 if min_exclude == 1 else self.ncombs[self.exclude_type][min_exclude-2]
             remaining = self.ncombs[self.exclude_type][self.number_of_items.value()-1] - done
             self.progress_bar.setMaximum(remaining)
-            
             func(
                 min_exclude=min_exclude,
                 max_exclude=self.number_of_items.value(),

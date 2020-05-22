@@ -18,6 +18,7 @@ docdata = [(path, os.path.split(path.replace(docbase, 'doc'))[0]) for path in do
 
 # Add icon
 docdata.append(('../data/icon.ico', 'data'))
+docdata.append(('../data/splash_loading.png', 'data'))
 
 # Find qwindows.dll
 for path in sys.path:

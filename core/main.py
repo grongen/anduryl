@@ -111,8 +111,9 @@ class Project:
         """
         # Copy the project
         projectcopy = deepcopy(self)
-        self.results[settings['id']] = Results(
-            settings=deepcopy(settings),
+        copied_settings = deepcopy(settings)
+        self.results[copied_settings['id']] = Results(
+            settings=copied_settings,
             experts=projectcopy.experts,
             assessments=projectcopy.assessments,
             items=projectcopy.items,
@@ -174,6 +175,7 @@ class Project:
 
         # Freeze the results
         self.to_results(calc_settings)
+        # Get the results that are just copied (frozen)
         results = self.results[calc_settings['id']]
 
         # Only actual experts needed in results, remove other decision makers

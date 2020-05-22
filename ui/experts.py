@@ -119,11 +119,12 @@ class ExpertsWidget(QtWidgets.QFrame):
         # Calculate decision maker
         self.mainwindow.signals._about_to_be_changed()
 
+        # Add results to project from settings. These are frozen results.
         self.project.add_results_from_settings(self.calc_settings)
         self.mainwindow.signals._changed()
 
         # Add calculated results to GUI
-        self.mainwindow.resultswidget.add_results(settings=self.calc_settings)
+        self.mainwindow.resultswidget.add_results(resultid=self.calc_settings['id'])
 
         # Update GUI
         self.mainwindow.signals.update_gui()

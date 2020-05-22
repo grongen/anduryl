@@ -443,12 +443,12 @@ def expert_robustness(min_exclude, max_exclude, experts, items, assessments, wei
     """
 
     if weight_type not in ['global', 'item']:
-        raise KeyError('Robustness table can only be calculated for item of global weight.')
+        raise KeyError(f'Robustness table can only be calculated for item or global weight (weight_type = \'{weight_type}\').')
 
     # Calculate information score per item and expert on beforehand
     actual_experts = experts.get_exp('actual')
     if max_exclude >= len(actual_experts):
-        raise ValueError('Maximum number of excluded experts can not be equal or greater than the number of experts.')
+        raise ValueError(f'Maximum number of excluded experts ({max_exclude}) can not be equal or greater than the number of experts ({len(actual_experts)}).')
 
     # Calculate original weights for actual experts
     experts.calculate_weights(
