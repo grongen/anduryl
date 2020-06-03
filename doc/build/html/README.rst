@@ -1,0 +1,1 @@
+The documentation can be accessed from (1) the GUI or (2) the file "index.html". For the second option, copy the doc folder to your pc, and double click the file "index.html".
