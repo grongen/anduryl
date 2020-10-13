@@ -1,4 +1,6 @@
 import copy
+from itertools import combinations
+from math import factorial
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,12 +10,10 @@ from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg,
 from matplotlib.figure import Figure
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 
+from anduryl import io
 from anduryl.ui import widgets
 from anduryl.ui.dialogs import NotificationDialog
 from anduryl.ui.models import ArrayModel, ListsModel
-
-from itertools import combinations
-from math import factorial
 
 plt.rcParams['axes.linewidth'] = 0.5
 plt.rcParams['axes.labelsize'] = 9
@@ -25,6 +25,7 @@ plt.rcParams['legend.handletextpad'] = 0.4
 plt.rcParams['legend.fontsize'] = 8
 plt.rcParams['legend.labelspacing'] = 0.2
 plt.rcParams['font.size'] = 9
+plt.rcParams['figure.dpi'] = 50
 
 class ResultsWidget(QtWidgets.QFrame):
     """
@@ -141,7 +142,7 @@ class ResultOverview(QtWidgets.QScrollArea):
         super(ResultOverview, self).__init__()
 
         self.mainwindow = mainwindow
-
+        
         # TODO Copy results and settings
         self.results = results
         self.settings = self.results.settings
@@ -185,6 +186,42 @@ class ResultOverview(QtWidgets.QScrollArea):
         
         layout.addWidget(widgets.SimpleGroupBox([label_layout, self.plot_items_button], 'vertical', 'Decision maker characteristics'))
 
+        # Add table with expert results (weights etcetera)
+        table = self.add_expert_weights_table()
+
+        self.show_item_weights_button = QtWidgets.QPushButton('Info score per item', clicked=self.show_items)
+        self.show_item_weights_button.setFixedWidth(100)
+
+        layout.addWidget(widgets.SimpleGroupBox([table, self.show_item_weights_button], 'vertical', 'Expert and DM weights'))
+        
+        # Add a table for the item robustness
+        if self.results.item_robustness or self.results.expert_robustness:
+            self.robustness_tables = QtWidgets.QTabWidget()
+        
+            if self.results.item_robustness:
+                seedidx = self.results.items.get_idx('seed')
+                seeditems = [None] + [item for i, item in enumerate(self.results.items.ids) if seedidx[i]]
+                item_array = np.vstack([self.results.item_robustness[tuple([itemid] if itemid is not None else [])] for itemid in seeditems])
+                seeditems[0] = 'None'
+
+                self.ui_add_robustness_table('Items', seeditems, item_array)
+
+            if self.results.expert_robustness:
+                experts = [None] + self.results.experts.get_exp('actual')
+                expert_array = np.vstack([self.results.expert_robustness[tuple([exp] if exp is not None else [])] for exp in experts]) 
+                experts[0] = 'None'
+
+                self.ui_add_robustness_table('Experts', experts, expert_array)
+
+            # Plot layout
+            self.plot_excluded_button = QtWidgets.QPushButton('Plot multiple exluded items', clicked=self.plot_excluded_items)
+            button_layout = widgets.HLayout([self.plot_excluded_button])
+            button_layout.addStretch()
+            layout.addWidget(widgets.SimpleGroupBox([self.robustness_tables, button_layout], 'vertical', 'Robustness'))
+
+        layout.addStretch()
+
+    def add_expert_weights_table(self):
         # Create the table view
         table = QtWidgets.QTableView()
         self.scores_table = table
@@ -234,37 +271,10 @@ class ResultOverview(QtWidgets.QScrollArea):
         table.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         table.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
-        self.show_item_weights_button = QtWidgets.QPushButton('Info score per item', clicked=self.show_items)
-        self.show_item_weights_button.setFixedWidth(100)
+        # Copy event
+        table.installEventFilter(self)
 
-        layout.addWidget(widgets.SimpleGroupBox([table, self.show_item_weights_button], 'vertical', 'Expert and DM weights'))
-        
-        # Add a table for the item robustness
-        if self.results.item_robustness or self.results.expert_robustness:
-            self.robustness_tables = QtWidgets.QTabWidget()
-        
-            if self.results.item_robustness:
-                seedidx = self.results.items.get_idx('seed')
-                seeditems = [None] + [item for i, item in enumerate(self.results.items.ids) if seedidx[i]]
-                item_array = np.vstack([self.results.item_robustness[tuple([itemid] if itemid is not None else [])] for itemid in seeditems])
-                seeditems[0] = 'None'
-
-                self.ui_add_robustness_table('Items', seeditems, item_array)
-
-            if self.results.expert_robustness:
-                experts = [None] + self.results.experts.get_exp('actual')
-                expert_array = np.vstack([self.results.expert_robustness[tuple([exp] if exp is not None else [])] for exp in experts]) 
-                experts[0] = 'None'
-
-                self.ui_add_robustness_table('Experts', experts, expert_array)
-
-            # Plot layout
-            self.plot_excluded_button = QtWidgets.QPushButton('Plot multiple exluded items', clicked=self.plot_excluded_items)
-            button_layout = widgets.HLayout([self.plot_excluded_button])
-            button_layout.addStretch()
-            layout.addWidget(widgets.SimpleGroupBox([self.robustness_tables, button_layout], 'vertical', 'Robustness'))
-
-        layout.addStretch()
+        return table
 
     def ui_add_robustness_table(self, key, index, array):
         """
@@ -303,6 +313,21 @@ class ResultOverview(QtWidgets.QScrollArea):
         table.setMinimumWidth(width)
         table.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         table.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+
+        table.installEventFilter(self)
+
+    def eventFilter(self, source, event):
+        """
+        Eventfilter for copying table content.
+        """
+        if (event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Copy)):
+            selection = source.selectedIndexes()
+            if selection:
+                text = io.selection_to_text(selection)
+                QtWidgets.qApp.clipboard().setText(text)
+                return True
+        return self.mainwindow.eventFilter(source, event)
+
 
     def plot_excluded_items(self):
         """
@@ -397,7 +422,7 @@ class LegendTable(QtWidgets.QTableWidget):
             items = self.results.experts.ids
             self.setHorizontalHeaderLabels(['', 'Expert', 'Weight'])
         else:
-            raise KeyError(txt)
+            raise KeyError(plotby)
 
         nrows = len(items)
         
@@ -416,12 +441,57 @@ class LegendTable(QtWidgets.QTableWidget):
             
             color = [int(i* 255) for i in self.colors[items[i]]][:3]
             item = QtWidgets.QTableWidgetItem()
-            item.setBackground(QtGui.QColor(*color[:3]))
+            item.setBackground(QtGui.QColor(*color))
             item.setFlags(Qt.Qt.ItemIsEnabled)
             self.setItem(i, 0, item)
 
         self.selectAll()
         self.itemSelectionChanged.connect(self.dialog._set_data_visible)
+
+    def select_on_weight(self):
+        weights = sorted(self.results.experts.weights)
+        weight = weights[self.dialog.weightslider.value()]
+        # First select all
+        self.selectAll()
+        for i in range(self.rowCount()):
+            # Deselect all below weight
+            if self.results.experts.weights[i] < weight:
+                self.selectRow(i)
+
+
+
+    def contextMenuEvent(self, event):
+        """
+        Creates the context menu for the expert widget
+        """
+        menu = QtWidgets.QMenu(self)
+        
+        # Get current row
+        rownum = self.currentIndex().row()
+        # decision_maker_selected = (rownum in self.project.experts.decision_makers)
+        
+        # Add actions
+        pick_color_action = menu.addAction("Pick color")
+        
+        action = menu.exec_(self.mapToGlobal(event.pos()))
+        if action == pick_color_action:
+            self.pick_color(rownum)
+
+    def pick_color(self, row):
+        color = QtWidgets.QColorDialog.getColor()
+        item = QtWidgets.QTableWidgetItem()
+        item.setBackground(color)
+        item.setFlags(Qt.Qt.ItemIsEnabled)
+        self.setItem(row, 0, item)
+
+# class CustomCanvas(FigureCanvasQTAgg):
+    
+#     def __init__(self, *args, **kwargs):
+#         super(CustomCanvas, self).__init__(*args, **kwargs)
+
+#     def draw(self):
+#         print('Draw event')
+#         super().draw()
         
 class PlotExcludedDialog(QtWidgets.QDialog):
     """
@@ -461,7 +531,6 @@ class PlotExcludedDialog(QtWidgets.QDialog):
             self.ncombs[typ] = np.cumsum([nCr(maxtyp, n+1) for n in range(maxtyp)])
             
         self.construct_widget()
-
 
     def construct_widget(self):
         """
@@ -638,6 +707,25 @@ class PlotExcludedDialog(QtWidgets.QDialog):
         self.number_of_items.setMaximum(self.maxexclude[self.exclude_type])
         self.get_n_combinations()
         self.progress_bar.setValue(0)
+
+class CustomNavigationToolbar(NavigationToolbar2QT):
+    """
+    Copy of NavigationToolbar2QT class with the goal of intercepting
+    the event in which the used changes the line layouts. This event
+    is captured such that the colors in the legend can be adjusted accordingly
+    """
+    def __init__(self, canvas, qtdialog):
+        super().__init__(canvas, qtdialog)
+        self.qtdialog = qtdialog
+
+    def edit_parameters(self):
+        super().edit_parameters()
+        for i, (_, line) in enumerate(self.qtdialog.lines.items()):
+            color = line.get_color()
+            item = QtWidgets.QTableWidgetItem()
+            item.setBackground(QtGui.QColor(255*color[0], 255*color[1], 255*color[2]))
+            item.setFlags(Qt.Qt.ItemIsEnabled)
+            self.qtdialog.legend.setItem(i, 0, item)
         
 class PlotDistributionsDialog(QtWidgets.QDialog):
     """
@@ -662,15 +750,41 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.lines = {}
         self.markers = {}
         self.colors = {}
-        cmap = cm.get_cmap('viridis_r')
+
+        # Create color cycle
+        mpl_colors = np.array([
+            [0.12156862745098039, 0.4666666666666667, 0.7058823529411765],
+            [1.0, 0.4980392156862745, 0.054901960784313725],
+            [0.17254901960784313, 0.6274509803921569, 0.17254901960784313],
+            [0.8392156862745098, 0.15294117647058825, 0.1568627450980392],
+            [0.5803921568627451, 0.403921568627451, 0.7411764705882353],
+            [0.5490196078431373, 0.33725490196078434, 0.29411764705882354],
+            [0.8901960784313725, 0.4666666666666667, 0.7607843137254902],
+            [0.4980392156862745, 0.4980392156862745, 0.4980392156862745],
+            [0.7372549019607844, 0.7411764705882353, 0.13333333333333333],
+            [0.09019607843137255, 0.7450980392156863, 0.8117647058823529],
+        ])
+
+        color_cycle = []
+        for alpha in [0.9, 0.65, 0.4]:
+            for c in mpl_colors:
+                color_cycle.append(tuple(1 - (1 - c) * alpha))
+
         for i, exp in enumerate(self.results.experts.ids):
-            self.colors[exp] = cmap(i/max(1, (len(self.results.experts.ids)-1)))
-        for i, exp in enumerate(self.results.items.ids):
-            self.colors[exp] = cmap(i/max(1, (len(self.results.items.ids)-1)))
+            if i in self.results.experts.decision_makers:
+                self.colors[exp] = (0, 0, 0)
+            else:
+                self.colors[exp] = color_cycle[i%len(color_cycle)]
+            
+        for i, item in enumerate(self.results.items.ids):
+            self.colors[item] = color_cycle[i%len(color_cycle)]
 
         self.construct_widget()
 
         self.init_plot()
+
+    def apply_callback(self):
+        self.figure.apply_callback()
 
     def construct_widget(self):
         """
@@ -685,6 +799,8 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         # Create figure
         self.figure, self.ax = plt.subplots(constrained_layout=True)
+        self.figure.apply_callback = self.apply_callback
+        
         # Set background color
         bgcolor = self.palette().color(self.backgroundRole()).name()
         self.figure.patch.set_facecolor(bgcolor)
@@ -697,7 +813,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         
         # Add canvas
         self.canvas = FigureCanvasQTAgg(self.figure)
-        self.toolbar = NavigationToolbar2QT(self.canvas, self)
+        self.toolbar = CustomNavigationToolbar(self.canvas, self)
         self.title = QtWidgets.QLabel('')
         self.title.setWordWrap(True)
         font=QtGui.QFont()
@@ -705,9 +821,15 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.title.setFont(font)
         self.title.setAlignment(QtCore.Qt.AlignCenter)
         self.title.setContentsMargins(10, 10, 10, 10)
-        
+
         self.legend = LegendTable(self)
         self.legend.setContentsMargins(0, 0, 0, 0)
+        
+        self.weightslider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.weightslider.setValue(0)
+        self.weightslider.setMinimum(0)
+        self.weightslider.setMaximum(len(self.results.experts.weights)-1)
+        self.weightslider.valueChanged.connect(self.legend.select_on_weight)
         
         # Create comboboxes for data selection
         self.plotby_cbox = widgets.ComboboxInputLine('Plot by:', 100, ['Item', 'Expert'])
@@ -730,7 +852,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         dataselection = widgets.SimpleGroupBox(
             items=[self.plotby_cbox, self.plottype_cbox, self.item_cbox], orientation='vertical', title='Select data')
         
-        rightlayout = widgets.VLayout([dataselection, widgets.SimpleGroupBox([self.legend], 'v', 'Select item/expert')])        
+        rightlayout = widgets.VLayout([dataselection, widgets.SimpleGroupBox([self.weightslider, self.legend], 'v', 'Select item/expert')])        
         rightlayout.addStretch(10)
         
         splitter = QtWidgets.QSplitter()
@@ -792,12 +914,15 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         or after experts or items are chosen.
         """
         self.plotby = self.plotby_cbox.combobox.currentText().lower()
-        
+        self.weightslider.setValue(0)
+
         if self.plotby == 'expert':
             self.init_expert_plot()
+            self.weightslider.setEnabled(False)
         if self.plotby == 'item':
             self.init_item_plot()
-
+            self.weightslider.setEnabled(True)
+        
     def init_expert_plot(self):
         """
         Method to initiate expert plot
@@ -808,19 +933,23 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.markers.clear()
 
         self.ax.grid()
+
+        # Create a large list of markes for different quantiles        
+        markers = ['2', '^', '*', 'h', 'd', 's', 'o', 'X', 'o', 's', 'd', 'h', '*', '^', '2']
+        # The offset gives the markers to use in the list, so for three markers, the first 6 are skipped
+        offset = (len(markers) - len(self.results.assessments.quantiles)) // 2
+        selection = markers[offset:-offset]
         
         # Add lines for expert
         for item in self.results.items.ids:
-            self.lines[item], = self.ax.plot([], [], alpha=0.7, lw=2.0, color=self.colors[item])
-
-        markers = ['2', '^', '*', 'h', 'd', 's', 'o', 'X', 'o', 's', 'd', 'h', '*', '^', '2']
-        offset = (len(markers) - len(self.results.assessments.quantiles)) // 2
-        selection = markers[offset:-offset]
-        for quantile, marker in zip(self.results.assessments.quantiles, selection):
-            self.markers[quantile] = self.ax.scatter([], [], c=[], marker=marker, s=25, linewidth=0)
+            c = self.colors[item]
+            self.lines[item], = self.ax.plot([], [], lw=2.0, color=c, ls='-', label=item)
+            self.markers[item] = {}
+            for quantile, marker in zip(self.results.assessments.quantiles, selection):
+                self.markers[item][quantile], = self.ax.plot([], [], c=c, marker=marker, ms=5)
 
         # An extra draw is necessary for plotting the markers
-        self.canvas.draw()
+        self.canvas.draw_idle()
             
         # Get first plot
         self.update_plot()
@@ -842,7 +971,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         # Add lines for expert
         for expert in self.results.experts.ids:
-            self.lines[expert], = self.ax.plot([], [], alpha=0.7, lw=2.0, color=self.colors[expert])
+            self.lines[expert], = self.ax.plot([], [], lw=2.0, color=self.colors[expert], ls='-', label=expert)
 
         if self.plottype == 'pdf':
             self.ax.set_ylabel('Probability density')
@@ -857,11 +986,15 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             markers = ['2', '^', '*', 'h', 'd', 's', 'o', 'X', 'o', 's', 'd', 'h', '*', '^', '2']
             offset = (len(markers) - len(self.results.assessments.quantiles)) // 2
             selection = markers[offset:-offset]
-            for quantile, marker in zip(self.results.assessments.quantiles, selection):
-                self.markers[quantile] = self.ax.scatter([], [], c=[], marker=marker, s=25, linewidth=0)
+
+            for expert in self.results.experts.ids:
+                c = self.colors[expert]
+                self.markers[expert] = {}
+                for quantile, marker in zip(self.results.assessments.quantiles, selection):
+                    self.markers[expert][quantile], = self.ax.plot([], [], c=c, marker=marker, ms=5)
 
             # An extra draw is necessary for plotting the markers
-            self.canvas.draw()
+            self.canvas.draw_idle()
             
         # Get first plot
         self.update_plot()
@@ -927,26 +1060,18 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         yrange = list(range(nexp))
         
         # Format axis
-        self.format_axis(0, 1, -0.5, nexp-0.5)
+        self.format_axis(0, 1, -0.5, nexp-0.5 + 1e-6)
         self.ax.set_yticks(yrange)
         self.ax.set_yticklabels(items)
                     
         # Set expert lines
         for i, (idx, item) in enumerate(zip(selected, items)):
             self.lines[item].set_data(assessments[idx], i)
-        
-        colors = [self.colors[item] for item in items]
-        for i, quantile in enumerate(self.results.assessments.quantiles):
-            if any(selected):
-                values = assessments[selected, i]
-                self.markers[quantile].set_offsets(np.vstack([values, yrange]).T)
-                self.markers[quantile].set_color(colors)
-            else:
-                self.markers[quantile].set_offsets([[], []])
-                self.markers[quantile].set_color([])
-
+            for j, quantile in enumerate(self.results.assessments.quantiles):
+                self.markers[item][quantile].set_data(assessments[idx][j], i)
+                    
         # self.figure.tight_layout()
-        self.canvas.draw()
+        self.canvas.draw_idle()
             
             
     def update_item_plot(self):
@@ -1036,23 +1161,16 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             # Set expert lines
             for i, expert in enumerate(experts):
                 self.lines[expert].set_data(assessments[expert], i)
-            
-            colors = [self.colors[exp] for exp in experts]
-            for i, quantile in enumerate(self.results.assessments.quantiles):
-                if any(selected):
-                    values = [assessments[exp][i] for exp in experts]
-                    self.markers[quantile].set_offsets(np.vstack([values, yrange]).T)
-                    self.markers[quantile].set_color(colors)
-                else:
-                    self.markers[quantile].set_offsets([[], []])
-                    self.markers[quantile].set_color([])
-            
+                if expert in self.markers:
+                    for j, quantile in enumerate(self.results.assessments.quantiles):
+                        self.markers[expert][quantile].set_data(assessments[expert][j], i)
+                        
         # Realization
         self.update_realization()
 
         # Draw
         # self.figure.tight_layout()
-        self.canvas.draw()
+        self.canvas.draw_idle()
         
     def update_realization(self):
         """
@@ -1125,11 +1243,11 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         itemid = self.item_cbox.combobox.currentIndex()
 
         # Set x axis scale
-        if self.results.items.scale[itemid] == 'log':
-            # self.ax.set_xscale('log')
-            self.ax.set_xscale('linear')
-        else:
-            self.ax.set_xscale('linear')
+        # if self.results.items.scale[itemid] == 'log':
+        #     # self.ax.set_xscale('log')
+        #     self.ax.set_xscale('linear')
+        # else:
+        #     self.ax.set_xscale('linear')
 
         # Set limits
         # self.ax.axis((xmin, xmax, ymin, ymax))
@@ -1156,15 +1274,23 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         """
         Method to hide or show lines based on the selection in the legend table
         """
+        # Get selected indices
         selected = [idx.row() for idx in self.legend.selectedIndexes()]
         
+        # If plotting by item, show data for all experts
         if self.plotby == 'item':
             for i, expert in enumerate(self.results.experts.ids):
                 self.lines[expert].set_visible(i in selected)
+                if expert in self.markers:
+                    for q in self.results.assessments.quantiles:
+                        self.markers[expert][q].set_visible(i in selected)
         
+        # If plotting by expert, show data for all items
         elif self.plotby == 'expert':
             for i, item in enumerate(self.results.items.ids):
                 self.lines[item].set_visible(i in selected)
+                for q in self.results.assessments.quantiles:
+                    self.markers[item][q].set_visible(i in selected)
         
         # In case of a range plot, not only toggle visibility, but
         # also remove re-plot to remove 'invisible' items

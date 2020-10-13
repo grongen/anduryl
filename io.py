@@ -551,10 +551,12 @@ def selection_to_text(selection, newline='\n', delimiter='\t'):
     minrow, maxrow = min(rows), max(rows)
     mincol, maxcol = min(cols), max(cols)
     
+    # Create empty Nrow*Ncol table to fill the selected values
     rowcount = maxrow - minrow + 1
     colcount = maxcol - mincol + 1
     table = [[''] * colcount for _ in range(rowcount)]
     
+    # Fill all the selected values
     for index in selection:
         row = index.row() - minrow
         column = index.column() - mincol

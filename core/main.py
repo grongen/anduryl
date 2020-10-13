@@ -11,6 +11,8 @@ from anduryl.core.experts import Experts
 from anduryl.core.items import Items
 from anduryl.io import ProjectIO
 
+from anduryl.ui.dialogs import NotificationDialog
+
 
 class Project:
     """
@@ -213,11 +215,11 @@ class Project:
         # Check if there are any experts and items left
         if len(results.experts.actual_experts) == 0:
             NotificationDialog('All experts are excluded from the calculation. Add at least one expert before calculating a decision maker.')
-            return None
+            return False
 
         if len(results.items.ids) == 0:
             NotificationDialog('All items are excluded from the calculation. Add at least one item before calculating a decision maker.')
-            return None
+            return False
 
         # Get alpha, dependend on optimisation settings
         if (calc_settings['weight'].lower() in ['global', 'item'] and not calc_settings['optimisation']):
@@ -260,6 +262,8 @@ class Project:
                 alpha=calc_settings['alpha'],
                 calpower=calc_settings['calpower'],
             )
+
+        return True
 
 class Results:
     """

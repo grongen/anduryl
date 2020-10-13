@@ -57,7 +57,7 @@ class ItemsWidget(QtWidgets.QFrame):
         """
         if (event.type() == QtCore.QEvent.KeyPress and
             event.matches(QtGui.QKeySequence.Copy)):
-            selection = self.table.selectedIndexes()
+            selection = source.selectedIndexes()
             if selection:
                 text = io.selection_to_text(selection)
                 QtWidgets.qApp.clipboard().setText(text)
@@ -83,6 +83,43 @@ class ItemsWidget(QtWidgets.QFrame):
         self.mainwindow.signals.update_color_range()
         self.mainwindow.setWindowModified(True)
 
+    def move_item_clicked(self, newpos):
+        """
+        Function that checks whether an item is selected
+        when the option "move item [position]" is clicked.
+        """
+        rownum = self.table.currentIndex().row()
+        if rownum == -1:
+            NotificationDialog('Select a row to move an item')
+            return None
+        # Get item id    
+        itemid = self.project.items.ids[rownum]
+
+        # Remove expert from table widget
+        if newpos == 'up':
+            newpos = max(rownum - 1, 0)
+        elif newpos == 'down':
+            newpos = min(rownum + 1, len(self.project.items.ids) - 1)
+
+        self.move_item(itemid, newpos)
+
+    def move_item(self, itemid, newpos):
+        """
+        Moves an item within the project and updates the UI accordingly.
+        
+        Parameters
+        ----------
+        itemid : str
+            Item id
+        """
+        # Remove from project
+        self.project.items.move_item(item_id=itemid, newpos=newpos)
+        self.mainwindow.assessmentswidget.table.setCurrentIndex(QtCore.QModelIndex())
+        self.mainwindow.signals.update_gui()
+        self.mainwindow.signals.update_color_range()
+        self.table.setCurrentIndex(QtCore.QModelIndex())
+        self.mainwindow.setWindowModified(True)
+
     def remove_item_clicked(self):
         """
         Function that checks whether an item is selected
@@ -90,7 +127,7 @@ class ItemsWidget(QtWidgets.QFrame):
         """
         rownum = self.table.currentIndex().row()
         if rownum == -1:
-            NotificationDialog('Select a row to remove an expert')
+            NotificationDialog('Select a row to remove an item')
             return None
         # Get item id    
         itemid = self.project.items.ids[rownum]
@@ -154,21 +191,50 @@ class ItemsWidget(QtWidgets.QFrame):
         
         # Add actions
         add_item_action = menu.addAction("Add item")
+        # Action to include or exclude an expert
         if rownum >= 0:
             excluded = self.project.items.ids[rownum] in self.project.items.excluded
             exclude_item_action = menu.addAction("Include this item" if excluded else "Exclude this item")
+        # Remove item
         remove_item_action = menu.addAction("Remove item")
+        menu.addSeparator()
+        # Actions to move items up or down
+        if rownum >= 0:
+            move_items_menu = menu.addMenu("Move item")
+            move_items_actions = {}
+            # Add action to move item one position up or down
+            move_items_actions['up'] = move_items_menu.addAction("Move item up")
+            move_items_actions['down'] = move_items_menu.addAction("Move item down")
+            move_items_menu.addSeparator()
+            # Add actions to move item to a chosen position
+            for i in range(len(self.project.items.ids)):
+                if i == rownum:
+                    continue
+                move_items_actions[i] = move_items_menu.addAction(f"Move item to row {i+1}")
+            
+        # Show assessments for item
         menu.addSeparator()
         show_assessments_action = menu.addAction("Show item assessments")
         
+        # Get action
         action = menu.exec_(self.mapToGlobal(event.pos()))
+        # Check if it is an item move action
+        move_position = [i for i, move_action in move_items_actions.items() if action == move_action]
+
         if action == add_item_action:
             self.add_item()
+        
         elif action == remove_item_action:
             self.remove_item_clicked()
+
+        elif len(move_position) > 0:
+            assert len(move_position) == 1
+            self.move_item_clicked(move_position[0])
+        
         elif action == show_assessments_action:
             rownum = self.table.currentIndex().row()
             self.mainwindow.assessmentswidget.table.setCurrentIndex(QtCore.QModelIndex())
             self.mainwindow.assessmentswidget.item_cbox.setCurrentIndex(rownum+1)
+        
         elif (rownum >= 0) and (action == exclude_item_action):
             self.exclude_item_clicked()

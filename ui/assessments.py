@@ -5,8 +5,8 @@ from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 
 from anduryl import io
 from anduryl.ui import widgets
-from anduryl.ui.dialogs import NotificationDialog
 from anduryl.ui.models import AssessmentArrayModel, ItemDelegate
+# from anduryl.ui.main import NotificationDialog
 
 
 class AssessmentsWidget(QtWidgets.QFrame):
@@ -94,9 +94,8 @@ class AssessmentsWidget(QtWidgets.QFrame):
         """
         Eventfilter for copying table content.
         """
-        if (event.type() == QtCore.QEvent.KeyPress and
-            event.matches(QtGui.QKeySequence.Copy)):
-            selection = self.table.selectedIndexes()
+        if (event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Copy)):
+            selection = source.selectedIndexes()
             if selection:
                 text = io.selection_to_text(selection)
                 QtWidgets.qApp.clipboard().setText(text)

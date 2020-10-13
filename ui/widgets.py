@@ -432,4 +432,3 @@ class LogoSplitter(QtWidgets.QSplitter):
         if self.icon is not icon:
             self.icon = icon
             self.button.setIcon(self.icon)
-    

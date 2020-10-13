@@ -6,6 +6,8 @@ from anduryl.ui import widgets
 from anduryl.ui.dialogs import NotificationDialog
 from anduryl.ui.models import ExpertsListsModel, ItemDelegate
 
+from itertools import product
+
 
 class ExpertsWidget(QtWidgets.QFrame):
     """
@@ -31,6 +33,11 @@ class ExpertsWidget(QtWidgets.QFrame):
             'robustness': True,
             'calpower': 1.0
         }        
+
+        # Create combinations of color and linestyle for cycling through
+        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+        linestyles = ['-', '--', ':', '-.']
+        self.styles = list(product([colors, linestyles]))
 
     def construct_widget(self):
         """
@@ -64,7 +71,7 @@ class ExpertsWidget(QtWidgets.QFrame):
         Eventfilter for copying table content.
         """
         if (event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Copy)):
-            selection = self.table.selectedIndexes()
+            selection = source.selectedIndexes()
             if selection:
                 text = io.selection_to_text(selection)
                 QtWidgets.qApp.clipboard().setText(text)
@@ -120,17 +127,18 @@ class ExpertsWidget(QtWidgets.QFrame):
         self.mainwindow.signals._about_to_be_changed()
 
         # Add results to project from settings. These are frozen results.
-        self.project.add_results_from_settings(self.calc_settings)
+        success = self.project.add_results_from_settings(self.calc_settings)
         self.mainwindow.signals._changed()
 
         # Add calculated results to GUI
-        self.mainwindow.resultswidget.add_results(resultid=self.calc_settings['id'])
+        if success:
+            self.mainwindow.resultswidget.add_results(resultid=self.calc_settings['id'])
 
         # Update GUI
         self.mainwindow.signals.update_gui()
 
         # Move splitter if results are hidden
-        if self.mainwindow.rightsplitter.sizes()[-1] == 0:
+        if self.mainwindow.rightsplitter.sizes()[-1] == 0 and success:
             self.mainwindow.rightsplitter.setSizes([200, 400])
         
         self.mainwindow.setCursorNormal()
@@ -157,7 +165,6 @@ class ExpertsWidget(QtWidgets.QFrame):
         self.mainwindow.signals.update_gui()
         self.mainwindow.signals.update_color_range()
         self.mainwindow.setWindowModified(True)
-
 
     def remove_expert_clicked(self):
         """
@@ -201,7 +208,6 @@ class ExpertsWidget(QtWidgets.QFrame):
         self.mainwindow.signals.update_color_range()
         self.table.setCurrentIndex(QtCore.QModelIndex())
         
-
     def exclude_expert_clicked(self):
         """
         Executed when expert checkbox is clicked

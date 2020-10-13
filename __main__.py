@@ -30,6 +30,7 @@ if __name__ == '__main__':
     app.setApplicationVersion(__version__)
 
     # Import GUI
+    from anduryl.core.main import Project
     from anduryl.ui.main import MainWindow
 
     # Create main window
@@ -40,5 +41,6 @@ if __name__ == '__main__':
     # Open project
     if len(sys.argv) > 1:
         ex.open_project(fname=sys.argv[1])
+        ex.setCursorNormal()
 
     sys.exit(app.exec_())

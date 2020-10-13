@@ -101,6 +101,33 @@ class Items:
         arr[:, :, :-1] = current_vals
         arr[:, :, -1] = np.nan
 
+    def move_item(self, item_id, newpos):
+        """
+        Move item to new position in list
+        
+        Parameters
+        ----------
+        item_id : str
+            Item (question) id
+        newpos : int
+            Index of new position
+        """
+        oldpos = self.ids.index(item_id)
+        order = list(range(len(self.ids)))
+        order.remove(oldpos)
+        # Insert index of old position in new position
+        order.insert(newpos, oldpos)
+        order = np.array(order)
+        
+        # Rearrange lists and 1d arrays
+        for lst in [self.ids, self.scale, self.questions, self.realizations]:
+            lst[:] = [lst[i] for i in order]
+        
+        # Reaarange assessments
+        self.project.assessments.array[:, :, :] = self.project.assessments.array[:, :, order]
+        # Reaarange information score per variable
+        self.project.experts.info_per_var[:, :] = self.project.experts.info_per_var[:, order]
+
     def remove_item(self, item_id):
         """
         Removes an item from the class. Removes the item from the id's,

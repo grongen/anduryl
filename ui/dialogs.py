@@ -1,5 +1,19 @@
-from PyQt5 import Qt, QtCore, QtGui, QtWidgets
-from anduryl.ui import main        
+import os
+import sys
+from PyQt5 import QtGui, QtWidgets, QtCore
+
+
+def get_icon():
+    # In case of PyInstaller exe
+    if getattr(sys, 'frozen', False):
+        application_path = sys._MEIPASS
+        iconpath = os.path.join(application_path, 'data', 'icon.ico')
+    # In case of regular python
+    else:
+        application_path = os.path.dirname(os.path.abspath(__file__))
+        iconpath = os.path.join(application_path, '..', 'data', 'icon.ico')
+
+    return QtGui.QIcon(iconpath)
 
 class NotificationDialog(QtWidgets.QMessageBox):
     """
@@ -37,7 +51,7 @@ class NotificationDialog(QtWidgets.QMessageBox):
 
         self.setIconPixmap(icon.pixmap(icon.actualSize(QtCore.QSize(36, 36))))
 
-        self.setWindowIcon(main.get_icon())
+        self.setWindowIcon(get_icon())
 
         if details:
             self.setDetailedText("Details:\n{}".format(details))

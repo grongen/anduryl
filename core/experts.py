@@ -48,6 +48,7 @@ class Experts:
         self.info_per_var = np.zeros((0, 0))
         self.arraynames = ['user_weights', 'info_real', 'info_total', 'calibration', 'weights']
         self.excluded = []
+        # self.styles = []
 
     def get_exp(self, exptype='both'):
         """
@@ -183,6 +184,7 @@ class Experts:
         else:
             self.ids.append(exp_id)
             self.names.append(exp_name)
+            # self.styles.append(style)
             
             # Resize expert arrays
             for name in self.arraynames:

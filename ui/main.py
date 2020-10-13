@@ -12,13 +12,17 @@ import traceback
 import numpy as np
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 
+from anduryl.ui.dialogs import NotificationDialog, get_icon
 
-from anduryl import Project, io
-from anduryl.ui import dialogs, widgets
+from anduryl.ui import widgets
+from anduryl import io
 from anduryl.ui.assessments import AssessmentsWidget
 from anduryl.ui.experts import ExpertsWidget
 from anduryl.ui.items import ItemsWidget
 from anduryl.ui.results import ResultsWidget
+from anduryl.core.main import Project
+
+
 
 # logger = logging.getLogger(__name__)
 
@@ -30,18 +34,6 @@ QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 # mainfont = QtGui.QFont('Segoe UI')
 # mainfont.setPixelSize(11)
 # QtWidgets.QApplication.setFont(mainfont)
-
-def get_icon():
-    # In case of PyInstaller exe
-    if getattr(sys, 'frozen', False):
-        application_path = sys._MEIPASS
-        iconpath = os.path.join(application_path, 'data', 'icon.ico')
-    # In case of regular python
-    else:
-        application_path = os.path.dirname(os.path.abspath(__file__))
-        iconpath = os.path.join(application_path, '..', 'data', 'icon.ico')
-
-    return QtGui.QIcon(iconpath)
 
 class MainWindow(QtWidgets.QMainWindow):
     """
@@ -83,7 +75,7 @@ class MainWindow(QtWidgets.QMainWindow):
             """
             sys.__excepthook__(exctype, value, tback)
             self.setCursorNormal()
-            dialogs.NotificationDialog(
+            NotificationDialog(
                 text='\n'.join(traceback.format_exception_only(exctype, value)),
                 severity='critical',
                 details='\n'.join(traceback.format_tb(tback))
@@ -502,9 +494,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if '.dtt' in ext:
             # Check lengths of ids
             if max([len(exp_id) for exp_id in self.project.experts.ids]) > 8:
-                dialogs.NotificationDialog('Some expert id\'s are longer than 8 characters. They will be shortened to 8 characters for compatibility with Excalibur. Check if the id\'s are still unique.')
+                NotificationDialog('Some expert id\'s are longer than 8 characters. They will be shortened to 8 characters for compatibility with Excalibur. Check if the id\'s are still unique.')
             if  max([len(item_id) for item_id in self.project.items.ids]) > 14:
-                dialogs.NotificationDialog('Some item id\'s are longer than 14 characters. They will be shortened to 14 characters for compatibility with Excalibur. Check if the id\'s are still unique.')
+                NotificationDialog('Some item id\'s are longer than 14 characters. They will be shortened to 14 characters for compatibility with Excalibur. Check if the id\'s are still unique.')
 
         # Save files
         self.update_projectname(os.path.basename(fname))
