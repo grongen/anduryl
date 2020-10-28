@@ -157,6 +157,7 @@ class ProjectIO:
         self.project.items.ids[:] = outdict['items']['ids']
         self.project.items.realizations[:] = outdict['items']['realization']
         self.project.items.scale[:] = outdict['items']['scale']
+        self.project.items.item_bounds[:, :] = [[-np.inf, np.inf] if scale == 'uni' else [0, np.inf] for scale in self.project.items.scale]
         self.project.items.questions[:] = outdict['items']['question']
         
         # Add assessments

@@ -15,11 +15,18 @@ class Items:
             Project class
         """
         self.project = project
+        # Array with realizations (answers to questions)
         self.realizations = np.array([])
+        # List with item ids
         self.ids = []
+        # List with item scales
         self.scale = []
+        # List with questions
         self.questions = []
+        # List with excluded questions
         self.excluded = []
+        # List with manual item bounds (overriding overshoot)
+        self.item_bounds = np.array([], dtype=float)
 
     def clear(self):
         """
@@ -42,6 +49,7 @@ class Items:
         self.ids.extend([[] * nitems])
         self.scale.extend([[] * nitems])
         self.realizations.resize(nitems, refcheck=False)
+        self.item_bounds.resize((nitems, 2), refcheck=False)
 
     def get_idx(self, question_type='both', where=False):
         """
@@ -85,9 +93,13 @@ class Items:
         self.ids.append(item_id)
         self.scale.append('uni')
         self.questions.append('')
+        
         self.realizations.resize(len(self.realizations)+1, refcheck=False)
         self.realizations[-1] = np.nan
 
+        self.item_bounds.resize((len(self.realizations), 2), refcheck=False)
+        self.item_bounds[-1, :] = [-np.inf, np.inf]
+        
         # Add item
         shape = self.project.experts.info_per_var.shape
         vals = self.project.experts.info_per_var.copy()
@@ -120,14 +132,14 @@ class Items:
         order = np.array(order)
         
         # Rearrange lists and 1d arrays
-        for lst in [self.ids, self.scale, self.questions, self.realizations]:
+        for lst in [self.ids, self.scale, self.questions, self.realizations, self.item_bounds]:
             lst[:] = [lst[i] for i in order]
         
         # Reaarange assessments
         self.project.assessments.array[:, :, :] = self.project.assessments.array[:, :, order]
         # Reaarange information score per variable
         self.project.experts.info_per_var[:, :] = self.project.experts.info_per_var[:, order]
-
+        
     def remove_item(self, item_id):
         """
         Removes an item from the class. Removes the item from the id's,
@@ -155,6 +167,11 @@ class Items:
         vals = self.realizations[keep]
         self.realizations.resize(len(vals), refcheck=False)
         self.realizations[:] = vals
+
+        # Item bounds
+        vals = self.item_bounds[keep, :]
+        self.realizations.resize(vals.shape, refcheck=False)
+        self.realizations[:, :] = vals
 
         # Info per var
         vals = self.project.experts.info_per_var[:, keep]

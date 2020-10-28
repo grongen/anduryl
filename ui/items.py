@@ -4,7 +4,7 @@ from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from anduryl import io
 from anduryl.ui import widgets
 from anduryl.ui.dialogs import NotificationDialog
-from anduryl.ui.models import ItemDelegate, ItemsListsModel
+from anduryl.ui.models import ItemDelegate, ItemsListsModel, ArrayModel
 
 
 class ItemsWidget(QtWidgets.QFrame):
@@ -238,3 +238,62 @@ class ItemsWidget(QtWidgets.QFrame):
         
         elif (rownum >= 0) and (action == exclude_item_action):
             self.exclude_item_clicked()
+
+    def set_bounds(self, event):
+        # Open dialog to set bounds
+        self.item_bounds_dialog = ItemBoundsDialog(self.project.items)
+        self.item_bounds_dialog.exec_()
+
+class ItemBoundsDialog(QtWidgets.QDialog):
+    """
+    Dialog to get parameters for calculating decision maker
+    """
+    def __init__(self, items):
+        """
+        Constructor
+        """
+        super(ItemBoundsDialog, self).__init__()
+
+        self.setWindowTitle('Set bounds per item')
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
+
+        self.setLayout(QtWidgets.QVBoxLayout())
+
+        # Create the table view
+        self.table = QtWidgets.QTableView()
+        self.table.verticalHeader().setVisible(True)
+        self.table.setShowGrid(False)
+        self.table.setAlternatingRowColors(True)
+
+        # Create and add model
+        self.array = items.item_bounds
+        self.model = ArrayModel(
+            array=self.array,
+            labels=[items.ids, ['Lower bound', 'Upper bound']],
+            coldim=1,
+            rowdim=[0],
+            index_names=['Bounds'],
+            index=True,
+        )
+        self.table.setModel(self.model)
+
+        self.layout().addWidget(self.table)
+        self.table.horizontalHeader().setMinimumSectionSize(70)
+        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
+
+        # Add close button
+        self.layout().addWidget(widgets.HLine())
+
+        # OK and Cancel buttons
+        self.close_button = QtWidgets.QPushButton('Close')
+        self.close_button.setAutoDefault(False)
+        self.close_button.clicked.connect(self.close)
+
+        button_box = QtWidgets.QDialogButtonBox(QtCore.Qt.Horizontal, self)
+        button_box.addButton(self.close_button, QtWidgets.QDialogButtonBox.RejectRole)
+        button_box.accepted.connect(QtWidgets.QDialog.accept)
+
+        self.layout().addWidget(button_box)
+
+        self.resize(400, 600)

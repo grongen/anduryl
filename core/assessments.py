@@ -147,7 +147,7 @@ class Assessment:
     def get_bounds(self, question_type='both', overshoot=0.0, experts=None):
         """
         Return lower and upper bounds for each question given
-        the question type. Overshoot van be added by specifying overshoot.
+        the question type. Overshoot can be added by specifying overshoot (k).
 
         Parameters
         ----------
@@ -169,8 +169,8 @@ class Assessment:
             return np.array([]), np.array([])
         
         # Get bounds per question
-        lower = np.nanmin(values[:, 0, :], axis=0)
-        upper = np.nanmax(values[:, -1, :], axis=0)
+        lower = np.nanmin(values[:, :, :], axis=(0, 1))
+        upper = np.nanmax(values[:, :, :], axis=(0, 1))
         
         # If seed questions, combine with realisations
         realizations = self.project.items.realizations[:]

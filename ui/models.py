@@ -55,7 +55,7 @@ class ArrayModel(QtCore.QAbstractTableModel):
         # Check label dimensions
         for i, label in enumerate(labels):
             if not len(label) == self.array.shape[i]:
-                raise ValueError('Number of given labels do not match the array size.')
+                raise ValueError(f'Number of given labels ({len(label)}) does not match the array size ({self.array.shape[i]}).')
 
         # If index == true, the index is used to show the index labels
         # If false, the index is shown as column(s), which is obligated

@@ -194,14 +194,16 @@ class Project:
             answers = results.assessments.get_array(question_type='seed', experts=actual_experts)
         else:
             answers = results.assessments.get_array(question_type='both', experts=actual_experts)
-        
-        nanexperts = np.isnan(answers).all(-1).any(-1)
+
+        # NaN-waarden: minstens één van de percentielen voor alle vragen
+        # NaN-waarden: elk van de percentielen voor alle vragen
+        nanexperts = np.isnan(answers).all(-1).all(-1)
         nanexperts = np.array(actual_experts)[nanexperts].tolist()
         if any(nanexperts):
             exps = ', '.join(nanexperts)
             results.experts.excluded.extend(nanexperts)
             if len(nanexperts) == 1:
-                NotificationDialog(f'Expert {exps} has not answered any questions, and is excluded from the calculation.')
+                NotificationDialog(f'Expert {exps} has not answered any (seed) questions, and is excluded from the calculation.')
             else:
                 NotificationDialog(f'Experts {exps} have not answered any questions, and are excluded from the calculation.')
 

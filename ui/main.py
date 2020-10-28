@@ -262,8 +262,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         remove_item_action = QtWidgets.QAction(QtGui.QIcon(), 'Remove selected item', self)
         remove_item_action.setStatusTip('Remove an item from the project.')
-        remove_item_action.triggered.connect(self.itemswidget.remove_item)
+        remove_item_action.triggered.connect(self.itemswidget.remove_item_clicked)
         file_menu.addAction(remove_item_action)
+
+        file_menu.addSeparator()
+
+        set_bounds_action = QtWidgets.QAction(QtGui.QIcon(), 'Set item bounds', self)
+        set_bounds_action.setStatusTip('Set bounds for question answers, for example [0-100] for percentages.')
+        set_bounds_action.triggered.connect(self.itemswidget.set_bounds)
+        file_menu.addAction(set_bounds_action)
 
         quantile_action = QtWidgets.QAction(QtGui.QIcon(), '&Quantiles', self)
         quantile_action.setStatusTip('Change quantiles')

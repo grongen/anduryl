@@ -359,7 +359,7 @@ class Experts:
         # Get the position of the expert
         expidxs = self.get_idx(experts)
 
-        # Get index of answered per expert. Only if all percentiles are given, the info score is 
+        # Get index of answered per expert. Only if all percentiles are given, the info score is calculated
         valid = (~np.isnan(values)).all(axis=1)
         
         # Get number of valid expert assessments per question
@@ -373,9 +373,8 @@ class Experts:
             
         # Get information score per expert
         p = self.project.assessments.binprobs
-
+        # For each expert
         for iexp, idx in enumerate(expidxs):
-            
             # Add lower and upper bounds to answers
             bounds = np.zeros((nvalidq[iexp], npercentiles + 2))
             validx = valid[iexp, :]
