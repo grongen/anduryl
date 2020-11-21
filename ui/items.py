@@ -4,7 +4,7 @@ from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from anduryl import io
 from anduryl.ui import widgets
 from anduryl.ui.dialogs import NotificationDialog
-from anduryl.ui.models import ItemDelegate, ItemsListsModel, ArrayModel
+from anduryl.ui.models import ItemDelegate, ItemsListsModel, ItemsBoundsModel
 
 
 class ItemsWidget(QtWidgets.QFrame):
@@ -241,14 +241,14 @@ class ItemsWidget(QtWidgets.QFrame):
 
     def set_bounds(self, event):
         # Open dialog to set bounds
-        self.item_bounds_dialog = ItemBoundsDialog(self.project.items)
+        self.item_bounds_dialog = ItemBoundsDialog(self)
         self.item_bounds_dialog.exec_()
 
 class ItemBoundsDialog(QtWidgets.QDialog):
     """
     Dialog to get parameters for calculating decision maker
     """
-    def __init__(self, items):
+    def __init__(self, parentwidget):
         """
         Constructor
         """
@@ -258,6 +258,7 @@ class ItemBoundsDialog(QtWidgets.QDialog):
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
 
         self.setLayout(QtWidgets.QVBoxLayout())
+        hlayout = QtWidgets.QHBoxLayout()
 
         # Create the table view
         self.table = QtWidgets.QTableView()
@@ -265,19 +266,47 @@ class ItemBoundsDialog(QtWidgets.QDialog):
         self.table.setShowGrid(False)
         self.table.setAlternatingRowColors(True)
 
-        # Create and add model
-        self.array = items.item_bounds
-        self.model = ArrayModel(
-            array=self.array,
-            labels=[items.ids, ['Lower bound', 'Upper bound']],
-            coldim=1,
-            rowdim=[0],
-            index_names=['Bounds'],
-            index=True,
-        )
+        # # Create and add model
+        # self.array = items.item_bounds
+
+        # self.model = ItemsListsModel(
+        #     array=self.array,
+        #     labels=[items.ids, ['Lower bound', 'Upper bound']],
+        #     coldim=1,
+        #     rowdim=[0],
+        #     index_names=['Bounds'],
+        #     index=True,
+        # )
+        # self.table.setModel(self.model)
+        # hlayout.addWidget(self.table)
+
+        # # Create the table view
+        # self.table2 = QtWidgets.QTableView()
+        # self.table2.verticalHeader().setVisible(True)
+        # self.table2.setShowGrid(False)
+        # self.table2.setAlternatingRowColors(True)
+
+        # self.use_quantiles = items.use_quantiles
+
+        self.model = ItemsBoundsModel(parentwidget=parentwidget)
+            # lists=[
+            #     items.ids,
+            #     items.item_bounds[:, 0],
+            #     items.item_bounds[:, 1],
+            #     items.use_quantiles[:, 0],
+            #     items.use_quantiles[:, 1],
+            #     items.use_quantiles[:, 2],
+            # ],
+            # labels=['ID', 'Lower bound', 'Upper bound', 'p1', 'p2', 'p3']
+
+        # self.model.editable = [True, True, True, True, True]
+
         self.table.setModel(self.model)
+        # hlayout.addWidget(self.table2)
 
         self.layout().addWidget(self.table)
+        
+        
         self.table.horizontalHeader().setMinimumSectionSize(70)
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
@@ -296,4 +325,4 @@ class ItemBoundsDialog(QtWidgets.QDialog):
 
         self.layout().addWidget(button_box)
 
-        self.resize(400, 600)
+        self.resize(600, 600)

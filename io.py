@@ -153,13 +153,6 @@ class ProjectIO:
         self.project.experts.names[:] = outdict['experts']['name']
         self.project.experts.actual_experts[:] = list(range(len(self.project.experts.ids)))
         
-        # Add questions
-        self.project.items.ids[:] = outdict['items']['ids']
-        self.project.items.realizations[:] = outdict['items']['realization']
-        self.project.items.scale[:] = outdict['items']['scale']
-        self.project.items.item_bounds[:, :] = [[-np.inf, np.inf] if scale == 'uni' else [0, np.inf] for scale in self.project.items.scale]
-        self.project.items.questions[:] = outdict['items']['question']
-        
         # Add assessments
         self.project.assessments.array[:, :, :] = arr
         
@@ -168,6 +161,14 @@ class ProjectIO:
         quants = sorted(outdict['quantiles'])
         self.project.assessments.quantiles.extend(quants)
         self.project.assessments.calculate_binprobs()
+
+        # Add items (questions)
+        self.project.items.ids[:] = outdict['items']['ids']
+        self.project.items.realizations[:] = outdict['items']['realization']
+        self.project.items.scale[:] = outdict['items']['scale']
+        self.project.items.item_bounds[:, :] = [[-np.inf, np.inf] if scale == 'uni' else [0, np.inf] for scale in self.project.items.scale]
+        self.project.items.questions[:] = outdict['items']['question']
+        self.project.items.use_quantiles[:, :] = np.ones((len(self.project.items.ids[:]), len(self.project.assessments.quantiles)), dtype=bool)
 
         # Add results
         for key, settings in outdict['results'].items():

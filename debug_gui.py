@@ -26,11 +26,29 @@ if __name__ == '__main__':
     splash.close()
     
     # Open project
-    projectfile = r'd:\Downloads\opzet_vragenlijst.json'
+    projectfile = r"d:\TUD\P03 - Length effects\faalkansen_rijntakken.json"
     
     ex.open_project(fname=projectfile)
-    ex.setCursorNormal()
 
-    ex.itemswidget.set_bounds(False)
+    ex.project.items.use_quantiles[:12, 0] = False
+    ex.project.items.use_quantiles[:12, 2] = False
+    ex.project.items.use_quantiles[-4:-2, 0] = False
+    ex.project.items.use_quantiles[-4:-2, 2] = False
+
+    ex.setCursorNormal()
+    # ex.itemswidget.set_bounds(False)
+
+    # Check answers
+    import numpy as np
+
+    for iq in range(len(ex.project.items.ids)):
+        use = ex.project.items.use_quantiles[iq]
+        answers = ex.project.assessments.array[:, use, iq]
+        diff = np.diff(answers, axis=1)
+        idx = ~((diff > 0).all(axis=1) | np.isnan(diff).any(axis=1))
+        if idx.any():
+            print(ex.project.items.ids[iq], [ex.project.experts.ids[i] for i in np.where(idx)[0]])
+
+    ex.itemswidget.set_bounds(None)
 
     sys.exit(app.exec_())

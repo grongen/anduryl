@@ -96,7 +96,7 @@ class Project:
         self.experts.initialize(nexperts, nseed + ntarget)
 
         self.items.clear()
-        self.items.initialize(nseed + ntarget)
+        self.items.initialize(nseed + ntarget, nquantiles)
 
         self.assessments.clear()
         self.assessments.initialize(nexperts, nseed + ntarget, nquantiles)

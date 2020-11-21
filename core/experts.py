@@ -297,12 +297,19 @@ class Experts:
             This option can be used for excluding items when calculating
             robustness tables
         """
+        # Check the used percentiles for calibration
+        # The calibration score can (for now) only be calculated for a fixed number of percentiles
+        idx = self.project.items.get_idx(question_type='seed')
+        quants = self.project.items.use_quantiles[idx, :]
+        pidx = quants.any(axis=0)
+        if not np.array_equal(quants.all(axis=0), pidx):
+            raise ValueError('Only a fixed number of percentiles can be used in the calibration questions')
         
         # Get values for all seed assessments, and replace NaN
-        values = self.project.assessments.get_array('seed', experts)
+        values = self.project.assessments.get_array('seed', experts)[:, pidx, :]
         if items is not None:
             values = values[:, :, items]
-
+        
         # Get number of non nan answers per expert
         nonnan = (~np.isnan(values)).any(axis=1).sum(axis=-1)
         # Replace NaN values
@@ -360,29 +367,53 @@ class Experts:
         expidxs = self.get_idx(experts)
 
         # Get index of answered per expert. Only if all percentiles are given, the info score is calculated
-        valid = (~np.isnan(values)).all(axis=1)
-        
-        # Get number of valid expert assessments per question
-        nvalidq = valid.sum(axis=-1)
-        
+        valid = np.zeros((nexperts, nitems), dtype=bool)
+
         # Scale values to log
         scale = self.project.items.scale
         for iq in range(nitems):
+            # Checker whether all the answers are filled in (a valid entry)
+            use = self.project.items.use_quantiles[iq]
+            valid[:, iq] = (~np.isnan(values[:, use, iq])).all(axis=1)
+            # Scale to log
             if scale[iq] == 'log':
-                values[:, :, iq] = np.log(values[:, :, iq])
-            
-        # Get information score per expert
-        p = self.project.assessments.binprobs
-        # For each expert
-        for iexp, idx in enumerate(expidxs):
-            # Add lower and upper bounds to answers
-            bounds = np.zeros((nvalidq[iexp], npercentiles + 2))
-            validx = valid[iexp, :]
-            bounds[:, 0] = lower[validx]
-            bounds[:, -1] = upper[validx]
-            bounds[:, 1:-1] = values[iexp, :, validx]
+                values[:, use, iq] = np.log(values[:, use, iq])
 
-            self.info_per_var[idx, validx] = np.log(upper[validx] - lower[validx]) + np.sum(p * np.log(p / (bounds[:, 1:] - bounds[:, :-1])), axis=1)
+        for iq in range(len(self.project.items.ids)):
+            use = self.project.items.use_quantiles[iq]
+            percentiles = np.concatenate([[0.0], np.array(self.project.assessments.quantiles)[use], [1.0]])
+            p = percentiles[1:] - percentiles[:-1]
+
+            # Initialize bounds and fill limits
+            bounds = np.zeros(len(percentiles))
+            bounds[0] = lower[iq]
+            bounds[-1] = upper[iq]
+            
+            for iexp, idx in enumerate(expidxs):
+                if not valid[iexp, iq]:
+                    self.info_per_var[idx, iexp] = 0.0
+                    continue
+                bounds[1:-1] = values[iexp, use, iq]
+                # Calculate info per variable
+                p1 = np.log(upper[iq] - lower[iq])
+                noemer = (bounds[1:] - bounds[:-1])
+                p2 = np.sum(p * np.log(p / noemer))
+                self.info_per_var[idx, iq] = p1 + p2
+        
+        # # Get information score per expert
+        # p = self.project.assessments.binprobs
+        # # For each expert
+        # for iexp, idx in enumerate(expidxs):
+        #     # Add lower and upper bounds to answers
+        #     bounds = np.zeros((nvalidq[iexp], npercentiles + 2))
+        #     validx = valid[iexp, :]
+        #     # Add lower and upper bound for answered (valid) questions
+        #     bounds[:, 0] = lower[validx]
+        #     bounds[:, -1] = upper[validx]
+        #     # Add values for answered questions in between
+        #     bounds[:, 1:-1] = values[iexp, :, validx]
+
+        #     self.info_per_var[idx, validx] = np.log(upper[validx] - lower[validx]) + np.sum(p * np.log(p / (bounds[:, 1:] - bounds[:, :-1])), axis=1)
 
         # Calculate calibration score for seed (realizations) and total item set
         ridx = self.project.items.get_idx('seed')
@@ -393,7 +424,7 @@ class Experts:
             exclude = np.where(ridx)[0][~items]
             ridx[exclude] = False
             tidx[exclude] = False
-        
+
         self.info_real[expidxs] = self.info_per_var[expidxs][:, ridx].sum(axis=1) / (self.info_per_var[expidxs][:, ridx] != 0.0).sum(axis=1)
         self.info_total[expidxs] = self.info_per_var[expidxs][:, tidx].sum(axis=1) / (self.info_per_var[expidxs][:, tidx] != 0.0).sum(axis=1)
 
@@ -408,10 +439,17 @@ class Experts:
         Nmin : int
             Minimum number of answered questions for All experts
         """
+        # Get used percentiles
+        idx = self.project.items.use_quantiles[self.project.items.get_idx('seed'), :].any(axis=0)
+        quantiles = np.array(self.project.assessments.quantiles)[idx]
+
         # Get probabilities
-        p = self.project.assessments.binprobs
-        cal = []
-        for exp, count in counts.items():
+        edges = np.concatenate([[0.0], quantiles, [1.0]])
+        p = edges[1:] - edges[:-1]
+
+        # Calculate calibration scores
+        cal = np.zeros(len(counts))
+        for i, (_, count) in enumerate(counts.items()):
             # Scale the number of realizations per bin
             s = count / count.sum()
             # Only use nonzero
@@ -420,9 +458,9 @@ class Experts:
             MI = np.sum(s[idx] * np.log(s[idx] / p[idx]))
             E = 2 * Nmin * MI * calpower
             # Test with chi squared
-            cal.append(1 - chi2cdf(x=E, df=len(s)-1))
+            cal[i] = 1 - chi2cdf(x=E, df=len(s)-1)
         
-        return np.asarray(cal)
+        return cal
 
     def calculate_weights(self, overshoot, alpha, calpower, experts=None, items=None, debug=False):
         """
@@ -450,14 +488,14 @@ class Experts:
         if experts is None:
             experts = self.ids
 
+        # Get information score
+        self._information_score(experts, overshoot, items=items)
+
         # Count the number of realizations per bin for the given
         # experts and item selection
         counts = self.count_realizations_per_bin(experts, items=items)
         self.M.update(counts)
         
-        # Get information score
-        self._information_score(experts, overshoot, items=items)
-
         # Get minimum answered questions by actual experts
         Nmin = min(sum(self.M[self.ids[i]]) for i in self.actual_experts)
         

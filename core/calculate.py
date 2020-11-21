@@ -66,7 +66,8 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     scale = items.scale
     for iq in range(nitems):
         if scale[iq] == 'log':
-            values[:, :, iq] = np.log(values[:, :, iq])
+            use = items.use_quantiles[iq]
+            values[:, use, iq] = np.log(values[:, use, iq])
 
     # Get weights
     actual_experts = experts.get_exp('actual')
@@ -78,17 +79,20 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     qlower, qupper = assessments.get_bounds('both', overshoot=overshoot)
     
     # Get the expert CDF's and distinct answers
-    F_ex, all_answers = get_expert_CDFs(assessments.quantiles, values, qlower, qupper)
+    F_ex, all_answers = get_expert_CDFs(np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper)
 
     # Collect CDF
-    DM = np.zeros((len(alphas), nitems, npercentiles + 2))
+    DM = np.full((len(alphas), nitems, npercentiles + 2), np.nan)
     F_DM = {}
 
     # Get DM for each item
     for iq in range(nitems):
 
         # Determine what experts have not answered the question
-        no_answer = np.isnan(values[:, :, iq]).any(axis=1)
+        use = np.where(items.use_quantiles[iq])[0]
+        item_quants = np.array(assessments.quantiles)[use]
+        no_answer = np.isnan(values[:, use, iq]).any(axis=1)
+        use += 1
 
         # Re-normalize weights without experts that have not answered
         if no_answer.any():
@@ -105,12 +109,12 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
             # Determine decision makers for all alphas
             DM[ialpha, iq, 0] = qlower[iq]
             DM[ialpha, iq, -1] = qupper[iq]
-            DM[ialpha, iq, 1:-1] = compiled_interp(assessments.quantiles, F_DM[iq][:, ialpha], all_answers[iq])
+            DM[ialpha, iq, use] = compiled_interp(item_quants, F_DM[iq][:, ialpha], all_answers[iq])
             
             # If background scale is logaritmic, the values have to be converted back to their
             # original scale, so take the exponent.
             if scale[iq] == 'log':
-                DM[ialpha, iq] = np.exp(DM[ialpha, iq])
+                DM[ialpha, iq, use] = np.exp(DM[ialpha, iq, use])
 
     # In case of optimisation, find the optimal alpha
     if alpha is None:
@@ -144,7 +148,7 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
 
     return DM[imax], F_DM, alphas[imax]
 
-def get_expert_CDFs(quantiles, values, qlower, qupper):
+def get_expert_CDFs(quantiles, use_quantiles, values, qlower, qupper):
     """
     Method to get the uniform CDF's of the expert assessments, based
     on their answers and the lower and upper bounds (with overshoot).
@@ -164,31 +168,30 @@ def get_expert_CDFs(quantiles, values, qlower, qupper):
         One dimensional array with upper bound per item, overshoot is included
     """
 
-    nexperts, npercentiles, nitems = values.shape
-        
-    # Initialize decision maker
-    expert_quantiles = np.concatenate([[0.0], quantiles, [1.0]])    
-    expert_answers = np.zeros(npercentiles + 2)
+    nexperts, _, nitems = values.shape
     
     F_ex, all_answers = {}, {}
 
     for iq in range(nitems):
+
+        # Combine quantiles with lower and upper limit
+        full_quantiles = np.concatenate([[0.0], quantiles[use_quantiles[iq]], [1.0]])
         
-        # Collect all quantiles
-        answers = values[:, :, iq]
-        answers = answers[~np.isnan(answers)]
-        all_answers[iq] = np.concatenate([[qlower[iq]], np.unique(answers), [qupper[iq]]])
+        # Collect all experts and quantiles for the question
+        answers = values[:, use_quantiles[iq], iq]
+        all_answers[iq] = np.concatenate([[qlower[iq]], np.unique(answers[~np.isnan(answers)]), [qupper[iq]]])
         
         # Initialize
         F_ex[iq] = np.zeros((len(all_answers[iq]), nexperts))
-
+        expert_answers = np.zeros(use_quantiles[iq].sum() + 2)
+    
         # Get expert answers, and interpolate all answers in the expert answers and the 
         # quantiles, to get the quantiles for every answer
         expert_answers[0] = qlower[iq]
         expert_answers[-1] = qupper[iq]
 
         # Determine what experts have not answered the question
-        no_answer = np.isnan(values[:, :, iq]).any(axis=1)
+        no_answer = np.isnan(answers).any(axis=1)
             
         for iex in range(nexperts):
             # Skip if not answered
@@ -196,8 +199,8 @@ def get_expert_CDFs(quantiles, values, qlower, qupper):
                 continue
 
             # Add to DM CDF. Note that the answers have already been converted to the background measure
-            expert_answers[1:-1] = values[iex, :, iq]
-            F_ex[iq][:, iex] = compiled_interp(all_answers[iq], expert_answers, expert_quantiles)
+            expert_answers[1:-1] = answers[iex]
+            F_ex[iq][:, iex] = compiled_interp(all_answers[iq], expert_answers, full_quantiles)
 
     return F_ex, all_answers
 
@@ -304,13 +307,14 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
     scale = items.scale
     for iq in range(nitems):
         if scale[iq] == 'log':
-            values[:, :, iq] = np.log(values[:, :, iq])
+            use = items.use_quantiles[iq]
+            values[:, use, iq] = np.log(values[:, use, iq])
 
     # Get bounds for both seed and target questions
     qlower, qupper = assessments.get_bounds('both', overshoot=overshoot)
     
     # Get the expert CDF's and distinct answers
-    F_ex, all_answers = get_expert_CDFs(assessments.quantiles, values, qlower, qupper)
+    F_ex, all_answers = get_expert_CDFs(np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper)
 
     results = {}
     totexps = set()
@@ -325,7 +329,7 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
             experts=actual_experts, weight_type=weight_type, alpha=alpha, exclude=comb, calpower=calpower)
 
         # Collect CDF
-        DM = np.zeros((len(alphas), nitems, npercentiles + 2))
+        DM = np.full((len(alphas), nitems, npercentiles + 2), np.nan)
 
         # If all weights are zero, it is not possible to calculate the DM
         if (weights == 0.0).all():
@@ -334,13 +338,18 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
 
         # Get DM for each item
         for iq in range(nitems):
-
+            
+            # Get quantiles and index for item
+            use = np.where(items.use_quantiles[iq])[0]
+            item_quants = np.array(assessments.quantiles)[use]
+            
             if iq in comb:
                 DM[:, iq, :] = np.nan
                 continue
                 
             # Determine what experts have not answered the question
-            no_answer = np.isnan(values[:, :, iq]).any(axis=1)
+            no_answer = np.isnan(values[:, use, iq]).any(axis=1)
+            use += 1
                         
             # Re-normalize weights without experts that have not answered
             if no_answer.any():
@@ -356,12 +365,12 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
                 # Determine decision makers for all alphas
                 DM[ialpha, iq, 0] = qlower[iq]
                 DM[ialpha, iq, -1] = qupper[iq]
-                DM[ialpha, iq, 1:-1] = compiled_interp(assessments.quantiles, F_DM[:, ialpha], all_answers[iq])
+                DM[ialpha, iq, use] = compiled_interp(item_quants, F_DM[:, ialpha], all_answers[iq])
                 
                 # If background scale is logaritmic, the values have to be converted back to their
                 # original scale, so take the exponent.
                 if scale[iq] == 'log':
-                    DM[ialpha, iq] = np.exp(DM[ialpha, iq])
+                    DM[ialpha, iq, use] = np.exp(DM[ialpha, iq, use])
 
         # Create a boolean array with the items (seed questions) to include
         itembool = np.asarray([(iq not in comb) for iq in range(len(seed_ids))])
@@ -466,7 +475,8 @@ def expert_robustness(min_exclude, max_exclude, experts, items, assessments, wei
     scale = items.scale
     for iq in range(nitems):
         if scale[iq] == 'log':
-            values[:, :, iq] = np.log(values[:, :, iq])
+            use = items.use_quantiles[iq]
+            values[:, use, iq] = np.log(values[:, use, iq])
 
     # Get combinations of experts to exclude
     combs = get_combinations(items=list(range(nexperts)), min_exclude=min_exclude, max_exclude=max_exclude)
@@ -489,7 +499,7 @@ def expert_robustness(min_exclude, max_exclude, experts, items, assessments, wei
         # Get bounds for both seed and target questions
         qlower, qupper = assessments.get_bounds('both', overshoot=overshoot, experts=exp_selection)
         # Get CDF for selection of experts (and selected expert bounds)
-        F_ex, all_answers = get_expert_CDFs(assessments.quantiles, values[expidx, :, :], qlower, qupper)
+        F_ex, all_answers = get_expert_CDFs(np.array(assessments.quantiles), items.use_quantiles, values[expidx, :, :], qlower, qupper)
 
         # Recalculate the information score, since selecting experts might change the bounds
         experts._information_score(exp_selection, overshoot=overshoot, bounds_for_experts=True)
@@ -498,13 +508,17 @@ def expert_robustness(min_exclude, max_exclude, experts, items, assessments, wei
         weights, alphas = experts.get_weights(weight_type=weight_type, experts=exp_selection, alpha=alpha)
 
         # Collect CDF
-        DM = np.zeros((len(alphas), nitems, npercentiles + 2))
+        DM = np.full((len(alphas), nitems, npercentiles + 2), np.nan)
 
         # Get DM for each item
         for iq in range(nitems):
+
+            use = np.where(items.use_quantiles[iq])[0]
+            item_quants = np.array(assessments.quantiles)[use]
                 
             # Determine what experts have not answered the question
-            no_answer = np.isnan(values[expidx, :, iq]).any(axis=1)
+            no_answer = np.isnan(values[expidx, :, :][:, use, iq]).any(axis=1)
+            use += 1
                         
             # Re-normalize weights without experts that have not answered
             if no_answer.any():
@@ -520,12 +534,12 @@ def expert_robustness(min_exclude, max_exclude, experts, items, assessments, wei
                 # Determine decision makers for all alphas
                 DM[ialpha, iq, 0] = qlower[iq]
                 DM[ialpha, iq, -1] = qupper[iq]
-                DM[ialpha, iq, 1:-1] = compiled_interp(assessments.quantiles, F_DM[:, ialpha], all_answers[iq])
+                DM[ialpha, iq, use] = compiled_interp(item_quants, F_DM[:, ialpha], all_answers[iq])
             
                 # If background scale is logaritmic, the values have to be converted back to their
                 # original scale, so take the exponent.
                 if scale[iq] == 'log':
-                    DM[ialpha, iq] = np.exp(DM[ialpha, iq])
+                    DM[ialpha, iq, use] = np.exp(DM[ialpha, iq, use])
 
         # In case of optimisation, find the optimal alpha
         if alpha is None:

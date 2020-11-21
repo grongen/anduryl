@@ -1,4 +1,7 @@
 import copy
+import os
+import textwrap
+
 from itertools import combinations
 from math import factorial
 
@@ -744,6 +747,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         self.results = parent.results
         self.icon = parent.mainwindow.icon
+        self.appsettings = parent.mainwindow.appsettings
         self.plottype = 'cdf'
         self.plotby = 'item'
 
@@ -830,6 +834,10 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.weightslider.setMinimum(0)
         self.weightslider.setMaximum(len(self.results.experts.weights)-1)
         self.weightslider.valueChanged.connect(self.legend.select_on_weight)
+
+        # Button to save all figures
+        self.save_all_button = QtWidgets.QPushButton('Save all')
+        self.save_all_button.clicked.connect(self.save_all_figures)
         
         # Create comboboxes for data selection
         self.plotby_cbox = widgets.ComboboxInputLine('Plot by:', 100, ['Item', 'Expert'])
@@ -874,6 +882,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.toolbar.setContentsMargins(0, 0, 0, 0)
         button_layout = QtWidgets.QHBoxLayout()
         button_layout.addWidget(self.toolbar)
+        button_layout.addWidget(self.save_all_button)
         button_layout.addStretch()
 
         # OK and Cancel buttons
@@ -919,6 +928,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         if self.plotby == 'expert':
             self.init_expert_plot()
             self.weightslider.setEnabled(False)
+        
         if self.plotby == 'item':
             self.init_item_plot()
             self.weightslider.setEnabled(True)
@@ -1013,6 +1023,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             self.plottype_cbox.combobox.removeItem(0)
             
         for i in range(self.item_cbox.combobox.count()):
+        
             self.item_cbox.combobox.removeItem(0)
 
         if self.plotby == 'expert':
@@ -1060,13 +1071,14 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         yrange = list(range(nexp))
         
         # Format axis
-        self.format_axis(0, 1, -0.5, nexp-0.5 + 1e-6)
+        self.format_axis(0, 1, nexp-0.5 + 1e-6, -0.5)
         self.ax.set_yticks(yrange)
         self.ax.set_yticklabels(items)
                     
         # Set expert lines
         for i, (idx, item) in enumerate(zip(selected, items)):
-            self.lines[item].set_data(assessments[idx], i)
+            use = self.results.items.use_quantiles[idx]
+            self.lines[item].set_data(assessments[idx][use], i)
             for j, quantile in enumerate(self.results.assessments.quantiles):
                 self.markers[item][quantile].set_data(assessments[idx][j], i)
                     
@@ -1089,8 +1101,10 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             quants = np.r_[0.0, self.results.assessments.quantiles, 1.0]
             for expert in self.results.experts.ids:
                 row = assessments[expert]
+                use = ~np.isnan(row)
                 if row.ndim == 1:
-                    self.lines[expert].set_data(np.r_[lower, row, upper], quants)
+                    use = ~np.isnan(row)
+                    self.lines[expert].set_data(np.r_[lower, row[use], upper], quants[np.r_[True, use, True]])
                 else:
                     xdata, ydata = row.T
                     self.lines[expert].set_data(np.r_[lower, xdata, upper], np.r_[0.0, ydata, 1.0])
@@ -1108,7 +1122,8 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             for expert in self.results.experts.ids:
                 row = assessments[expert]
                 if row.ndim == 1:
-                    self.lines[expert].set_data(np.r_[lower, row, upper], 1.0 - quants)
+                    use = ~np.isnan(row)
+                    self.lines[expert].set_data(np.r_[lower, row[use], upper], 1.0 - quants[np.r_[True, use, True]])
                 else:
                     xdata, ydata = row.T
                     self.lines[expert].set_data(np.r_[lower, xdata, upper], 1.0 - np.r_[0.0, ydata, 1.0])
@@ -1126,9 +1141,11 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             for expert in self.results.experts.ids:
                 row = assessments[expert]
                 if row.ndim == 1:
-                    binedges = np.r_[lower, row, upper]
+                    use = ~np.isnan(row)
+                    binedges = np.r_[lower, row[use], upper]
                     xdata = np.repeat(binedges, 2)
-                    pdensity = self.results.assessments.binprobs / (binedges[1:] - binedges[:-1])
+                    binprobs = np.diff(np.r_[0.0, np.array(self.results.assessments.quantiles)[use], 1.0])
+                    pdensity = binprobs / (binedges[1:] - binedges[:-1])
                     ydata = np.r_[0, np.repeat(pdensity, 2), 0.0]
                 else:
                     binedges, binprobs = row.T
@@ -1154,16 +1171,20 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             yrange = list(range(nexp))
 
             # Format axis
-            self.format_axis(lower, upper, -0.5, nexp-0.5)
+            self.format_axis(lower, upper, nexp-0.5, -0.5)
             self.ax.set_yticks(yrange)
             self.ax.set_yticklabels(experts)
                         
             # Set expert lines
             for i, expert in enumerate(experts):
-                self.lines[expert].set_data(assessments[expert], i)
+                use = ~np.isnan(assessments[expert])
+                self.lines[expert].set_data(assessments[expert][use], i)
                 if expert in self.markers:
                     for j, quantile in enumerate(self.results.assessments.quantiles):
-                        self.markers[expert][quantile].set_data(assessments[expert][j], i)
+                        if use[j]:
+                            self.markers[expert][quantile].set_data(assessments[expert][j], i)
+                        else:
+                            self.markers[expert][quantile].set_data([], [])
                         
         # Realization
         self.update_realization()
@@ -1243,11 +1264,11 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         itemid = self.item_cbox.combobox.currentIndex()
 
         # Set x axis scale
-        # if self.results.items.scale[itemid] == 'log':
-        #     # self.ax.set_xscale('log')
-        #     self.ax.set_xscale('linear')
-        # else:
-        #     self.ax.set_xscale('linear')
+        if self.results.items.scale[itemid] == 'log':
+            self.ax.set_xscale('log')
+            # self.ax.set_xscale('linear')
+        else:
+            self.ax.set_xscale('linear')
 
         # Set limits
         # self.ax.axis((xmin, xmax, ymin, ymax))
@@ -1298,6 +1319,41 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             self.update_plot()
 
         self.canvas.draw_idle()
+
+    def save_all_figures(self):
+        # self.figure.savefig('')
+
+        # Set open file dialog settings
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        options |= QtWidgets.QFileDialog.DontConfirmOverwrite
+        options |= QtWidgets.QFileDialog.DirectoryOnly
+
+        # Set current dir
+        currentdir = self.appsettings.value('currentdir', '.', type=str)
+
+        # Open dialog to select file
+        fname, ext = QtWidgets.QFileDialog.getSaveFileName(self, 'Anduryl - Save figures', currentdir, "PNG (*.png);;JPEG (*.jpg)", options=options)
+        ext = ext.split('*')[-1][:-1]
+
+        if fname == "":
+            return None
+
+        # Create directory
+        os.mkdir(fname)
+
+        current = self.item_cbox.combobox.currentIndex()
+
+        for i in range(self.item_cbox.combobox.count()):
+            self.item_cbox.combobox.setCurrentIndex(i)
+            naam = self.item_cbox.combobox.currentText()
+            self.ax.set_title('\n'.join(textwrap.wrap(self.title.text(), width=70)), fontweight='bold')
+            self.figure.savefig(fname + '/' + f'{i+1:02d}. {naam}{ext}', dpi=220, facecolor='w', bbox_inches='tight', transparent=True)
+
+        self.ax.set_title(None)
+            
+        self.item_cbox.combobox.setCurrentIndex(current)
+
 
 
 class ItemWeightDialog(QtWidgets.QDialog):

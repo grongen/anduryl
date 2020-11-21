@@ -86,14 +86,18 @@ class TestCompareAllCases(unittest.TestCase):
             best_exp = np.round([project.experts.calibration[ibest], project.experts.info_real[ibest], project.experts.info_real[ibest] * project.experts.calibration[ibest]], 2)
             
             # Add results to table
-            anduryl_table.loc[key, 'PW Global'] = globopt
-            anduryl_table.loc[key, 'PW Non-optimized'] = globnonopt
-            anduryl_table.loc[key, 'PW Item'] = itemopt
-            anduryl_table.loc[key, 'Equal weight'] = equal
-            anduryl_table.loc[key, 'Best Expert'] = best_exp
+            for i, name in enumerate(['Sa', 'Inf', 'Comb']):
+                anduryl_table.at[key, ('PW Global', name)] = globopt[i]
+                anduryl_table.at[key, ('PW Non-optimized', name)] = globnonopt[i]
+                anduryl_table.at[key, ('PW Item', name)] = itemopt[i]
+                anduryl_table.at[key, ('Equal weight', name)] = equal[i]
+                anduryl_table.at[key, ('Best Expert', name)] = best_exp[i]
 
             # Compare
             self.assertDictEqual(self.validation_table.loc[key].to_dict(), anduryl_table.loc[key].to_dict(), msg=f'\nDifferences found for case: {key}')
 
 if __name__ == "__main__":
+
     unittest.main(verbosity=2)
+
+

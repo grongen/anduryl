@@ -59,10 +59,16 @@ class Assessment:
         idx[pos] = False
 
         # Adjust array size and refill values
-        self.project.assessments.array.resize(shape, refcheck=False)
-        self.project.assessments.array[:, idx, :] = values[:, :, :]
-        self.project.assessments.array[:, ~idx, :] = np.nan
+        self.array.resize(shape, refcheck=False)
+        self.array[:, idx, :] = values[:, :, :]
+        self.array[:, ~idx, :] = np.nan
         self.calculate_binprobs()
+
+        # Adjust array of use_quantiles in items class
+        self.project.items.use_quantiles.resize((self.array.shape[2], len(self.quantiles)), refcheck=False)
+        self.project.items.use_quantiles[:, idx] = values[:, :]
+        self.project.items.use_quantiles[:, ~idx] = False
+        
 
     def remove_quantile(self, quantile):
         """
@@ -89,8 +95,14 @@ class Assessment:
         shape[1] -= 1
 
         # Adjust array size and refill values
-        self.project.assessments.array.resize(shape, refcheck=False)
-        self.project.assessments.array[:, :, :] = values[:, keep, :]
+        self.array.resize(shape, refcheck=False)
+        self.array[:, :, :] = values[:, keep, :]
+
+        # Adjust array of use_quantiles in items class
+        values = self.project.items.use_quantiles.copy()
+        self.project.items.use_quantiles.resize((self.array.shape[2], len(self.quantiles)), refcheck=False)
+        self.project.items.use_quantiles[:, :] = values[:, keep]
+
 
         self.calculate_binprobs()
 

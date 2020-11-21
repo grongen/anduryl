@@ -603,6 +603,134 @@ class ItemsListsModel(ListsModel):
         else:
             return super(ItemsListsModel, self).data(index, role)
 
+class ItemsBoundsModel(ListsModel):
+    """
+    Class to populate a table view with several lists related to the items
+    """
+    def __init__(self, parentwidget):
+        """
+        Constructor
+        
+        Parameters
+        ----------
+        parentwidget : Table widget
+            Widget of which this table model is part.
+        """
+        self.parentwidget = parentwidget
+        self.mainwindow = parentwidget.mainwindow
+        self.project = parentwidget.mainwindow.project
+
+        super().__init__(
+            lists=[
+                self.project.items.ids,
+                self.project.items.item_bounds[:, 0],
+                self.project.items.item_bounds[:, 1],
+                self.project.items.use_quantiles[:, 0],
+                self.project.items.use_quantiles[:, 1],
+                self.project.items.use_quantiles[:, 2],
+            ],
+            labels=['ID', 'Lower bounds', 'Upper bounds', 'p1', 'p2', 'p3']
+        )
+
+        self.editable = [False, True, True, False, False, False]
+        self.checkable = [False, False, False, True, True, True]
+
+    def flags(self, index):
+        """
+        Returns flags (properties) for a certain cell, based on the index
+        
+        Parameters
+        ----------
+        index : ModelIndex
+            index of the cell
+        
+        Returns
+        -------
+        flags
+            Properties of the cell
+        """
+        col = index.column()
+
+        fl = QtCore.Qt.NoItemFlags
+        if index.isValid():
+            fl |= Qt.Qt.ItemIsEnabled | Qt.Qt.ItemIsSelectable
+            if self.editable[col]:
+                fl |= Qt.Qt.ItemIsEditable
+            if self.checkable[col]:
+                fl |= QtCore.Qt.ItemIsUserCheckable
+        return fl
+
+    def setData(self, index, value, role=Qt.Qt.EditRole):
+        """
+        Method to set data to cell. Changes the value in the list or array
+        The value is checked for beigin in between other percentiles.
+        """
+        if not index.isValid():
+            return False
+
+        col = index.column()
+        row = index.row()
+
+        if role == QtCore.Qt.CheckStateRole and self.checkable[col]:
+            self.layoutAboutToBeChanged.emit()
+            self.lists[col][row] = abs(self.lists[col][row]-1)
+            self.layoutChanged.emit()
+            return True
+
+        # elif self.labels[col] == 'Scale' and value.lower() not in ['log', 'uni']:
+        #     NotificationDialog(f'Scale should be either \'log\' or \'uni\'.')
+        #     return False
+
+        # Change empty values for NaN, if a float was previously present
+        current = self.lists[col][row]
+        if isinstance(current, float):
+            self.lists[col][row] = np.nan if value == '' else float(value)
+        else:
+            self.lists[col][row] = value
+
+        # # If a realization is changed, update the color ranges
+        # if self.labels[col] in ['Realization', 'Scale']:
+        #     self.mainwindow.signals.update_color_range()
+        # # Item id changed, update the Id's in the other views and items
+        # elif self.labels[col] == 'ID':
+        #     self.mainwindow.signals.update_ids()
+
+        # Unsaved changes
+        self.mainwindow.setWindowModified(True)
+
+        # Skip row after entering value
+        # self.parentwidget.table.setCurrentIndex(self.index(row+1, col))
+
+        return True
+
+    def data(self, index, role=QtCore.Qt.DisplayRole):
+        """
+        Method to set the data to a cell. Sets value, alignment and color
+        
+        Parameters
+        ----------
+        index : int
+            Index object with row and column
+        role : Qt.DisplayRole, optional
+            Property of data to display, by default QtCore.Qt.DisplayRole
+        
+        Returns
+        -------
+        QtCore.QVariant
+            Property of data displayed
+        """
+        
+        col = index.column()
+        row = index.row()
+        if role == QtCore.Qt.CheckStateRole and self.checkable[col]:
+            return QtCore.Qt.Checked if self.lists[col][row] else QtCore.Qt.Unchecked
+        elif self.checkable[col]:
+            return ''
+        else:
+            return super(ItemsBoundsModel, self).data(index, role)
+
+
+
 class ExpertsListsModel(QtCore.QAbstractTableModel):
     """
     Class to populate a table view with several lists related to the experts

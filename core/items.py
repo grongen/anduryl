@@ -27,6 +27,8 @@ class Items:
         self.excluded = []
         # List with manual item bounds (overriding overshoot)
         self.item_bounds = np.array([], dtype=float)
+        # Array with percentiles to use in this assessment
+        self.use_quantiles = np.array([], dtype=bool)
 
     def clear(self):
         """
@@ -36,7 +38,7 @@ class Items:
         del self.scale[:]
         del self.questions[:]
 
-    def initialize(self, nitems):
+    def initialize(self, nitems, nquantiles):
         """
         Initialize (empty) class. Allocates the lists
         and arrays given the number of seed and target questions
@@ -50,6 +52,7 @@ class Items:
         self.scale.extend([[] * nitems])
         self.realizations.resize(nitems, refcheck=False)
         self.item_bounds.resize((nitems, 2), refcheck=False)
+        self.use_quantiles.resize((nitems, nquantiles), refcheck=False)
 
     def get_idx(self, question_type='both', where=False):
         """
@@ -99,6 +102,9 @@ class Items:
 
         self.item_bounds.resize((len(self.realizations), 2), refcheck=False)
         self.item_bounds[-1, :] = [-np.inf, np.inf]
+
+        self.use_quantiles.resize((len(self.realizations), len(self.project.assessments.quantiles)), refcheck=False)
+        self.use_quantiles[-1, :] = True
         
         # Add item
         shape = self.project.experts.info_per_var.shape
@@ -132,7 +138,7 @@ class Items:
         order = np.array(order)
         
         # Rearrange lists and 1d arrays
-        for lst in [self.ids, self.scale, self.questions, self.realizations, self.item_bounds]:
+        for lst in [self.ids, self.scale, self.questions, self.realizations, self.item_bounds, self.use_quantiles]:
             lst[:] = [lst[i] for i in order]
         
         # Reaarange assessments
@@ -170,8 +176,13 @@ class Items:
 
         # Item bounds
         vals = self.item_bounds[keep, :]
-        self.realizations.resize(vals.shape, refcheck=False)
-        self.realizations[:, :] = vals
+        self.item_bounds.resize(vals.shape, refcheck=False)
+        self.item_bounds[:, :] = vals
+
+        # use quantiles
+        vals = self.use_quantiles[keep, :]
+        self.use_quantiles.resize(vals.shape, refcheck=False)
+        self.use_quantiles[:, :] = vals
 
         # Info per var
         vals = self.project.experts.info_per_var[:, keep]
