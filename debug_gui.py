@@ -1,7 +1,7 @@
 if __name__ == '__main__':
 
     # Import PyQt modules
-    from PyQt5 import QtWidgets, QtGui, QtCore
+    from PyQt5 import QtWidgets, QtGui, QtCore, Qt
     import sys
     import os
 
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     splash.close()
     
     # Open project
-    projectfile = r"d:\TUD\P03 - Length effects\faalkansen_rijntakken.json"
+    projectfile = r"d:/Documents/GitHub/anduryl/data/7quants.dtt"
     
     ex.open_project(fname=projectfile)
 
@@ -50,5 +50,6 @@ if __name__ == '__main__':
             print(ex.project.items.ids[iq], [ex.project.experts.ids[i] for i in np.where(idx)[0]])
 
     ex.itemswidget.set_bounds(None)
+    print('Something')
 
     sys.exit(app.exec_())

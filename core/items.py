@@ -25,8 +25,10 @@ class Items:
         self.questions = []
         # List with excluded questions
         self.excluded = []
-        # List with manual item bounds (overriding overshoot)
+        # List with manual item bounds (limiting overshoot)
         self.item_bounds = np.array([], dtype=float)
+        # List with manual item bounds (overriding general overshoot)
+        self.item_overshoot = np.array([], dtype=float)
         # Array with percentiles to use in this assessment
         self.use_quantiles = np.array([], dtype=bool)
 
@@ -52,6 +54,7 @@ class Items:
         self.scale.extend([[] * nitems])
         self.realizations.resize(nitems, refcheck=False)
         self.item_bounds.resize((nitems, 2), refcheck=False)
+        self.item_overshoot.resize((nitems, 2), refcheck=False)
         self.use_quantiles.resize((nitems, nquantiles), refcheck=False)
 
     def get_idx(self, question_type='both', where=False):
@@ -100,8 +103,9 @@ class Items:
         self.realizations.resize(len(self.realizations)+1, refcheck=False)
         self.realizations[-1] = np.nan
 
-        self.item_bounds.resize((len(self.realizations), 2), refcheck=False)
-        self.item_bounds[-1, :] = [-np.inf, np.inf]
+        for arr in [self.item_bounds, self.item_overshoot]:
+            arr.resize((len(self.realizations), 2), refcheck=False)
+            arr[-1, :] = [-np.inf, np.inf]
 
         self.use_quantiles.resize((len(self.realizations), len(self.project.assessments.quantiles)), refcheck=False)
         self.use_quantiles[-1, :] = True
@@ -138,7 +142,7 @@ class Items:
         order = np.array(order)
         
         # Rearrange lists and 1d arrays
-        for lst in [self.ids, self.scale, self.questions, self.realizations, self.item_bounds, self.use_quantiles]:
+        for lst in [self.ids, self.scale, self.questions, self.realizations, self.item_bounds, self.item_overshoot, self.use_quantiles]:
             lst[:] = [lst[i] for i in order]
         
         # Reaarange assessments
@@ -170,29 +174,22 @@ class Items:
         # Remove from 1d arrays
         keep = np.ones(len(self.realizations), dtype=bool)
         keep[idx] = False
-        vals = self.realizations[keep]
-        self.realizations.resize(len(vals), refcheck=False)
-        self.realizations[:] = vals
 
-        # Item bounds
-        vals = self.item_bounds[keep, :]
-        self.item_bounds.resize(vals.shape, refcheck=False)
-        self.item_bounds[:, :] = vals
+        # Resize all arrays over axis 0 (items are on the first axis for these arrays)
+        arrays = [
+            (self.realizations, 0),
+            (self.item_bounds, 0),
+            (self.item_overshoot, 0),
+            (self.use_quantiles, 0),
+            (self.project.experts.info_per_var, -1),
+            (self.project.assessments.array, -1),
+        ]
 
-        # use quantiles
-        vals = self.use_quantiles[keep, :]
-        self.use_quantiles.resize(vals.shape, refcheck=False)
-        self.use_quantiles[:, :] = vals
-
-        # Info per var
-        vals = self.project.experts.info_per_var[:, keep]
-        self.project.experts.info_per_var.resize(vals.shape, refcheck=False)
-        self.project.experts.info_per_var[:] = vals
-        
-        # Assessments
-        vals = self.project.assessments.array[:, :, keep].copy()
-        self.project.assessments.array.resize(vals.shape, refcheck=False)
-        self.project.assessments.array[:, :, :] = vals
+        # Take items to keep, resize array and assign without change the memory id
+        for arr, axis in arrays:
+            vals = np.take(arr, keep, axis=axis)
+            arr.resize(vals.shape, refcheck=False)
+            arr[:] = vals
 
     def as_dict(self, orient='columns'):
         """

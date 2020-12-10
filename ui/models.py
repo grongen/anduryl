@@ -620,20 +620,24 @@ class ItemsBoundsModel(ListsModel):
         self.mainwindow = parentwidget.mainwindow
         self.project = parentwidget.mainwindow.project
 
+        quantiles = self.project.assessments.quantiles
+        nquantiles = len(quantiles)
+
         super().__init__(
             lists=[
-                self.project.items.ids,
                 self.project.items.item_bounds[:, 0],
                 self.project.items.item_bounds[:, 1],
-                self.project.items.use_quantiles[:, 0],
-                self.project.items.use_quantiles[:, 1],
-                self.project.items.use_quantiles[:, 2],
+                self.project.items.item_overshoot[:, 0],
+                self.project.items.item_overshoot[:, 1],
+            ] + [
+                self.project.items.use_quantiles[:, i] for i in range(nquantiles)
             ],
-            labels=['ID', 'Lower bounds', 'Upper bounds', 'p1', 'p2', 'p3']
+            labels=['Lower\nbounds', 'Upper\nbounds', 'Lower\novershoot', 'Upper\novershoot'] + quantiles
         )
 
-        self.editable = [False, True, True, False, False, False]
-        self.checkable = [False, False, False, True, True, True]
+        self.indexlabels = self.project.items.ids
+        self.editable = [True, True, True, True] + [False] * nquantiles
+        self.checkable = [False, False, False, False] + [True] * nquantiles
 
     def flags(self, index):
         """
@@ -653,13 +657,16 @@ class ItemsBoundsModel(ListsModel):
 
         fl = QtCore.Qt.NoItemFlags
         if index.isValid():
-            fl |= Qt.Qt.ItemIsEnabled | Qt.Qt.ItemIsSelectable
+            fl |= Qt.Qt.ItemIsEnabled
+            if not self.checkable[col]:
+                fl |= Qt.Qt.ItemIsSelectable
             if self.editable[col]:
                 fl |= Qt.Qt.ItemIsEditable
-            if self.checkable[col]:
-                fl |= QtCore.Qt.ItemIsUserCheckable
+            # elif self.checkable[col]:
+                # fl |= QtCore.Qt.ItemIsUserCheckable
         return fl
 
+    
     def setData(self, index, value, role=Qt.Qt.EditRole):
         """
         Method to set data to cell. Changes the value in the list or array
@@ -670,12 +677,6 @@ class ItemsBoundsModel(ListsModel):
 
         col = index.column()
         row = index.row()
-
-        if role == QtCore.Qt.CheckStateRole and self.checkable[col]:
-            self.layoutAboutToBeChanged.emit()
-            self.lists[col][row] = abs(self.lists[col][row]-1)
-            self.layoutChanged.emit()
-            return True
 
         # elif self.labels[col] == 'Scale' and value.lower() not in ['log', 'uni']:
         #     NotificationDialog(f'Scale should be either \'log\' or \'uni\'.')
@@ -703,32 +704,45 @@ class ItemsBoundsModel(ListsModel):
 
         return True
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):
-        """
-        Method to set the data to a cell. Sets value, alignment and color
+    # def data(self, index, role=QtCore.Qt.DisplayRole):
+    #     """
+    #     Method to set the data to a cell. Sets value, alignment and color
         
-        Parameters
-        ----------
-        index : int
-            Index object with row and column
-        role : Qt.DisplayRole, optional
-            Property of data to display, by default QtCore.Qt.DisplayRole
+    #     Parameters
+    #     ----------
+    #     index : int
+    #         Index object with row and column
+    #     role : Qt.DisplayRole, optional
+    #         Property of data to display, by default QtCore.Qt.DisplayRole
         
-        Returns
-        -------
-        QtCore.QVariant
-            Property of data displayed
-        """
+    #     Returns
+    #     -------
+    #     QtCore.QVariant
+    #         Property of data displayed
+    #     """
         
-        col = index.column()
-        row = index.row()
-        if role == QtCore.Qt.CheckStateRole and self.checkable[col]:
-            return QtCore.Qt.Checked if self.lists[col][row] else QtCore.Qt.Unchecked
-        elif self.checkable[col]:
-            return ''
-        else:
-            return super(ItemsBoundsModel, self).data(index, role)
+    #     col = index.column()
+    #     row = index.row()
+    #     # if role == QtCore.Qt.CheckStateRole and self.checkable[col]:
+    #         # return QtCore.Qt.Checked if self.lists[col][row] else QtCore.Qt.Unchecked
+    #     # print(role)
+    #     # if self.checkable[col] and role == QtCore.Qt.:
+    #     if self.checkable[col] and role == QtCore.Qt.DisplayRole:
+    #         return ''
+    #     # else:
+    #     return super(ItemsBoundsModel, self).data(index, role)
 
+    def headerData(self, rowcol, orientation, role):
+        """
+        Method to get header (index and columns) data
+        """
+        
+        # Only horizontal
+        if (orientation == QtCore.Qt.Vertical) and (role == QtCore.Qt.DisplayRole):
+            return self.indexlabels[rowcol]
+        
+        elif (orientation == QtCore.Qt.Horizontal) and (role == QtCore.Qt.DisplayRole):
+            return str(self.labels[rowcol])
 
 
 class ExpertsListsModel(QtCore.QAbstractTableModel):
