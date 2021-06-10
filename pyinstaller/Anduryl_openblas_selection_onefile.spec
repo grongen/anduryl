@@ -23,7 +23,7 @@ docdata.append(('../data/splash_loading.png', 'data'))
 # Find qwindows.dll
 for path in sys.path:
     if path.endswith('openblas'):
-        qwindowsdll = os.path.join(path, 'Lib/site-packages/PyQt5/Qt/plugins/platforms/qwindows.dll')
+        qwindowsdll = os.path.join(path, 'Lib/site-packages/PyQt5/Qt5/plugins/platforms/qwindows.dll')
         assert os.path.exists(qwindowsdll)
         break
 else:
@@ -64,7 +64,7 @@ for i, (path, _, _) in enumerate(a.datas):
         to_remove.append(i)
     elif 'mpl-data\\sample_data' in path.lower():
         to_remove.append(i)
-    elif 'mpl-data\\fonts' in path.lower():
+    elif 'mpl-data\\fonts' in path.lower() and ('DejaVuSans.ttf' not in path):
         to_remove.append(i)
 
 for i in reversed(to_remove):

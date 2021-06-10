@@ -1,6 +1,7 @@
 import sys
 import types
 from copy import deepcopy
+from operator import itemgetter
 
 import numpy as np
 from numpy.core.multiarray import interp as compiled_interp
@@ -339,6 +340,8 @@ class Results:
         self.experts.add_expert(exp_id=exp_id, exp_name=exp_name, assessment=DM, exp_type='dm', overwrite=overwrite, full_cdf=F_DM)
         self.experts.calculate_weights(overshoot=overshoot, experts=[exp_id], alpha=self.alpha_opt, calpower=calpower)
 
+        # print('Regular:', self.experts.M, [count.sum() for count in self.experts.M.values()])
+        
         # Add to main results. When using only the code (without GUI) this is not necessary.
         if main_results is not None:
 
@@ -434,3 +437,65 @@ class Results:
             calpower=calpower,
             progress_func=progress_func
         ))
+
+    def get_plot_data(self, experts=None, items=None, plottype='cdf', full_dm_cdf=True):
+        """
+        Get data in overview, convenient for plotting.
+
+        Parameters
+        ----------
+        experts : [type]
+            [description]
+        plottype : str, optional
+            [description], by default 'cdf'
+        full_dm_cdf : bool, optional
+            [description], by default True
+        """
+
+        if plottype not in ['cdf', 'pdf', 'range', 'exc prob']:
+            raise KeyError(f'Plottype: {plottype} not understood.')
+
+        # Get expert assessments and bounds for question
+        assessments = {}
+
+        if experts is None:
+            experts = self.experts.ids[:]
+        # elif experts
+        if items is None:
+            items = self.items.ids[:]
+
+        # For each item
+        for item in items:
+            # Get the item position in the items list
+            iitem = self.items.ids.index(item)
+            # self.get_bounds(experts=experts, overshoot)
+            # lower = self.lower_k[iitem]
+            # upper = self.upper_k[iitem]
+
+            # For each expert 
+            for expert in experts:
+                # Get position of expert in the lists
+                iexp = self.experts.ids.index(expert)
+                # Check if expert is a decision maker, and if the full cdf's are expected
+                if iexp in self.experts.decision_makers and full_dm_cdf:
+                    # If so, add the full experts cdf 
+                    assessments[(item, expert)] = {
+                        'quantile': self.assessments.full_cdf[expert][iitem][:, 1],
+                        'value': self.assessments.full_cdf[expert][iitem][:, 0]
+                    }
+                else:
+                    # Else, just add the percentiles, including the lower and upper bound
+                    values = self.assessments.array[iexp, :, iitem]
+                    idx = ~np.isnan(values)
+                    assessments[(item, expert)] = {
+                        'quantile': np.array(self.assessments.quantiles)[idx],
+                        'value': values[idx]
+                    }
+        
+        # # Convert bounds form log scale to uniform scale in case of log background
+        # if self.results.items.scale[itemid] == 'log':
+        #     lower = np.exp(lower)
+        #     upper = np.exp(upper)
+
+        return assessments
+        

@@ -126,6 +126,25 @@ class Assessment:
             Number of quantiles
         """
         self.array.resize((nexperts, nquantiles, nitems), refcheck=False)
+
+    def question_type_idx(self, question_type):
+        """
+        Returns an index with the position of certain questions 
+
+        Parameters
+        ----------
+        question_type: str
+            seed, target or both, by default 'both'
+        """
+        if question_type == 'both':
+            return np.ones(len(self.project.items.realizations), dtype=bool)
+        
+        seedidx = ~np.isnan(self.project.items.realizations)
+        if question_type == 'seed':
+            return seedidx
+        elif question_type == 'target':
+            return ~seedidx
+
         
     def get_array(self, question_type='both', experts=None):
         """
@@ -148,14 +167,13 @@ class Assessment:
         idx = self.project.experts.get_idx(experts)
         
         # Get values and reshape
-        seedidx = ~np.isnan(self.project.items.realizations)
         if question_type == 'both':
             return self.array[idx]
-        elif question_type == 'seed':
-            return self.array[idx][:, :, seedidx]
-        elif question_type == 'target':
-            return self.array[idx][:, :, ~seedidx]
 
+        # Get index of seed or target questions
+        questionidx = self.question_type_idx(question_type)
+        return self.array[idx][:, :, questionidx]
+        
     def get_bounds(self, question_type='both', overshoot=0.0, experts=None):
         """
         Return lower and upper bounds for each question given
@@ -181,13 +199,12 @@ class Assessment:
             return np.array([]), np.array([])
         
         # Get bounds per question
-        lower = np.nanmin(values[:, :, :], axis=(0, 1))
-        upper = np.nanmax(values[:, :, :], axis=(0, 1))
-        
+        lower = np.nanmin(values, axis=(0, 1))
+        upper = np.nanmax(values, axis=(0, 1))
+
         # If seed questions, combine with realisations
         realizations = self.project.items.realizations[:]
-        nseed = len(realizations)
-
+        
         seedidx = ~np.isnan(realizations)
         realizations = realizations[seedidx]
         if question_type == 'seed':
@@ -204,16 +221,33 @@ class Assessment:
             scale = self.project.items.scale
 
         # Add overshoot
-        if overshoot > 0.0:
+        # First create with overshoot
+        overshoot = np.ones((len(lower), 2)) * overshoot
+        # Add manual defined overshoot
+        qidx = self.question_type_idx(question_type)
+        manual_overshoot = self.project.items.item_overshoot[qidx]
+        idx = ~np.isnan(manual_overshoot)
+        overshoot[idx] = manual_overshoot[idx]
+
+        if (overshoot > 0.0).any():
             # Get log inndices
             islog = [i for i, sc in enumerate(scale) if sc == 'log']
-            if len(islog):
-                lower[islog] = np.log(lower[islog])
-                upper[islog] = np.log(upper[islog])
+            # Transform lower and upper bounds to log scale, before adding overshoot
+            lower[islog] = np.log(lower[islog])
+            upper[islog] = np.log(upper[islog])
             
             maxrange = upper - lower
-            lower -= overshoot * maxrange
-            upper += overshoot * maxrange
+            lower -= overshoot[:, 0] * maxrange
+            upper += overshoot[:, 1] * maxrange
+
+        # Check if some bounds need to be overwritten with custom bounds
+        user_lower = self.project.items.item_bounds[qidx, 0]
+        idx = ~np.isnan(user_lower)
+        lower[idx] = np.maximum(lower[idx], user_lower[idx])
+
+        user_upper = self.project.items.item_bounds[qidx, 1]
+        idx = ~np.isnan(user_upper)
+        upper[idx] = np.minimum(upper[idx], user_upper[idx])
                 
         return lower, upper
 
@@ -255,3 +289,4 @@ class Assessment:
         return dct
 
 
+    

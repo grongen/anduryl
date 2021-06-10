@@ -15,6 +15,11 @@ Qt5PrintSupport.dll
 Qt5Qml.dll
 Qt5QmlModels.dll
 Qt5QmlWorkerScript.dll
+Qt5Quick3D.dll
+Qt5Quick3DAssetImport.dll
+Qt5Quick3DRender.dll
+Qt5Quick3DRuntimeRender.dll
+Qt5Quick3DUtils.dll
 Qt5Quick.dll
 Qt5QuickControls2.dll
 Qt5QuickParticles.dll
@@ -28,6 +33,7 @@ Qt5SerialPort.dll
 Qt5Sql.dll
 Qt5Svg.dll
 Qt5Test.dll
+Qt5TextToSpeech.dll
 Qt5WebChannel.dll
 Qt5WebSockets.dll
 Qt5WinExtras.dll
@@ -148,6 +154,8 @@ PyQt5.QtHelp
 PyQt5.QtDesigner
 PyQt5.QtDBus
 PyQt5.QtBluetooth
+PyQt5.QtQuick3D
+PyQt5.QtTextToSpeech
 # openblas
 # libblas.dll
 # libcblas.dll

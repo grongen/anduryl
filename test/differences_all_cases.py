@@ -58,8 +58,8 @@ class TestCompareAllCases(unittest.TestCase):
         self.maxDiff = None
         
         # Loop over all datasets
-        for key, file in datasets.items():
-
+        for casename, file in datasets.items():
+            
             # Create project and load excalibur data file
             project = anduryl.Project()
             project.io.load_excalibur(f'../data/{file}.dtt', f'../data/{file}.rls')
@@ -87,14 +87,14 @@ class TestCompareAllCases(unittest.TestCase):
             
             # Add results to table
             for i, name in enumerate(['Sa', 'Inf', 'Comb']):
-                anduryl_table.at[key, ('PW Global', name)] = globopt[i]
-                anduryl_table.at[key, ('PW Non-optimized', name)] = globnonopt[i]
-                anduryl_table.at[key, ('PW Item', name)] = itemopt[i]
-                anduryl_table.at[key, ('Equal weight', name)] = equal[i]
-                anduryl_table.at[key, ('Best Expert', name)] = best_exp[i]
+                anduryl_table.at[casename, ('PW Global', name)] = globopt[i]
+                anduryl_table.at[casename, ('PW Non-optimized', name)] = globnonopt[i]
+                anduryl_table.at[casename, ('PW Item', name)] = itemopt[i]
+                anduryl_table.at[casename, ('Equal weight', name)] = equal[i]
+                anduryl_table.at[casename, ('Best Expert', name)] = best_exp[i]
 
             # Compare
-            self.assertDictEqual(self.validation_table.loc[key].to_dict(), anduryl_table.loc[key].to_dict(), msg=f'\nDifferences found for case: {key}')
+            self.assertDictEqual(self.validation_table.loc[casename].to_dict(), anduryl_table.loc[casename].to_dict(), msg=f'Differences found for case: {casename}')
 
 if __name__ == "__main__":
 

@@ -28,7 +28,7 @@ plt.rcParams['legend.handletextpad'] = 0.4
 plt.rcParams['legend.fontsize'] = 8
 plt.rcParams['legend.labelspacing'] = 0.2
 plt.rcParams['font.size'] = 9
-plt.rcParams['figure.dpi'] = 50
+# plt.rcParams['figure.dpi'] = 50
 
 class ResultsWidget(QtWidgets.QFrame):
     """
@@ -481,11 +481,17 @@ class LegendTable(QtWidgets.QTableWidget):
             self.pick_color(rownum)
 
     def pick_color(self, row):
+        # Choose color
         color = QtWidgets.QColorDialog.getColor()
         item = QtWidgets.QTableWidgetItem()
+        # Apply to legend
         item.setBackground(color)
         item.setFlags(Qt.Qt.ItemIsEnabled)
         self.setItem(row, 0, item)
+        # Change in color overview
+        itemname = self.item(row, 1).text()
+        rgb = (color.redF(), color.greenF(), color.blueF())
+        self.dialog.update_color(itemname, rgb)
 
 # class CustomCanvas(FigureCanvasQTAgg):
     
@@ -786,6 +792,26 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.construct_widget()
 
         self.init_plot()
+
+    def update_color(self, itemname, rgb):
+        """
+        Update items color in color overview, legend, line and markers
+
+        Parameters
+        ----------
+        itemname : str
+            Name of the item, with which it is saved in the dictionaries
+        """
+        # Change color in overview
+        self.colors[itemname] = rgb
+        # Change line color in plot
+        self.lines[itemname].set_color(rgb)
+        # Change marker colors
+        if itemname in self.markers:
+            for _, m in self.markers[itemname].items():
+                m.set_color(rgb)
+        # Update plot
+        self.canvas.draw_idle()
 
     def apply_callback(self):
         self.figure.apply_callback()
@@ -1096,6 +1122,8 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         if self.plottype == 'cdf':
             # Get item data
             lower, upper, assessments = self.get_item_data(full_dm_cdf=True)
+
+            self.results.get_plot_data(experts=None, full_dm_cdf=True)
         
             # Set expert lines
             quants = np.r_[0.0, self.results.assessments.quantiles, 1.0]

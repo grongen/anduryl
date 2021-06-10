@@ -172,13 +172,15 @@ class Experts:
             raise KeyError(f'Expert ID "{exp_id}" already present. Pick another or specify overwrite=True.')
         
         # Overwrite, so no need to resize
-        elif exp_id in self.ids and overwrite:
+        elif (exp_id in self.ids) and overwrite:
             idx = self.get_idx(exp_id)
             self.project.assessments.array[idx, :, :] = assessment.T[None, 1:-1, :]
             
             # Add full cdf for decision maker
             if full_cdf is not None:
                 self.project.assessments.full_cdf[exp_id] = full_cdf
+
+            # Make sure the expert type is the same too
         
         # Else, append
         else:
@@ -267,6 +269,8 @@ class Experts:
         # Remove from 1d arrays
         keep = np.ones(len(self.info_real), dtype=bool)
         keep[idx] = False
+        keep = np.where(keep)[0]
+
         for name in self.arraynames:
             arr = getattr(self, name)
             vals = arr[keep]
@@ -335,7 +339,7 @@ class Experts:
         dct = {}
         for exp, counts in zip(experts, Marr):
             dct[exp] = counts
-
+        
         return dct
 
     def _information_score(self, experts, overshoot, bounds_for_experts=False, items=None):
@@ -391,30 +395,12 @@ class Experts:
             
             for iexp, idx in enumerate(expidxs):
                 if not valid[iexp, iq]:
-                    self.info_per_var[idx, iexp] = 0.0
+                    self.info_per_var[iexp, iq] = 0.0
                     continue
                 bounds[1:-1] = values[iexp, use, iq]
                 # Calculate info per variable
-                p1 = np.log(upper[iq] - lower[iq])
-                noemer = (bounds[1:] - bounds[:-1])
-                p2 = np.sum(p * np.log(p / noemer))
-                self.info_per_var[idx, iq] = p1 + p2
+                self.info_per_var[idx, iq] = np.log(upper[iq] - lower[iq]) + np.sum(p * np.log(p / (bounds[1:] - bounds[:-1])))
         
-        # # Get information score per expert
-        # p = self.project.assessments.binprobs
-        # # For each expert
-        # for iexp, idx in enumerate(expidxs):
-        #     # Add lower and upper bounds to answers
-        #     bounds = np.zeros((nvalidq[iexp], npercentiles + 2))
-        #     validx = valid[iexp, :]
-        #     # Add lower and upper bound for answered (valid) questions
-        #     bounds[:, 0] = lower[validx]
-        #     bounds[:, -1] = upper[validx]
-        #     # Add values for answered questions in between
-        #     bounds[:, 1:-1] = values[iexp, :, validx]
-
-        #     self.info_per_var[idx, validx] = np.log(upper[validx] - lower[validx]) + np.sum(p * np.log(p / (bounds[:, 1:] - bounds[:, :-1])), axis=1)
-
         # Calculate calibration score for seed (realizations) and total item set
         ridx = self.project.items.get_idx('seed')
         tidx = self.project.items.get_idx('both')
@@ -424,9 +410,11 @@ class Experts:
             exclude = np.where(ridx)[0][~items]
             ridx[exclude] = False
             tidx[exclude] = False
+        
+        self.info_real[expidxs] = self.info_per_var[np.ix_(expidxs, ridx)].sum(axis=1) / (self.info_per_var[np.ix_(expidxs, ridx)] != 0.0).sum(axis=1)
+        self.info_total[expidxs] = self.info_per_var[np.ix_(expidxs, tidx)].sum(axis=1) / (self.info_per_var[np.ix_(expidxs, tidx)] != 0.0).sum(axis=1)
 
-        self.info_real[expidxs] = self.info_per_var[expidxs][:, ridx].sum(axis=1) / (self.info_per_var[expidxs][:, ridx] != 0.0).sum(axis=1)
-        self.info_total[expidxs] = self.info_per_var[expidxs][:, tidx].sum(axis=1) / (self.info_per_var[expidxs][:, tidx] != 0.0).sum(axis=1)
+        # print('Na berekenen:', self.info_per_var)
 
     def calibration_score(self, counts, Nmin, calpower):
         """
@@ -462,7 +450,7 @@ class Experts:
         
         return cal
 
-    def calculate_weights(self, overshoot, alpha, calpower, experts=None, items=None, debug=False):
+    def calculate_weights(self, overshoot, alpha, calpower, experts=None, items=None):
         """
         Calculate the weights of experts, based on the information score
         and the calibration score.
@@ -578,6 +566,7 @@ class Experts:
             else:
                 # Or select only the included realizations
                 ridx = seed_idx[include]
+                # idx = np.ix_(expidx, ridx)
                 info = self.info_per_var[expidx][:, ridx].sum(axis=1) / (self.info_per_var[expidx][:, ridx] != 0.0).sum(axis=1)
 
             # Fill with global weights, calculated for calibration questions

@@ -166,7 +166,13 @@ class ProjectIO:
         self.project.items.ids[:] = outdict['items']['ids']
         self.project.items.realizations[:] = outdict['items']['realization']
         self.project.items.scale[:] = outdict['items']['scale']
-        self.project.items.item_bounds[:, :] = [[-np.inf, np.inf] if scale == 'uni' else [0, np.inf] for scale in self.project.items.scale]
+        # self.project.items.item_bounds[:, :] = [[-np.inf, np.inf] if scale == 'uni' else [0, np.inf] for scale in self.project.items.scale]
+        
+        # TODO: Add to anduryl save format
+        nitems = len(outdict['items']['ids'])
+        self.project.items.item_bounds[:, :] = np.full((nitems, 2), np.nan)
+        self.project.items.item_overshoot[:, :] = np.full((nitems, 2), np.nan)
+
         self.project.items.questions[:] = outdict['items']['question']
         self.project.items.use_quantiles[:, :] = np.ones((len(self.project.items.ids[:]), len(self.project.assessments.quantiles)), dtype=bool)
 

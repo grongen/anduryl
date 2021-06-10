@@ -99,15 +99,19 @@ class Items:
         self.ids.append(item_id)
         self.scale.append('uni')
         self.questions.append('')
+
+        nitems = len(self.realizations)+1
         
-        self.realizations.resize(len(self.realizations)+1, refcheck=False)
+        # Add realization (default np.nan)
+        self.realizations.resize(nitems, refcheck=False)
         self.realizations[-1] = np.nan
 
+        # Add item bounds and item_overshoot, defaults to (np.nan, np.nan)
         for arr in [self.item_bounds, self.item_overshoot]:
-            arr.resize((len(self.realizations), 2), refcheck=False)
-            arr[-1, :] = [-np.inf, np.inf]
-
-        self.use_quantiles.resize((len(self.realizations), len(self.project.assessments.quantiles)), refcheck=False)
+            arr.resize((nitems, 2), refcheck=False)
+            arr[-1, :] = [np.nan, np.nan]
+        
+        self.use_quantiles.resize((nitems, len(self.project.assessments.quantiles)), refcheck=False)
         self.use_quantiles[-1, :] = True
         
         # Add item
@@ -174,6 +178,7 @@ class Items:
         # Remove from 1d arrays
         keep = np.ones(len(self.realizations), dtype=bool)
         keep[idx] = False
+        keep = np.where(keep)[0]
 
         # Resize all arrays over axis 0 (items are on the first axis for these arrays)
         arrays = [
@@ -229,4 +234,3 @@ class Items:
             dct = {key:{k:dct[k][key] for k in dct if key in dct[k]} for key in keys}
 
         return dct
-        

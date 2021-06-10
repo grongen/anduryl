@@ -125,13 +125,12 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
             # Calculate weight of DM
             experts.add_expert(exp_id=tmp_id, exp_name=tmp_id, assessment=DMassessment, exp_type='dm', overwrite=True)
         # Calculate weights for all temporary experts
-        experts.calculate_weights(overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower, debug=True)
+        experts.calculate_weights(overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower)
         # Get the alpha for the highest weight
         imax = np.argmax(experts.weights[experts.get_idx(exps)])
         # Remove all experts
         for exp in exps:
             experts.remove_expert(exp)
-
             
     # Else there is only one DM, use this one.
     else:
@@ -321,6 +320,7 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
     
     # Loop trough all combinations of excluded itemss
     for comb in combs:
+
         if progress_func is not None:
             progress_func()
         
@@ -335,6 +335,7 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
         if (weights == 0.0).all():
             results[tuple(seed_ids[i] for i in comb)] = (np.nan, np.nan, np.nan)
             continue
+
 
         # Get DM for each item
         for iq in range(nitems):
@@ -356,6 +357,7 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
                 weights[:, no_answer, iq] = 0.0
                 weights[:, :, iq] /= weights[:, :, iq].sum(axis=1)[:, None]
             
+            
             # Weight the experts, by getting the weighted sum (in product) of the quantiles
             F_DM = np.dot(F_ex[iq], weights[:, :, iq].T)
 
@@ -374,6 +376,8 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
 
         # Create a boolean array with the items (seed questions) to include
         itembool = np.asarray([(iq not in comb) for iq in range(len(seed_ids))])
+
+        # oldM = experts.M.copy()
         
         # In case of optimisation, find the optimal alpha
         if alpha is None:
@@ -399,24 +403,39 @@ def item_robustness(min_exclude, max_exclude, experts, items, assessments, weigh
             imax = 0
             totexps = exps
             # Add final expert and calculate weight
+            # Add expert as decision maker, so that the (reduced) number of valid answers is used in calculating the calibration score
             experts.add_expert(exp_id='tmp0', exp_name='tmp0', assessment=DM[imax], exp_type='dm', overwrite=True)
+            # Calculate Nmin including DM
+            # Update actual expert item count
+            experts.M.update(experts.count_realizations_per_bin(experts.get_exp('actual'), items=itembool))
             experts.calculate_weights(overshoot=overshoot, experts=exps, alpha=alphas[imax], calpower=calpower, items=itembool)
-            
+        
         # Get the scores for the final DM
         idx = experts.get_idx(exps[imax])
         results[tuple(seed_ids[i] for i in comb)] = (experts.info_total[idx], experts.info_real[idx], experts.calibration[idx])
-        
+
+        # experts.M.update(oldM)
+
+        # Remove expert and recalculate scores
+        # TODO: For performance, check if this step can be skipped. For now it is needed for consistency. If skipped, the commented rows below should be added
+        experts.calculate_weights(
+            overshoot=overshoot,
+            alpha=alpha,
+            calpower=calpower,
+            experts=actual_experts
+        )
+
     # Remove all experts
     for exp in totexps:
         experts.remove_expert(exp)
 
     # Recalculate original weights for actual experts
-    experts.calculate_weights(
-        overshoot=overshoot,
-        alpha=alpha,
-        calpower=calpower,
-        experts=actual_experts
-    )
+    # experts.calculate_weights(
+    #     overshoot=overshoot,
+    #     alpha=alpha,
+    #     calpower=calpower,
+    #     experts=actual_experts
+    # )
         
     return results
 
