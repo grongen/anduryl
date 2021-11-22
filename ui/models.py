@@ -4,26 +4,29 @@ from operator import itemgetter
 from anduryl.ui.dialogs import NotificationDialog
 from matplotlib import cm
 
+
 def strformat(item):
     """
     String formatter
-    
+
     Parameters
     ----------
     item : str or int or float
         Item to be converted to formatted string
-    
+
     Returns
     -------
     str
         Formatted string
     """
-    return item if isinstance(item, str) else '{:.4g}'.format(item).replace('nan', '')
+    return item if isinstance(item, str) else "{:.4g}".format(item).replace("nan", "")
+
 
 class ItemDelegate(QtWidgets.QItemDelegate):
     """
     Item delegate where data can be changed.
     """
+
     def __init__(self, model):
         """Constructor"""
         super(ItemDelegate, self).__init__()
@@ -33,11 +36,13 @@ class ItemDelegate(QtWidgets.QItemDelegate):
         """Function to set data"""
         editor.setText(self.model.data(index))
 
+
 class ArrayModel(QtCore.QAbstractTableModel):
     """
     Generic Array model
     Class to populate a table view with an array
     """
+
     def __init__(self, array, labels, coldim, rowdim, index_names, index, selector=None):
         """Constructor"""
         # Inherit
@@ -55,7 +60,9 @@ class ArrayModel(QtCore.QAbstractTableModel):
         # Check label dimensions
         for i, label in enumerate(labels):
             if not len(label) == self.array.shape[i]:
-                raise ValueError(f'Number of given labels ({len(label)}) does not match the array size ({self.array.shape[i]}).')
+                raise ValueError(
+                    f"Number of given labels ({len(label)}) does not match the array size ({self.array.shape[i]})."
+                )
 
         # If index == true, the index is used to show the index labels
         # If false, the index is shown as column(s), which is obligated
@@ -100,20 +107,20 @@ class ArrayModel(QtCore.QAbstractTableModel):
     def get_list_label(self, row, col):
         """
         Method to get the label (string) of the index lists
-        
+
         Parameters
         ----------
         row : int
             Row index
         col : int
             Column index
-        
+
         Returns
         -------
         str
             Get label for the array dimension, given the table row and column
         """
-        
+
         shape = self.array.shape if self.selector is None else self.selector.shape
         unravel_row = np.unravel_index(row, tuple(shape[i] for i in self.rowdim))
         dim = self.rowdim[col]
@@ -128,14 +135,14 @@ class ArrayModel(QtCore.QAbstractTableModel):
     def data(self, index, role=QtCore.Qt.DisplayRole):
         """
         Method to set the data to a cell. Sets value, alignment and color
-        
+
         Parameters
         ----------
         index : int
             Index object with row and column
         role : Qt.DisplayRole, optional
             Property of data to display, by default QtCore.Qt.DisplayRole
-        
+
         Returns
         -------
         QtCore.QVariant
@@ -148,7 +155,7 @@ class ArrayModel(QtCore.QAbstractTableModel):
         row, col = index.row(), index.column()
 
         # Set value as string
-        if role == QtCore.Qt.DisplayRole:
+        if (role == QtCore.Qt.DisplayRole) or (role == QtCore.Qt.ToolTipRole):
             if col < self.nrowdim:
                 # Get label
                 return self.get_list_label(row, col)
@@ -166,9 +173,9 @@ class ArrayModel(QtCore.QAbstractTableModel):
             # Get value
             color = self.colorpicker(self.get_array_index(row, col))
             # Get color
-            color = [int(i* 255) for i in color][:3]
+            color = [int(i * 255) for i in color][:3]
             # Define color
-            bgColor=QtGui.QColor(*color, 100)
+            bgColor = QtGui.QColor(*color, 100)
 
             return QtCore.QVariant(QtGui.QColor(bgColor))
 
@@ -198,7 +205,7 @@ class Selector:
 
     def __init__(self, array):
         """Constructer
-        
+
         Parameters
         ----------
         array : np.ndarray
@@ -213,7 +220,7 @@ class Selector:
     def update(self, dim=None, index=None):
         """
         Update the parts of the array that are selected.
-        
+
         Parameters
         ----------
         dim : int, optional
@@ -245,12 +252,12 @@ class Selector:
             self.shape[i] = size
 
 
-
 class AssessmentArrayModel(ArrayModel):
     """
     Generic Array model
     Class to populate a table view with an array
     """
+
     def __init__(self, parentwidget):
         """Constructor"""
         # Inherit
@@ -261,13 +268,13 @@ class AssessmentArrayModel(ArrayModel):
             labels=[project.experts.ids, project.assessments.quantiles, project.items.ids],
             coldim=1,
             rowdim=(0, 2),
-            index_names=['Expert', 'Item'],
+            index_names=["Expert", "Item"],
             index=False,
-            selector=Selector(project.assessments.array)
+            selector=Selector(project.assessments.array),
         )
         self.project = project
         self.parentwidget = parentwidget
-        self.cmap = cm.get_cmap('RdBu')
+        self.cmap = cm.get_cmap("RdBu")
 
     def flags(self, index):
         """
@@ -279,7 +286,7 @@ class AssessmentArrayModel(ArrayModel):
 
         fl = QtCore.Qt.NoItemFlags
         if index.isValid():
-            fl |= Qt.Qt.ItemIsEnabled | Qt.Qt.ItemIsSelectable
+            fl |= Qt.Qt.ItemIsEnabled | Qt.Qt.ItemIsSelectable | Qt.Qt.ToolTip
             arridx = self.get_array_index(row, col)
             if not (col < self.nrowdim or arridx[0] in self.project.experts.decision_makers):
                 fl |= Qt.Qt.ItemIsEditable
@@ -290,8 +297,8 @@ class AssessmentArrayModel(ArrayModel):
         """
         Method to check if given quantile is in between existing quantiles
         """
-        above = self.array[idx[0], idx[1]+1, idx[2]] if idx[1] < self.array.shape[1]-1 else np.nan
-        below = self.array[idx[0], idx[1]-1, idx[2]] if idx[1] > 0 else np.nan
+        above = self.array[idx[0], idx[1] + 1, idx[2]] if idx[1] < self.array.shape[1] - 1 else np.nan
+        below = self.array[idx[0], idx[1] - 1, idx[2]] if idx[1] > 0 else np.nan
 
         # Dont check
         if np.isnan(above) and np.isnan(below):
@@ -300,23 +307,22 @@ class AssessmentArrayModel(ArrayModel):
         # Check above
         elif np.isnan(below):
             if above <= value:
-                NotificationDialog(f'Value should be less than {above:.4g}.')
+                NotificationDialog(f"Value should be less than {above:.4g}.")
                 return False
 
         # Check below
         elif np.isnan(above):
             if below >= value:
-                NotificationDialog(f'Value should be greater than {below:.4g}.')
+                NotificationDialog(f"Value should be greater than {below:.4g}.")
                 return False
 
         # Check both
         else:
             if not below < value < above:
-                NotificationDialog(f'Value should be in between {below:.4g} and {above:.4g}.')
+                NotificationDialog(f"Value should be in between {below:.4g} and {above:.4g}.")
                 return False
 
         return True
-
 
     def setData(self, index, value, role=Qt.Qt.EditRole):
         """
@@ -326,7 +332,7 @@ class AssessmentArrayModel(ArrayModel):
         col = index.column()
         row = index.row()
 
-        if value == '':
+        if value == "":
             self.array[self.get_array_index(row, col)] = np.nan
             return True
 
@@ -369,7 +375,7 @@ class AssessmentArrayModel(ArrayModel):
         - New DM is calculated (possibly overshoot had changed)
         """
         # Get lower and upper bounds and realizations
-        self.lower, self.upper = self.project.assessments.get_bounds('both')
+        self.lower, self.upper = self.project.assessments.get_bounds("both")
         if np.isnan(self.lower).all():
             self.midpoint = np.full_like(self.lower, np.nan)
             return None
@@ -379,9 +385,9 @@ class AssessmentArrayModel(ArrayModel):
         self.midpoint = np.zeros_like(self.lower)
         self.midpoint[:nrealiz] = realiz
 
-        arr = self.project.assessments.get_array('target')
+        arr = self.project.assessments.get_array("target")
         for irel, iabs in enumerate(np.where(np.isnan(self.project.items.realizations))[0]):
-            if self.project.items.scale[iabs] == 'log':
+            if self.project.items.scale[iabs] == "log":
                 self.midpoint[iabs] = np.exp(np.nanmedian(np.log(arr[:, :, irel])))
             else:
                 self.midpoint[iabs] = np.nanmedian(arr[:, :, irel])
@@ -396,16 +402,18 @@ class AssessmentArrayModel(ArrayModel):
         xp = [self.lower[dimidx], self.midpoint[dimidx], self.upper[dimidx]]
         if np.isnan(xp).any():
             return (0.5, 0.5, 0.5)
-        if self.project.items.scale[dimidx] == 'log':
+        if self.project.items.scale[dimidx] == "log":
             value = np.interp(np.log(value), np.log(xp), [0, 0.5, 1.0])
         else:
             value = np.interp(value, xp, [0, 0.5, 1.0])
         return self.cmap(value)
 
+
 class ListsModel(QtCore.QAbstractTableModel):
     """
     Class to populate a table view with a pandas dataframe
     """
+
     def __init__(self, lists, labels):
         QtCore.QAbstractTableModel.__init__(self)
         self.lists = lists
@@ -414,7 +422,7 @@ class ListsModel(QtCore.QAbstractTableModel):
 
         # Check label dimensions
         if len(lists) != len(labels):
-            raise ValueError(f'Requires an equal number of lists ({len(lists)}) and labels ({len(labels)}).')
+            raise ValueError(f"Requires an equal number of lists ({len(lists)}) and labels ({len(labels)}).")
 
     def rowCount(self, parent=None):
         """Returns number of rows in table."""
@@ -427,14 +435,14 @@ class ListsModel(QtCore.QAbstractTableModel):
     def data(self, index, role=QtCore.Qt.DisplayRole):
         """
         Method to set the data to a cell. Sets value, alignment and color
-        
+
         Parameters
         ----------
         index : int
             Index object with row and column
         role : Qt.DisplayRole, optional
             Property of data to display, by default QtCore.Qt.DisplayRole
-        
+
         Returns
         -------
         QtCore.QVariant
@@ -474,10 +482,11 @@ class ItemsListsModel(ListsModel):
     """
     Class to populate a table view with several lists related to the items
     """
+
     def __init__(self, parentwidget):
         """
         Constructor
-        
+
         Parameters
         ----------
         parentwidget : Table widget
@@ -492,9 +501,9 @@ class ItemsListsModel(ListsModel):
                 self.project.items.ids,
                 self.project.items.realizations,
                 self.project.items.scale,
-                self.project.items.questions
+                self.project.items.questions,
             ],
-            labels=['ID', 'Realization', 'Scale', 'Question']
+            labels=["ID", "Realization", "Scale", "Question"],
         )
 
         self.editable = [True, True, True, True]
@@ -502,12 +511,12 @@ class ItemsListsModel(ListsModel):
     def flags(self, index):
         """
         Returns flags (properties) for a certain cell, based on the index
-        
+
         Parameters
         ----------
         index : ModelIndex
             index of the cell
-        
+
         Returns
         -------
         flags
@@ -541,57 +550,57 @@ class ItemsListsModel(ListsModel):
             self.layoutChanged.emit()
             return True
 
-        if self.labels[col] == 'ID' and value == '':
-            NotificationDialog(f'An empty item ID is not allowed.')
+        if self.labels[col] == "ID" and value == "":
+            NotificationDialog(f"An empty item ID is not allowed.")
             return False
 
-        if self.labels[col] == 'ID' and value in self.lists[col]:
-            NotificationDialog(f'Item ID is already present. Pick a unique ID.')
+        if self.labels[col] == "ID" and value in self.lists[col]:
+            NotificationDialog(f"Item ID is already present. Pick a unique ID.")
             return False
 
-        elif self.labels[col] == 'Scale' and value.lower() not in ['log', 'uni']:
-            NotificationDialog(f'Scale should be either \'log\' or \'uni\'.')
+        elif self.labels[col] == "Scale" and value.lower() not in ["log", "uni"]:
+            NotificationDialog(f"Scale should be either 'log' or 'uni'.")
             return False
 
         # If empty value is given
         current = self.lists[col][row]
         if isinstance(current, float):
-            self.lists[col][row] = np.nan if value == '' else float(value)
+            self.lists[col][row] = np.nan if value == "" else float(value)
         else:
             self.lists[col][row] = value
 
         # If a realization is changed, update the color ranges
-        if self.labels[col] in ['Realization', 'Scale']:
+        if self.labels[col] in ["Realization", "Scale"]:
             self.mainwindow.signals.update_color_range()
         # Item id changed, update the Id's in the other views and items
-        elif self.labels[col] == 'ID':
+        elif self.labels[col] == "ID":
             self.mainwindow.signals.update_ids()
 
         # Unsaved changes
         self.mainwindow.setWindowModified(True)
 
         # Skip row after entering value
-        self.parentwidget.table.setCurrentIndex(self.index(row+1, col))
+        self.parentwidget.table.setCurrentIndex(self.index(row + 1, col))
 
         return True
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         """
         Method to set the data to a cell. Sets value, alignment and color
-        
+
         Parameters
         ----------
         index : int
             Index object with row and column
         role : Qt.DisplayRole, optional
             Property of data to display, by default QtCore.Qt.DisplayRole
-        
+
         Returns
         -------
         QtCore.QVariant
             Property of data displayed
         """
-        
+
         excluded = self.project.items.ids[index.row()] in self.project.items.excluded
 
         if role == QtCore.Qt.CheckStateRole and index.column() == 0:
@@ -603,14 +612,16 @@ class ItemsListsModel(ListsModel):
         else:
             return super(ItemsListsModel, self).data(index, role)
 
+
 class ItemsBoundsModel(ListsModel):
     """
     Class to populate a table view with several lists related to the items
     """
+
     def __init__(self, parentwidget):
         """
         Constructor
-        
+
         Parameters
         ----------
         parentwidget : Table widget
@@ -629,10 +640,9 @@ class ItemsBoundsModel(ListsModel):
                 self.project.items.item_bounds[:, 1],
                 self.project.items.item_overshoot[:, 0],
                 self.project.items.item_overshoot[:, 1],
-            ] + [
-                self.project.items.use_quantiles[:, i] for i in range(nquantiles)
-            ],
-            labels=['Lower\nbounds', 'Upper\nbounds', 'Lower\novershoot', 'Upper\novershoot'] + quantiles
+            ]
+            + [self.project.items.use_quantiles[:, i] for i in range(nquantiles)],
+            labels=["Lower\nbounds", "Upper\nbounds", "Lower\novershoot", "Upper\novershoot"] + quantiles,
         )
 
         self.indexlabels = self.project.items.ids
@@ -642,12 +652,12 @@ class ItemsBoundsModel(ListsModel):
     def flags(self, index):
         """
         Returns flags (properties) for a certain cell, based on the index
-        
+
         Parameters
         ----------
         index : ModelIndex
             index of the cell
-        
+
         Returns
         -------
         flags
@@ -663,10 +673,9 @@ class ItemsBoundsModel(ListsModel):
             if self.editable[col]:
                 fl |= Qt.Qt.ItemIsEditable
             # elif self.checkable[col]:
-                # fl |= QtCore.Qt.ItemIsUserCheckable
+            # fl |= QtCore.Qt.ItemIsUserCheckable
         return fl
 
-    
     def setData(self, index, value, role=Qt.Qt.EditRole):
         """
         Method to set data to cell. Changes the value in the list or array
@@ -685,7 +694,7 @@ class ItemsBoundsModel(ListsModel):
         # Change empty values for NaN, if a float was previously present
         current = self.lists[col][row]
         if isinstance(current, float):
-            self.lists[col][row] = np.nan if value == '' else float(value)
+            self.lists[col][row] = np.nan if value == "" else float(value)
         else:
             self.lists[col][row] = value
 
@@ -707,20 +716,20 @@ class ItemsBoundsModel(ListsModel):
     # def data(self, index, role=QtCore.Qt.DisplayRole):
     #     """
     #     Method to set the data to a cell. Sets value, alignment and color
-        
+
     #     Parameters
     #     ----------
     #     index : int
     #         Index object with row and column
     #     role : Qt.DisplayRole, optional
     #         Property of data to display, by default QtCore.Qt.DisplayRole
-        
+
     #     Returns
     #     -------
     #     QtCore.QVariant
     #         Property of data displayed
     #     """
-        
+
     #     col = index.column()
     #     row = index.row()
     #     # if role == QtCore.Qt.CheckStateRole and self.checkable[col]:
@@ -736,11 +745,11 @@ class ItemsBoundsModel(ListsModel):
         """
         Method to get header (index and columns) data
         """
-        
+
         # Only horizontal
         if (orientation == QtCore.Qt.Vertical) and (role == QtCore.Qt.DisplayRole):
             return self.indexlabels[rowcol]
-        
+
         elif (orientation == QtCore.Qt.Horizontal) and (role == QtCore.Qt.DisplayRole):
             return str(self.labels[rowcol])
 
@@ -749,10 +758,11 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
     """
     Class to populate a table view with several lists related to the experts
     """
+
     def __init__(self, parentwidget):
         """
         Constructor
-        
+
         Parameters
         ----------
         parentwidget : Table widget
@@ -764,16 +774,16 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
         self.project = parentwidget.mainwindow.project
         self.mainwindow = parentwidget.mainwindow
 
-        self.lists=[
+        self.lists = [
             self.project.experts.ids,
             self.project.experts.names,
             self.project.experts.user_weights,
             self.project.experts.calibration,
             self.project.experts.info_real,
             self.project.experts.info_total,
-            self.project.experts.weights
+            self.project.experts.weights,
         ]
-        self.labels=['ID', 'Name', 'User weight', 'Calibration', 'Info score real.', 'Info score total', 'Weight']
+        self.labels = ["ID", "Name", "User weight", "Calibration", "Info score real.", "Info score total", "Weight"]
         self.leftalign = []
 
         self.editable = [True, True, True, False, False, False, False]
@@ -781,12 +791,12 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
     def flags(self, index):
         """
         Returns flags (properties) for a certain cell, based on the index
-        
+
         Parameters
         ----------
         index : ModelIndex
             index of the cell
-        
+
         Returns
         -------
         flags
@@ -797,7 +807,7 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
 
         if not index.isValid():
             return fl
-        
+
         else:
             col = index.column()
             row = index.row()
@@ -826,13 +836,13 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
         """
         Returns number of rows in table.
         """
-        return len(self.lists[0])    
+        return len(self.lists[0])
 
     def headerData(self, rowcol, orientation, role):
         """
         Method to get header (index and columns) data
         """
-        
+
         # Only horizontal
         if orientation == QtCore.Qt.Vertical:
             return None
@@ -845,7 +855,7 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
                 # Normalized weight label
                 i = rowcol - len(self.lists)
                 i = self.project.experts.decision_makers[i]
-                return 'Norm. W ('+self.project.experts.ids[i]+')'
+                return "Norm. W (" + self.project.experts.ids[i] + ")"
 
     def setData(self, index, value, role=Qt.Qt.EditRole):
         """
@@ -864,27 +874,27 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
             self.layoutChanged.emit()
             return True
 
-        if self.labels[col] in ['ID', 'Name'] and value == '':
-            NotificationDialog(f'An empty expert ID or name is not allowed.')
+        if self.labels[col] in ["ID", "Name"] and value == "":
+            NotificationDialog(f"An empty expert ID or name is not allowed.")
             return False
 
-        if self.labels[col] == 'ID' and value in self.lists[col]:
-            NotificationDialog(f'Expert ID is already present. Pick a unique ID.')
+        if self.labels[col] == "ID" and value in self.lists[col]:
+            NotificationDialog(f"Expert ID is already present. Pick a unique ID.")
             return False
 
         # If empty value is given
         current = self.lists[col][row]
         if isinstance(current, float):
-            self.lists[col][row] = np.nan if value == '' else float(value)
+            self.lists[col][row] = np.nan if value == "" else float(value)
         else:
             self.lists[col][row] = value
 
         # Expert id changed, update the Id's in the other views and items
-        if self.labels[col] == 'ID':
+        if self.labels[col] == "ID":
             self.mainwindow.signals.update_ids()
 
         # Skip row after entering value
-        self.parentwidget.table.setCurrentIndex(self.index(row+1, col))
+        self.parentwidget.table.setCurrentIndex(self.index(row + 1, col))
 
         # Unsaved changes
         self.mainwindow.setWindowModified(True)
@@ -894,20 +904,20 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
     def data(self, index, role=QtCore.Qt.DisplayRole):
         """
         Method to set the data to a cell. Sets value, alignment and color
-        
+
         Parameters
         ----------
         index : int
             Index object with row and column
         role : Qt.DisplayRole, optional
             Property of data to display, by default QtCore.Qt.DisplayRole
-        
+
         Returns
         -------
         QtCore.QVariant
             Property of data displayed
         """
-        
+
         # Skip invalid
         if not index.isValid():
             return None
@@ -958,6 +968,6 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
                     return None
 
                 # Actual expert weight + dm weight
-                tot_weight = weights[self.project.experts.get_idx('actual')].sum() + weights[dm_idx]
-                
+                tot_weight = weights[self.project.experts.get_idx("actual")].sum() + weights[dm_idx]
+
                 return strformat(weights[row] / tot_weight)

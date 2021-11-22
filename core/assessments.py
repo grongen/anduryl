@@ -5,9 +5,9 @@ Created on Tue Nov 27 15:21:11 2018
 @author: rongen
 """
 
-
 import numpy as np
-        
+
+
 class Assessment:
     """
     Assessment class. Contains the assessments for all experts and all items.
@@ -28,21 +28,21 @@ class Assessment:
         Calculate probabilities in between quantiles
         """
         if self.quantiles:
-            self.binprobs = np.concatenate([[self.quantiles[0]], np.diff(self.quantiles), [1.0-self.quantiles[-1]]])
+            self.binprobs = np.concatenate([[self.quantiles[0]], np.diff(self.quantiles), [1.0 - self.quantiles[-1]]])
         else:
             self.binprobs = None
 
     def add_quantile(self, quantile):
         """
         Add a quantile to the project. Adds the quantile and allocates the space in the array.
-        
+
         Parameters
         ----------
         quantile : float
             Quantile to add
         """
         if not 0.0 < quantile < 1.0:
-            raise ValueError('Quantile should be > 0.0 and < 1.0')
+            raise ValueError("Quantile should be > 0.0 and < 1.0")
 
         if quantile in self.quantiles:
             raise ValueError(f'Quantile "{quantile}" is already present.')
@@ -68,13 +68,12 @@ class Assessment:
         self.project.items.use_quantiles.resize((self.array.shape[2], len(self.quantiles)), refcheck=False)
         self.project.items.use_quantiles[:, idx] = values[:, :]
         self.project.items.use_quantiles[:, ~idx] = False
-        
 
     def remove_quantile(self, quantile):
         """
         Removes a quantile from the project. Removes the quantile and removes
         the values from the assessment array.
-        
+
         Parameters
         ----------
         quantile : float
@@ -103,7 +102,6 @@ class Assessment:
         self.project.items.use_quantiles.resize((self.array.shape[2], len(self.quantiles)), refcheck=False)
         self.project.items.use_quantiles[:, :] = values[:, keep]
 
-
         self.calculate_binprobs()
 
     def clear(self):
@@ -115,7 +113,7 @@ class Assessment:
     def initialize(self, nexperts, nitems, nquantiles):
         """
         Resizes the assessment array with the given dimensions
-        
+
         Parameters
         ----------
         nexperts : int
@@ -129,24 +127,23 @@ class Assessment:
 
     def question_type_idx(self, question_type):
         """
-        Returns an index with the position of certain questions 
+        Returns an index with the position of certain questions
 
         Parameters
         ----------
         question_type: str
             seed, target or both, by default 'both'
         """
-        if question_type == 'both':
+        if question_type == "both":
             return np.ones(len(self.project.items.realizations), dtype=bool)
-        
+
         seedidx = ~np.isnan(self.project.items.realizations)
-        if question_type == 'seed':
+        if question_type == "seed":
             return seedidx
-        elif question_type == 'target':
+        elif question_type == "target":
             return ~seedidx
 
-        
-    def get_array(self, question_type='both', experts=None):
+    def get_array(self, question_type="both", experts=None):
         """
         Return the assessments as 3D-array with dimensions:
         (Nexperts, Nquantiles, Nquestions)
@@ -157,7 +154,7 @@ class Assessment:
             seed, target or both, by default 'both'
         experts: list or str
             Expert(s) for which to return the assessments
-        
+
         Returns
         -------
         np.ndarray
@@ -165,16 +162,16 @@ class Assessment:
         """
         # Get index for experts
         idx = self.project.experts.get_idx(experts)
-        
+
         # Get values and reshape
-        if question_type == 'both':
+        if question_type == "both":
             return self.array[idx]
 
         # Get index of seed or target questions
         questionidx = self.question_type_idx(question_type)
         return self.array[idx][:, :, questionidx]
-        
-    def get_bounds(self, question_type='both', overshoot=0.0, experts=None):
+
+    def get_bounds(self, question_type="both", overshoot=0.0, experts=None):
         """
         Return lower and upper bounds for each question given
         the question type. Overshoot can be added by specifying overshoot (k).
@@ -187,7 +184,7 @@ class Assessment:
             overshoot, default 0.0
         experts: list or str
             Expert(s) for which to return the bounds
-        
+
         Returns
         -------
         tuple
@@ -197,22 +194,22 @@ class Assessment:
         values = self.get_array(question_type=question_type, experts=experts)
         if values.shape[0] == 0:
             return np.array([]), np.array([])
-        
+
         # Get bounds per question
         lower = np.nanmin(values, axis=(0, 1))
         upper = np.nanmax(values, axis=(0, 1))
 
         # If seed questions, combine with realisations
         realizations = self.project.items.realizations[:]
-        
+
         seedidx = ~np.isnan(realizations)
         realizations = realizations[seedidx]
-        if question_type == 'seed':
+        if question_type == "seed":
             lower = np.minimum(lower, realizations)
             upper = np.maximum(upper, realizations)
             scale = self.project.items.scale[seedidx]
 
-        elif question_type == 'target':
+        elif question_type == "target":
             scale = self.project.items.scale[~seedidx]
 
         else:
@@ -231,11 +228,11 @@ class Assessment:
 
         if (overshoot > 0.0).any():
             # Get log inndices
-            islog = [i for i, sc in enumerate(scale) if sc == 'log']
+            islog = [i for i, sc in enumerate(scale) if sc == "log"]
             # Transform lower and upper bounds to log scale, before adding overshoot
             lower[islog] = np.log(lower[islog])
             upper[islog] = np.log(upper[islog])
-            
+
             maxrange = upper - lower
             lower -= overshoot[:, 0] * maxrange
             upper += overshoot[:, 1] * maxrange
@@ -248,45 +245,45 @@ class Assessment:
         user_upper = self.project.items.item_bounds[qidx, 1]
         idx = ~np.isnan(user_upper)
         upper[idx] = np.minimum(upper[idx], user_upper[idx])
-                
+
         return lower, upper
 
-    def as_dict(self, orient='columns'):
+    def as_dict(self, orient="columns"):
         """
         Returns an overview of the assessments for all experts
         and item as a Python dictionary.
         The result can easily be converted to a pandas DataFrame with
         pandas.DataFrame.from_dict([results])
-               
+
         Parameters
         ----------
         orient : str, optional
             First dimensions in dictionary. If columns, the results
             variables are the first dimension. If index, the experts.
             By default 'columns', similar to the pandas default.
-        
+
         Returns
         -------
         dictionary
             Dictionary with information and calibration scores
         """
 
-        if orient not in ['columns', 'index']:
+        if orient not in ["columns", "index"]:
             raise KeyError(f"Orient {orient} should be 'columns' or 'index'.")
 
         nexp, nquant, nitem = self.array.shape
         table = np.swapaxes(self.array, 1, 2).reshape((nexp * nitem, nquant))
 
-        index = [(exp, item) for exp, item in zip(np.repeat(self.project.experts.ids, nitem), np.tile(self.project.items.ids, nexp))]
+        index = [
+            (exp, item)
+            for exp, item in zip(np.repeat(self.project.experts.ids, nitem), np.tile(self.project.items.ids, nexp))
+        ]
         quantiles = self.project.assessments.quantiles
-        
-        if orient == 'index':
+
+        if orient == "index":
             dct = {idx: {q: val for q, val in zip(quantiles, row)} for idx, row in zip(index, table)}
-        
-        elif orient == 'columns':
+
+        elif orient == "columns":
             dct = {q: {idx: row for idx, row in zip(index, table[:, i])} for i, q in enumerate(quantiles)}
-            
+
         return dct
-
-
-    

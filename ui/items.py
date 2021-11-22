@@ -11,6 +11,7 @@ class ItemsWidget(QtWidgets.QFrame):
     """
     Widget with the items table
     """
+
     def __init__(self, mainwindow):
 
         super(ItemsWidget, self).__init__()
@@ -28,7 +29,7 @@ class ItemsWidget(QtWidgets.QFrame):
         self.table.verticalHeader().setVisible(False)
         self.table.setShowGrid(False)
         self.table.setAlternatingRowColors(True)
-        self.table.setStyleSheet("QTableView{border: 1px solid "+self.mainwindow.bordercolor+"}")
+        self.table.setStyleSheet("QTableView{border: 1px solid " + self.mainwindow.bordercolor + "}")
         self.table.installEventFilter(self)
 
         # Create and add model
@@ -37,26 +38,25 @@ class ItemsWidget(QtWidgets.QFrame):
 
         self.table.setModel(self.model)
         self.table.setItemDelegate(ItemDelegate(self.model))
-        
+
         for i in range(3):
             self.table.horizontalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
         self.table.horizontalHeader().setStretchLastSection(True)
 
         mainbox = QtWidgets.QVBoxLayout()
-        label = QtWidgets.QLabel('Items')
+        label = QtWidgets.QLabel("Items")
         label.setContentsMargins(5, 2.5, 5, 2.5)
-        label.setStyleSheet("QLabel {border: 1px solid "+self.mainwindow.bordercolor+"}")
+        label.setStyleSheet("QLabel {border: 1px solid " + self.mainwindow.bordercolor + "}")
         mainbox.addWidget(label)
         mainbox.addWidget(self.table)
-        
+
         self.setLayout(mainbox)
 
     def eventFilter(self, source, event):
         """
         Eventfilter for copying table content.
         """
-        if (event.type() == QtCore.QEvent.KeyPress and
-            event.matches(QtGui.QKeySequence.Copy)):
+        if event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Copy):
             selection = source.selectedIndexes()
             if selection:
                 text = io.selection_to_text(selection)
@@ -69,14 +69,14 @@ class ItemsWidget(QtWidgets.QFrame):
         Calls the anduryl.io.table_to_csv function for the table model
         """
         io.table_to_csv(self.model, self.mainwindow)
-        
+
     def add_item(self):
         """
         Add item button clicked. Adds an item to the project and updates the UI accordingly
         """
-        
+
         # Add expert
-        self.project.items.add_item(item_id=f'item{len(self.project.items.ids):02d}')       
+        self.project.items.add_item(item_id=f"item{len(self.project.items.ids):02d}")
 
         # Update GUI
         self.mainwindow.signals.update_gui()
@@ -90,15 +90,15 @@ class ItemsWidget(QtWidgets.QFrame):
         """
         rownum = self.table.currentIndex().row()
         if rownum == -1:
-            NotificationDialog('Select a row to move an item')
+            NotificationDialog("Select a row to move an item")
             return None
-        # Get item id    
+        # Get item id
         itemid = self.project.items.ids[rownum]
 
         # Remove expert from table widget
-        if newpos == 'up':
+        if newpos == "up":
             newpos = max(rownum - 1, 0)
-        elif newpos == 'down':
+        elif newpos == "down":
             newpos = min(rownum + 1, len(self.project.items.ids) - 1)
 
         self.move_item(itemid, newpos)
@@ -106,7 +106,7 @@ class ItemsWidget(QtWidgets.QFrame):
     def move_item(self, itemid, newpos):
         """
         Moves an item within the project and updates the UI accordingly.
-        
+
         Parameters
         ----------
         itemid : str
@@ -127,9 +127,9 @@ class ItemsWidget(QtWidgets.QFrame):
         """
         rownum = self.table.currentIndex().row()
         if rownum == -1:
-            NotificationDialog('Select a row to remove an item')
+            NotificationDialog("Select a row to remove an item")
             return None
-        # Get item id    
+        # Get item id
         itemid = self.project.items.ids[rownum]
 
         # Remove expert from table widget
@@ -138,7 +138,7 @@ class ItemsWidget(QtWidgets.QFrame):
     def remove_item(self, itemid):
         """
         Removes an item form the project and updates the UI accordingly.
-        
+
         Parameters
         ----------
         itemid : str
@@ -156,7 +156,7 @@ class ItemsWidget(QtWidgets.QFrame):
         """
         Executed when the checkbox before an item is clicked. The item is
         added or removed to the excluded list of the items class.
-        
+
         Parameters
         ----------
         item : str
@@ -174,7 +174,7 @@ class ItemsWidget(QtWidgets.QFrame):
         """
         rownum = self.table.currentIndex().row()
         if rownum == -1:
-            NotificationDialog('Select a row to exclude an item')
+            NotificationDialog("Select a row to exclude an item")
             return None
 
         # Remove expert from table widget
@@ -185,10 +185,10 @@ class ItemsWidget(QtWidgets.QFrame):
         Describes the context menu for the items widget, and
         handles the clicked action
         """
-    
+
         menu = QtWidgets.QMenu(self)
         rownum = self.table.currentIndex().row()
-        
+
         # Add actions
         add_item_action = menu.addAction("Add item")
         # Action to include or exclude an expert
@@ -199,23 +199,23 @@ class ItemsWidget(QtWidgets.QFrame):
         remove_item_action = menu.addAction("Remove item")
         menu.addSeparator()
         # Actions to move items up or down
+        move_items_actions = {}
         if rownum >= 0:
             move_items_menu = menu.addMenu("Move item")
-            move_items_actions = {}
             # Add action to move item one position up or down
-            move_items_actions['up'] = move_items_menu.addAction("Move item up")
-            move_items_actions['down'] = move_items_menu.addAction("Move item down")
+            move_items_actions["up"] = move_items_menu.addAction("Move item up")
+            move_items_actions["down"] = move_items_menu.addAction("Move item down")
             move_items_menu.addSeparator()
             # Add actions to move item to a chosen position
             for i in range(len(self.project.items.ids)):
                 if i == rownum:
                     continue
                 move_items_actions[i] = move_items_menu.addAction(f"Move item to row {i+1}")
-            
+
         # Show assessments for item
         menu.addSeparator()
         show_assessments_action = menu.addAction("Show item assessments")
-        
+
         # Get action
         action = menu.exec_(self.mapToGlobal(event.pos()))
         # Check if it is an item move action
@@ -223,19 +223,19 @@ class ItemsWidget(QtWidgets.QFrame):
 
         if action == add_item_action:
             self.add_item()
-        
+
         elif action == remove_item_action:
             self.remove_item_clicked()
 
         elif len(move_position) > 0:
             assert len(move_position) == 1
             self.move_item_clicked(move_position[0])
-        
+
         elif action == show_assessments_action:
             rownum = self.table.currentIndex().row()
             self.mainwindow.assessmentswidget.table.setCurrentIndex(QtCore.QModelIndex())
-            self.mainwindow.assessmentswidget.item_cbox.setCurrentIndex(rownum+1)
-        
+            self.mainwindow.assessmentswidget.item_cbox.setCurrentIndex(rownum + 1)
+
         elif (rownum >= 0) and (action == exclude_item_action):
             self.exclude_item_clicked()
 
@@ -250,6 +250,7 @@ class CheckboxDelegate(QtWidgets.QItemDelegate):
     A delegate that places a fully functioning QPushButton in every
     cell of the column to which it's applied
     """
+
     def __init__(self, parent):
         # The parent is not an optional argument for the delegate as
         # we need to reference it in the paint method (see below)
@@ -270,16 +271,14 @@ class CheckboxDelegate(QtWidgets.QItemDelegate):
             layout = QtWidgets.QHBoxLayout(cell_widget)
             checkbox = QtWidgets.QCheckBox()
             # if self.model.lists[col][row]:
-                # checkbox.setChecked(True)
+            # checkbox.setChecked(True)
             layout.addWidget(checkbox)
             layout.setAlignment(QtCore.Qt.AlignHCenter)
 
             self.tableview.setIndexWidget(index, cell_widget)
 
 
-
 class CustomTableView(QtWidgets.QTableView):
-
     def __init__(self, parent):
         self.parent = parent
         super(QtWidgets.QTableView, self).__init__()
@@ -288,18 +287,20 @@ class CustomTableView(QtWidgets.QTableView):
         if event.key() == QtCore.Qt.Key_Space:
             self.parent.update_checkbox(self.currentIndex())
         super(QtWidgets.QTableView, self).keyPressEvent(event)
-    
+
+
 class ItemBoundsDialog(QtWidgets.QDialog):
     """
     Dialog to get parameters for calculating decision maker
     """
+
     def __init__(self, parentwidget):
         """
         Constructor
         """
         super(ItemBoundsDialog, self).__init__()
 
-        self.setWindowTitle('Set bounds per item')
+        self.setWindowTitle("Set bounds per item")
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
 
         self.setLayout(QtWidgets.QVBoxLayout())
@@ -326,7 +327,7 @@ class ItemBoundsDialog(QtWidgets.QDialog):
         # self.table.setItemDelegate(ButtonDelegate(self.table))
         # self.table.setItemDelegateForColumn(6, ButtonDelegate(self.table))
         # self.table.setItemDelegateForColumn(7, ButtonDelegate(self.table))
-        
+
         # Now we change the cells for the chechbox columns for checkboxes
         for col in np.where(self.model.checkable)[0]:
             for row in range(self.model.rowCount()):
@@ -345,12 +346,12 @@ class ItemBoundsDialog(QtWidgets.QDialog):
             self.table.setColumnWidth(i, 20)
 
         self.layout().addWidget(self.table)
-        
+
         # Add close button
         self.layout().addWidget(widgets.HLine())
 
         # OK and Cancel buttons
-        self.close_button = QtWidgets.QPushButton('Close')
+        self.close_button = QtWidgets.QPushButton("Close")
         self.close_button.setAutoDefault(False)
         self.close_button.clicked.connect(self.close)
 
@@ -364,7 +365,7 @@ class ItemBoundsDialog(QtWidgets.QDialog):
 
     def update_checkbox(self, index):
         checkbox = self.table.indexWidget(index).children()[1]
-        checkbox.setChecked(bool(abs(checkbox.isChecked()-1)))
+        checkbox.setChecked(bool(abs(checkbox.isChecked() - 1)))
 
     def process_checkboxes(self):
         for col in np.where(self.model.checkable)[0]:
@@ -375,7 +376,6 @@ class ItemBoundsDialog(QtWidgets.QDialog):
     def close(self):
         self.process_checkboxes()
         super().close()
-
 
 
 # class CustomTableWidget(QtWidgets.QTableWidget):
@@ -453,9 +453,9 @@ class ItemBoundsDialog(QtWidgets.QDialog):
 
 #         self.table = CustomTableWidget(tabledata, 'IDS', checkboxindex=[f'{q:.4g}' for q in quantiles])
 
-        
+
 #         # project.items.item_bounds[i, col]
-        
+
 #         # # Now we change the cells for the chechbox columns for checkboxes
 #         # for col in np.where(self.model.checkable)[0]:
 #         #     for row in range(self.model.rowCount()):
@@ -474,7 +474,7 @@ class ItemBoundsDialog(QtWidgets.QDialog):
 #         #     self.table.setColumnWidth(i, 100)
 
 #         self.layout().addWidget(self.table)
-        
+
 #         # Add close button
 #         self.layout().addWidget(widgets.HLine())
 
