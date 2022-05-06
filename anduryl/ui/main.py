@@ -3,22 +3,23 @@
 Author      : Guus Rongen, TU Delft
 """
 
-# import logging
 import os
 import subprocess
 import sys
 import traceback
+from pathlib import Path
+from typing import Union
 
 import numpy as np
-from PyQt5 import Qt, QtCore, QtGui, QtWidgets
-
-
-from anduryl import Project, io
-from anduryl.ui import dialogs, widgets
+from anduryl import io, __version__
+from anduryl.core.main import Project
+from anduryl.ui import widgets
 from anduryl.ui.assessments import AssessmentsWidget
+from anduryl.ui.dialogs import NotificationDialog, get_icon, ImportCSVDialog
 from anduryl.ui.experts import ExpertsWidget
 from anduryl.ui.items import ItemsWidget
 from anduryl.ui.results import ResultsWidget
+from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 
 # logger = logging.getLogger(__name__)
 
@@ -31,28 +32,19 @@ QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 # mainfont.setPixelSize(11)
 # QtWidgets.QApplication.setFont(mainfont)
 
-def get_icon():
-    # In case of PyInstaller exe
-    if getattr(sys, 'frozen', False):
-        application_path = sys._MEIPASS
-        iconpath = os.path.join(application_path, 'data', 'icon.ico')
-    # In case of regular python
-    else:
-        application_path = os.path.dirname(os.path.abspath(__file__))
-        iconpath = os.path.join(application_path, '..', 'data', 'icon.ico')
-
-    return QtGui.QIcon(iconpath)
 
 class MainWindow(QtWidgets.QMainWindow):
     """
     Main UI widget of Anduryl.
     """
 
-    def __init__(self):
+    def __init__(self, app):
         """
         Constructer. Adds project and sets general settings.
         """
         super(MainWindow, self).__init__()
+
+        self.app = app
 
         self.appsettings = QtCore.QSettings("Anduryl")
 
@@ -70,11 +62,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.setCursor(Qt.Qt.ArrowCursor)
 
-        self.bordercolor = 'lightgrey'
+        # Properties
+        self.bordercolor = "lightgrey"
+        self.zoomed_pts = 0
+
+        # Create and connect signals
+        self.signals = Signals(self.project, self)
+        self.signals.set_window_modified.connect(self.setWindowModified)
 
         # Construct user interface
         self.init_ui()
-        self.signals = Signals(self.project, self)
 
         def test_exception_hook(exctype, value, tback):
             """
@@ -83,10 +80,10 @@ class MainWindow(QtWidgets.QMainWindow):
             """
             sys.__excepthook__(exctype, value, tback)
             self.setCursorNormal()
-            dialogs.NotificationDialog(
-                text='\n'.join(traceback.format_exception_only(exctype, value)),
-                severity='critical',
-                details='\n'.join(traceback.format_tb(tback))
+            NotificationDialog(
+                text="\n".join(traceback.format_exception_only(exctype, value)),
+                severity="critical",
+                details="\n".join(traceback.format_tb(tback)),
             )
 
         sys.excepthook = test_exception_hook
@@ -94,7 +91,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def update_projectname(self, name=None):
         """
         Updates window title after a project has been loaded
-        
+
         Parameters
         ----------
         name : str, optional
@@ -102,16 +99,16 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         if name is None:
             self.setWindowTitle("Anduryl [*]")
-            self.appsettings.setValue('currentproject', '')
+            self.appsettings.setValue("currentproject", "")
         else:
             self.setWindowTitle(f"Anduryl - {name} [*]")
-            self.appsettings.setValue('currentproject', name)
+            self.appsettings.setValue("currentproject", name)
 
     def dropEvent(self, e):
         """
         Function to open a project by drawin the file inside the UI.
         """
-        fname = e.mimeData().text().replace('file:///', '')
+        fname = e.mimeData().text().replace("file:///", "")
         self.open_project(fname=fname)
 
     def dragEnterEvent(self, e):
@@ -119,7 +116,7 @@ class MainWindow(QtWidgets.QMainWindow):
         Method to accept a dragged file, based on the extension.
         """
         if e.mimeData().hasText():
-            if any(e.mimeData().text().endswith(ext) for ext in ['.rls', '.dtt', '.json']):
+            if any(e.mimeData().text().endswith(ext) for ext in [".rls", ".dtt", ".json"]):
                 e.accept()
             else:
                 e.ignore()
@@ -153,14 +150,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Items table
         self.itemswidget = ItemsWidget(self)
-        leftsplitter = widgets.LogoSplitter(self.expertswidget, self.itemswidget, 'Experts', 'Items')
+        leftsplitter = widgets.LogoSplitter(self.expertswidget, self.itemswidget, "Experts", "Items")
         leftsplitter.setSizes([100, 200])
 
         # Items table
         self.assessmentswidget = AssessmentsWidget(self)
         self.resultswidget = ResultsWidget(self)
 
-        self.rightsplitter = widgets.LogoSplitter(self.assessmentswidget, self.resultswidget, 'Assessments', 'Results')
+        self.rightsplitter = widgets.LogoSplitter(
+            self.assessmentswidget, self.resultswidget, "Assessments", "Results"
+        )
         self.rightsplitter.setSizes([200, 0])
 
         mainsplitter.addWidget(leftsplitter)
@@ -169,9 +168,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.init_menubar()
 
-        mainsplitter.setStyleSheet( "QSplitter::handle{background:white}")
+        mainsplitter.setStyleSheet("QSplitter::handle{background:white}")
         self.rightsplitter.setStyleSheet("QSplitter::handle{background:white}")
-        leftsplitter.setStyleSheet( "QSplitter::handle{background:white}")
+        leftsplitter.setStyleSheet("QSplitter::handle{background:white}")
 
         self.setGeometry(400, 200, 1100, 700)
 
@@ -180,30 +179,30 @@ class MainWindow(QtWidgets.QMainWindow):
     def getIcon(self, iconname):
         """
         Retrieve icon from data dir and set to GUI
-        
+
         Parameters
         ----------
         iconname : str
             File name of the icon
-        
+
         Returns
         -------
         QtGui.QIcon
             Qt object of icon
         """
-        if getattr(sys, 'frozen', False):
+        if getattr(sys, "frozen", False):
             # If the application is run as a bundle, the pyInstaller bootloader
             # extends the sys module by a flag frozen=True and sets the app
             # path into variable _MEIPASS'.
-            application_path = sys._MEIPASS
-            datadir = os.path.join(application_path, 'data')
+            application_path = Path(sys._MEIPASS)
+            datadir = application_path / "data"
 
         else:
-            application_path = os.path.dirname(os.path.abspath(__file__))
-            datadir = os.path.join(application_path, '..', 'data')
+            application_path = Path(__file__).parent
+            datadir = application_path / ".." / "data"
 
-        iconpath = os.path.join(datadir, iconname)
-        if not os.path.exists(iconpath):
+        iconpath = datadir / iconname
+        if not iconpath.exists():
             raise OSError('Icon in path: "{}" not found'.format(iconpath))
 
         return QtGui.QIcon(iconpath)
@@ -215,131 +214,197 @@ class MainWindow(QtWidgets.QMainWindow):
 
         menubar = self.menuBar()
 
-        new_action = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_FileIcon), 'New', self)
+        new_action = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_FileIcon), "New", self)
         new_action.setShortcut(QtGui.QKeySequence.New)
-        new_action.setStatusTip('Create a new project')
+        new_action.setStatusTip("Create a new project")
         new_action.triggered.connect(self.new_project)
 
-        openAction = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_DirOpenIcon), 'Open', self)
-        openAction.setStatusTip('Open project')
+        openAction = QtWidgets.QAction(
+            self.style().standardIcon(QtWidgets.QStyle.SP_DirOpenIcon), "Open", self
+        )
+        openAction.setStatusTip("Open project")
         openAction.setShortcut(QtGui.QKeySequence.Open)
         openAction.triggered.connect(self.open_project)
 
-        saveAction = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_DialogSaveButton), 'Save', self)
-        saveAction.setStatusTip('Save project')
+        importCsvAction = QtWidgets.QAction(
+            self.style().standardIcon(QtWidgets.QStyle.SP_CommandLink), "Import CSV", self
+        )
+        importCsvAction.setStatusTip("Import project from CSV")
+        importCsvAction.triggered.connect(self.import_from_csv)
+
+        saveAction = QtWidgets.QAction(
+            self.style().standardIcon(QtWidgets.QStyle.SP_DialogSaveButton), "Save", self
+        )
+        saveAction.setStatusTip("Save project")
         saveAction.setShortcut(QtGui.QKeySequence.Save)
         saveAction.triggered.connect(self.save_project)
 
-        saveAsAction = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_DialogSaveButton), 'Save as', self)
-        saveAsAction.setStatusTip('Save project as...')
-        saveAsAction.setShortcut('Ctrl+Shift+S')
+        saveAsAction = QtWidgets.QAction(
+            self.style().standardIcon(QtWidgets.QStyle.SP_DialogSaveButton), "Save as", self
+        )
+        saveAsAction.setStatusTip("Save project as...")
+        saveAsAction.setShortcut("Ctrl+Shift+S")
         saveAsAction.triggered.connect(self.save_project_as)
 
-        exitAction = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_TitleBarCloseButton), 'Exit', self)
-        exitAction.setShortcut('Ctrl+Q')
-        exitAction.setStatusTip('Close Anduryl')
+        exitAction = QtWidgets.QAction(
+            self.style().standardIcon(QtWidgets.QStyle.SP_TitleBarCloseButton), "Exit", self
+        )
+        exitAction.setShortcut("Ctrl+Q")
+        exitAction.setStatusTip("Close Anduryl")
         exitAction.triggered.connect(self.close)
 
-        file_menu = menubar.addMenu('&File')
+        file_menu = menubar.addMenu("&File")
         file_menu.addAction(new_action)
         file_menu.addAction(openAction)
+        file_menu.addSeparator()
+        file_menu.addAction(importCsvAction)
         file_menu.addSeparator()
         file_menu.addAction(saveAction)
         file_menu.addAction(saveAsAction)
         file_menu.addSeparator()
         file_menu.addAction(exitAction)
 
-        file_menu = menubar.addMenu('&Experts')
+        file_menu = menubar.addMenu("&Experts")
 
-        add_expert_action = QtWidgets.QAction(QtGui.QIcon(), 'Add an expert', self)
-        add_expert_action.setStatusTip('Add an expert to the project.')
+        add_expert_action = QtWidgets.QAction(QtGui.QIcon(), "Add an expert", self)
+        add_expert_action.setStatusTip("Add an expert to the project.")
         add_expert_action.triggered.connect(self.expertswidget.add_expert)
         file_menu.addAction(add_expert_action)
 
-        remove_expert_action = QtWidgets.QAction(QtGui.QIcon(), 'Remove selected expert', self)
-        remove_expert_action.setStatusTip('Remove an expert from the project.')
+        remove_expert_action = QtWidgets.QAction(QtGui.QIcon(), "Remove selected expert", self)
+        remove_expert_action.setStatusTip("Remove an expert from the project.")
         remove_expert_action.triggered.connect(self.expertswidget.remove_expert_clicked)
         file_menu.addAction(remove_expert_action)
 
-        file_menu = menubar.addMenu('&Item')
+        file_menu = menubar.addMenu("&Item")
 
-        add_item_action = QtWidgets.QAction(QtGui.QIcon(), 'Add item', self)
-        add_item_action.setStatusTip('Add an item to the project.')
+        add_item_action = QtWidgets.QAction(QtGui.QIcon(), "Add item", self)
+        add_item_action.setStatusTip("Add an item to the project.")
         add_item_action.triggered.connect(self.itemswidget.add_item)
         file_menu.addAction(add_item_action)
 
-        remove_item_action = QtWidgets.QAction(QtGui.QIcon(), 'Remove selected item', self)
-        remove_item_action.setStatusTip('Remove an item from the project.')
-        remove_item_action.triggered.connect(self.itemswidget.remove_item)
+        remove_item_action = QtWidgets.QAction(QtGui.QIcon(), "Remove selected item", self)
+        remove_item_action.setStatusTip("Remove an item from the project.")
+        remove_item_action.triggered.connect(self.itemswidget.remove_item_clicked)
         file_menu.addAction(remove_item_action)
 
-        quantile_action = QtWidgets.QAction(QtGui.QIcon(), '&Quantiles', self)
-        quantile_action.setStatusTip('Change quantiles')
+        file_menu.addSeparator()
+
+        set_bounds_action = QtWidgets.QAction(QtGui.QIcon(), "Set item bounds", self)
+        set_bounds_action.setStatusTip(
+            "Set bounds for question answers, for example [0-100] for percentages."
+        )
+        set_bounds_action.triggered.connect(self.itemswidget.set_bounds)
+        file_menu.addAction(set_bounds_action)
+
+        quantile_action = QtWidgets.QAction(QtGui.QIcon(), "&Quantiles", self)
+        quantile_action.setStatusTip("Change quantiles")
         quantile_action.triggered.connect(self.assessmentswidget.change_quantiles)
         file_menu = menubar.addAction(quantile_action)
 
-        calculate_action = QtWidgets.QAction(QtGui.QIcon(), '&Calculate', self)
-        calculate_action.setStatusTip('Calculate decision maker or robustness table')
+        calculate_action = QtWidgets.QAction(QtGui.QIcon(), "&Calculate", self)
+        calculate_action.setStatusTip("Calculate decision maker or robustness table")
         calculate_action.triggered.connect(self.expertswidget.add_decision_maker)
         file_menu = menubar.addAction(calculate_action)
 
-        export_menu = menubar.addMenu('&Export')
-        for overview in ['experts', 'items', 'assessments']:
+        export_menu = menubar.addMenu("&Export")
+        for overview in ["experts", "items", "assessments"]:
             export_action = QtWidgets.QAction(QtGui.QIcon(), overview.capitalize(), self)
-            export_action.setStatusTip(f'{overview.capitalize()}')
-            export_action.triggered.connect(getattr(self, f'{overview}widget').to_csv)
+            export_action.setStatusTip(f"{overview.capitalize()}")
+            export_action.triggered.connect(getattr(self, f"{overview}widget").to_csv)
             export_menu.addAction(export_action)
 
-        self.result_menu = export_menu.addMenu('Results')
+        self.result_menu = export_menu.addMenu("Results")
         self.result_menu.setEnabled(False)
         self.subresultsmenu = {}
 
-        help_menu = menubar.addMenu('&Help')
-        doc_action = QtWidgets.QAction(self.style().standardIcon(QtWidgets.QStyle.SP_FileDialogDetailedView), 'Documentation', self)
-        doc_action.setStatusTip('Open Anduryl documentation')
+        view_menu = menubar.addMenu("&View")
+        view_menu.addAction(
+            "Increase UI font", lambda: self.change_font_size(1), QtGui.QKeySequence("Ctrl+=")
+        )
+        view_menu.addAction(
+            "Decrease UI font", lambda: self.change_font_size(-1), QtGui.QKeySequence("Ctrl+-")
+        )
+        view_menu.addSeparator()
+
+        help_menu = menubar.addMenu("&Help")
+        doc_action = QtWidgets.QAction(
+            self.style().standardIcon(QtWidgets.QStyle.SP_FileDialogDetailedView), "Documentation", self
+        )
+        doc_action.setStatusTip("Open Anduryl documentation")
         doc_action.triggered.connect(self.open_documentation)
         help_menu.addAction(doc_action)
 
+        about_action = QtWidgets.QAction(QtGui.QIcon(), "Version", self)
+        about_action.triggered.connect(self.open_about)
+        help_menu.addAction(about_action)
+
+
+    def change_font_size(self, increment):
+
+        self.zoomed_pts += increment
+
+        self.signals.layout_about_to_be_changed.emit()
+
+        for w in self.app.allWidgets():
+            font = w.font()
+            font.setPointSize(font.pointSize() + increment)
+            w.setFont(font)
+
+        self.signals.font_changed.emit()
+
+        self.signals.layout_changed.emit()
+
     def open_documentation(self):
 
-        if getattr(sys, 'frozen', False):
+        if getattr(sys, "frozen", False):
             application_path = sys._MEIPASS
-            indexpath = os.path.join('"'+application_path+'"', 'doc', 'index.html')
+            indexpath = os.path.join('"' + application_path + '"', "doc", "index.html")
 
         else:
             application_path = os.path.dirname(os.path.abspath(__file__))
-            indexpath = os.path.join('"'+application_path+'"', '..', 'doc', 'build', 'html', 'index.html')
-        
+            indexpath = os.path.join(
+                '"' + application_path + '"', "..", "..", "doc", "build", "html", "index.html"
+            )
+
         # Open index html
         subprocess.Popen(indexpath, shell=True)
+
+    def open_about(self):
+        text = f'Version: {__version__}'
+        Qt.QMessageBox.about(self, 'Anduryl version', text)
 
     def add_export_actions(self, resultsoverview):
         """
         Method to add expert action when new results have been calculated.
         In the 'export' menu the result button is enabled, and export
         options for the new results are added.
-        
+
         Parameters
         ----------
         resultsoverview : ResultOverview class
             Object with the results for a calculated decision maker
         """
 
-        dm_id = resultsoverview.settings['id']
+        dm_id = resultsoverview.settings.id
 
         self.subresultsmenu[dm_id] = self.result_menu.addMenu(dm_id)
         self.result_menu.setEnabled(True)
-        
+
         # Add export Expert scores
-        export_scores_action = QtWidgets.QAction(QtGui.QIcon(), 'Expert scores', self)
+        export_scores_action = QtWidgets.QAction(QtGui.QIcon(), "Expert scores", self)
         export_scores_action.triggered.connect(lambda: io.table_to_csv(resultsoverview.scores_model, self))
         self.subresultsmenu[dm_id].addAction(export_scores_action)
 
         # Add export robustness
-        for key in ['Items', 'Experts']:
+        for key in ["Items", "Experts"]:
             if key in resultsoverview.robustness_model:
-                robustness_action = QtWidgets.QAction(QtGui.QIcon(), f'Robustness per {key[:-1].lower()}', self)
-                robustness_action.triggered.connect(lambda: io.table_to_csv(resultsoverview.robustness_model[key], self))
+                robustness_action = QtWidgets.QAction(
+                    QtGui.QIcon(), f"Robustness per {key[:-1].lower()}", self
+                )
+                robustness_action.triggered.connect(
+                    lambda: io.table_to_csv(resultsoverview.robustness_model[key], self)
+                )
                 self.subresultsmenu[dm_id].addAction(robustness_action)
 
         # Add export Expert CDF
@@ -354,16 +419,23 @@ class MainWindow(QtWidgets.QMainWindow):
 
             options = QtWidgets.QFileDialog.Options() | QtWidgets.QFileDialog.DontUseNativeDialog
             # Set current dir
-            currentdir = self.appsettings.value('currentdir', '.', type=str)
-            path, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Anduryl - Save as CSV', '.', "CSV (*.csv)", options=options)
+            currentdir = self.appsettings.value("currentdir", ".", type=str)
+            path, ext = QtWidgets.QFileDialog.getSaveFileName(
+                self, "Anduryl - Save CDF as CSV", ".", "CSV (*.csv)", options=options
+            )
+            ext = ext.split("*")[-1][:-1]
+            if path.endswith(ext):
+                path = path[: -len(ext)]
             if not path:
                 return None
 
-            with open(path, 'w') as f:
-                text = 'ItemId;Value;P(X<x)\n' + '\n'.join([f'{idx};{vals[0]};{vals[1]}' for idx, vals in zip(index, data)])
+            with open(path + ext, "w") as f:
+                text = "ItemId;Value;P(X<x)\n" + "\n".join(
+                    [f"{idx};{vals[0]};{vals[1]}" for idx, vals in zip(index, data)]
+                )
                 f.write(text)
-                
-        export_cdf_action = QtWidgets.QAction(QtGui.QIcon(), 'DM CDF', self)
+
+        export_cdf_action = QtWidgets.QAction(QtGui.QIcon(), "DM CDF", self)
         export_cdf_action.triggered.connect(export_cdf)
         self.subresultsmenu[dm_id].addAction(export_cdf_action)
 
@@ -371,7 +443,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         Method to remove the export actions from the menu after the results
         are deleted.
-        
+
         Parameters
         ----------
         dm_id : str
@@ -391,7 +463,7 @@ class MainWindow(QtWidgets.QMainWindow):
         whether there are unsaved changes, and ask the user to save,
         discard or cancel.
         """
-        reply = self.ok_to_continue('Close project')
+        reply = self.ok_to_continue("Close project")
         if reply == QtWidgets.QMessageBox.Cancel:
             event.ignore()
             return None
@@ -400,12 +472,13 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.profiling:
             self.end_profiling()
         event.accept()
-        
+
     def start_profiling(self):
         """
         Start profiling the code performance.
         """
         import cProfile
+
         self.profiling = True
         self.pr = cProfile.Profile()
         self.pr.enable()
@@ -415,17 +488,18 @@ class MainWindow(QtWidgets.QMainWindow):
         End profiling the code performance, and write the
         results to a file.
         """
-        from io import StringIO
         import pstats
+        from io import StringIO
+
         self.pr.disable()
         s = StringIO()
-        sortby = 'cumulative'
+        sortby = "cumulative"
         ps = pstats.Stats(self.pr, stream=s).sort_stats(sortby)
         ps.print_stats()
-        with open('profile.txt', 'w') as f:
+        with open("profile.txt", "w") as f:
             f.write(s.getvalue())
 
-    def get_project_file(self):
+    def get_project_file(self) -> Path:
         """
         Opens a dialog to select a project file to open.
         """
@@ -434,35 +508,44 @@ class MainWindow(QtWidgets.QMainWindow):
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
 
         # Set current dir
-        currentdir = self.appsettings.value('currentdir', '.', type=str)
+        currentdir = self.appsettings.value("currentdir", ".", type=str)
 
         # Open dialog to select file
-        fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Anduryl - Open project', currentdir, "All data files (*.json *.dtt);;JSON (*.json);;Excalibar (*.dtt)", options=options)
+        fname, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            "Anduryl - Open project",
+            currentdir,
+            "All data files (*.json *.dtt);;JSON (*.json);;Excalibur (*.dtt)",
+            options=options,
+        )
 
-        return fname
+        if fname == "":
+            return None
+        else:
+            return Path(fname)
 
     def ok_to_continue(self, title):
         """
         Asks the user whether results should be saved, discarded or the action cancelled.
         """
         if self.isWindowModified():
-            currentproject = self.appsettings.value('currentproject', '', type=str)
+            currentproject = self.appsettings.value("currentproject", "", type=str)
             return QtWidgets.QMessageBox.question(
                 self,
                 f"Anduryl - {title}",
-                f"Do you want to save changes you made to \"{currentproject}\"?",
-                QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel
+                f'Do you want to save changes you made to "{currentproject}"?',
+                QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel,
             )
 
         else:
             return QtWidgets.QMessageBox.Discard
 
-    def save_project_as(self, fname=None):
+    def save_project_as(self, fname: Union[str, Path, None] = None):
         """
         Asks the user for the file name to save the project to.
         If the file name is passed, the user is not asked the file
         and the project is saved directly.
-        
+
         Parameters
         ----------
         fname : str, optional
@@ -476,41 +559,50 @@ class MainWindow(QtWidgets.QMainWindow):
         options |= QtWidgets.QFileDialog.DontConfirmOverwrite
 
         # Set current dir
-        currentdir = self.appsettings.value('currentdir', '.', type=str)
+        currentdir = self.appsettings.value("currentdir", ".", type=str)
 
         # Open dialog to select file
-        fname, ext = QtWidgets.QFileDialog.getSaveFileName(self, 'Anduryl - Save project', currentdir, "JSON (*.json);;Excalibar (*.dtt)", options=options)
+        fname, ext = QtWidgets.QFileDialog.getSaveFileName(
+            self, "Anduryl - Save project", currentdir, "JSON (*.json);;Excalibur (*.dtt)", options=options
+        )
 
         if fname == "":
             return None
 
-        # Add extension if not given in file
-        for end in ['.dtt', '.json']:
-            if end in ext and not fname.endswith(end):
-                fname += end
+        # Convert to Path
+        fname = Path(fname)
 
-        if os.path.exists(fname):
+        # Add extension if not given in file
+        for end in [".dtt", ".json"]:
+            if end in ext and not fname.suffix == end:
+                fname = fname.parent / (fname.stem + end)
+
+        if fname.exists():
             reply = QtWidgets.QMessageBox.warning(
                 self,
                 "Anduryl - Save project",
-                f"{os.path.split(fname)[-1]} already exists.\nDo you want to overwrite it?",
-                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
+                f"{fname.name} already exists.\nDo you want to overwrite it?",
+                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
             )
             if reply == QtWidgets.QMessageBox.No:
                 return None
 
-        if '.dtt' in ext:
+        if ".dtt" in ext:
             # Check lengths of ids
             if max([len(exp_id) for exp_id in self.project.experts.ids]) > 8:
-                dialogs.NotificationDialog('Some expert id\'s are longer than 8 characters. They will be shortened to 8 characters for compatibility with Excalibur. Check if the id\'s are still unique.')
-            if  max([len(item_id) for item_id in self.project.items.ids]) > 14:
-                dialogs.NotificationDialog('Some item id\'s are longer than 14 characters. They will be shortened to 14 characters for compatibility with Excalibur. Check if the id\'s are still unique.')
+                NotificationDialog(
+                    "Some expert id's are longer than 8 characters. They will be shortened to 8 characters for compatibility with Excalibur. Check if the id's are still unique."
+                )
+            if max([len(item_id) for item_id in self.project.items.ids]) > 14:
+                NotificationDialog(
+                    "Some item id's are longer than 14 characters. They will be shortened to 14 characters for compatibility with Excalibur. Check if the id's are still unique."
+                )
 
         # Save files
-        self.update_projectname(os.path.basename(fname))
+        self.update_projectname(fname.name)
 
         self.project.io.to_file(fname)
-        self.setWindowModified(False)
+        self.signals.set_window_modified.emit(False)
 
     def save_project(self):
         """
@@ -520,31 +612,36 @@ class MainWindow(QtWidgets.QMainWindow):
         """
 
         # If no current project, save as...
-        currentproject = self.appsettings.value('currentproject', '', type=str)
-        if currentproject == '':
+        currentproject = self.appsettings.value("currentproject", "", type=str)
+        if currentproject == "":
             self.save_project_as()
 
         else:
             # Get current directory
-            currentdir = self.appsettings.value('currentdir', '.', type=str)
+            currentdir = self.appsettings.value("currentdir", ".", type=str)
 
             # Else, save files directly
             self.project.io.to_file(os.path.join(currentdir, currentproject))
-            self.setWindowModified(False)
+            self.signals.set_window_modified.emit(False)
 
-
-    def open_project(self, *args, fname=None):
+    def open_project(self, *args, fname: Union[str, Path, None] = None):
         """
         Method that loads project file and builds gui
         """
 
         if fname is None:
             fname = self.get_project_file()
-            if fname == "":
+            if fname is None:
                 return None
+        else:
+            # Check if given path exists
+            if not isinstance(fname, Path):
+                fname = Path(fname)
+            if not fname.exists():
+                raise OSError(f'File "{fname}" does not exist.')
 
         # Open project
-        self.signals._about_to_be_changed()
+        self.signals.layout_about_to_be_changed.emit()
         self.new_project()
         self.setCursorWait()
 
@@ -554,20 +651,51 @@ class MainWindow(QtWidgets.QMainWindow):
         # Add results if loaded from json
         # TODO: if adding this feature, make sure results are removed (cleared) before being added
         # if any(self.project.results):
-            # for _, results in self.project.results.items():
-                # self.resultswidget.add_results(results.settings)
-            # Move splitter if results are hidden
-            # if self.rightsplitter.sizes()[-1] == 0:
-                # self.rightsplitter.setSizes([200, 400])
+        # for _, results in self.project.results.items():
+        # self.resultswidget.add_results(results.settings)
+        # Move splitter if results are hidden
+        # if self.rightsplitter.sizes()[-1] == 0:
+        # self.rightsplitter.setSizes([200, 400])
 
-        self.signals.update_gui()
-        self.signals.update_color_range()
-        self.signals._changed()
+        self.signals.update_gui.emit()
+        self.signals.update_color_range.emit()
+        self.signals.layout_changed.emit()
 
         # save current dir
-        self.appsettings.setValue('currentdir', os.path.dirname(fname))
+        self.appsettings.setValue("currentdir", os.path.dirname(fname))
         self.update_projectname(os.path.basename(fname))
         self.setCursorNormal()
+
+    def import_from_csv(self):
+
+        # Get dialog to provide csvs
+        csvdialog = ImportCSVDialog(self)
+        rsp = csvdialog.exec_()
+
+        if rsp == csvdialog.Accepted:
+
+            assessments_csv = csvdialog.assessments_csv.get_value()
+            assessments_sep = csvdialog.assessments_sep.get_value()
+            assessments_skiprows = csvdialog.assessments_skiprows.get_value()
+
+            items_csv = csvdialog.items_csv.get_value()
+            items_sep = csvdialog.items_sep.get_value()
+            items_skiprows = csvdialog.items_skiprows.get_value()
+
+            self.new_project()
+
+            # Read csv
+            self.project.io.import_csv(
+                assessments_csv=assessments_csv,
+                assessments_sep=assessments_sep,
+                items_csv=items_csv,
+                items_sep=items_sep,
+                assessments_skiprows=int(assessments_skiprows),
+                items_skiprows=int(items_skiprows),
+            )
+
+            self.signals.update_gui.emit()
+            self.signals.set_window_modified.emit(True)
 
     def new_project(self):
         """
@@ -577,7 +705,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Check if a project is already open
         if any(self.project.experts.ids) or any(self.project.items.ids):
-            reply = self.ok_to_continue('New project')
+            reply = self.ok_to_continue("New project")
             if reply == QtWidgets.QMessageBox.Cancel:
                 return None
             elif reply == QtWidgets.QMessageBox.Save:
@@ -600,14 +728,28 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Update UI
         self.update_projectname()
-        self.signals.update_gui()
+        self.signals.update_gui.emit()
         self.setCursorNormal()
 
 
-class Signals:
+class Signals(QtCore.QObject):
     """Signal class. Contains all signals that are called
     to update the GUI after changes.
     """
+
+    update_color_range = QtCore.pyqtSignal()
+    update_gui = QtCore.pyqtSignal()
+    update_headers = QtCore.pyqtSignal()
+    update_ids = QtCore.pyqtSignal()
+
+    layout_about_to_be_changed = QtCore.pyqtSignal()
+    layout_changed = QtCore.pyqtSignal()
+
+    set_window_modified = QtCore.pyqtSignal(bool)
+
+    set_assessment_table_index = QtCore.pyqtSignal(QtCore.QModelIndex)
+
+    font_changed = QtCore.pyqtSignal()
 
     def __init__(self, project, main):
         """Constructor
@@ -617,86 +759,76 @@ class Signals:
         project : Project class
             Project class, is used for all the references to other objects
         """
+        super().__init__()
+
         self.project = project
         self.main = main
 
-    def update_color_range(self):
+        self.update_color_range.connect(self._update_color_range)
+        self.update_gui.connect(self._update_gui)
+        self.update_headers.connect(self._update_headers)
+        self.update_ids.connect(self._update_ids)
+
+    def _update_color_range(self):
         """
         Updates the bounds of the arrays and colormaps
         """
-        self._about_to_be_changed()
+        self.layout_about_to_be_changed.emit()
         self.main.assessmentswidget.model.update_range()
         self.main.assessmentswidget.update_label()
-        self._changed()
+        self.layout_changed.emit()
 
     def selection_changes(self):
         """
         Updates selection of array that is shown in table
         """
-        self._about_to_be_changed()
+        self.layout_about_to_be_changed.emit()
         self.main.assessmentswidget.model.selector.update()
-        self._changed()
+        self.layout_changed.emit()
 
-    def _about_to_be_changed(self):
-        """
-        Signal that the table views are about to be changed
-        """
-        self.main.expertswidget.model.layoutAboutToBeChanged.emit()
-        self.main.itemswidget.model.layoutAboutToBeChanged.emit()
-        self.main.assessmentswidget.model.layoutAboutToBeChanged.emit()
-
-    def _changed(self):
-        """
-        Signal that the table views are changed
-        """
-        self.main.expertswidget.model.layoutChanged.emit()
-        self.main.itemswidget.model.layoutChanged.emit()
-        self.main.assessmentswidget.model.layoutChanged.emit()
-
-    def update_gui(self):
+    def _update_gui(self):
         """
         Updates:
         - Tables (refresh view)
         - Comboboxes
         """
-        self._about_to_be_changed()
+        self.layout_about_to_be_changed.emit()
         # Update combobox items
         self.main.assessmentswidget.update_comboboxes()
 
         # Updates dataselection
         expidx = self.main.assessmentswidget.expert_cbox.currentIndex()
-        itemidx = self.main.assessmentswidget.item_cbox.currentIndex() 
+        itemidx = self.main.assessmentswidget.item_cbox.currentIndex()
         if expidx != 0:
-            self.main.assessmentswidget.model.selector.update(dim=0, index=expidx-1)
+            self.main.assessmentswidget.model.selector.update(dim=0, index=expidx - 1)
         elif itemidx != 0:
-            self.main.assessmentswidget.model.selector.update(dim=2, index=itemidx-1)
+            self.main.assessmentswidget.model.selector.update(dim=2, index=itemidx - 1)
         else:
             self.main.assessmentswidget.model.selector.update()
-        
-        
-        self._changed()
 
-    def update_headers(self):
+        self.layout_changed.emit()
+
+    def _update_headers(self):
         """
         Updates:
         - Tables (refresh view)
         - Comboboxes
         """
-        self._about_to_be_changed()
+        self.layout_about_to_be_changed.emit()
         table = self.main.assessmentswidget.table
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         for i in range(2):
             table.horizontalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Fixed)
             table.setColumnWidth(i, 100)
 
-        self._changed()
+        self.layout_changed.emit()
 
-    def update_ids(self):
+    def _update_ids(self):
         """
         Updates the combobox id's
         """
-        self._about_to_be_changed()
+        self.layout_about_to_be_changed.emit()
         # Update combobox items
         self.main.assessmentswidget.change_combobox_ids()
 
-        self._changed()
+        self.layout_changed.emit()

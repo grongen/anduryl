@@ -1,15 +1,13 @@
-import sys
 import types
 from copy import deepcopy
 
 import numpy as np
-from numpy.core.multiarray import interp as compiled_interp
-
 from anduryl.core import calculate
 from anduryl.core.assessments import Assessment
 from anduryl.core.experts import Experts
 from anduryl.core.items import Items
-from anduryl.io import ProjectIO
+from anduryl.io.project import ProjectIO
+from anduryl.ui.dialogs import NotificationDialog
 
 
 class Project:
@@ -94,7 +92,7 @@ class Project:
         self.experts.initialize(nexperts, nseed + ntarget)
 
         self.items.clear()
-        self.items.initialize(nseed + ntarget)
+        self.items.initialize(nseed + ntarget, nquantiles)
 
         self.assessments.clear()
         self.assessments.initialize(nexperts, nseed + ntarget, nquantiles)
@@ -112,7 +110,7 @@ class Project:
         # Copy the project
         projectcopy = deepcopy(self)
         copied_settings = deepcopy(settings)
-        self.results[copied_settings['id']] = Results(
+        self.results[copied_settings.id] = Results(
             settings=copied_settings,
             experts=projectcopy.experts,
             assessments=projectcopy.assessments,
@@ -176,7 +174,7 @@ class Project:
         # Freeze the results
         self.to_results(calc_settings)
         # Get the results that are just copied (frozen)
-        results = self.results[calc_settings['id']]
+        results = self.results[calc_settings.id]
 
         # Only actual experts needed in results, remove other decision makers
         exps = self.experts.get_exp('actual')
@@ -188,18 +186,20 @@ class Project:
         # Exclude experts that have no answered (seed) questions
         actual_experts = results.experts.get_exp('actual')
         
-        if calc_settings['weight'].lower() in ['global', 'item']:
+        if calc_settings.weight.lower() in ['global', 'item']:
             answers = results.assessments.get_array(question_type='seed', experts=actual_experts)
         else:
             answers = results.assessments.get_array(question_type='both', experts=actual_experts)
-        
-        nanexperts = np.isnan(answers).all(-1).any(-1)
+
+        # NaN-waarden: minstens één van de percentielen voor alle vragen
+        # NaN-waarden: elk van de percentielen voor alle vragen
+        nanexperts = np.isnan(answers).all(-1).all(-1)
         nanexperts = np.array(actual_experts)[nanexperts].tolist()
         if any(nanexperts):
             exps = ', '.join(nanexperts)
             results.experts.excluded.extend(nanexperts)
             if len(nanexperts) == 1:
-                NotificationDialog(f'Expert {exps} has not answered any questions, and is excluded from the calculation.')
+                NotificationDialog(f'Expert {exps} has not answered any (seed) questions, and is excluded from the calculation.')
             else:
                 NotificationDialog(f'Experts {exps} have not answered any questions, and are excluded from the calculation.')
 
@@ -213,53 +213,57 @@ class Project:
         # Check if there are any experts and items left
         if len(results.experts.actual_experts) == 0:
             NotificationDialog('All experts are excluded from the calculation. Add at least one expert before calculating a decision maker.')
-            return None
+            return False
 
         if len(results.items.ids) == 0:
             NotificationDialog('All items are excluded from the calculation. Add at least one item before calculating a decision maker.')
-            return None
+            return False
 
         # Get alpha, dependend on optimisation settings
-        if (calc_settings['weight'].lower() in ['global', 'item'] and not calc_settings['optimisation']):
+        if (calc_settings.weight.lower() in ['global', 'item'] and not calc_settings.optimisation):
             # In case of no optimisation and global and item, use the user defined variable
             pass
-        elif calc_settings['weight'].lower() in ['user', 'equal']:
+        elif calc_settings.weight.lower() in ['user', 'equal']:
             # In case of user or equal weight, do not use a threshold, since it is user defined or
             # would potentially disqualify all experts
-            calc_settings['alpha'] = 0.0
+            calc_settings.alpha = 0.0
         else:
             # In case of global or item and optimisation, set alpha to None (meaning it will be optimised)
-            calc_settings['alpha'] = None
+            calc_settings.alpha = None
 
         # Calculate DM, and return the used alpha
         results.calculate_decision_maker(
-            weight_type=calc_settings['weight'].lower(),
-            overshoot=calc_settings['overshoot'],
-            alpha=calc_settings['alpha'],
-            exp_id=calc_settings['id'],
-            exp_name=calc_settings['name'],
-            calpower=calc_settings['calpower'],
+            weight_type=calc_settings.weight.lower(),
+            overshoot=calc_settings.overshoot,
+            alpha=calc_settings.alpha,
+            exp_id=calc_settings.id,
+            exp_name=calc_settings.name,
+            calpower=calc_settings.calpower,
             main_results=self.main_results
         )        
 
         # Calculate robustness tables for excluding a single item
-        if calc_settings['robustness'] and results.items.get_idx('seed').sum() > 1:
+        if calc_settings.robustness and results.items.get_idx('seed').sum() > 1:
             results.calculate_item_robustness(
                 max_exclude=1,
-                weight_type=calc_settings['weight'].lower(),
-                overshoot=calc_settings['overshoot'],
-                alpha=calc_settings['alpha'],
-                calpower=calc_settings['calpower'],
+                weight_type=calc_settings.weight.lower(),
+                overshoot=calc_settings.overshoot,
+                alpha=calc_settings.alpha,
+                calpower=calc_settings.calpower,
             )
 
-        if calc_settings['robustness'] and len(results.experts.actual_experts) > 1:
+        if calc_settings.robustness and len(results.experts.actual_experts) > 1:
             results.calculate_expert_robustness(
                 max_exclude=1,
-                weight_type=calc_settings['weight'].lower(),
-                overshoot=calc_settings['overshoot'],
-                alpha=calc_settings['alpha'],
-                calpower=calc_settings['calpower'],
+                weight_type=calc_settings.weight.lower(),
+                overshoot=calc_settings.overshoot,
+                alpha=calc_settings.alpha,
+                calpower=calc_settings.calpower,
             )
+
+        results.experts.weights = results.get_weight_in_dm()
+
+        return True
 
 class Results:
     """
@@ -294,6 +298,39 @@ class Results:
         # Dictionary for saving the robustness results
         self.item_robustness = {}
         self.expert_robustness = {}
+
+    def get_weight_in_dm(self):
+
+        if self.settings is None:
+            return np.full(len(self.experts.ids), np.nan)
+        
+        # Get weights
+        if self.settings.weight.lower() in ["global", "item"]:
+            weights = self.experts.comb_score.copy()
+
+        elif self.settings.weight.lower() == "equal":
+            n = len(self.experts.actual_experts)
+            weights = np.ones_like(self.experts.comb_score) / n
+
+        elif self.settings.weight.lower() == "user":
+            weights = np.zeros_like(self.experts.comb_score)
+            idx = ~np.isnan(self.experts.user_weights)
+            idx[self.experts.get_idx("dm")] = False
+            weights[idx] += self.experts.user_weights[idx] / self.experts.user_weights[idx].sum()
+
+        # Correct for alpha threshold
+        if self.alpha_opt is not None:
+            weights[self.experts.calibration < self.alpha_opt] = 0.0
+
+        # Set DM to zero
+        dm_idx = self.experts.get_idx("dm")
+        weights[dm_idx] = np.nan
+
+        isnan = np.isnan(weights)
+        if not isnan.all():
+            np.divide(weights, np.nansum(weights), out=weights, where=~isnan)
+
+        return weights
 
     def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None, overwrite=False, main_results=None):
         """
@@ -333,6 +370,8 @@ class Results:
         self.experts.add_expert(exp_id=exp_id, exp_name=exp_name, assessment=DM, exp_type='dm', overwrite=overwrite, full_cdf=F_DM)
         self.experts.calculate_weights(overshoot=overshoot, experts=[exp_id], alpha=self.alpha_opt, calpower=calpower)
 
+        # print('Regular:', self.experts.M, [count.sum() for count in self.experts.M.values()])
+        
         # Add to main results. When using only the code (without GUI) this is not necessary.
         if main_results is not None:
 
@@ -428,3 +467,65 @@ class Results:
             calpower=calpower,
             progress_func=progress_func
         ))
+
+    def get_plot_data(self, experts=None, items=None, plottype='cdf', full_dm_cdf=True):
+        """
+        Get data in overview, convenient for plotting.
+
+        Parameters
+        ----------
+        experts : [type]
+            [description]
+        plottype : str, optional
+            [description], by default 'cdf'
+        full_dm_cdf : bool, optional
+            [description], by default True
+        """
+
+        if plottype not in ['cdf', 'pdf', 'range', 'exc prob']:
+            raise KeyError(f'Plottype: {plottype} not understood.')
+
+        # Get expert assessments and bounds for question
+        assessments = {}
+
+        if experts is None:
+            experts = self.experts.ids[:]
+        # elif experts
+        if items is None:
+            items = self.items.ids[:]
+
+        # For each item
+        for item in items:
+            # Get the item position in the items list
+            iitem = self.items.ids.index(item)
+            # self.get_bounds(experts=experts, overshoot)
+            # lower = self.lower_k[iitem]
+            # upper = self.upper_k[iitem]
+
+            # For each expert 
+            for expert in experts:
+                # Get position of expert in the lists
+                iexp = self.experts.ids.index(expert)
+                # Check if expert is a decision maker, and if the full cdf's are expected
+                if iexp in self.experts.decision_makers and full_dm_cdf:
+                    # If so, add the full experts cdf 
+                    assessments[(item, expert)] = {
+                        'quantile': self.assessments.full_cdf[expert][iitem][:, 1],
+                        'value': self.assessments.full_cdf[expert][iitem][:, 0]
+                    }
+                else:
+                    # Else, just add the percentiles, including the lower and upper bound
+                    values = self.assessments.array[iexp, :, iitem]
+                    idx = ~np.isnan(values)
+                    assessments[(item, expert)] = {
+                        'quantile': np.array(self.assessments.quantiles)[idx],
+                        'value': values[idx]
+                    }
+        
+        # # Convert bounds form log scale to uniform scale in case of log background
+        # if self.results.items.scales[itemid] == 'log':
+        #     lower = np.exp(lower)
+        #     upper = np.exp(upper)
+
+        return assessments
+        
