@@ -46,7 +46,9 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     """
 
     # Calculate weights for all actual experts
-    experts.calculate_weights(overshoot=overshoot, alpha=alpha, calpower=calpower, experts=experts.get_exp("actual"))
+    experts.calculate_weights(
+        overshoot=overshoot, alpha=alpha, calpower=calpower, experts=experts.get_exp("actual")
+    )
 
     # Check if given alpha is not too high
     if alpha is not None:
@@ -60,7 +62,7 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     _, npercentiles, nitems = values.shape
 
     # Scale values to log, if the background scale is log
-    scale = items.scale
+    scale = items.scales
     for iq in range(nitems):
         if scale[iq] == "log":
             use = items.use_quantiles[iq]
@@ -76,7 +78,9 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     qlower, qupper = assessments.get_bounds("both", overshoot=overshoot)
 
     # Get the expert CDF's and distinct answers
-    F_ex, all_answers = get_expert_CDFs(np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper)
+    F_ex, all_answers = get_expert_CDFs(
+        np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper
+    )
 
     # Collect CDF
     DM = np.full((len(alphas), nitems, npercentiles + 2), np.nan)
@@ -120,11 +124,13 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
         exps = [f"tmp{i}" for i in range(len(alphas))]
         for (tmp_id, DMassessment) in zip(exps, DM):
             # Calculate weight of DM
-            experts.add_expert(exp_id=tmp_id, exp_name=tmp_id, assessment=DMassessment, exp_type="dm", overwrite=True)
+            experts.add_expert(
+                exp_id=tmp_id, exp_name=tmp_id, assessment=DMassessment, exp_type="dm", overwrite=True
+            )
         # Calculate weights for all temporary experts
         experts.calculate_weights(overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower)
         # Get the alpha for the highest weight
-        imax = np.argmax(experts.weights[experts.get_idx(exps)])
+        imax = np.argmax(experts.comb_score[experts.get_idx(exps)])
         # Remove all experts
         for exp in exps:
             experts.remove_expert(exp)
@@ -315,7 +321,7 @@ def item_robustness(
     combs = get_combinations(items=seed_ids, min_exclude=min_exclude, max_exclude=max_exclude)
 
     # Scale values to log, if the background scale is log
-    scale = items.scale
+    scale = items.scales
     for iq in range(nitems):
         if scale[iq] == "log":
             use = items.use_quantiles[iq]
@@ -325,7 +331,9 @@ def item_robustness(
     qlower, qupper = assessments.get_bounds("both", overshoot=overshoot)
 
     # Get the expert CDF's and distinct answers
-    F_ex, all_answers = get_expert_CDFs(np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper)
+    F_ex, all_answers = get_expert_CDFs(
+        np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper
+    )
 
     results = {}
     totexps = set()
@@ -410,7 +418,7 @@ def item_robustness(
                 overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower, items=itembool
             )
             # Get the alpha for the highest weight
-            imax = np.argmax(experts.weights[experts.get_idx(exps)])
+            imax = np.argmax(experts.comb_score[experts.get_idx(exps)])
 
         # Else there is only one DM, use this one.
         else:
@@ -419,7 +427,9 @@ def item_robustness(
             totexps = exps
             # Add final expert and calculate weight
             # Add expert as decision maker, so that the (reduced) number of valid answers is used in calculating the calibration score
-            experts.add_expert(exp_id="tmp0", exp_name="tmp0", assessment=DM[imax], exp_type="dm", overwrite=True)
+            experts.add_expert(
+                exp_id="tmp0", exp_name="tmp0", assessment=DM[imax], exp_type="dm", overwrite=True
+            )
             # Calculate Nmin including DM
             # Update actual expert item count
             experts.M.update(experts.count_realizations_per_bin(experts.get_exp("actual"), items=itembool))
@@ -518,7 +528,7 @@ def expert_robustness(
     nexperts, npercentiles, nitems = values.shape
 
     # Scale values to log, if the background scale is log
-    scale = items.scale
+    scale = items.scales
     for iq in range(nitems):
         if scale[iq] == "log":
             use = items.use_quantiles[iq]
@@ -612,7 +622,7 @@ def expert_robustness(
             # Calculate weights
             experts.calculate_weights(overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower)
             # Get the alpha for the highest weight
-            imax = np.argmax(experts.weights[experts.get_idx(exps)])
+            imax = np.argmax(experts.comb_score[experts.get_idx(exps)])
             tmp_id = exps[imax]
 
         # Else there is only one DM, use this one.
@@ -621,12 +631,18 @@ def expert_robustness(
             tmp_id = "tmp0"
             totexps = [tmp_id]
             # Add final expert and calculate weight
-            experts.add_expert(exp_id=tmp_id, exp_name=tmp_id, assessment=DM[imax], exp_type="dm", overwrite=True)
-            experts.calculate_weights(overshoot=overshoot, experts=[tmp_id], alpha=alphas[imax], calpower=calpower)
+            experts.add_expert(
+                exp_id=tmp_id, exp_name=tmp_id, assessment=DM[imax], exp_type="dm", overwrite=True
+            )
+            experts.calculate_weights(
+                overshoot=overshoot, experts=[tmp_id], alpha=alphas[imax], calpower=calpower
+            )
 
         # Calculate the scores for the final DM
         dmidx = experts.get_idx(tmp_id)
-        experts._information_score(experts=exp_selection + [tmp_id], overshoot=overshoot, bounds_for_experts=True)
+        experts._information_score(
+            experts=exp_selection + [tmp_id], overshoot=overshoot, bounds_for_experts=True
+        )
         results[tuple(actual_experts[i] for i in comb)] = (
             experts.info_total[dmidx],
             experts.info_real[dmidx],

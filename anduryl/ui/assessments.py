@@ -1,12 +1,9 @@
-from itertools import product
-
 import numpy as np
-from PyQt5 import Qt, QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from anduryl import io
-from anduryl.ui import widgets
+from anduryl.ui import widgets, menus
 from anduryl.ui.models import AssessmentArrayModel, ItemDelegate
-# from anduryl.ui.main import NotificationDialog
 
 
 class AssessmentsWidget(QtWidgets.QFrame):
@@ -18,7 +15,7 @@ class AssessmentsWidget(QtWidgets.QFrame):
     def __init__(self, mainwindow):
         """
         Constructor
-        
+
         Parameters
         ----------
         mainwindow : Main window class
@@ -28,9 +25,11 @@ class AssessmentsWidget(QtWidgets.QFrame):
         super(AssessmentsWidget, self).__init__()
 
         self.mainwindow = mainwindow
+        self.signals = mainwindow.signals
         self.project = mainwindow.project
         self.init_ui()
-    
+        self.connect_signals()
+
     def init_ui(self):
         """
         Construct graphical interface
@@ -38,35 +37,35 @@ class AssessmentsWidget(QtWidgets.QFrame):
 
         # Create the table view
         self.table = QtWidgets.QTableView()
-        self.table.setStyleSheet("QTableView{border: 1px solid "+self.mainwindow.bordercolor+"}")
+        self.table.setStyleSheet("QTableView{border: 1px solid " + self.mainwindow.bordercolor + "}")
         self.table.verticalHeader().setVisible(False)
         self.table.setShowGrid(False)
         self.table.setAlternatingRowColors(True)
         self.table.installEventFilter(self)
-        
+
         # Create and add model
-        self.model = AssessmentArrayModel(parentwidget=self)
+        self.model = AssessmentArrayModel(project=self.project, signals=self.signals)
         self.table.setModel(self.model)
         self.table.setItemDelegate(ItemDelegate(self.model))
-        
+
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         for i in range(2):
             self.table.horizontalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Fixed)
             self.table.setColumnWidth(i, 100)
-        
+
         # Buttonbox
         hlayout = QtWidgets.QHBoxLayout()
-        hlayout.setContentsMargins(2.5, 0, 2.5, 0)
-        self.realization_label = QtWidgets.QLabel('')
-        
+        hlayout.setContentsMargins(3, 0, 3, 0)
+        self.realization_label = QtWidgets.QLabel("")
+
         self.expert_cbox = QtWidgets.QComboBox()
-        
-        self.expert_cbox.setCurrentText('All experts')
+
+        self.expert_cbox.setCurrentText("All experts")
         self.expert_cbox.currentIndexChanged.connect(self.set_expert)
         self.expert_cbox.setFixedWidth(95)
-        
+
         self.item_cbox = QtWidgets.QComboBox()
-        self.item_cbox.setCurrentText('All items')
+        self.item_cbox.setCurrentText("All items")
         self.item_cbox.currentIndexChanged.connect(self.set_item)
         self.item_cbox.setFixedWidth(95)
         self.update_comboboxes()
@@ -74,32 +73,57 @@ class AssessmentsWidget(QtWidgets.QFrame):
         self.colorbutton = QtWidgets.QCheckBox()
         self.colorbutton.setChecked(False)
         self.colorbutton.clicked.connect(self.set_color)
-        
+
         hlayout.addWidget(self.expert_cbox)
         hlayout.addWidget(self.item_cbox)
         hlayout.addWidget(self.realization_label)
         hlayout.addStretch()
-        hlayout.addWidget(QtWidgets.QLabel('Colormap:'))
+        hlayout.addWidget(QtWidgets.QLabel("Colormap:"))
         hlayout.addWidget(self.colorbutton)
 
-        self.label = QtWidgets.QLabel('Assessments')
-        self.label.setContentsMargins(5, 2.5, 5, 2.5)
-        self.label.setStyleSheet("QLabel {border: 1px solid "+self.mainwindow.bordercolor+"}")
-        
+        self.label = QtWidgets.QLabel("Assessments")
+        self.label.setContentsMargins(5, 3, 5, 3)
+        self.label.setStyleSheet("QLabel {border: 1px solid " + self.mainwindow.bordercolor + "}")
+
         mainbox = widgets.VLayout([self.label, hlayout, self.table])
-        
+
         self.setLayout(mainbox)
+
+    def connect_signals(self):
+        self.signals.set_assessment_table_index.connect(self.table.setCurrentIndex)
 
     def eventFilter(self, source, event):
         """
         Eventfilter for copying table content.
         """
-        if (event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Copy)):
+        if event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Copy):
             selection = source.selectedIndexes()
             if selection:
-                text = io.selection_to_text(selection)
+                text = io.table.selection_to_text(selection)
                 QtWidgets.qApp.clipboard().setText(text)
                 return True
+
+        elif event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Cut):
+            selection = source.selectedIndexes()
+            if selection:
+                text = io.table.selection_to_text(selection)
+                QtWidgets.qApp.clipboard().setText(text)
+                io.table.text_to_selection(self.model, selection, text=None, validate=False)
+                return True
+
+        elif event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Paste):
+            text = QtWidgets.qApp.clipboard().text()
+            selection = source.selectedIndexes()
+            if selection:
+                io.table.text_to_selection(self.model, selection, text)
+                return True
+
+        elif event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Delete):
+            selection = source.selectedIndexes()
+            if selection:
+                io.table.text_to_selection(self.model, selection, text=None, validate=False)
+                return True
+
         return self.mainwindow.eventFilter(source, event)
 
     def to_csv(self):
@@ -112,21 +136,26 @@ class AssessmentsWidget(QtWidgets.QFrame):
         Opens a dialog to set the quantiles, if they are not given as keyword argument.
         Adds or removes quantiles from the assessments untill the
         project matches the given quantiles.
-        
+
         Parameters
         ----------
         newquantiles : list, optional
             Quantiles, if given no window is opened, by default None
         """
-        
+
         if newquantiles is None:
             self.parameters_dialog = QuantileDialog(self)
             self.parameters_dialog.exec_()
 
             if self.parameters_dialog.succeeded:
                 # Get items
-                items = [self.parameters_dialog.table.item(i, 0) for i in range(self.parameters_dialog.table.rowCount())]
-                newquantiles = [float(item.data(0)) for item in items if (item is not None and item.data(0) != '')]
+                items = [
+                    self.parameters_dialog.table.item(i, 0)
+                    for i in range(self.parameters_dialog.table.rowCount())
+                ]
+                newquantiles = [
+                    float(item.data(0)) for item in items if (item is not None and item.data(0) != "")
+                ]
             else:
                 newquantiles = None
 
@@ -141,10 +170,10 @@ class AssessmentsWidget(QtWidgets.QFrame):
                 quantile = self.project.assessments.quantiles[i]
                 if quantile not in newquantiles:
                     self.project.assessments.remove_quantile(quantile)
-                    
-            self.mainwindow.signals.update_gui()
-            self.mainwindow.signals.update_headers()
-        
+
+            self.mainwindow.signals.update_gui.emit()
+            self.mainwindow.signals.update_headers.emit()
+
     def set_color(self):
         """
         Toggle background colors for assessments table.
@@ -163,16 +192,16 @@ class AssessmentsWidget(QtWidgets.QFrame):
         """
         expert = self.expert_cbox.currentText()
         self.model.layoutAboutToBeChanged.emit()
-        if expert == 'All experts':
+        if expert == "All experts":
             # Show the complete array
             self.model.selector.update()
         else:
-            self.item_cbox.setCurrentText('All items')
+            self.item_cbox.setCurrentText("All items")
             # Only show the selected expert in the array (but all items)
             idx = self.project.experts.ids.index(expert)
             self.model.selector.update(dim=0, index=idx)
         self.model.layoutChanged.emit()
-        
+
     def set_item(self):
         """
         Method called when item combobox changed.
@@ -180,11 +209,11 @@ class AssessmentsWidget(QtWidgets.QFrame):
         """
         item = self.item_cbox.currentText()
         self.model.layoutAboutToBeChanged.emit()
-        if item == 'All items':
+        if item == "All items":
             # Show the complete array
             self.model.selector.update()
         else:
-            self.expert_cbox.setCurrentText('All experts')
+            self.expert_cbox.setCurrentText("All experts")
             idx = self.project.items.ids.index(item)
             # Only show the selected item in the array (but all experts)
             self.model.selector.update(dim=2, index=idx)
@@ -201,18 +230,18 @@ class AssessmentsWidget(QtWidgets.QFrame):
 
         # Get item
         item = self.item_cbox.currentText()
-        if item == 'All items':
-            self.realization_label.setText(f'')
+        if item == "All items":
+            self.realization_label.setText(f"")
             return None
 
         # Set realization as label
         idx = self.project.items.ids.index(item)
         value = self.project.items.realizations[idx]
         if not np.isnan(value):
-            self.realization_label.setText(f'Realization: {value:.4g}')
+            self.realization_label.setText(f"Realization: {value:.4g}")
         else:
-            self.realization_label.setText(f'')
-            
+            self.realization_label.setText(f"")
+
     def update_comboboxes(self):
         """
         Update the comboboxes. This method is called when the items in the
@@ -222,14 +251,14 @@ class AssessmentsWidget(QtWidgets.QFrame):
         """
 
         # Add or remove experts
-        for name in ['expert', 'item']:
-            cbox = getattr(self, name+'_cbox')
-            ids = getattr(self.project, name+'s').ids
+        for name in ["expert", "item"]:
+            cbox = getattr(self, name + "_cbox")
+            ids = getattr(self.project, name + "s").ids
 
             # Get items
             current_item = cbox.currentText()
             cbox_items = [cbox.itemText(i) for i in range(cbox.count())]
-            project_items = ids + [f'All {name}s']
+            project_items = ids + [f"All {name}s"]
 
             # Add items that are not already present
             for item in project_items:
@@ -240,10 +269,10 @@ class AssessmentsWidget(QtWidgets.QFrame):
             for i, item in enumerate(cbox_items):
                 if item not in project_items:
                     cbox.removeItem(i)
-                
+
                     # If the current item is removed, reset to 'All items'
                     if item == current_item:
-                        cbox.setCurrentText(f'All {name}s')
+                        cbox.setCurrentText(f"All {name}s")
 
     def change_combobox_ids(self):
         """
@@ -252,13 +281,13 @@ class AssessmentsWidget(QtWidgets.QFrame):
         replaces it with the new item.
         """
         # Add or remove experts
-        for name in ['expert', 'item']:
-            cbox = getattr(self, name+'_cbox')
-            ids = getattr(self.project, name+'s').ids
+        for name in ["expert", "item"]:
+            cbox = getattr(self, name + "_cbox")
+            ids = getattr(self.project, name + "s").ids
 
             # Get items
             cbox_items = [cbox.itemText(i) for i in range(cbox.count())]
-            project_items = ids + [f'All {name}s']
+            project_items = ids + [f"All {name}s"]
 
             # Rename item
             for proj_item in project_items:
@@ -270,8 +299,17 @@ class AssessmentsWidget(QtWidgets.QFrame):
                 if cb_item not in project_items:
                     cbox.removeItem(i)
                     cbox.insertItem(i, proj_item)
-                    
-                
+
+    def contextMenuEvent(self, event):
+        """
+        Creates the context menu for the assessment widget
+        """
+        menu = menus.TableMenu(self)
+        menu.construct()
+        action = menu.exec_(menu.widget.mapToGlobal(event.pos()))
+        menu.perform_action(action)
+
+
 class QuantileDialog(QtWidgets.QDialog):
     """
     Dialog to get parameters for calculating decision maker
@@ -289,13 +327,13 @@ class QuantileDialog(QtWidgets.QDialog):
 
         self.succeeded = False
         self._init_ui()
-        
+
     def _init_ui(self):
         """
         Set up UI design
         """
 
-        self.setWindowTitle('Quantiles')
+        self.setWindowTitle("Quantiles")
         self.setWindowIcon(self.icon)
         self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowContextHelpButtonHint)
 
@@ -303,19 +341,19 @@ class QuantileDialog(QtWidgets.QDialog):
         self.table.horizontalHeader().setVisible(False)
         self.table.verticalHeader().setDefaultSectionSize(24)
         self.table.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Fixed)
-        self.table.setRowCount(len(self.assessments.quantiles)+1)
+        self.table.setRowCount(len(self.assessments.quantiles) + 1)
         self.table.setColumnCount(1)
         self.table.horizontalHeader().setStretchLastSection(True)
         for i, quantile in enumerate(self.assessments.quantiles):
-            self.table.setItem(i, 0, QtWidgets.QTableWidgetItem(f'{quantile:.4g}'))
+            self.table.setItem(i, 0, QtWidgets.QTableWidgetItem(f"{quantile:.4g}"))
         self.table.itemChanged.connect(self.update_items)
-        
+
         # OK and Cancel buttons
-        self.generate_button = QtWidgets.QPushButton('Accept')
+        self.generate_button = QtWidgets.QPushButton("Accept")
         self.generate_button.setDefault(True)
         self.generate_button.clicked.connect(self.accept)
 
-        self.cancel_button = QtWidgets.QPushButton('Cancel')
+        self.cancel_button = QtWidgets.QPushButton("Cancel")
         self.cancel_button.setAutoDefault(False)
         self.cancel_button.clicked.connect(self.close)
 
@@ -325,7 +363,7 @@ class QuantileDialog(QtWidgets.QDialog):
 
         # button_box.accepted.connect(QtWidgets.QDialog.accept)
 
-        self.label = QtWidgets.QLabel('Edit quantiles by adding or erasing items:')
+        self.label = QtWidgets.QLabel("Edit quantiles by adding or erasing items:")
 
         self.setLayout(widgets.VLayout([self.label, self.table, widgets.HLine(), button_box]))
 
@@ -344,16 +382,18 @@ class QuantileDialog(QtWidgets.QDialog):
         # Get items
         items = [self.table.item(i, 0) for i in range(self.table.rowCount())]
         # Sort
-        tablevalues = sorted(set([float(item.data(0)) for item in items if (item is not None and item.data(0) != '')]))
+        tablevalues = sorted(
+            set([float(item.data(0)) for item in items if (item is not None and item.data(0) != "")])
+        )
         # Check values
         for i in reversed(range(len(tablevalues))):
             if not 0.0 < tablevalues[i] < 1.0:
-                NotificationDialog('Quantiles should be > 0.0 and < 1.0')
+                NotificationDialog("Quantiles should be > 0.0 and < 1.0")
                 del tablevalues[i]
 
         self.table.itemChanged.disconnect()
-        self.table.setRowCount(len(tablevalues)+1)
+        self.table.setRowCount(len(tablevalues) + 1)
         for i, quantile in enumerate(tablevalues):
-            self.table.setItem(i, 0, QtWidgets.QTableWidgetItem(f'{quantile:.4g}'))
-        self.table.setItem(len(tablevalues), 0, QtWidgets.QTableWidgetItem(''))
+            self.table.setItem(i, 0, QtWidgets.QTableWidgetItem(f"{quantile:.4g}"))
+        self.table.setItem(len(tablevalues), 0, QtWidgets.QTableWidgetItem(""))
         self.table.itemChanged.connect(self.update_items)

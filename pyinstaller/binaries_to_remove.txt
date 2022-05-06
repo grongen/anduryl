@@ -156,6 +156,8 @@ PyQt5.QtDBus
 PyQt5.QtBluetooth
 PyQt5.QtQuick3D
 PyQt5.QtTextToSpeech
-# openblas
-# libblas.dll
-# libcblas.dll
+openblas.dll
+libblas.dll
+libcblas.dll
+liblapack.dll
+libcrypto-3-x64.dll

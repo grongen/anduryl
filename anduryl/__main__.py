@@ -1,10 +1,10 @@
 """Top-level package for delft3dfmpy."""
 
 __author__ = """Guus Rongen, Marcel 't Hart, Georgios Leontaris, Oswaldo Morales Nápoles"""
-__email__ = 'g.w.f.rongen@tudelft.nl'
-__version__ = '1.2.0'
+__email__ = "g.w.f.rongen@tudelft.nl"
+__version__ = "1.2.1"
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     # Import PyQt modules
     from PyQt5 import QtWidgets, QtGui, QtCore
@@ -18,11 +18,11 @@ if __name__ == '__main__':
 
     # Create and display the splash screen
     # In case of PyInstaller exe
-    if getattr(sys, 'frozen', False):
-        splashpath = os.path.join(sys._MEIPASS, 'data', 'splash_loading.png')
+    if getattr(sys, "frozen", False):
+        splashpath = os.path.join(sys._MEIPASS, "data", "splash_loading.png")
     # In case of regular python
     else:
-        splashpath = os.path.join(os.path.dirname(__file__), '..', 'data', 'splash_loading.png')
+        splashpath = os.path.join(os.path.dirname(__file__), "..", "data", "splash_loading.png")
     splash = QtWidgets.QSplashScreen(QtGui.QPixmap(splashpath), QtCore.Qt.WindowStaysOnTopHint)
     splash.show()
     app.processEvents()
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     from anduryl.ui.main import MainWindow
 
     # Create main window
-    ex = MainWindow()
+    ex = MainWindow(app)
     splash.close()
     # ex.start_profiling()
 

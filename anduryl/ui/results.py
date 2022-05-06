@@ -1,18 +1,17 @@
-import copy
-import os
+from email.policy import default
 import textwrap
-
 from math import factorial
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from anduryl import io
+from anduryl.io.settings import SaveFigureSettings
+from anduryl.ui import menus, widgets
+from anduryl.ui.models import ArrayModel, ListsModel
 from matplotlib import cm
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
-
-from anduryl import io
-from anduryl.ui import widgets
-from anduryl.ui.models import ArrayModel, ListsModel
 
 plt.rcParams["axes.linewidth"] = 0.5
 plt.rcParams["axes.labelsize"] = 9
@@ -23,13 +22,20 @@ plt.rcParams["grid.alpha"] = 0.25
 plt.rcParams["legend.handletextpad"] = 0.4
 plt.rcParams["legend.fontsize"] = 8
 plt.rcParams["legend.labelspacing"] = 0.2
+plt.rcParams["legend.fancybox"] = False
+
 plt.rcParams["font.size"] = 9
-# plt.rcParams['figure.dpi'] = 50
+
+plt.rcParams["lines.linewidth"] = 1.5  # line width in points
+plt.rcParams["lines.markeredgewidth"] = 0
+plt.rcParams["lines.markersize"] = 5
+
+# plt.rcParams["figure.dpi"] = 50
 
 
 def get_markers(quantiles: list):
     # Define markerset to choose from. From closest to 0.5 to furthest away from 0.5
-    markerset = ["X", "o", "s", "d", "h", "*", "^", "2"]
+    markerset = ["d", "o", "X", "^", "s", "h", "*", "2"]
     # Determine the position from 0.5. Equal far away (i.e., 0.05 and 0.95 or 0.25 and 0.75) are assigned the same marker
     _, inv = np.unique(np.abs(np.array(quantiles) - 0.5).astype(np.float32), return_inverse=True)
     # Create the markerset
@@ -64,7 +70,7 @@ class ResultsWidget(QtWidgets.QFrame):
         self.dm_ids = []
 
         label = QtWidgets.QLabel("Results")
-        label.setContentsMargins(5, 2.5, 5, 2.5)
+        label.setContentsMargins(5, 3, 5, 3)
         label.setStyleSheet("QLabel {border: 1px solid " + self.mainwindow.bordercolor + "}")
 
         self.setLayout(widgets.VLayout([label, self.tabs]))
@@ -83,14 +89,23 @@ class ResultsWidget(QtWidgets.QFrame):
 
         # Get results to create overview
         results = self.project.results[resultid]
-        resultsoverview = ResultOverview(self.mainwindow, results)
+        resultsoverview = ResultOverview(self, results)
 
         # Add to tabs
-        self.tabs.addTab(resultsoverview, resultid + " (" + results.settings["name"] + ")")
+        self.tabs.addTab(resultsoverview, resultid + " (" + results.settings.name + ")")
         self.dm_ids.append(resultid)
 
         # Add to export menu
         self.mainwindow.add_export_actions(resultsoverview)
+
+    def get_results(self, index=None, expert=None):
+        # When the function is called by expert id, find the index
+        if expert is not None:
+            index = self.dm_ids.index(expert)
+        # Get current widget
+        currentQWidget = self.tabs.widget(index)
+        # Get results
+        return currentQWidget.results
 
     def close_results(self, index=None, expert=None):
         """
@@ -142,7 +157,7 @@ class ResultOverview(QtWidgets.QScrollArea):
     Widget with results for a decision maker.
     """
 
-    def __init__(self, mainwindow, results):
+    def __init__(self, resultswidget, results):
         """
         Copy results from current project. Note that the results are copied
         and not refered to, since we want to 'freeze' the current project in
@@ -151,7 +166,8 @@ class ResultOverview(QtWidgets.QScrollArea):
 
         super(ResultOverview, self).__init__()
 
-        self.mainwindow = mainwindow
+        self.resultswidget = resultswidget
+        self.mainwindow = resultswidget.mainwindow
 
         # TODO Copy results and settings
         self.results = results
@@ -159,7 +175,7 @@ class ResultOverview(QtWidgets.QScrollArea):
 
         # Calculate lower bounds once. Since these results are frozen the bounds won't change
         self.results.lower_k, self.results.upper_k = self.results.assessments.get_bounds(
-            overshoot=self.settings["overshoot"]
+            overshoot=self.settings.overshoot
         )
         self.results.lower, self.results.upper = self.results.assessments.get_bounds()
 
@@ -186,15 +202,15 @@ class ResultOverview(QtWidgets.QScrollArea):
         label_layout.setHorizontalSpacing(20)
 
         # Add results settings
-        label_layout.addWidget(QtWidgets.QLabel(f"Weights: {self.settings['weight']}"), 0, 0)
+        label_layout.addWidget(QtWidgets.QLabel(f"Weights: {self.settings.weight}"), 0, 0)
         label_layout.addWidget(
-            QtWidgets.QLabel(f"Optimisation: {'yes' if self.settings['optimisation'] else 'no'}"), 0, 1
+            QtWidgets.QLabel(f"Optimisation: {'yes' if self.settings.optimisation else 'no'}"), 0, 1
         )
-        label_layout.addWidget(QtWidgets.QLabel(f"Intrinsic range: {self.settings['overshoot']}"), 0, 2)
+        label_layout.addWidget(QtWidgets.QLabel(f"Intrinsic range: {self.settings.overshoot}"), 0, 2)
         label_layout.addWidget(QtWidgets.QLabel(f"Significance level: {self.results.alpha_opt:.4g}"), 1, 0)
-        label_layout.addWidget(QtWidgets.QLabel(f"Calibration power: {self.settings['calpower']}"), 1, 1)
+        label_layout.addWidget(QtWidgets.QLabel(f"Calibration power: {self.settings.calpower}"), 1, 1)
 
-        self.plot_items_button = QtWidgets.QPushButton("Plot items", clicked=self.plot_items)
+        self.plot_items_button = QtWidgets.QPushButton("Plot results", clicked=self.plot_items)
         self.plot_items_button.setFixedWidth(100)
 
         layout.addWidget(
@@ -210,7 +226,9 @@ class ResultOverview(QtWidgets.QScrollArea):
         self.show_item_weights_button.setFixedWidth(100)
 
         layout.addWidget(
-            widgets.SimpleGroupBox([table, self.show_item_weights_button], "vertical", "Expert and DM weights")
+            widgets.SimpleGroupBox(
+                [table, self.show_item_weights_button], "vertical", "Expert and DM weights"
+            )
         )
 
         # Add a table for the item robustness
@@ -233,7 +251,10 @@ class ResultOverview(QtWidgets.QScrollArea):
             if self.results.expert_robustness:
                 experts = [None] + self.results.experts.get_exp("actual")
                 expert_array = np.vstack(
-                    [self.results.expert_robustness[tuple([exp] if exp is not None else [])] for exp in experts]
+                    [
+                        self.results.expert_robustness[tuple([exp] if exp is not None else [])]
+                        for exp in experts
+                    ]
                 )
                 experts[0] = "None"
 
@@ -245,7 +266,9 @@ class ResultOverview(QtWidgets.QScrollArea):
             )
             button_layout = widgets.HLayout([self.plot_excluded_button])
             button_layout.addStretch()
-            layout.addWidget(widgets.SimpleGroupBox([self.robustness_tables, button_layout], "vertical", "Robustness"))
+            layout.addWidget(
+                widgets.SimpleGroupBox([self.robustness_tables, button_layout], "vertical", "Robustness")
+            )
 
         layout.addStretch()
 
@@ -257,27 +280,6 @@ class ResultOverview(QtWidgets.QScrollArea):
         table.setShowGrid(False)
         table.setAlternatingRowColors(True)
 
-        # Get weights
-        if self.settings["weight"].lower() in ["global", "item"]:
-            weights = self.results.experts.weights.copy()
-
-        elif self.settings["weight"].lower() == "equal":
-            n = len(self.results.experts.actual_experts)
-            weights = np.ones_like(self.results.experts.weights) / n
-
-        elif self.settings["weight"].lower() == "user":
-            weights = np.zeros_like(self.results.experts.weights)
-            idx = ~np.isnan(self.results.experts.user_weights)
-            idx[self.results.experts.get_idx("dm")] = False
-            weights[idx] += self.results.experts.user_weights[idx] / self.results.experts.user_weights[idx].sum()
-
-        # Correct for alpha threshold
-        weights[self.results.experts.calibration < self.results.alpha_opt] = 0.0
-
-        # Set DM to zero
-        dm_idx = self.results.experts.get_idx("dm")
-        weights[dm_idx] = np.nan
-
         # Create and add model
         self.scores_model = ListsModel(
             lists=[
@@ -286,9 +288,18 @@ class ResultOverview(QtWidgets.QScrollArea):
                 self.results.experts.calibration,
                 self.results.experts.info_real,
                 self.results.experts.info_total,
-                weights,
+                self.results.experts.comb_score,
+                self.results.experts.weights,
             ],
-            labels=["ID", "Name", "Calibration", "Info score real.", "Info score total", "Weight"],
+            labels=[
+                "ID",
+                "Name",
+                "Calibration",
+                "Info score real.",
+                "Info score total",
+                "Comb score",
+                "Weight",
+            ],
         )
         table.setModel(self.scores_model)
 
@@ -351,7 +362,7 @@ class ResultOverview(QtWidgets.QScrollArea):
         if event.type() == QtCore.QEvent.KeyPress and event.matches(QtGui.QKeySequence.Copy):
             selection = source.selectedIndexes()
             if selection:
-                text = io.selection_to_text(selection)
+                text = io.table.selection_to_text(selection)
                 QtWidgets.qApp.clipboard().setText(text)
                 return True
         return self.mainwindow.eventFilter(source, event)
@@ -398,6 +409,14 @@ class LegendTable(QtWidgets.QTableWidget):
         self.dialog = dialog
         self.results = dialog.results
         self.colors = dialog.colors
+
+        # Create a collection of weights. Since extra experts can be added,
+        # we define this seperately
+        self.comb_score_collection = list(self.results.experts.comb_score)
+
+        # Add a list for storing the labels
+        self.labels = []
+
         super(QtWidgets.QTableWidget, self).__init__()
 
         self.construct_widget()
@@ -425,12 +444,16 @@ class LegendTable(QtWidgets.QTableWidget):
         # Both active and inactive should follow inactive layout
         for group in [QtGui.QPalette.Active, QtGui.QPalette.Inactive]:
             # Switch background
-            p.setColor(group, QtGui.QPalette.Highlight, p.color(QtGui.QPalette.Inactive, QtGui.QPalette.Highlight))
+            p.setColor(
+                group, QtGui.QPalette.Highlight, p.color(QtGui.QPalette.Inactive, QtGui.QPalette.Highlight)
+            )
             # p.setColor(group, QtGui.QPalette.Base, p.color(QtGui.QPalette.Inactive, QtGui.QPalette.Base))
 
             # Set text colors
             p.setColor(
-                group, QtGui.QPalette.HighlightedText, p.color(QtGui.QPalette.Inactive, QtGui.QPalette.HighlightedText)
+                group,
+                QtGui.QPalette.HighlightedText,
+                p.color(QtGui.QPalette.Inactive, QtGui.QPalette.HighlightedText),
             )
             p.setColor(group, QtGui.QPalette.Text, p.color(QtGui.QPalette.Inactive, QtGui.QPalette.Dark))
         self.setPalette(p)
@@ -445,15 +468,15 @@ class LegendTable(QtWidgets.QTableWidget):
 
         plotby = self.dialog.plotby_cbox.combobox.currentText().lower()
         if plotby == "expert":
-            items = self.results.items.ids
+            self.labels = self.results.items.ids
             self.setHorizontalHeaderLabels(["", "Item", ""])
         elif plotby == "item":
-            items = self.results.experts.ids
+            self.labels = self.results.experts.ids
             self.setHorizontalHeaderLabels(["", "Expert", "Weight"])
         else:
             raise KeyError(plotby)
 
-        nrows = len(items)
+        nrows = len(self.labels)
 
         self.setFixedHeight(min(24 * (nrows + 1), 400))
 
@@ -462,13 +485,13 @@ class LegendTable(QtWidgets.QTableWidget):
         self.setRowCount(nrows)
 
         for i in range(nrows):
-            self.setItem(i, 1, QtWidgets.QTableWidgetItem(items[i]))
+            self.setItem(i, 1, QtWidgets.QTableWidgetItem(self.labels[i]))
             if plotby == "item":
-                self.setItem(i, 2, QtWidgets.QTableWidgetItem(f"{self.results.experts.weights[i]:.4g}"))
+                self.setItem(i, 2, QtWidgets.QTableWidgetItem(f"{self.comb_score_collection[i]:.4g}"))
             if plotby == "expert":
                 self.setItem(i, 2, QtWidgets.QTableWidgetItem(""))
 
-            color = [int(i * 255) for i in self.colors[items[i]]][:3]
+            color = [int(i * 255) for i in self.colors[self.labels[i]]][:3]
             item = QtWidgets.QTableWidgetItem()
             item.setBackground(QtGui.QColor(*color))
             item.setFlags(Qt.Qt.ItemIsEnabled)
@@ -478,37 +501,25 @@ class LegendTable(QtWidgets.QTableWidget):
         self.itemSelectionChanged.connect(self.dialog._set_data_visible)
 
     def select_on_weight(self):
-        weights = sorted(self.results.experts.weights)
-        weight = weights[self.dialog.weightslider.value()]
+        weights = sorted(self.comb_score_collection)
+        weight = weights[self.dialog.comb_score_slider.value()]
         # First select all
         self.selectAll()
         for i in range(self.rowCount()):
             # Deselect all below weight
-            if self.results.experts.weights[i] < weight:
+            if self.comb_score_collection[i] < weight:
                 self.selectRow(i)
 
     def contextMenuEvent(self, event):
         """
         Creates the context menu for the expert widget
         """
-        menu = QtWidgets.QMenu(self)
+        menu = menus.ApplyColorMenu(self, event)
 
-        # Get current row
-        rownum = self.currentIndex().row()
-        # decision_maker_selected = (rownum in self.project.experts.decision_makers)
-
-        # Add actions
-        pick_color_action = menu.addAction("Pick color")
-
-        action = menu.exec_(self.mapToGlobal(event.pos()))
-        if action == pick_color_action:
-            self.pick_color(rownum)
-
-    def pick_color(self, row):
-        # Choose color
-        color = QtWidgets.QColorDialog.getColor()
-        item = QtWidgets.QTableWidgetItem()
+    def apply_color(self, color, label):
+        row = self.labels.index(label)
         # Apply to legend
+        item = QtWidgets.QTableWidgetItem()
         item.setBackground(color)
         item.setFlags(Qt.Qt.ItemIsEnabled)
         self.setItem(row, 0, item)
@@ -612,15 +623,23 @@ class PlotExcludedDialog(QtWidgets.QDialog):
         self.calculate_button = QtWidgets.QPushButton("Calculate and plot", clicked=self.calculate)
 
         self.cat_combobox = QtWidgets.QComboBox()
-        self.categories = ["Information score: Seed items", "Information score: All items", "Calibration score"]
+        self.categories = [
+            "Information score: Seed items",
+            "Information score: All items",
+            "Calibration score",
+        ]
         self.cat_combobox.addItems(self.categories)
         self.cat_combobox.currentIndexChanged.connect(self.plot)
 
         rightlayout = widgets.VLayout(
             [
-                widgets.SimpleGroupBox([self.button_expert, self.button_item], orientation="vertical", title="Type:"),
                 widgets.SimpleGroupBox(
-                    [self.number_of_items, self.ncombinations_label], orientation="vertical", title="Number of items:"
+                    [self.button_expert, self.button_item], orientation="vertical", title="Type:"
+                ),
+                widgets.SimpleGroupBox(
+                    [self.number_of_items, self.ncombinations_label],
+                    orientation="vertical",
+                    title="Number of items:",
                 ),
                 widgets.SimpleGroupBox(
                     [self.calculate_button, self.progress_bar], orientation="vertical", title="Calculation:"
@@ -706,10 +725,10 @@ class PlotExcludedDialog(QtWidgets.QDialog):
             func(
                 min_exclude=min_exclude,
                 max_exclude=self.number_of_items.value(),
-                weight_type=self.settings["weight"].lower(),
-                overshoot=self.settings["overshoot"],
-                alpha=self.settings["alpha"],
-                calpower=self.settings["calpower"],
+                weight_type=self.settings.weight.lower(),
+                overshoot=self.settings.overshoot,
+                alpha=self.settings.alpha,
+                calpower=self.settings.calpower,
                 progress_func=self.update_progressbar,
             )
         else:
@@ -784,21 +803,51 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
     varies.
     """
 
-    def __init__(self, parent):
+    def __init__(self, resultoverview):
         """
         Constructor
         """
         super(PlotDistributionsDialog, self).__init__()
 
-        self.results = parent.results
-        self.icon = parent.mainwindow.icon
-        self.appsettings = parent.mainwindow.appsettings
+        self.results = resultoverview.results
+        self.icon = resultoverview.mainwindow.icon
+        self.appsettings = resultoverview.mainwindow.appsettings
+        # Needed to get an overview of other DM's, for adding them:
+        self.resultswidget = resultoverview.resultswidget
+
+        self.save_figure_settings = SaveFigureSettings(
+            figure_type="Gridded overview",
+            figure_selection="All questions",
+            title_option="Full title",
+            title_line_characters=40,
+            save_path_overview=str(
+                (Path(self.appsettings.value("currentdir", ".", type=str)) / "overview.png").resolve()
+            ),
+            save_directory_single_figures=str(
+                Path(self.appsettings.value("currentdir", ".", type=str)).resolve()
+            ),
+            figure_extension=".png",
+            figsize_horizontal=8,
+            figsize_vertical=8,
+            figure_dpi=150,
+            n_axes_cols=1,
+            n_axes_rows=1,
+            add_legend=True,
+            legend_position="lower right",
+            legend_anchor=(None, None),
+        )
+
         self.plottype = "cdf"
         self.plotby = "item"
 
         self.lines = {}
         self.markers = {}
         self.colors = {}
+
+        self.colorcount = {"expert": 0, "dm": 0, "item": 0}
+        self._prep_colors()
+
+    def _prep_colors(self):
 
         # Create color cycle
         mpl_colors = np.array(
@@ -816,23 +865,34 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             ]
         )
 
-        color_cycle = []
+        self.color_cycle = []
         for alpha in [0.9, 0.65, 0.4]:
             for c in mpl_colors:
-                color_cycle.append(tuple(1 - (1 - c) * alpha))
+                self.color_cycle.append(tuple(1 - (1 - c) * alpha))
 
         for i, exp in enumerate(self.results.experts.ids):
             if i in self.results.experts.decision_makers:
-                self.colors[exp] = (0, 0, 0)
+                self._add_color(name=exp, itemtype="dm")
             else:
-                self.colors[exp] = color_cycle[i % len(color_cycle)]
+                self._add_color(name=exp, itemtype="expert")
 
         for i, item in enumerate(self.results.items.ids):
-            self.colors[item] = color_cycle[i % len(color_cycle)]
+            self._add_color(name=item, itemtype="item")
 
         self.construct_widget()
 
         self.init_plot()
+
+    def _add_color(self, name, itemtype):
+        assert itemtype in ["expert", "dm", "item"]
+        i = self.colorcount[itemtype]
+        self.colorcount[itemtype] += 1
+        if itemtype in ["expert", "item"]:
+            self.colors[name] = self.color_cycle[i % len(self.color_cycle)]
+
+        elif itemtype == "dm":
+            c = (i * 0.65) % 0.9
+            self.colors[name] = (c, c, c)
 
     def update_color(self, itemname, rgb):
         """
@@ -857,6 +917,12 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
     def apply_callback(self):
         self.figure.apply_callback()
 
+    def axes_layout(self):
+        self.ax.spines["right"].set_visible(False)
+        self.ax.spines["top"].set_visible(False)
+        self.ax.tick_params(axis="y", color="0.75")
+        self.ax.tick_params(axis="x", color="0.75")
+
     def construct_widget(self):
         """
         Constructs the widget.
@@ -869,21 +935,18 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.setLayout(QtWidgets.QVBoxLayout())
 
         # Create figure
-        self.figure, self.ax = plt.subplots(constrained_layout=True)
+        self.figure, self.ax = plt.subplots(constrained_layout=True, dpi=100)
         self.figure.apply_callback = self.apply_callback
 
         # Set background color
         bgcolor = self.palette().color(self.backgroundRole()).name()
         self.figure.patch.set_facecolor(bgcolor)
-        # self.figure.tight_layout()
 
-        self.ax.spines["right"].set_visible(False)
-        self.ax.spines["top"].set_visible(False)
-        self.ax.tick_params(axis="y", color="0.75")
-        self.ax.tick_params(axis="x", color="0.75")
+        self.axes_layout()
 
         # Add canvas
         self.canvas = FigureCanvasQTAgg(self.figure)
+        self.canvas.mpl_connect("scroll_event", self.scroll_dpi)
         self.toolbar = CustomNavigationToolbar(self.canvas, self)
         self.title = QtWidgets.QLabel("")
         self.title.setWordWrap(True)
@@ -896,40 +959,65 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.legend = LegendTable(self)
         self.legend.setContentsMargins(0, 0, 0, 0)
 
-        self.weightslider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
-        self.weightslider.setValue(0)
-        self.weightslider.setMinimum(0)
-        self.weightslider.setMaximum(len(self.results.experts.weights) - 1)
-        self.weightslider.valueChanged.connect(self.legend.select_on_weight)
+        self.comb_score_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.comb_score_slider.setValue(0)
+        self.comb_score_slider.setMinimum(0)
+        self.comb_score_slider.setMaximum(len(self.results.experts.comb_score) - 1)
+        self.comb_score_slider.valueChanged.connect(self.legend.select_on_weight)
+
+        # DPI settings
+        plus_button = QtWidgets.QPushButton("+", clicked=lambda: self.increase_dpi(factor=1.2))
+        plus_button.setFixedWidth(25)
+        min_button = QtWidgets.QPushButton("-", clicked=lambda: self.decrease_dpi(factor=1.2))
+        min_button.setFixedWidth(25)
+        self.set_dpi_box = widgets.HLayout([QtWidgets.QLabel("Scale:"), plus_button, min_button])
 
         # Button to save all figures
-        self.save_all_button = QtWidgets.QPushButton("Save all")
+        self.save_all_button = QtWidgets.QPushButton("Save multiple figures")
         self.save_all_button.clicked.connect(self.save_all_figures)
 
         # Create comboboxes for data selection
-        self.plotby_cbox = widgets.ComboboxInputLine("Plot by:", 100, ["Item", "Expert"])
+        width = widgets.get_width("Anchor (x[0-1];y[0-1])")
+        self.plotby_cbox = widgets.ComboboxInputLine("Plot by:", width, ["Item", "Expert"])
         self.plotby_cbox.combobox.setCurrentIndex(0)
 
-        self.item_cbox = widgets.ComboboxInputLine("Select item:", 100, self.results.items.ids)
+        self.item_cbox = widgets.ComboboxInputLine("Select item:", width, self.results.items.ids)
         self.item_cbox.combobox.setCurrentIndex(0)
 
-        self.plottype_cbox = widgets.ComboboxInputLine("Select plot type:", 100, ["CDF", "Exc Prob", "PDF", "Range"])
+        self.plottype_cbox = widgets.ComboboxInputLine(
+            "Select plot type:", width, ["CDF", "Exc Prob", "PDF", "Range"]
+        )
         self.plottype_cbox.combobox.setCurrentIndex(0)
 
         self.connect_signals()
 
-        # Initialize plot
-        self.init_plot()
-        self.update_plotby()
-
         leftlayout = widgets.VLayout([self.title, self.canvas])
 
         dataselection = widgets.SimpleGroupBox(
-            items=[self.plotby_cbox, self.plottype_cbox, self.item_cbox], orientation="vertical", title="Select data"
+            items=[self.plotby_cbox, self.plottype_cbox, self.item_cbox],
+            orientation="vertical",
+            title="Select data",
+        )
+
+        self.dm_presence = {dm: False for dm in self.resultswidget.dm_ids}
+        self.dm_presence[self.results.settings.id] = True
+        self.select_extra_dm = widgets.ComboboxInputLine(
+            "DM:", width, [dm for dm, pr in self.dm_presence.items() if not pr]
+        )
+
+        self.add_dm_button = QtWidgets.QPushButton("Add", clicked=self.add_extra_dm_results)
+        self.add_dm_groupbox = widgets.SimpleGroupBox(
+            items=[widgets.HLayout([self.select_extra_dm, self.add_dm_button])],
+            orientation="vertical",
+            title="Add DM from other result",
         )
 
         rightlayout = widgets.VLayout(
-            [dataselection, widgets.SimpleGroupBox([self.weightslider, self.legend], "v", "Select item/expert")]
+            [
+                dataselection,
+                widgets.SimpleGroupBox([self.comb_score_slider, self.legend], "v", "Select item/expert"),
+                self.add_dm_groupbox,
+            ]
         )
         rightlayout.addStretch(10)
 
@@ -950,10 +1038,6 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.layout().addWidget(widgets.HLine())
 
         self.toolbar.setContentsMargins(0, 0, 0, 0)
-        button_layout = QtWidgets.QHBoxLayout()
-        button_layout.addWidget(self.toolbar)
-        button_layout.addWidget(self.save_all_button)
-        button_layout.addStretch()
 
         # OK and Cancel buttons
         self.close_button = QtWidgets.QPushButton("Close")
@@ -963,11 +1047,63 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         button_box = QtWidgets.QDialogButtonBox(QtCore.Qt.Horizontal, self)
         button_box.addButton(self.close_button, QtWidgets.QDialogButtonBox.RejectRole)
         button_box.accepted.connect(QtWidgets.QDialog.accept)
-        button_layout.addWidget(button_box)
 
-        self.layout().addLayout(button_layout)
+        button_layout = widgets.HLayout([self.set_dpi_box, self.save_all_button, "stretch", button_box])
+
+        self.layout().addLayout(widgets.VLayout([self.toolbar, button_layout]))
 
         self.resize(900, 600)
+
+        # Initialize plot
+        self.init_plot()
+        self.update_plotby()
+
+    def add_extra_dm_results(self):
+        # Get selected DM
+        dm_id = self.select_extra_dm.get_value()
+        if dm_id == "":
+            return None
+        self.dm_presence[dm_id] = True
+        self.select_extra_dm.combobox.removeItem(self.select_extra_dm.combobox.currentIndex())
+
+        # Get results from other results
+        extra_res = self.resultswidget.get_results(expert=dm_id)
+        index = extra_res.experts.get_idx(dm_id)
+        self.results.experts.add_expert(
+            exp_id=extra_res.settings.id,
+            exp_name=extra_res.settings.name,
+            assessment=extra_res.assessments.array[index, :, :].T,
+            exp_type="DM",
+            full_cdf=extra_res.assessments.full_cdf[dm_id],
+        )
+        self._add_color(dm_id, "dm")
+        self.legend.comb_score_collection.append(extra_res.experts.comb_score[index])
+
+        # Update legend rows
+        self.legend.set_rows()
+        self.init_plot()
+
+    def scroll_dpi(self, event):
+        if event.button == "up":
+            self.increase_dpi(factor=1.1)
+        elif event.button == "down":
+            self.decrease_dpi(factor=1.1)
+
+    def increase_dpi(self, factor=1.2):
+        current_dpi = self.figure.get_dpi()
+        self._set_figure_dpi(current_dpi * factor)
+
+    def decrease_dpi(self, factor=1.2):
+        current_dpi = self.figure.get_dpi()
+        self._set_figure_dpi(current_dpi / factor)
+
+    def _set_figure_dpi(self, new_dpi):
+        current_size = self.figure.get_size_inches()
+        current_dpi = self.figure.get_dpi()
+
+        self.figure.set_dpi(new_dpi)
+        self.figure.set_size_inches(*(current_size * current_dpi / new_dpi))
+        self.canvas.draw_idle()
 
     def connect_signals(self):
         """
@@ -993,15 +1129,15 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         or after experts or items are chosen.
         """
         self.plotby = self.plotby_cbox.combobox.currentText().lower()
-        self.weightslider.setValue(0)
+        self.comb_score_slider.setValue(0)
 
         if self.plotby == "expert":
             self.init_expert_plot()
-            self.weightslider.setEnabled(False)
+            self.comb_score_slider.setEnabled(False)
 
         if self.plotby == "item":
             self.init_item_plot()
-            self.weightslider.setEnabled(True)
+            self.comb_score_slider.setEnabled(True)
 
     def init_expert_plot(self):
         """
@@ -1020,11 +1156,10 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         # Add lines for expert
         for item in self.results.items.ids:
             c = self.colors[item]
-            (self.lines[item],) = self.ax.plot([], [], lw=2.0, color=c, ls="-", label=item)
+            (self.lines[item],) = self.ax.plot([], [], lw=1.5, color=c, ls="-", label=item)
             self.markers[item] = {}
             for quantile, marker in zip(self.results.assessments.quantiles, selection):
-                (self.markers[item][quantile],) = self.ax.plot([], [], c=c, marker=marker, ms=5)
-
+                (self.markers[item][quantile],) = self.ax.plot([], [], c=c, marker=marker, lw=0.0)
         # An extra draw is necessary for plotting the markers
         self.canvas.draw_idle()
 
@@ -1048,7 +1183,9 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         # Add lines for expert
         for expert in self.results.experts.ids:
-            (self.lines[expert],) = self.ax.plot([], [], lw=2.0, color=self.colors[expert], ls="-", label=expert)
+            (self.lines[expert],) = self.ax.plot(
+                [], [], lw=1.5, color=self.colors[expert], ls="-", label=expert
+            )
 
         if self.plottype == "pdf":
             self.ax.set_ylabel("Probability density")
@@ -1066,7 +1203,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
                 c = self.colors[expert]
                 self.markers[expert] = {}
                 for quantile, marker in zip(self.results.assessments.quantiles, selection):
-                    (self.markers[expert][quantile],) = self.ax.plot([], [], c=c, marker=marker, ms=5)
+                    (self.markers[expert][quantile],) = self.ax.plot([], [], c=c, marker=marker, lw=0.0)
 
             # An extra draw is necessary for plotting the markers
             self.canvas.draw_idle()
@@ -1093,10 +1230,12 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         if self.plotby == "expert":
             self.plottype_cbox.combobox.addItems(["Range"])
             self.item_cbox.combobox.addItems(self.results.experts.ids)
+            self.add_dm_groupbox.setEnabled(False)
 
         elif self.plotby == "item":
             self.plottype_cbox.combobox.addItems(["CDF", "Exc Prob", "PDF", "Range"])
             self.item_cbox.combobox.addItems(self.results.items.ids)
+            self.add_dm_groupbox.setEnabled(True)
 
         else:
             raise KeyError(self.plotby)
@@ -1127,7 +1266,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         # Get item data
         assessments = self.get_expert_data()
         # Set title
-        self.set_title()
+        self.set_title_xlabel()
 
         selected = np.unique([idx.row() for idx in self.legend.selectedIndexes()])
         items = [self.results.items.ids[i] for i in selected]
@@ -1154,13 +1293,11 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         Method to update the item plot after changes are made to the data selection.
         """
         # Set title
-        self.set_title()
+        self.set_title_xlabel()
 
         if self.plottype == "cdf":
             # Get item data
             lower, upper, assessments = self.get_item_data(full_dm_cdf=True)
-
-            self.results.get_plot_data(experts=None, full_dm_cdf=True)
 
             # Set expert lines
             quants = np.r_[0.0, self.results.assessments.quantiles, 1.0]
@@ -1188,7 +1325,9 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
                 row = assessments[expert]
                 if row.ndim == 1:
                     use = ~np.isnan(row)
-                    self.lines[expert].set_data(np.r_[lower, row[use], upper], 1.0 - quants[np.r_[True, use, True]])
+                    self.lines[expert].set_data(
+                        np.r_[lower, row[use], upper], 1.0 - quants[np.r_[True, use, True]]
+                    )
                 else:
                     xdata, ydata = row.T
                     self.lines[expert].set_data(np.r_[lower, xdata, upper], 1.0 - np.r_[0.0, ydata, 1.0])
@@ -1288,11 +1427,12 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             else:
                 assessments[exp] = self.results.assessments.array[i, :, itemid]
 
+        # Get the item bounds
         lower = self.results.lower_k[itemid]
         upper = self.results.upper_k[itemid]
 
         # Convert bounds form log scale to uniform scale in case of log background
-        if self.results.items.scale[itemid] == "log":
+        if self.results.items.scales[itemid] == "log":
             lower = np.exp(lower)
             upper = np.exp(upper)
 
@@ -1311,7 +1451,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         upper = self.results.upper
 
         # Convert bounds form log scale to uniform scale in case of log background
-        for i, scale in enumerate(self.results.items.scale):
+        for i, scale in enumerate(self.results.items.scales):
             if scale == "log":
                 lower[i] = np.exp(lower[i])
                 upper[i] = np.exp(upper[i])
@@ -1329,7 +1469,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         itemid = self.item_cbox.combobox.currentIndex()
 
         # Set x axis scale
-        if self.results.items.scale[itemid] == "log":
+        if self.results.items.scales[itemid] == "log":
             self.ax.set_xscale("log")
             # self.ax.set_xscale('linear')
         else:
@@ -1340,7 +1480,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.ax.set_xlim(xmin, xmax)
         self.ax.set_ylim(ymin, ymax)
 
-    def set_title(self):
+    def set_title_xlabel(self):
         """
         Set axis title, called after a plot has been changed.
         """
@@ -1349,12 +1489,14 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             itemid = self.item_cbox.combobox.currentIndex()
             # Add to label
             self.title.setText(self.results.items.questions[itemid])
+            self.ax.set_xlabel(self.results.items.units[itemid])
 
         elif self.plotby == "expert":
             # Get expert id
             expertid = self.item_cbox.combobox.currentIndex()
             # Add to label
             self.title.setText(self.results.experts.ids[expertid])
+            self.ax.set_xlabel(None)
 
     def _set_data_visible(self):
         """
@@ -1386,42 +1528,522 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.canvas.draw_idle()
 
     def save_all_figures(self):
-        # self.figure.savefig('')
+
+        self.parameters_dialog = OverviewSettingsDialog(self)
+        accepted = self.parameters_dialog.exec_()
+
+        if not accepted:
+            return None
+
+        indices = list(range(self.item_cbox.combobox.count()))
+        if self.plotby == "item":
+            itemtype = self.save_figure_settings.figure_selection.lower().split()[0].replace("all", "both")
+            indices = [i for i, bl in zip(indices, self.results.items.get_idx(itemtype)) if bl]
+
+        if self.save_figure_settings.figure_type == "Single figures":
+            self.save_single_figures(self.save_figure_settings, indices)
+
+        elif self.save_figure_settings.figure_type == "Gridded overview":
+            self.save_overview_figure(self.save_figure_settings, indices)
+
+    def save_single_figures(self, settings, indices):
+
+        # Get current figure
+        current = self.item_cbox.combobox.currentIndex()
+        currentsize = self.figure.get_size_inches()
+
+        if settings.title_option == "Full title":
+            titletext = self.results.items.questions if self.plotby == "item" else self.results.experts.names
+        elif settings.title_option == "ID title":
+            titletext = self.results.items.ids if self.plotby == "item" else self.results.experts.ids
+        elif settings.title_option == "No title":
+            pass
+        else:
+            raise KeyError(settings.title_option)
+
+        # Loop through figures and save all
+        for j, i in enumerate(indices):
+
+            self.item_cbox.combobox.setCurrentIndex(i)
+
+            if settings.title_option != "No title":
+                self.ax.set_title(
+                    "\n".join(textwrap.wrap(titletext[j], width=settings.title_line_characters)),
+                    fontweight="bold",
+                )
+
+            self.figure.set_size_inches(settings.figsize_horizontal / 2.54, settings.figsize_vertical / 2.54)
+
+            # Add legend
+            if settings.add_legend:
+                extra = (self.add_legend(None, settings),)
+            else:
+                extra = ()
+
+            naam = self.item_cbox.combobox.currentText()
+            self.figure.savefig(
+                settings.save_directory_single_figures / f"{i+1:02d}. {naam}{settings.figure_extension}",
+                dpi=settings.figure_dpi,
+                facecolor="w",
+                bbox_inches="tight",
+                transparent=True,
+                bbox_extra_artists=extra,
+            )
+            if settings.add_legend:
+                extra[0].remove()
+
+        self.ax.set_title(None)
+        self.figure.set_size_inches(*currentsize)
+
+        self.item_cbox.combobox.setCurrentIndex(current)
+
+    def save_overview_figure(self, settings, indices):
+
+        # Create directory
+        current = self.item_cbox.combobox.currentIndex()
+
+        if settings.title_option == "Full title":
+            titletext = self.results.items.questions if self.plotby == "item" else self.results.experts.names
+        elif settings.title_option == "ID title":
+            titletext = self.results.items.ids if self.plotby == "item" else self.results.experts.ids
+        elif settings.title_option == "No title":
+            pass
+        else:
+            raise KeyError(settings.title_option)
+
+        overviewfig, axs = plt.subplots(
+            figsize=(settings.figsize_horizontal / 2.54, settings.figsize_vertical / 2.54),
+            ncols=settings.n_axes_cols,
+            nrows=settings.n_axes_rows,
+        )
+        axs = axs.ravel()
+
+        original_ax = self.ax
+
+        for j, i in enumerate(indices):
+
+            self.ax = axs[j]
+            self.init_plot()
+            self.item_cbox.combobox.setCurrentIndex(i)
+            if settings.title_option != "No title":
+                self.ax.set_title(
+                    "\n".join(textwrap.wrap(titletext[i], width=settings.title_line_characters)),
+                    fontweight="bold",
+                )
+
+            self.axes_layout()
+
+        for j in range(j + 1, len(axs)):
+            overviewfig.delaxes(axs[j])
+
+        overviewfig.tight_layout()
+
+        # Add legend
+        if settings.add_legend:
+            extra = (self.add_legend(overviewfig, settings),)
+        else:
+            extra = ()
+
+        overviewfig.savefig(
+            settings.save_path_overview,
+            dpi=settings.figure_dpi,
+            facecolor="w",
+            bbox_inches="tight",
+            transparent=True,
+            bbox_extra_artists=extra,
+        )
+
+        self.ax.set_title(None)
+
+        self.ax = original_ax
+
+        self.item_cbox.combobox.setCurrentIndex(current)
+
+    def add_legend(self, figure, settings):
+
+        if self.plottype == "range":
+            markers = get_markers(self.results.assessments.quantiles)
+            items = [self.ax.plot([], [], marker=marker, color="0.2", ls="")[0] for marker in markers]
+            lg = figure.legend(
+                items,
+                self.results.assessments.quantiles,
+                settings.legend_position,
+                title="Elicited quantiles",
+                ncol=len(self.results.assessments.quantiles),
+                bbox_to_anchor=settings.legend_anchor
+                if ((settings.legend_anchor[0] is not None) and (settings.legend_anchor[1] is not None))
+                else None,
+                handlelength=1,
+                columnspacing=1,
+            )
+
+        else:
+            lg = self.ax.legend(
+                loc=settings.legend_position,
+                ncol=1,
+                bbox_to_anchor=settings.legend_anchor
+                if ((settings.legend_anchor[0] is not None) and (settings.legend_anchor[1] is not None))
+                else None,
+                # handlelength=1,
+                # columnspacing=1,
+            )
+
+        return lg
+
+    def close(self):
+        for dm, pr in self.dm_presence.items():
+            if (dm != self.results.settings.id) and pr:
+                self.results.experts.remove_expert(dm)
+        super().close()
+
+
+class OverviewSettingsDialog(QtWidgets.QDialog):
+    def __init__(self, parent):
+        super(OverviewSettingsDialog, self).__init__()
+
+        self.appsettings = parent.appsettings
+        self.icon = parent.icon
+
+        self.results = parent.results
+
+        self.save_figure_settings = parent.save_figure_settings
+        self.ncols = self.save_figure_settings.n_axes_cols
+        self.nrows = self.save_figure_settings.n_axes_rows
+
+        self.plotby = parent.plotby
+        if self.plotby == "item":
+            self.nitems = {
+                "All questions": sum(self.results.items.get_idx("both")),
+                "Seed questions": sum(self.results.items.get_idx("seed")),
+                "Target questions": sum(self.results.items.get_idx("target")),
+            }
+            self.nmax = self.nitems["All questions"]
+            self.ncurrent = sum(self.results.items.get_idx("both"))
+        else:
+            self.nmax = len(self.results.experts.ids)
+            self.ncurrent = self.nmax
+
+        self.input_elements = {"figure": {}, "grid_layout": {}, "title": {}, "saving": {}, "legend": {}}
+
+        self.init_ui()
+        self.update_nitems()
+        self.enable_figure_options()
+        self.load_from_settings()
+
+        self.connect_signals()
+
+        self.input_elements["grid_layout"]["n_axes_cols"].set_value(int(np.ceil(self.ncurrent ** 0.5)))
+
+    def accept(self):
+        self.save_to_settings()
+        super().accept()
+
+    def connect_signals(self):
+        for _, group in self.input_elements.items():
+            for _, widget in group.items():
+                if isinstance(widget, widgets.ButtonGroup):
+                    widget.group.buttonClicked.connect(self.save_to_settings)
+                elif isinstance(widget, widgets.ComboboxInputLine):
+                    widget.combobox.currentIndexChanged.connect(self.save_to_settings)
+                elif isinstance(widget, widgets.ParameterInputLine):
+                    widget.LineEdit.editingFinished.connect(self.save_to_settings)
+                elif isinstance(widget, widgets.DoubleParameterInputLine):
+                    widget.LineEdit.editingFinished.connect(self.save_to_settings)
+                    widget.LineEdit2.editingFinished.connect(self.save_to_settings)
+                elif isinstance(widget, widgets.ExtendedLineEdit):
+                    widget.LineEdit.editingFinished.connect(self.save_to_settings)
+                elif isinstance(widget, widgets.CheckBoxInput):
+                    widget.checkbox.stateChanged.connect(self.save_to_settings)
+
+    def get_ncurrent(self):
+        self.ncurrent = self.nitems[self.input_elements["figure"]["figure_selection"].get_value()]
+
+    def update_nitems(self):
+        self.get_ncurrent()
+        self._adjust_nrows()
+
+    def enable_figure_options(self):
+
+        clicked = self.input_elements["figure"]["figure_type"].get_value(as_index=False)
+        self.input_elements["grid_layout"]["n_axes_cols"].set_enabled(clicked == "Gridded overview")
+        self.input_elements["grid_layout"]["n_axes_rows"].set_enabled(clicked == "Gridded overview")
+
+    def adjust_figure_sizes(self):
+
+        hwidget = self.input_elements["saving"]["figsize_horizontal"]
+        vwidget = self.input_elements["saving"]["figsize_vertical"]
+
+        clicked = self.input_elements["figure"]["figure_type"].get_value(as_index=False)
+
+        if clicked == "Gridded overview":
+            hwidget.set_value(float(hwidget.get_value()) * self.ncols)
+            vwidget.set_value(float(vwidget.get_value()) * self.nrows)
+
+            self.input_elements["saving"]["save_path_overview"].set_value(
+                self.save_figure_settings.save_path_overview
+            )
+
+        if clicked == "Single figures":
+            hwidget.set_value(float(hwidget.get_value()) / self.ncols)
+            vwidget.set_value(float(vwidget.get_value()) / self.nrows)
+
+            self.input_elements["saving"]["save_directory_single_figures"].set_value(
+                self.save_figure_settings.save_directory_single_figures
+            )
+
+    def init_ui(self):
+
+        self.setWindowTitle("Save overview figure")
+        self.setWindowIcon(self.icon)
+        self.setLayout(QtWidgets.QVBoxLayout())
+
+        # Get max label width "title line characters"
+        width = widgets.get_width("Title line characters")
+
+        if self.plotby == "item":
+            self.input_elements["figure"]["figure_selection"] = widgets.ComboboxInputLine(
+                label="Select items",
+                labelwidth=width,
+                items=list(self.nitems.keys()),
+                default=self.save_figure_settings.figure_selection,
+            )
+            self.input_elements["figure"]["figure_selection"].combobox.currentIndexChanged.connect(
+                self.update_nitems
+            )
+
+        self.input_elements["figure"]["figure_type"] = widgets.ButtonGroup(
+            label="Layout",
+            buttonlabels=["Gridded overview", "Single figures"],
+            orientation="horizontal",
+            default=self.save_figure_settings.figure_type,
+            labelwidth=width,
+        )
+        self.input_elements["figure"]["figure_type"].group.buttonClicked.connect(self.enable_figure_options)
+        self.input_elements["figure"]["figure_type"].group.buttonClicked.connect(self.adjust_figure_sizes)
+
+        self.input_elements["grid_layout"]["n_axes_cols"] = widgets.ParameterInputLine(
+            label="N columns", labelwidth=width, default=self.save_figure_settings.n_axes_cols
+        )
+        self.input_elements["grid_layout"]["n_axes_cols"].LineEdit.textChanged.connect(self._adjust_nrows)
+        self.input_elements["grid_layout"]["n_axes_rows"] = widgets.ParameterLabel(
+            label="N rows", labelwidth=width
+        )
+
+        self.input_elements["title"]["title_option"] = widgets.ButtonGroup(
+            buttonlabels=["No title", "ID title", "Full title"],
+            orientation="horizontal",
+            label="Figure title",
+            labelwidth=width,
+            default=self.save_figure_settings.title_option,
+        )
+        self.input_elements["title"]["title_line_characters"] = widgets.ParameterInputLine(
+            label="Title line characters", labelwidth=width, default=40
+        )
+        self.input_elements["saving"]["save_path_overview"] = widgets.ExtendedLineEdit(
+            label="Save location",
+            labelwidth=width,
+            browsebutton=QtWidgets.QPushButton("...", clicked=self._get_path),
+        )
+        self.input_elements["saving"]["save_directory_single_figures"] = self.input_elements["saving"][
+            "save_path_overview"
+        ]
+
+        self.input_elements["saving"]["figure_extension"] = widgets.ComboboxInputLine(
+            label="Figure extension",
+            labelwidth=width,
+            items=[".png", ".jpg", ".pdf"],
+            default=self.save_figure_settings.figure_extension,
+        )
+        self.input_elements["saving"]["figure_extension"].combobox.currentIndexChanged.connect(
+            self._change_ext
+        )
+
+        self.input_elements["saving"]["figsize_horizontal"] = widgets.ParameterInputLine(
+            label="Hor. size (cm)",
+            labelwidth=width,
+            default=self.save_figure_settings.figsize_horizontal,
+            validator=QtGui.QDoubleValidator(1.00, 1000.00, 20),
+        )
+        self.input_elements["saving"]["figsize_vertical"] = widgets.ParameterInputLine(
+            label="Vert. size (cm)",
+            labelwidth=width,
+            default=self.save_figure_settings.figsize_vertical,
+            validator=QtGui.QDoubleValidator(1.00, 1000.00, 20),
+        )
+        self.input_elements["saving"]["figure_dpi"] = widgets.ParameterInputLine(
+            label="DPI",
+            labelwidth=width,
+            default=self.save_figure_settings.figure_dpi,
+            validator=QtGui.QIntValidator(10, 2400),
+        )
+
+        self.input_elements["legend"]["add_legend"] = widgets.CheckBoxInput(
+            label="Add legend", labelwidth=width, default=self.save_figure_settings.add_legend
+        )
+
+        self.input_elements["legend"]["legend_position"] = widgets.ComboboxInputLine(
+            label="Position",
+            labelwidth=width,
+            default=self.save_figure_settings.legend_position,
+            items=[
+                "upper right",
+                "upper left",
+                "lower left",
+                "lower right",
+                "right",
+                "center left",
+                "center right",
+                "lower center",
+                "upper center",
+                "center",
+            ],
+        )
+        # regexp = QtCore.QRegExp("^\d+(?:[\.\,]\d+)?[;]\d+(?:[\.\,]\d+)?$")
+        v1, v2 = self.save_figure_settings.legend_anchor
+        self.input_elements["legend"]["legend_anchor"] = widgets.DoubleParameterInputLine(
+            label="Anchor (x[0-1];y[0-1])",
+            labelwidth=width,
+            validator1=QtGui.QDoubleValidator(0.0, 1.0, 20),
+            validator2=QtGui.QDoubleValidator(0.0, 1.0, 20),
+            default1=str(v1) if v1 is not None else "",
+            default2=str(v2) if v2 is not None else "",
+        )
+
+        titles = {
+            "figure": "Figure options",
+            "legend": "Legend settings",
+            "saving": "Save options",
+            "grid_layout": "Grid layout",
+            "title": "Title options",
+        }
+
+        for i, (key, dct) in enumerate(self.input_elements.items()):
+
+            groupbox = widgets.SimpleGroupBox(list(dct.values()), "vertical", titles[key])
+
+            self.layout().addWidget(groupbox)
+
+        # OK and Cancel buttons
+        self.save_button = QtWidgets.QPushButton("Save figure(s)")
+        self.save_button.setDefault(True)
+        self.save_button.clicked.connect(self.accept)
+
+        self.cancel_button = QtWidgets.QPushButton("Cancel")
+        self.cancel_button.setAutoDefault(False)
+        self.cancel_button.clicked.connect(self.reject)
+
+        button_box = QtWidgets.QDialogButtonBox(QtCore.Qt.Horizontal, self)
+        button_box.addButton(self.save_button, QtWidgets.QDialogButtonBox.ActionRole)
+        button_box.addButton(self.cancel_button, QtWidgets.QDialogButtonBox.RejectRole)
+        button_box.accepted.connect(QtWidgets.QDialog.accept)
+
+        self.layout().addWidget(button_box)
+
+    def _adjust_nrows(self):
+        ncols_old = self.ncols
+        nrows_old = self.nrows
+
+        # Change number of rows based on number of columns
+        self.ncols = int(self.input_elements["grid_layout"]["n_axes_cols"].get_value())
+        self.nrows = int(np.ceil(self.ncurrent / self.ncols))
+        self.input_elements["grid_layout"]["n_axes_rows"].set_value(self.nrows)
+
+        # Change figure sizes based on new layout
+        hwidget = self.input_elements["saving"]["figsize_horizontal"]
+        vwidget = self.input_elements["saving"]["figsize_vertical"]
+
+        figure_type = self.input_elements["figure"]["figure_type"].get_value(as_index=False)
+        if figure_type == "Gridded overview":
+            hwidget.set_value(float(hwidget.get_value()) * (self.ncols / ncols_old))
+            vwidget.set_value(float(vwidget.get_value()) * (self.nrows / nrows_old))
+
+    def _get_path(self):
 
         # Set open file dialog settings
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
         options |= QtWidgets.QFileDialog.DontConfirmOverwrite
-        options |= QtWidgets.QFileDialog.DirectoryOnly
+        # options |= QtWidgets.QFileDialog.DirectoryOnly
 
         # Set current dir
         currentdir = self.appsettings.value("currentdir", ".", type=str)
 
-        # Open dialog to select file
-        fname, ext = QtWidgets.QFileDialog.getSaveFileName(
-            self, "Anduryl - Save figures", currentdir, "PNG (*.png);;JPEG (*.jpg)", options=options
-        )
-        ext = ext.split("*")[-1][:-1]
-
-        if fname == "":
-            return None
-
-        # Create directory
-        os.mkdir(fname)
-
-        current = self.item_cbox.combobox.currentIndex()
-
-        for i in range(self.item_cbox.combobox.count()):
-            self.item_cbox.combobox.setCurrentIndex(i)
-            naam = self.item_cbox.combobox.currentText()
-            self.ax.set_title("\n".join(textwrap.wrap(self.title.text(), width=70)), fontweight="bold")
-            self.figure.savefig(
-                fname + "/" + f"{i+1:02d}. {naam}{ext}", dpi=220, facecolor="w", bbox_inches="tight", transparent=True
+        if self.input_elements["figure"]["figure_type"].get_value() == "Single figures":
+            directory = QtWidgets.QFileDialog.getExistingDirectory(
+                self,
+                "Anduryl - Select directory for saving figures",
+                currentdir,
+                options=options,
             )
+            self.input_elements["saving"]["save_path_overview"].set_value(directory)
 
-        self.ax.set_title(None)
+        elif self.input_elements["figure"]["figure_type"].get_value() == "Gridded overview":
 
-        self.item_cbox.combobox.setCurrentIndex(current)
+            # Open dialog to select file
+            fname, ext = QtWidgets.QFileDialog.getSaveFileName(
+                self,
+                "Anduryl - Select location for saving figure",
+                currentdir,
+                "PNG (*.png);;JPEG (*.jpg);;PDF (*.pdf)",
+                options=options,
+            )
+            ext = ext.split("*")[-1][:-1]
+            if not fname.endswith(ext):
+                fname += ext
+
+            self.input_elements["saving"]["save_directory_single_figures"].set_value(fname)
+            self.input_elements["saving"]["figure_extension"].set_value(ext)
+
+    def _change_ext(self):
+
+        # Check if savetype is gridded overview
+        if self.input_elements["figure"]["figure_type"].get_value() == "Gridded overview":
+            # If so, replace extension with new one
+            new_ext = self.input_elements["saving"]["figure_extension"].combobox.currentText()
+            widget = self.input_elements["saving"]["save_path_overview"]
+            current = widget.get_value()
+            widget.set_value(current[: current.rfind(".")] + new_ext)
+
+    def save_to_settings(self):
+        """
+        Save parameters to settings. The settings have the same layout as the input_elements dict
+        """
+        for _, group in self.input_elements.items():
+            for param, widget in group.items():
+                val = widget.get_value()
+                if param == "save_path_overview":
+                    if self.save_figure_settings.figure_type == "Gridded overview":
+                        self.save_figure_settings.save_path_overview = val
+
+                elif param == "save_directory_single_figures":
+                    if self.save_figure_settings.figure_type == "Single figures":
+                        self.save_figure_settings.save_directory_single_figures = val
+
+                else:
+                    setattr(self.save_figure_settings, param, val)
+
+    def load_from_settings(self):
+        """
+        Save parameters to settings. The settings have the same layout as the input_elements dict
+        """
+        for param, value in self.save_figure_settings._iter():
+            # Some settings do not have a GUI element, continue if encountered
+            groups = [group_name for group_name, group in self.input_elements.items() if param in group]
+            assert len(groups) == 1
+            group_name = groups[0]
+
+            if self.save_figure_settings.figure_type == "Gridded overview":
+                if param == "save_path_overview":
+                    self.input_elements[group_name][param].set_value(
+                        self.save_figure_settings.save_path_overview
+                    )
+            elif self.save_figure_settings.figure_type == "Single figures":
+                if param == "save_directory_single_figures":
+                    self.input_elements[group_name][param].set_value(
+                        self.save_figure_settings.save_directory_single_figures
+                    )
+            else:
+                self.input_elements[group_name][param].set_value(value)
 
 
 class ItemWeightDialog(QtWidgets.QDialog):

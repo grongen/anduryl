@@ -1,9 +1,6 @@
 import numpy as np
 from math import gamma, e
-
-# import sys
-# from pathlib import Path
-
+from typing import Union
 
 def upper_incomplete_gamma(a, x, iterations):
     """
@@ -49,10 +46,11 @@ class Experts:
         self.info_real = np.zeros((0))
         self.info_total = np.zeros((0))
         self.calibration = np.zeros((0))
-        self.weights = np.zeros((0))
+        self.nseeds = np.zeros((0))
+        self.comb_score = np.zeros((0))
         self.user_weights = np.zeros((0))
         self.info_per_var = np.zeros((0, 0))
-        self.arraynames = ["user_weights", "info_real", "info_total", "calibration", "weights"]
+        self.arraynames = ["user_weights", "info_real", "info_total", "calibration", "nseeds", "comb_score"]
         self.excluded = []
         # self.styles = []
 
@@ -79,7 +77,7 @@ class Experts:
         else:
             raise TypeError(exptype)
 
-    def get_idx(self, experts):
+    def get_idx(self, experts: Union[str, list, None]) -> Union[np.ndarray, int]:
         """
         Returns the idx of one or more experts in the list
 
@@ -264,7 +262,7 @@ class Experts:
                     lst[i] -= 1
 
         # Remove from excluded
-        if exp_id is self.excluded:
+        if exp_id in self.excluded:
             self.excluded.remove(exp_id)
 
         # Remove bin counts
@@ -379,7 +377,7 @@ class Experts:
         valid = np.zeros((nexperts, nitems), dtype=bool)
 
         # Scale values to log
-        scale = self.project.items.scale
+        scale = self.project.items.scales
         for iq in range(nitems):
             # Checker whether all the answers are filled in (a valid entry)
             use = self.project.items.use_quantiles[iq]
@@ -438,6 +436,7 @@ class Experts:
         Nmin : int
             Minimum number of answered questions for All experts
         """
+
         # Get used percentiles
         idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
         quantiles = np.array(self.project.assessments.quantiles)[idx]
@@ -461,65 +460,6 @@ class Experts:
 
         return cal
 
-    # def metalog_calibration_score(self, counts, Nmin, calpower):
-    #     """
-    #     Calculate calbration score
-
-    #     Parameters
-    #     ----------
-    #     M : numpy.ndarray
-    #         Number of realizations per question in each bin
-    #     Nmin : int
-    #         Minimum number of answered questions for All experts
-    #     """
-    #     # Get used percentiles
-    #     idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
-    #     quantiles = np.array(self.project.assessments.quantiles)[idx]
-
-    #     # Get probabilities
-    #     edges = np.concatenate([[0.0], quantiles, [1.0]])
-    #     p = edges[1:] - edges[:-1]
-
-    #     # Calculate calibration scores for each expert
-    #     cal = np.zeros(len(counts))
-
-    #     githubpath = Path("d:/Documents/GitHub/metalogistic")
-    #     if str(githubpath) not in sys.path:
-    #         sys.path.append(str(githubpath))
-
-    #     import metalogistic
-    #     import cProfile, pstats, io
-    #     from pstats import SortKey
-
-    #     pr = cProfile.Profile()
-    #     pr.enable()
-
-    #     for iq in np.where(self.project.items.get_idx("seed"))[0]:
-
-    #         for ie, expert in enumerate(counts.keys()):
-
-    #             # Get estimated values
-    #             values = self.project.assessments.array[self.project.experts.get_idx(expert), :, iq]
-
-    #             # Create metalog distribution
-    #             print("start", values, quantiles)
-    #             ml = metalogistic.MetaLogistic(cdf_xs=values, cdf_ps=quantiles)
-    #             print("fitted metalog")
-
-    #             # Get log-likelihood of realization in metalog and
-    #             # add to total log-likelihood (this methods calibration score)
-    #             print(iq, ie)
-    #             cal[ie] += np.log(max(1e-20, ml.pdf(x=self.project.items.realizations[iq])))
-
-    #     pr.disable()
-    #     s = io.StringIO()
-    #     sortby = SortKey.CUMULATIVE
-    #     ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-    #     ps.print_stats()
-    #     with open("D:/Documents/profile.txt", "w") as f:
-    #         f.write(s.getvalue())
-
-    #     return cal
 
     def calculate_weights(self, overshoot, alpha, calpower, experts=None, items=None):
         """
@@ -561,13 +501,17 @@ class Experts:
         # Get calibration score
         idx = self.get_idx(experts)
         self.calibration[idx] = self.calibration_score(counts, Nmin=Nmin, calpower=calpower)
+        # Get number of answered items (used for GUI only)
+        self.nseeds[idx] = np.array([vals.sum() for vals in counts.values()])
+        # That's why the number of seed questions for DM's is set to NaN
+        self.nseeds[self.decision_makers] = np.nan
 
         # Calculate weights based on realizations and calibration
         if alpha is not None:
             above_threshold = (self.calibration[idx] >= alpha).astype(int)
-            self.weights[idx] = self.calibration[idx] * self.info_real[idx] * above_threshold
+            self.comb_score[idx] = self.calibration[idx] * self.info_real[idx] * above_threshold
         else:
-            self.weights[idx] = self.calibration[idx] * self.info_real[idx]
+            self.comb_score[idx] = self.calibration[idx] * self.info_real[idx]
 
     def get_weights(self, weight_type, experts, alpha=None, exclude=None, calpower=None):
         """
@@ -613,7 +557,9 @@ class Experts:
 
             # Recalculate calibration score for new counts
             Nmin = min(sum(count) for count in count_dct.values())
-            cal = self.calibration_score(counts={exp: count_dct[exp] for exp in experts}, Nmin=Nmin, calpower=calpower)
+            cal = self.calibration_score(
+                counts={exp: count_dct[exp] for exp in experts}, Nmin=Nmin, calpower=calpower
+            )
 
         else:
             cal = self.calibration[expidx]
@@ -746,7 +692,8 @@ class Experts:
             self.info_total,
             self.info_real,
             self.calibration,
-            self.weights,
+            self.nseeds,
+            self.comb_score,
             self.user_weights,
         )
 
@@ -754,12 +701,13 @@ class Experts:
             raise KeyError(f"Orient {orient} should be 'columns' or 'index'.")
 
         dct = {}
-        for exp_id, name, infotot, inforeal, cal, weight, user_weight in zip(*lists):
+        for exp_id, name, infotot, inforeal, cal, nseed, weight, user_weight in zip(*lists):
             dct[exp_id] = {
                 "Name": name,
                 "Info. score total": infotot,
                 "Info. score real.": inforeal,
                 "Calibration score": cal,
+                "Answered seed items": nseed,
                 "Weight": weight,
                 "User weight": user_weight,
             }
@@ -770,3 +718,30 @@ class Experts:
             dct = {key: {k: dct[k][key] for k in dct if key in dct[k]} for key in keys}
 
         return dct
+
+    def to_latex(self):
+        lines = [
+            r"\begin{tabularx}{\linewidth}{XXXXX}",
+            r"\toprule",
+            r"{}                      & Calibration score            & \multicolumn{2}{c}{Information score} & Weight               \\",
+            r"\cmidrule(lr){3-4}",
+            r"{} &                      & All   & Calibr.                 &                      \\ \midrule",
+        ]
+
+        lists = (
+            self.ids,
+            self.info_total,
+            self.info_real,
+            self.calibration,
+            self.comb_score,
+        )
+
+        for i, (exp_id, infotot, inforeal, cal, weight) in enumerate(zip(*lists)):
+            if i == self.decision_makers[0]:
+                lines[-1] = rf"{lines[-1]} \midrule"
+            lines.append(rf"{exp_id} & {cal:.3f} & {infotot:.3f} & {inforeal:.3f} & {weight:.3f} \\")
+
+        lines.append(r"\bottomrule")
+        lines.append(r"\end{tabularx}")
+
+        return "\n".join(lines)

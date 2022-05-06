@@ -1,0 +1,22 @@
+ItemID;Realization;Unit;Scale;Question
+$TAdProm2005;13.11;;uni;amount (billion $) spent on advertising and promotional activities for US manufactured cigarettes
+%discount;77.3;;uni;% of advertising and promotional activities on price discounts to wholesalers or retailers
+MinVio;7;;uni;violation rate for sales of tobacco to minors in PA
+%DropPost2002;74.28;;uni;% of 35% drop in cigarette pack sales over 1997-2006 occured after 2002 in PA
+%LowIncSmoke;34;;uni;% of people with household income <$15,000 smoke in PA
+%SmokePA/NJ;1.26;;uni;ratio % adults smoke daily in PA/NJ
+CancMortPA/USA;1.2;;uni;ratio lung cancer mortality in PA/USA
+%NoInsPA/USA;0.777;;uni;ratio % without health insurance PA/USA
+SmokIns/NoIns;1.83;;uni;ratio cigarette smoking among people with no health plan / people with a health plan in PA
+08%CDCmin;21.3;;uni;PA state tobacco control funding as % of CDC minimum in 2008
+08%CDCminwoRWJ;;;uni;PA state tobacco control funding as % of CDC minimum in 2008 w/o RWJF
+20%CDCmin;;;uni;PA state tobacco control funding as % of CDC minimum in 2020
+20%CDCminwoRWJ;;;uni;PA state tobacco control funding as % of CDC minimum in 2020 w/o RWJF
+08AdCig;;;uni;prevalence of adult cigarette use in PA in 2008
+08AdCigwoRWJF;;;uni;prevalence of adult cigarette use in PA in 2008 w/o RWJF
+20AdCig;;;uni;prevalence of adult cigarette use in PA in 2020
+20AdCigwoRWJF;;;uni;prevalence of adult cigarette use in PA in 2020 w/o RWJF
+08YthCig;;;uni;prevalence of youth cigarette use in PA in 2008
+08YthCigwoRWJF;;;uni;prevalence of youth cigarette use in PA in 2008 w/o RWJF
+20YthCig;;;uni;prevalence of youth cigarette use in PA in 2020
+20YthCigwoRWJF;;;uni;prevalence of youth cigarette use in PA in 2020 w/o RWJF

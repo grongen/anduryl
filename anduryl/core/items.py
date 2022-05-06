@@ -22,15 +22,17 @@ class Items:
         # List with item ids
         self.ids = []
         # List with item scales
-        self.scale = []
+        self.scales = []
         # List with questions
         self.questions = []
+        # List with units
+        self.units = []
         # List with excluded questions
         self.excluded = []
         # List with manual item bounds (limiting overshoot)
-        self.item_bounds = np.zeros(shape=(0, 2), dtype=float)
+        self.bounds = np.zeros(shape=(0, 2), dtype=float)
         # List with manual item bounds (overriding general overshoot)
-        self.item_overshoot = np.zeros(shape=(0, 2), dtype=float)
+        self.overshoots = np.zeros(shape=(0, 2), dtype=float)
         # Array with percentiles to use in this assessment
         self.use_quantiles = np.array([], dtype=bool)
 
@@ -39,8 +41,9 @@ class Items:
         Clears all id's, scales and questions.
         """
         del self.ids[:]
-        del self.scale[:]
+        del self.scales[:]
         del self.questions[:]
+        del self.units[:]
 
     def initialize(self, nitems, nquantiles):
         """
@@ -53,10 +56,11 @@ class Items:
             Number of items
         """
         self.ids.extend([[] * nitems])
-        self.scale.extend([[] * nitems])
+        self.units.extend([[""] * nitems])
+        self.scales.extend([[] * nitems])
         self.realizations.resize(nitems, refcheck=False)
-        self.item_bounds.resize((nitems, 2), refcheck=False)
-        self.item_overshoot.resize((nitems, 2), refcheck=False)
+        self.bounds.resize((nitems, 2), refcheck=False)
+        self.overshoots.resize((nitems, 2), refcheck=False)
         self.use_quantiles.resize((nitems, nquantiles), refcheck=False)
 
     def get_idx(self, question_type="both", where=False):
@@ -99,8 +103,9 @@ class Items:
             Item (question) id
         """
         self.ids.append(item_id)
-        self.scale.append("uni")
+        self.scales.append("uni")
         self.questions.append("")
+        self.units.append("")
 
         nitems = len(self.realizations) + 1
 
@@ -108,8 +113,8 @@ class Items:
         self.realizations.resize(nitems, refcheck=False)
         self.realizations[-1] = np.nan
 
-        # Add item bounds and item_overshoot, defaults to (np.nan, np.nan)
-        for arr in [self.item_bounds, self.item_overshoot]:
+        # Add item bounds and overshoots, defaults to (np.nan, np.nan)
+        for arr in [self.bounds, self.overshoots]:
             arr.resize((nitems, 2), refcheck=False)
             arr[-1, :] = [np.nan, np.nan]
 
@@ -150,11 +155,12 @@ class Items:
         # Rearrange lists and 1d arrays
         for lst in [
             self.ids,
-            self.scale,
+            self.scales,
             self.questions,
+            self.units,
             self.realizations,
-            self.item_bounds,
-            self.item_overshoot,
+            self.bounds,
+            self.overshoots,
             self.use_quantiles,
         ]:
             lst[:] = [lst[i] for i in order]
@@ -181,9 +187,14 @@ class Items:
         # Get index
         idx = self.ids.index(item_id)
         # Remove from ids and names
-        del self.scale[idx]
+        del self.scales[idx]
         del self.questions[idx]
+        del self.units[idx]
         del self.ids[idx]
+
+        # Remove from excluded list
+        if item_id in self.excluded:
+            self.excluded.remove(item_id)
 
         # Remove from 1d arrays
         keep = np.ones(len(self.realizations), dtype=bool)
@@ -193,8 +204,8 @@ class Items:
         # Resize all arrays over axis 0 (items are on the first axis for these arrays)
         arrays = [
             (self.realizations, 0),
-            (self.item_bounds, 0),
-            (self.item_overshoot, 0),
+            (self.bounds, 0),
+            (self.overshoots, 0),
             (self.use_quantiles, 0),
             (self.project.experts.info_per_var, -1),
             (self.project.assessments.array, -1),
@@ -206,7 +217,7 @@ class Items:
             arr.resize(vals.shape, refcheck=False)
             arr[:] = vals
 
-    def as_dict(self, orient="columns"):
+    def as_dict(self, orient="columns", lists=["ids", "scales", "realizations", "questions", "units"]):
         """
         Returns an overview of the item data as a Python dictionary.
         The result can easily be converted to a pandas DataFrame with
@@ -228,11 +239,35 @@ class Items:
         if orient not in ["columns", "index"]:
             raise KeyError(f"Orient {orient} should be 'columns' or 'index'.")
 
-        lists = (self.ids, self.scale, self.realizations, self.questions)
+        list_objs = (getattr(self, "ids"),)
+        for l in lists:
+            if l == "ids":
+                continue
+            list_objs += (getattr(self, l),)
 
+        conv_dict = {
+            "ids": "id",
+            "scales": "scale",
+            "realizations": "realization",
+            "questions": "question",
+            "units": "unit",
+            "overshoots": "overshoots",
+            "bounds": "bounds",
+        }
+
+        tuples = ["overshoots", "bounds"]
+
+        # Create the total dict
         dct = {}
-        for ID, scale, realization, question in zip(*lists):
-            dct[ID] = {"Scale": scale, "Realization": realization, "Question": question}
+        for row in zip(*list_objs):
+            # Per item, create a dictionary
+            rowdct = {}
+            # Add all lists
+            for l, item in zip(lists[1:], row[1:]):
+                rowdct[conv_dict[l]] = tuple(item) if l in tuples else item
+            # Get the id, and add to total dict
+            ID = row[0]
+            dct[ID] = rowdct
 
         if orient == "columns":
             # Transpose

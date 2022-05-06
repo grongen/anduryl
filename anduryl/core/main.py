@@ -1,17 +1,12 @@
-import sys
 import types
 from copy import deepcopy
-from operator import itemgetter
 
 import numpy as np
-from numpy.core.multiarray import interp as compiled_interp
-
 from anduryl.core import calculate
 from anduryl.core.assessments import Assessment
 from anduryl.core.experts import Experts
 from anduryl.core.items import Items
-from anduryl.io import ProjectIO
-
+from anduryl.io.project import ProjectIO
 from anduryl.ui.dialogs import NotificationDialog
 
 
@@ -115,7 +110,7 @@ class Project:
         # Copy the project
         projectcopy = deepcopy(self)
         copied_settings = deepcopy(settings)
-        self.results[copied_settings['id']] = Results(
+        self.results[copied_settings.id] = Results(
             settings=copied_settings,
             experts=projectcopy.experts,
             assessments=projectcopy.assessments,
@@ -179,7 +174,7 @@ class Project:
         # Freeze the results
         self.to_results(calc_settings)
         # Get the results that are just copied (frozen)
-        results = self.results[calc_settings['id']]
+        results = self.results[calc_settings.id]
 
         # Only actual experts needed in results, remove other decision makers
         exps = self.experts.get_exp('actual')
@@ -191,7 +186,7 @@ class Project:
         # Exclude experts that have no answered (seed) questions
         actual_experts = results.experts.get_exp('actual')
         
-        if calc_settings['weight'].lower() in ['global', 'item']:
+        if calc_settings.weight.lower() in ['global', 'item']:
             answers = results.assessments.get_array(question_type='seed', experts=actual_experts)
         else:
             answers = results.assessments.get_array(question_type='both', experts=actual_experts)
@@ -225,46 +220,48 @@ class Project:
             return False
 
         # Get alpha, dependend on optimisation settings
-        if (calc_settings['weight'].lower() in ['global', 'item'] and not calc_settings['optimisation']):
+        if (calc_settings.weight.lower() in ['global', 'item'] and not calc_settings.optimisation):
             # In case of no optimisation and global and item, use the user defined variable
             pass
-        elif calc_settings['weight'].lower() in ['user', 'equal']:
+        elif calc_settings.weight.lower() in ['user', 'equal']:
             # In case of user or equal weight, do not use a threshold, since it is user defined or
             # would potentially disqualify all experts
-            calc_settings['alpha'] = 0.0
+            calc_settings.alpha = 0.0
         else:
             # In case of global or item and optimisation, set alpha to None (meaning it will be optimised)
-            calc_settings['alpha'] = None
+            calc_settings.alpha = None
 
         # Calculate DM, and return the used alpha
         results.calculate_decision_maker(
-            weight_type=calc_settings['weight'].lower(),
-            overshoot=calc_settings['overshoot'],
-            alpha=calc_settings['alpha'],
-            exp_id=calc_settings['id'],
-            exp_name=calc_settings['name'],
-            calpower=calc_settings['calpower'],
+            weight_type=calc_settings.weight.lower(),
+            overshoot=calc_settings.overshoot,
+            alpha=calc_settings.alpha,
+            exp_id=calc_settings.id,
+            exp_name=calc_settings.name,
+            calpower=calc_settings.calpower,
             main_results=self.main_results
         )        
 
         # Calculate robustness tables for excluding a single item
-        if calc_settings['robustness'] and results.items.get_idx('seed').sum() > 1:
+        if calc_settings.robustness and results.items.get_idx('seed').sum() > 1:
             results.calculate_item_robustness(
                 max_exclude=1,
-                weight_type=calc_settings['weight'].lower(),
-                overshoot=calc_settings['overshoot'],
-                alpha=calc_settings['alpha'],
-                calpower=calc_settings['calpower'],
+                weight_type=calc_settings.weight.lower(),
+                overshoot=calc_settings.overshoot,
+                alpha=calc_settings.alpha,
+                calpower=calc_settings.calpower,
             )
 
-        if calc_settings['robustness'] and len(results.experts.actual_experts) > 1:
+        if calc_settings.robustness and len(results.experts.actual_experts) > 1:
             results.calculate_expert_robustness(
                 max_exclude=1,
-                weight_type=calc_settings['weight'].lower(),
-                overshoot=calc_settings['overshoot'],
-                alpha=calc_settings['alpha'],
-                calpower=calc_settings['calpower'],
+                weight_type=calc_settings.weight.lower(),
+                overshoot=calc_settings.overshoot,
+                alpha=calc_settings.alpha,
+                calpower=calc_settings.calpower,
             )
+
+        results.experts.weights = results.get_weight_in_dm()
 
         return True
 
@@ -301,6 +298,39 @@ class Results:
         # Dictionary for saving the robustness results
         self.item_robustness = {}
         self.expert_robustness = {}
+
+    def get_weight_in_dm(self):
+
+        if self.settings is None:
+            return np.full(len(self.experts.ids), np.nan)
+        
+        # Get weights
+        if self.settings.weight.lower() in ["global", "item"]:
+            weights = self.experts.comb_score.copy()
+
+        elif self.settings.weight.lower() == "equal":
+            n = len(self.experts.actual_experts)
+            weights = np.ones_like(self.experts.comb_score) / n
+
+        elif self.settings.weight.lower() == "user":
+            weights = np.zeros_like(self.experts.comb_score)
+            idx = ~np.isnan(self.experts.user_weights)
+            idx[self.experts.get_idx("dm")] = False
+            weights[idx] += self.experts.user_weights[idx] / self.experts.user_weights[idx].sum()
+
+        # Correct for alpha threshold
+        if self.alpha_opt is not None:
+            weights[self.experts.calibration < self.alpha_opt] = 0.0
+
+        # Set DM to zero
+        dm_idx = self.experts.get_idx("dm")
+        weights[dm_idx] = np.nan
+
+        isnan = np.isnan(weights)
+        if not isnan.all():
+            np.divide(weights, np.nansum(weights), out=weights, where=~isnan)
+
+        return weights
 
     def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None, overwrite=False, main_results=None):
         """
@@ -493,7 +523,7 @@ class Results:
                     }
         
         # # Convert bounds form log scale to uniform scale in case of log background
-        # if self.results.items.scale[itemid] == 'log':
+        # if self.results.items.scales[itemid] == 'log':
         #     lower = np.exp(lower)
         #     upper = np.exp(upper)
 

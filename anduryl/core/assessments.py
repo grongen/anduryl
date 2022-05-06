@@ -28,7 +28,9 @@ class Assessment:
         Calculate probabilities in between quantiles
         """
         if self.quantiles:
-            self.binprobs = np.concatenate([[self.quantiles[0]], np.diff(self.quantiles), [1.0 - self.quantiles[-1]]])
+            self.binprobs = np.concatenate(
+                [[self.quantiles[0]], np.diff(self.quantiles), [1.0 - self.quantiles[-1]]]
+            )
         else:
             self.binprobs = None
 
@@ -65,8 +67,9 @@ class Assessment:
         self.calculate_binprobs()
 
         # Adjust array of use_quantiles in items class
+        values = self.project.items.use_quantiles[:, idx].copy()
         self.project.items.use_quantiles.resize((self.array.shape[2], len(self.quantiles)), refcheck=False)
-        self.project.items.use_quantiles[:, idx] = values[:, :]
+        self.project.items.use_quantiles[:, idx] = values
         self.project.items.use_quantiles[:, ~idx] = False
 
     def remove_quantile(self, quantile):
@@ -108,7 +111,13 @@ class Assessment:
         """
         Deletes all quantiles
         """
+        # Empty the quantiles list
         del self.quantiles[:]
+
+        # Reshape the assessments array
+        shape = list(self.array.shape)
+        newshape = (shape[0], 0, shape[1])
+        self.array.resize(newshape, refcheck=False)
 
     def initialize(self, nexperts, nitems, nquantiles):
         """
@@ -207,22 +216,22 @@ class Assessment:
         if question_type == "seed":
             lower = np.minimum(lower, realizations)
             upper = np.maximum(upper, realizations)
-            scale = self.project.items.scale[seedidx]
+            scale = self.project.items.scales[seedidx]
 
         elif question_type == "target":
-            scale = self.project.items.scale[~seedidx]
+            scale = self.project.items.scales[~seedidx]
 
         else:
             lower[seedidx] = np.minimum(lower[seedidx], realizations)
             upper[seedidx] = np.maximum(upper[seedidx], realizations)
-            scale = self.project.items.scale
+            scale = self.project.items.scales
 
         # Add overshoot
         # First create with overshoot
         overshoot = np.ones((len(lower), 2)) * overshoot
         # Add manual defined overshoot
         qidx = self.question_type_idx(question_type)
-        manual_overshoot = self.project.items.item_overshoot[qidx]
+        manual_overshoot = self.project.items.overshoots[qidx]
         idx = ~np.isnan(manual_overshoot)
         overshoot[idx] = manual_overshoot[idx]
 
@@ -238,11 +247,11 @@ class Assessment:
             upper += overshoot[:, 1] * maxrange
 
         # Check if some bounds need to be overwritten with custom bounds
-        user_lower = self.project.items.item_bounds[qidx, 0]
+        user_lower = self.project.items.bounds[qidx, 0]
         idx = ~np.isnan(user_lower)
         lower[idx] = np.maximum(lower[idx], user_lower[idx])
 
-        user_upper = self.project.items.item_bounds[qidx, 1]
+        user_upper = self.project.items.bounds[qidx, 1]
         idx = ~np.isnan(user_upper)
         upper[idx] = np.minimum(upper[idx], user_upper[idx])
 
@@ -276,7 +285,9 @@ class Assessment:
 
         index = [
             (exp, item)
-            for exp, item in zip(np.repeat(self.project.experts.ids, nitem), np.tile(self.project.items.ids, nexp))
+            for exp, item in zip(
+                np.repeat(self.project.experts.ids, nitem), np.tile(self.project.items.ids, nexp)
+            )
         ]
         quantiles = self.project.assessments.quantiles
 

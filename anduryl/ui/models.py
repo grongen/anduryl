@@ -1,6 +1,5 @@
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 import numpy as np
-from operator import itemgetter
 from anduryl.ui.dialogs import NotificationDialog
 from matplotlib import cm
 
@@ -158,7 +157,7 @@ class ArrayModel(QtCore.QAbstractTableModel):
         if (role == QtCore.Qt.DisplayRole) or (role == QtCore.Qt.ToolTipRole):
             if col < self.nrowdim:
                 # Get label
-                return self.get_list_label(row, col)
+                return strformat(self.get_list_label(row, col))
             else:
                 return strformat(self.array[self.get_array_index(row, col)])
 
@@ -258,11 +257,9 @@ class AssessmentArrayModel(ArrayModel):
     Class to populate a table view with an array
     """
 
-    def __init__(self, parentwidget):
+    def __init__(self, project, signals=None):
         """Constructor"""
         # Inherit
-        project = parentwidget.project
-
         super(AssessmentArrayModel, self).__init__(
             array=project.assessments.array,
             labels=[project.experts.ids, project.assessments.quantiles, project.items.ids],
@@ -273,8 +270,12 @@ class AssessmentArrayModel(ArrayModel):
             selector=Selector(project.assessments.array),
         )
         self.project = project
-        self.parentwidget = parentwidget
         self.cmap = cm.get_cmap("RdBu")
+
+        self.signals = signals
+        if signals is not None:
+            self.signals.layout_about_to_be_changed.connect(self.layoutAboutToBeChanged.emit)
+            self.signals.layout_changed.connect(self.layoutChanged.emit)
 
     def flags(self, index):
         """
@@ -324,7 +325,7 @@ class AssessmentArrayModel(ArrayModel):
 
         return True
 
-    def setData(self, index, value, role=Qt.Qt.EditRole):
+    def setData(self, index, value, role=Qt.Qt.EditRole, validate=True, update_selection=True):
         """
         Method to set data to cell. Changes the value in the array too.
         The value is checked for beigin in between other percentiles.
@@ -340,9 +341,10 @@ class AssessmentArrayModel(ArrayModel):
         idx = self.get_array_index(row, col)
 
         # Check below
-        valid = self._check_monotonous(idx, float(value))
-        if not valid:
-            return True
+        if validate:
+            valid = self._check_monotonous(idx, float(value))
+            if not valid:
+                return True
 
         if col >= self.nrowdim:
             self.array[idx] = float(value)
@@ -350,16 +352,18 @@ class AssessmentArrayModel(ArrayModel):
         # Update range if value has changed
         self.update_range()
 
-        # Next column after entering value
-        newcol = col + 1
-        newrow = row
-        if newcol >= self.nrowdim + len(self.labels[self.coldim]):
-            newcol = self.nrowdim
-            newrow = row + 1
-        self.parentwidget.table.setCurrentIndex(self.index(newrow, newcol))
+        if update_selection:
+            # Next column after entering value
+            newcol = col + 1
+            newrow = row
+            if newcol >= self.nrowdim + len(self.labels[self.coldim]):
+                newcol = self.nrowdim
+                newrow = row + 1
+
+            self.signals.set_assessment_table_index.emit(self.index(newrow, newcol))
 
         # Unsaved changes
-        self.parentwidget.mainwindow.setWindowModified(True)
+        self.signals.set_window_modified.emit(True)
 
         return True
 
@@ -387,7 +391,7 @@ class AssessmentArrayModel(ArrayModel):
 
         arr = self.project.assessments.get_array("target")
         for irel, iabs in enumerate(np.where(np.isnan(self.project.items.realizations))[0]):
-            if self.project.items.scale[iabs] == "log":
+            if self.project.items.scales[iabs] == "log":
                 self.midpoint[iabs] = np.exp(np.nanmedian(np.log(arr[:, :, irel])))
             else:
                 self.midpoint[iabs] = np.nanmedian(arr[:, :, irel])
@@ -402,8 +406,10 @@ class AssessmentArrayModel(ArrayModel):
         xp = [self.lower[dimidx], self.midpoint[dimidx], self.upper[dimidx]]
         if np.isnan(xp).any():
             return (0.5, 0.5, 0.5)
-        if self.project.items.scale[dimidx] == "log":
-            value = np.interp(np.log(value), np.log(xp), [0, 0.5, 1.0])
+        if self.project.items.scales[dimidx] == "log":
+            xp_log = xp.copy()
+            xp_log[1:-1] = np.log(xp[1:-1])
+            value = np.interp(np.log(value), xp_log, [0, 0.5, 1.0])
         else:
             value = np.interp(value, xp, [0, 0.5, 1.0])
         return self.cmap(value)
@@ -430,7 +436,7 @@ class ListsModel(QtCore.QAbstractTableModel):
 
     def columnCount(self, parent=None):
         """Returns number of columns in table."""
-        return len(self.lists)
+        return len(self.labels)
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         """
@@ -453,13 +459,19 @@ class ListsModel(QtCore.QAbstractTableModel):
 
         # Get number from lists
         if role == QtCore.Qt.DisplayRole:
+            # Get row
             row = index.row()
+            # Get columns items
             lst = self.lists[index.column()]
 
+            # If within length of list
             if row < len(lst):
+                # Get item
                 item = lst[index.row()]
+                # Return directly if string
                 if isinstance(item, str):
                     return item
+                # Else convert to string
                 else:
                     return strformat(item)
 
@@ -474,6 +486,7 @@ class ListsModel(QtCore.QAbstractTableModel):
         """
         Method to get header (index and columns) data
         """
+        # Show column labels
         if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
             return str(self.labels[rowcol])
 
@@ -495,18 +508,23 @@ class ItemsListsModel(ListsModel):
         self.parentwidget = parentwidget
         self.mainwindow = parentwidget.mainwindow
         self.project = parentwidget.mainwindow.project
+        self.signals = self.mainwindow.signals
 
         super(ItemsListsModel, self).__init__(
             lists=[
                 self.project.items.ids,
                 self.project.items.realizations,
-                self.project.items.scale,
+                self.project.items.units,
+                self.project.items.scales,
                 self.project.items.questions,
             ],
-            labels=["ID", "Realization", "Scale", "Question"],
+            labels=["ID", "Realization", "Unit", "Scale", "Question"],
         )
 
-        self.editable = [True, True, True, True]
+        self.editable = [True, True, True, True, True]
+
+        self.signals.layout_about_to_be_changed.connect(self.layoutAboutToBeChanged.emit)
+        self.signals.layout_changed.connect(self.layoutChanged.emit)
 
     def flags(self, index):
         """
@@ -571,13 +589,13 @@ class ItemsListsModel(ListsModel):
 
         # If a realization is changed, update the color ranges
         if self.labels[col] in ["Realization", "Scale"]:
-            self.mainwindow.signals.update_color_range()
+            self.mainwindow.signals.update_color_range.emit()
         # Item id changed, update the Id's in the other views and items
         elif self.labels[col] == "ID":
-            self.mainwindow.signals.update_ids()
+            self.mainwindow.signals._update_ids()
 
         # Unsaved changes
-        self.mainwindow.setWindowModified(True)
+        self.mainwindow.signals.set_window_modified.emit(True)
 
         # Skip row after entering value
         self.parentwidget.table.setCurrentIndex(self.index(row + 1, col))
@@ -603,12 +621,16 @@ class ItemsListsModel(ListsModel):
 
         excluded = self.project.items.ids[index.row()] in self.project.items.excluded
 
+        # Make first column checkable
         if role == QtCore.Qt.CheckStateRole and index.column() == 0:
+            # Get checkes based on self.project.items.excluded
             return QtCore.Qt.Unchecked if excluded else QtCore.Qt.Checked
 
+        # Grey out excluded rows
         elif role == QtCore.Qt.ForegroundRole and excluded:
             return QtGui.QBrush(QtCore.Qt.gray)
 
+        # Use the remaining data options form ItemsListsModel
         else:
             return super(ItemsListsModel, self).data(index, role)
 
@@ -636,10 +658,10 @@ class ItemsBoundsModel(ListsModel):
 
         super().__init__(
             lists=[
-                self.project.items.item_bounds[:, 0],
-                self.project.items.item_bounds[:, 1],
-                self.project.items.item_overshoot[:, 0],
-                self.project.items.item_overshoot[:, 1],
+                self.project.items.bounds[:, 0],
+                self.project.items.bounds[:, 1],
+                self.project.items.overshoots[:, 0],
+                self.project.items.overshoots[:, 1],
             ]
             + [self.project.items.use_quantiles[:, i] for i in range(nquantiles)],
             labels=["Lower\nbounds", "Upper\nbounds", "Lower\novershoot", "Upper\novershoot"] + quantiles,
@@ -700,13 +722,13 @@ class ItemsBoundsModel(ListsModel):
 
         # # If a realization is changed, update the color ranges
         # if self.labels[col] in ['Realization', 'Scale']:
-        #     self.mainwindow.signals.update_color_range()
+        #     self.mainwindow.signals.update_color_range.emit()
         # # Item id changed, update the Id's in the other views and items
         # elif self.labels[col] == 'ID':
         #     self.mainwindow.signals.update_ids()
 
         # Unsaved changes
-        self.mainwindow.setWindowModified(True)
+        self.mainwindow.signals.set_window_modified.emit(True)
 
         # Skip row after entering value
         # self.parentwidget.table.setCurrentIndex(self.index(row+1, col))
@@ -773,20 +795,36 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
         self.parentwidget = parentwidget
         self.project = parentwidget.mainwindow.project
         self.mainwindow = parentwidget.mainwindow
+        self.signals = self.mainwindow.signals
 
         self.lists = [
             self.project.experts.ids,
             self.project.experts.names,
             self.project.experts.user_weights,
             self.project.experts.calibration,
+            self.project.experts.nseeds,
             self.project.experts.info_real,
             self.project.experts.info_total,
-            self.project.experts.weights,
+            self.project.experts.comb_score,
         ]
-        self.labels = ["ID", "Name", "User weight", "Calibration", "Info score real.", "Info score total", "Weight"]
+        self.labels = [
+            "ID",
+            "Name",
+            "User weight",
+            "Calibration",
+            "Answered Cali.",
+            "Info score real.",
+            "Info score total",
+            "Comb. score",
+        ]
         self.leftalign = []
 
-        self.editable = [True, True, True, False, False, False, False]
+        self.editable = [True, True, True, False, False, False, False, False]
+
+        assert len(self.labels) == len(self.editable)
+
+        self.signals.layout_about_to_be_changed.connect(self.layoutAboutToBeChanged.emit)
+        self.signals.layout_changed.connect(self.layoutChanged.emit)
 
     def flags(self, index):
         """
@@ -855,7 +893,7 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
                 # Normalized weight label
                 i = rowcol - len(self.lists)
                 i = self.project.experts.decision_makers[i]
-                return "Norm. W (" + self.project.experts.ids[i] + ")"
+                return "Weight (" + self.project.experts.ids[i] + ")"
 
     def setData(self, index, value, role=Qt.Qt.EditRole):
         """
@@ -874,6 +912,9 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
             self.layoutChanged.emit()
             return True
 
+        if self.labels[col] == "ID" and row in self.project.experts.decision_makers:
+            return False
+
         if self.labels[col] in ["ID", "Name"] and value == "":
             NotificationDialog(f"An empty expert ID or name is not allowed.")
             return False
@@ -891,13 +932,15 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
 
         # Expert id changed, update the Id's in the other views and items
         if self.labels[col] == "ID":
-            self.mainwindow.signals.update_ids()
+            self.mainwindow.signals._update_ids()
+        if self.labels[col] == "Name":
+            self.mainwindow.signals.layout_changed.emit()
 
         # Skip row after entering value
         self.parentwidget.table.setCurrentIndex(self.index(row + 1, col))
 
         # Unsaved changes
-        self.mainwindow.setWindowModified(True)
+        self.mainwindow.signals.set_window_modified.emit(True)
 
         return True
 
@@ -928,7 +971,6 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
 
         # Checkboxes for the actual experts
         if role == QtCore.Qt.CheckStateRole and col == 0:
-            expert_id = self.project.experts.ids[row]
             if excluded:
                 return QtCore.Qt.Unchecked
             elif row not in self.project.experts.actual_experts:
@@ -955,19 +997,21 @@ class ExpertsListsModel(QtCore.QAbstractTableModel):
                 lst = self.lists[col]
                 # if row < len(lst):
                 # Get the item from the list
-                item = lst[index.row()]
+                item = lst[row]
                 return strformat(item)
 
             else:
-                # Calculate normalized weight for expert
-                weights = self.project.experts.weights
-                # DM weight
-                dm_idx = self.project.experts.decision_makers[col - len(self.lists)]
-                # If the row indicates a decision maker, but not the one that matches the column, return None
-                if (row in self.project.experts.decision_makers) and (row != dm_idx):
+                # If the row indicates a decision maker, return None
+                if row in self.project.experts.decision_makers:
                     return None
 
-                # Actual expert weight + dm weight
-                tot_weight = weights[self.project.experts.get_idx("actual")].sum() + weights[dm_idx]
+                # DM weight
+                dm_idx = self.project.experts.decision_makers[col - len(self.lists)]
+                dm = self.project.experts.ids[dm_idx]
+                dmresults = self.project.results[dm]
 
-                return strformat(weights[row] / tot_weight)
+                exp_id = self.project.experts.ids[row]
+                if exp_id not in dmresults.experts.ids:
+                    return None
+                exp_nr = dmresults.experts.ids.index(exp_id)
+                return strformat(dmresults.experts.weights[exp_nr])
