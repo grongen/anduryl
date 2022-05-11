@@ -1,6 +1,11 @@
+from anduryl.core import metalog
+
 import numpy as np
 from math import gamma, e
 from typing import Union
+
+USE_METALOG = False
+
 
 def upper_incomplete_gamma(a, x, iterations):
     """
@@ -436,6 +441,8 @@ class Experts:
         Nmin : int
             Minimum number of answered questions for All experts
         """
+        if USE_METALOG:
+            return self.metalog_calibration_score(counts, Nmin, calpower)
 
         # Get used percentiles
         idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
@@ -460,6 +467,78 @@ class Experts:
 
         return cal
 
+    # @staticmethod
+    # def cramervonmises_p(cdfvals, n=None):
+
+    #     if n is None:
+    #         n = len(cdfvals)
+
+    #     u = (2*np.arange(1, n+1) - 1)/(2*n)
+    #     w = 1/(12*n) + np.sum((u - cdfvals)**2)
+
+    #     # avoid small negative values that can occur due to the approximation
+    #     p = max(0, 1. - _cdf_cvm(w, n))
+
+    def metalog_calibration_score(self, counts, Nmin, calpower):
+        """
+        Calculate calbration score
+
+        Parameters
+        ----------
+        M : numpy.ndarray
+            Number of realizations per question in each bin
+        Nmin : int
+            Minimum number of answered questions for All experts
+        """
+        # Get used percentiles
+        idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
+        quantiles = np.array(self.project.assessments.quantiles)[idx]
+
+        # Calculate calibration scores for each expert
+        cal = np.zeros(len(counts))
+
+        # import cProfile, pstats, io
+        # from pstats import SortKey
+
+        # pr = cProfile.Profile()
+        # pr.enable()
+        for ie, expert in enumerate(counts.keys()):
+            cdfvals = []
+
+            for iq in np.where(self.project.items.get_idx("seed"))[0]:
+
+                # Get estimated values
+                values = self.project.assessments.array[self.project.experts.get_idx(expert), :, iq]
+                if np.isnan(values).any():
+                    continue
+
+                # Create metalog distribution
+                valid_metalog = metalog.get_valid_metalog(ps=quantiles, xs=values)
+
+                # Get log-likelihood of realization in metalog and
+                # add to total log-likelihood (this methods calibration score)
+                # cal[ie] += np.log(max(1e-20, valid_metalog.pdf(x=self.project.items.realizations[iq])))
+
+                # Get the realization on a uniform scale
+                cdf_val = valid_metalog.cdf(x=self.project.items.realizations[iq])
+                # print(iq, ie, values, )
+
+                cdfvals.append(cdf_val)
+
+            cal[ie] = metalog.cramervonmises(rvs=cdfvals, cdf=lambda x: x).pvalue
+
+        # From log-likelhood back to likelihood
+        # cal = np.exp(cal)
+
+        # pr.disable()
+        # s = io.StringIO()
+        # sortby = SortKey.CUMULATIVE
+        # ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+        # ps.print_stats()
+        # with open("D:/Documents/profile.txt", "w") as f:
+        #     f.write(s.getvalue())
+
+        return cal
 
     def calculate_weights(self, overshoot, alpha, calpower, experts=None, items=None):
         """

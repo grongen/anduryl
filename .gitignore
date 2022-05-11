@@ -12,5 +12,5 @@ pyinstaller/dist/Anduryl_selection
 
 # Pycache
 __pycache__
-notebooks/Probeersels.ipynb
-notebooks/.ipynb_checkpoints/Probeersels-checkpoint.ipynb
+notebooks/.ipynb_checkpoints/*.ipynb
+test/.ipynb_checkpoints/*.ipynb
