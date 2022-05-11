@@ -204,10 +204,10 @@ class Project:
                 NotificationDialog(f'Experts {exps} have not answered any questions, and are excluded from the calculation.')
 
         # Exclude experts and items that are unchecked
-        for exp in results.experts.excluded:
+        for exp in reversed(results.experts.excluded):
             if exp in results.experts.ids:
                 results.experts.remove_expert(exp)
-        for item in results.items.excluded:
+        for item in reversed(results.items.excluded):
             results.items.remove_item(item)
 
         # Check if there are any experts and items left
@@ -376,7 +376,7 @@ class Results:
         if main_results is not None:
 
             # In case of excluded items, correct shape
-            if any(self.items.excluded):
+            if any(main_results.items.excluded):
                 DM_full = np.full((len(main_results.items.ids), len(main_results.assessments.quantiles)+2), np.nan)
                 item_idx = [item in self.items.ids for item in main_results.items.ids]
                 DM_full[item_idx, :] = DM
