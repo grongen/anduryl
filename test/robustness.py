@@ -7,6 +7,7 @@ import pandas as pd
 sys.path.append("..")
 
 import anduryl
+from anduryl.io.settings import WeightType
 
 filedir = Path(__file__).parent
 datadir = filedir / "data"
@@ -25,7 +26,12 @@ class TestRobustness(unittest.TestCase):
         project.io.load_excalibur(casedir / "tobacco.dtt", casedir / "tobacco.rls")
 
         project.calculate_item_robustness(
-            weight_type="global", overshoot=0.1, max_exclude=4, min_exclude=0, calpower=1.0, alpha=0.0
+            weight_type=WeightType.GLOBAL,
+            overshoot=0.1,
+            max_exclude=4,
+            min_exclude=0,
+            calpower=1.0,
+            alpha=0.0,
         )
 
         df = pd.DataFrame(
@@ -55,7 +61,7 @@ class TestRobustness(unittest.TestCase):
         project.io.load_excalibur(casedir / "tobacco.dtt", casedir / "tobacco.rls")
 
         project.calculate_expert_robustness(
-            weight_type="global", overshoot=0.1, max_exclude=4, min_exclude=0, calpower=1.0, alpha=0.0
+            weight_type=WeightType.GLOBAL, overshoot=0.1, max_exclude=4, min_exclude=0, calpower=1.0, alpha=0.0
         )
 
         df = pd.DataFrame(

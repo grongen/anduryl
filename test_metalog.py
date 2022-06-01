@@ -73,7 +73,9 @@ for casename, file in datasets.items():
     )
 
     # Global weights optimized
-    project.calculate_decision_maker(weight_type="global", overshoot=0.1, exp_id="DM2", exp_name="Global opt.")
+    project.calculate_decision_maker(
+        weight_type=WeightType.GLOBAL, overshoot=0.1, exp_id="DM2", exp_name="Global opt."
+    )
     globopt = np.round(
         [
             project.experts.calibration[-1],
@@ -85,7 +87,7 @@ for casename, file in datasets.items():
 
     # Global weights non-optimized
     project.calculate_decision_maker(
-        weight_type="global", alpha=0.0, overshoot=0.1, exp_id="DM3", exp_name="Global Non-opt."
+        weight_type=WeightType.GLOBAL, alpha=0.0, overshoot=0.1, exp_id="DM3", exp_name="Global Non-opt."
     )
     globnonopt = np.round(
         [

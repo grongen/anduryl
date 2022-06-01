@@ -5,6 +5,7 @@ from typing import Union
 import numpy as np
 from anduryl.io import reader, writer
 from anduryl.io.savemodels import SaveModel
+from anduryl.model.assessment import Assessment, MetalogAssessment
 
 
 class ProjectIO:
@@ -251,9 +252,25 @@ class ProjectIO:
 
         # Add assessments
         self.project.assessments.array[:, :, :] = arr
+        self.project.assessments.estimates.update(
+            {
+                expertid: {
+                    itemid: MetalogAssessment(
+                        quantiles=savemodel.items[itemid].quantiles,
+                        values=estimates,
+                        expertid=expertid,
+                        itemid=itemid,
+                        scale=savemodel.items[itemid].scale,
+                        observer=self.project.assessments.update_array_value,
+                    )
+                    for itemid, estimates in expertestimates.items()
+                }
+                for expertid, expertestimates in savemodel.assessments.items()
+            }
+        )
 
         # Add quantiles and probabilies per bin
-        del self.project.assessments.quantiles[:]
+        self.project.assessments.quantiles.clear()
         self.project.assessments.quantiles.extend(sorted(unique_quantiles))
         # self.project.assessments.calculate_binprobs()
 

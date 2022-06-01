@@ -3,12 +3,12 @@ from copy import deepcopy
 
 import numpy as np
 from anduryl.core import calculate
-from anduryl.core.assessments import Assessment
+from anduryl.core.assessments import Assessments
 from anduryl.core.experts import Experts
 from anduryl.core.items import Items
 from anduryl.io.project import ProjectIO
 from anduryl.ui.dialogs import NotificationDialog
-
+from anduryl.io.settings import WeightType
 
 class Project:
     """
@@ -30,7 +30,7 @@ class Project:
         
         # Add experts, assessments and items
         self.experts = Experts(self)
-        self.assessments = Assessment(self)
+        self.assessments = Assessments(self)
         self.items = Items(self)
 
         # Add main results
@@ -117,18 +117,13 @@ class Project:
             items=projectcopy.items,
         )
 
-    def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None, overwrite=False):
+    def calculate_decision_maker(self, dm_settings, overwrite=False):
         """
         Convenience function for calculating the DM for the main results.
         For parameters see the method calculate_decision_maker in the Result class.
         """
         self.main_results.calculate_decision_maker(
-            weight_type=weight_type,
-            overshoot=overshoot,
-            exp_id=exp_id,
-            calpower=calpower,
-            exp_name=exp_name,
-            alpha=alpha,
+            dm_settings=dm_settings,
             overwrite=overwrite
         )
 
@@ -186,7 +181,7 @@ class Project:
         # Exclude experts that have no answered (seed) questions
         actual_experts = results.experts.get_exp('actual')
         
-        if calc_settings.weight.lower() in ['global', 'item']:
+        if calc_settings.weight in [WeightType.GLOBAL, WeightType.ITEM]:
             answers = results.assessments.get_array(question_type='seed', experts=actual_experts)
         else:
             answers = results.assessments.get_array(question_type='both', experts=actual_experts)
@@ -220,10 +215,10 @@ class Project:
             return False
 
         # Get alpha, dependend on optimisation settings
-        if (calc_settings.weight.lower() in ['global', 'item'] and not calc_settings.optimisation):
+        if (calc_settings.weight in [WeightType.GLOBAL, WeightType.ITEM] and not calc_settings.optimisation):
             # In case of no optimisation and global and item, use the user defined variable
             pass
-        elif calc_settings.weight.lower() in ['user', 'equal']:
+        elif calc_settings.weight in [WeightType.USER, WeightType.EQUAL]:
             # In case of user or equal weight, do not use a threshold, since it is user defined or
             # would potentially disqualify all experts
             calc_settings.alpha = 0.0
@@ -233,12 +228,7 @@ class Project:
 
         # Calculate DM, and return the used alpha
         results.calculate_decision_maker(
-            weight_type=calc_settings.weight.lower(),
-            overshoot=calc_settings.overshoot,
-            alpha=calc_settings.alpha,
-            exp_id=calc_settings.id,
-            exp_name=calc_settings.name,
-            calpower=calc_settings.calpower,
+            dm_settings=calc_settings,
             main_results=self.main_results
         )        
 
@@ -246,7 +236,7 @@ class Project:
         if calc_settings.robustness and results.items.get_idx('seed').sum() > 1:
             results.calculate_item_robustness(
                 max_exclude=1,
-                weight_type=calc_settings.weight.lower(),
+                weight_type=calc_settings.weight,
                 overshoot=calc_settings.overshoot,
                 alpha=calc_settings.alpha,
                 calpower=calc_settings.calpower,
@@ -255,7 +245,7 @@ class Project:
         if calc_settings.robustness and len(results.experts.actual_experts) > 1:
             results.calculate_expert_robustness(
                 max_exclude=1,
-                weight_type=calc_settings.weight.lower(),
+                weight_type=calc_settings.weight,
                 overshoot=calc_settings.overshoot,
                 alpha=calc_settings.alpha,
                 calpower=calc_settings.calpower,
@@ -305,14 +295,14 @@ class Results:
             return np.full(len(self.experts.ids), np.nan)
         
         # Get weights
-        if self.settings.weight.lower() in ["global", "item"]:
+        if self.settings.weight in [WeightType.GLOBAL, WeightType.ITEM]:
             weights = self.experts.comb_score.copy()
 
-        elif self.settings.weight.lower() == "equal":
+        elif self.settings.weight == WeightType.EQUAL:
             n = len(self.experts.actual_experts)
             weights = np.ones_like(self.experts.comb_score) / n
 
-        elif self.settings.weight.lower() == "user":
+        elif self.settings.weight == WeightType.USER:
             weights = np.zeros_like(self.experts.comb_score)
             idx = ~np.isnan(self.experts.user_weights)
             idx[self.experts.get_idx("dm")] = False
@@ -332,7 +322,7 @@ class Results:
 
         return weights
 
-    def calculate_decision_maker(self, weight_type, overshoot, exp_id, calpower=1.0, exp_name=None, alpha=None, overwrite=False, main_results=None):
+    def calculate_decision_maker(self, dm_settings, overwrite=False, main_results=None):
         """
         Method to calculate the decision maker, given some settings from the parameters.
         
@@ -359,19 +349,17 @@ class Results:
             experts=self.experts,
             items=self.items,
             assessments=self.assessments,
-            weight_type=weight_type,
-            alpha=alpha,
-            overshoot=overshoot,
-            calpower=calpower
+            dm_settings=dm_settings
         )       
 
         # Add to experts and calculate weight for DM
-        exp_name = exp_id if exp_name is None else exp_name
-        self.experts.add_expert(exp_id=exp_id, exp_name=exp_name, assessment=DM, exp_type='dm', overwrite=overwrite, full_cdf=F_DM)
-        self.experts.calculate_weights(overshoot=overshoot, experts=[exp_id], alpha=self.alpha_opt, calpower=calpower)
+        exp_name = dm_settings.id if dm_settings.name is None else dm_settings.name
+        self.experts.add_expert(exp_id=dm_settings.id, exp_name=exp_name, assessment=DM, exp_type='dm', overwrite=overwrite, full_cdf=F_DM)
 
-        # print('Regular:', self.experts.M, [count.sum() for count in self.experts.M.values()])
-        
+        final_settings = dm_settings.copy()
+        final_settings.alpha = self.alpha_opt
+        self.experts.calculate_weights(dm_settings=dm_settings, experts=[dm_settings.id])
+
         # Add to main results. When using only the code (without GUI) this is not necessary.
         if main_results is not None:
 
@@ -385,7 +373,7 @@ class Results:
 
             # Add expert to the results
             main_results.experts.add_expert(
-                exp_id=exp_id, exp_name=exp_name, assessment=DM_full, exp_type='dm', overwrite=False, full_cdf=F_DM)
+                exp_id=dm_settings.id, exp_name=exp_name, assessment=DM_full, exp_type='dm', overwrite=False, full_cdf=F_DM)
             
             # Copy weights etc. from the calculated results to the main results, so that
             # they are viewed in the expert table in the GUI

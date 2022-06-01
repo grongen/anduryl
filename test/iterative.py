@@ -7,6 +7,7 @@ import pandas as pd
 sys.path.append("../..")
 
 import anduryl
+from anduryl.io.settings import WeightType
 
 datasets = {
     "Arkansas": "Arkansas",
@@ -72,7 +73,11 @@ class TestCompareAllCases(unittest.TestCase):
 
                 # Global weights non-optimized
                 project.calculate_decision_maker(
-                    weight_type="global", alpha=0.0, overshoot=0.1, exp_id="DM3", exp_name="Global Non-opt."
+                    weight_type=WeightType.GLOBAL,
+                    alpha=0.0,
+                    overshoot=0.1,
+                    exp_id="DM3",
+                    exp_name="Global Non-opt.",
                 )
                 globnonopt = np.round(
                     [
@@ -89,7 +94,9 @@ class TestCompareAllCases(unittest.TestCase):
                 cali.append(project.experts.calibration[idx].tolist())
 
                 # Item weights optimized
-                project.calculate_decision_maker(weight_type="item", overshoot=0.1, exp_id="DM1", exp_name="Item opt.")
+                project.calculate_decision_maker(
+                    weight_type="item", overshoot=0.1, exp_id="DM1", exp_name="Item opt."
+                )
                 itemopt = np.round(
                     [
                         project.experts.calibration[-1],
@@ -101,7 +108,7 @@ class TestCompareAllCases(unittest.TestCase):
 
                 # Global weights optimized
                 project.calculate_decision_maker(
-                    weight_type="global", overshoot=0.1, exp_id="DM2", exp_name="Global opt."
+                    weight_type=WeightType.GLOBAL, overshoot=0.1, exp_id="DM2", exp_name="Global opt."
                 )
                 globopt = np.round(
                     [
@@ -113,7 +120,9 @@ class TestCompareAllCases(unittest.TestCase):
                 )
 
                 # Equal weights
-                project.calculate_decision_maker(weight_type="equal", overshoot=0.1, exp_id="DM4", exp_name="Equal")
+                project.calculate_decision_maker(
+                    weight_type="equal", overshoot=0.1, exp_id="DM4", exp_name="Equal"
+                )
                 equal = np.round(
                     [
                         project.experts.calibration[-1],

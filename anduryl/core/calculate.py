@@ -1,10 +1,11 @@
 from itertools import combinations
 
 import numpy as np
+from anduryl.io.settings import Distribution, WeightType
 from numpy.core.multiarray import interp as compiled_interp
 
 
-def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, calpower):
+def decision_maker(experts, items, assessments, dm_settings):
     """
     Calculate decision maker (DM).
 
@@ -46,13 +47,11 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     """
 
     # Calculate weights for all actual experts
-    experts.calculate_weights(
-        overshoot=overshoot, alpha=alpha, calpower=calpower, experts=experts.get_exp("actual")
-    )
+    experts.calculate_weights(dm_settings=dm_settings, experts=experts.get_exp("actual"))
 
     # Check if given alpha is not too high
-    if alpha is not None:
-        if alpha > experts.calibration[experts.actual_experts].max():
+    if dm_settings.alpha is not None:
+        if dm_settings.alpha > experts.calibration[experts.actual_experts].max():
             raise ValueError(
                 "Given significance level (alpha) is higher than maximum calibration score, so all experts are excluded. Choose a lower significance level."
             )
@@ -72,15 +71,20 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     actual_experts = experts.get_exp("actual")
 
     # Get weights. Returns an array of size Nalpha, Nexperts, Nquestions
-    weights, alphas = experts.get_weights(weight_type=weight_type, experts=actual_experts, alpha=alpha)
+    weights, alphas = experts.get_weights(dm_settings=dm_settings, experts=actual_experts)
 
     # Get bounds for both seed and target questions
-    qlower, qupper = assessments.get_bounds("both", overshoot=overshoot)
+    qlower, qupper = assessments.get_bounds("both", overshoot=dm_settings.overshoot)
 
     # Get the expert CDF's and distinct answers
-    F_ex, all_answers = get_expert_CDFs(
-        np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper
-    )
+    if dm_settings.distribution == Distribution.METALOG:
+        F_ex, all_answers = get_expert_metalog_CDFs(
+            assessments.estimates, experts=experts.get_exp("actual"), scales=items.scales
+        )
+    else:
+        F_ex, all_answers = get_expert_CDFs(
+            np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper
+        )
 
     # Collect CDF
     DM = np.full((len(alphas), nitems, npercentiles + 2), np.nan)
@@ -118,17 +122,29 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
                 DM[ialpha, iq, use] = np.exp(DM[ialpha, iq, use])
 
     # In case of optimisation, find the optimal alpha
-    if alpha is None:
+    if dm_settings.alpha is None:
         # Now the DM is known for each question and weight threshold, find the optimal threshols
         # Get weight for each decision maker
         exps = [f"tmp{i}" for i in range(len(alphas))]
-        for (tmp_id, DMassessment) in zip(exps, DM):
+        for i, (tmp_id, DMassessment) in enumerate(zip(exps, DM)):
             # Calculate weight of DM
             experts.add_expert(
-                exp_id=tmp_id, exp_name=tmp_id, assessment=DMassessment, exp_type="dm", overwrite=True
+                exp_id=tmp_id,
+                exp_name=tmp_id,
+                assessment=DMassessment,
+                exp_type="dm",
+                overwrite=True,
+                full_cdf={
+                    iq: (
+                        np.c_[np.exp(np.clip(all_answers[iq], -708, 709)), F_DM[iq][:, i]]
+                        if (scale[iq] == "log")
+                        else np.c_[all_answers[iq], F_DM[iq][:, i]]
+                    )
+                    for iq in range(nitems)
+                },
             )
         # Calculate weights for all temporary experts
-        experts.calculate_weights(overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower)
+        experts.calculate_weights(dm_settings=dm_settings)
         # Get the alpha for the highest weight
         imax = np.argmax(experts.comb_score[experts.get_idx(exps)])
         # Remove all experts
@@ -139,16 +155,53 @@ def decision_maker(experts, items, assessments, weight_type, overshoot, alpha, c
     else:
         imax = 0
         # Else only use the given weight
-        alphas = [alpha]
+        alphas = [dm_settings.alpha]
 
     # Get full expert CDF
     for iq in range(nitems):
         if scale[iq] == "log":
-            F_DM[iq] = np.c_[np.exp(all_answers[iq]), F_DM[iq][:, imax]]
+            # Note: the clip(709, answers) is to avoid underflow or overflow errors around 1e308, causes by metalog tails
+            F_DM[iq] = np.c_[np.exp(np.clip(all_answers[iq], -708, 709)), F_DM[iq][:, imax]]
         else:
             F_DM[iq] = np.c_[all_answers[iq], F_DM[iq][:, imax]]
 
     return DM[imax], F_DM, alphas[imax]
+
+
+def get_expert_metalog_CDFs(estimates, experts, scales):
+
+    items = list(estimates[experts[0]].keys())
+
+    F_ex, all_answers = {}, {}
+
+    for iq, item in enumerate(items):
+
+        # Collect all experts and quantiles for the question
+        # Get a suitable range for interpolating the CDF on
+        # For now by gathering all 100 precalculated values
+        all_answers[iq] = np.unique(
+            np.concatenate([estimates[expert][item].metalog.pps for expert in experts])
+        )
+
+        # Initialize
+        F_ex[iq] = np.zeros((len(all_answers[iq]), len(experts)))
+
+        for iex, expert in enumerate(experts):
+            # Skip if not answered
+            # if no_answer[iex]:
+            # continue
+
+            # Add to DM CDF. Note that the answers have already been converted to the background measure
+            dist = estimates[expert][item].metalog
+            if dist.pps.size == 0:
+                continue
+            F_ex[iq][:, iex] = compiled_interp(all_answers[iq], dist.pps, dist.prange, left=0.0, right=1.0)
+            # F_ex[iq][:, iex] = dist.cdf(all_answers[iq])
+
+        if scales[iq] == "log":
+            F_ex[iq] = np.clip(F_ex[iq], -708, 709)
+
+    return F_ex, all_answers
 
 
 def get_expert_CDFs(quantiles, use_quantiles, values, qlower, qupper):
@@ -302,7 +355,7 @@ def item_robustness(
     progress_func : function, optional
         Function to which the progress can be passed, for the GUI, by default None
     """
-    if weight_type not in ["global", "item"]:
+    if weight_type not in [WeightType.GLOBAL, WeightType.ITEM]:
         raise KeyError("Robustness table can only be calculated for item of global weight.")
 
     # Calculate information score per item and expert on beforehand
@@ -508,7 +561,7 @@ def expert_robustness(
         Function to which the progress can be passed, for the GUI, by default None
     """
 
-    if weight_type not in ["global", "item"]:
+    if weight_type not in [WeightType.GLOBAL, "item"]:
         raise KeyError(
             f"Robustness table can only be calculated for item or global weight (weight_type = '{weight_type}')."
         )

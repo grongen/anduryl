@@ -2,7 +2,7 @@ from itertools import product
 
 import numpy as np
 from anduryl import io
-from anduryl.io.settings import CalculationSettings
+from anduryl.io.settings import CalculationSettings, Distribution, WeightType
 from anduryl.ui import menus, widgets
 from anduryl.ui.dialogs import NotificationDialog
 from anduryl.ui.models import ExpertsListsModel, ItemDelegate
@@ -27,7 +27,7 @@ class ExpertsWidget(QtWidgets.QFrame):
         self.calc_settings = CalculationSettings(
             id="DM",
             name="Decision Maker",
-            weight="Global",
+            weight=WeightType.GLOBAL,
             overshoot=0.1,
             alpha=0.0,
             optimisation=True,
@@ -130,7 +130,7 @@ class ExpertsWidget(QtWidgets.QFrame):
             return None
 
         # If user weights, check weights.
-        if self.calc_settings.weight.lower() == "user":
+        if self.calc_settings.weight == WeightType.USER:
             expert_user_weight, message = self.project.experts.check_user_weights()
             if message:
                 NotificationDialog(message)
@@ -298,7 +298,14 @@ class DecisionMakerOptions(QtWidgets.QDialog):
         labelwidth = widgets.get_width(f"Calibration cut-off ({alpha_symbol}):")
 
         self.input_elements["weight"] = widgets.ComboboxInputLine(
-            label="Weights:", labelwidth=labelwidth, items=["Global", "Item", "Equal", "User"]
+            label="Weights:",
+            labelwidth=labelwidth,
+            items=[
+                WeightType.GLOBAL.value,
+                WeightType.ITEM.value,
+                WeightType.EQUAL.value,
+                WeightType.USER.value,
+            ],
         )
         self.input_elements["optimisation"] = widgets.CheckBoxInput(
             label="DM optimisation:", labelwidth=labelwidth
@@ -319,6 +326,16 @@ class DecisionMakerOptions(QtWidgets.QDialog):
         )
         self.input_elements["id"] = widgets.ParameterInputLine(label="ID:", labelwidth=labelwidth)
         self.input_elements["name"] = widgets.ParameterInputLine(label="Name:", labelwidth=labelwidth)
+        self.input_elements["distribution"] = widgets.ComboboxInputLine(
+            label="Distribution:",
+            labelwidth=labelwidth,
+            items=[
+                Distribution.PWL.value,
+                Distribution.METALOG.value,
+                Distribution.PWL_CONTINUOUS.value,
+            ],
+        )
+        
         # Connect signals
         self.input_elements["id"].LineEdit.editingFinished.connect(self.disable_update_id)
         self.input_elements["name"].LineEdit.editingFinished.connect(self.disable_update_name)
@@ -387,7 +404,7 @@ class DecisionMakerOptions(QtWidgets.QDialog):
 
         if self.auto_update_name:
             name = self.input_elements["weight"].combobox.currentText()
-            if name.lower() in ["global", "item"]:
+            if name in [WeightType.GLOBAL, WeightType.ITEM]:
                 if self.input_elements["optimisation"].checkbox.isChecked():
                     name += " Opt."
                 else:
@@ -409,7 +426,7 @@ class DecisionMakerOptions(QtWidgets.QDialog):
         optimisation = self.input_elements["optimisation"].checkbox.isChecked()
         weight = self.input_elements["weight"].combobox.currentText()
 
-        if weight not in ["Global", "Item"]:
+        if weight not in [WeightType.GLOBAL.value, WeightType.ITEM.value]:
             self.input_elements["optimisation"].checkbox.setChecked(False)
             self.input_elements["optimisation"].checkbox.setEnabled(False)
             self.input_elements["robustness"].checkbox.setChecked(False)
@@ -419,7 +436,7 @@ class DecisionMakerOptions(QtWidgets.QDialog):
             self.input_elements["robustness"].checkbox.setEnabled(True)
 
         # Visible if no optimisation and global or item weight
-        visible = (not optimisation) and (weight in ["Global", "Item"])
+        visible = (not optimisation) and (weight in [WeightType.GLOBAL.value, WeightType.ITEM.value])
         self.input_elements["alpha"].LineEdit.setEnabled(visible)
 
     def calculate_dm(self):

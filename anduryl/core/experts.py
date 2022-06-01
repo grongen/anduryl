@@ -1,10 +1,10 @@
-from anduryl.core import metalog
-
-import numpy as np
-from math import gamma, e
+from math import e, gamma
 from typing import Union
 
-USE_METALOG = False
+import numpy as np
+from anduryl.core import metalog
+from anduryl.io.settings import Distribution, WeightType
+from anduryl.model.assessment import EmpiricalAssessment
 
 
 def upper_incomplete_gamma(a, x, iterations):
@@ -23,7 +23,23 @@ def chi2cdf(x, df, iterations=100):
     but to reduce the compilation size a seperate (slighty slower)
     implementation without scipy is written.
     """
+    # TODO: Check functioning with x=0
     return 1 - upper_incomplete_gamma(0.5 * df, 0.5 * x, iterations) / gamma(0.5 * df)
+
+
+def empirical_entropy(x: np.ndarray, Nmin: int, calpower: float = 1.0):
+    ranks = (np.argsort(np.argsort(x)) + 0.5) / len(x)
+
+    s = np.diff(np.concatenate(([0], np.sort(x), [1])))
+    p = np.diff(np.concatenate(([0], np.sort(ranks), [1])))
+
+    idx = s > 0.0
+
+    MI = np.sum(s[idx] * np.log(s[idx] / p[idx]))
+    # MI = np.sum(p[idx] * np.log(p[idx] / s[idx]))
+    E = 2 * Nmin * MI * calpower
+
+    return E
 
 
 class Experts:
@@ -55,7 +71,14 @@ class Experts:
         self.comb_score = np.zeros((0))
         self.user_weights = np.zeros((0))
         self.info_per_var = np.zeros((0, 0))
-        self.arraynames = ["user_weights", "info_real", "info_total", "calibration", "nseeds", "comb_score"]
+        self.arraynames = [
+            "user_weights",
+            "info_real",
+            "info_total",
+            "calibration",
+            "nseeds",
+            "comb_score",
+        ]
         self.excluded = []
         # self.styles = []
 
@@ -209,17 +232,9 @@ class Experts:
             self.info_per_var[:-1, :] = vals[:, :]
 
             # Resize assessments array
-            shape = self.project.assessments.array.shape
-            self.project.assessments.array.resize((shape[0] + 1, shape[1], shape[2]), refcheck=False)
-            if assessment is not None:
-                if len(self.project.assessments.quantiles) == assessment.shape[1]:
-                    self.project.assessments.array[-1, :, :] = assessment.T[None, :, :]
-                elif len(self.project.assessments.quantiles) == assessment.shape[1] - 2:
-                    self.project.assessments.array[-1, :, :] = assessment.T[None, 1:-1, :]
-                else:
-                    raise ValueError()
-            else:
-                self.project.assessments.array[-1, :, :] = np.nan
+            self.project.assessments.add_experts_assessments(
+                assessment=assessment, expertid=exp_id, empirical_cdf=full_cdf
+            )
 
             # Add index to list with actual experts or DMs
             if exp_type.lower() == "actual":
@@ -295,6 +310,9 @@ class Experts:
         self.project.assessments.array.resize(vals.shape, refcheck=False)
         self.project.assessments.array[:] = vals
 
+        # Estimates
+        del self.project.assessments.estimates[exp_id]
+
     def count_realizations_per_bin(self, experts, items=None):
         """
         Devide the realizations in the quantile bins
@@ -350,7 +368,7 @@ class Experts:
 
         return dct
 
-    def _information_score(self, experts, overshoot, bounds_for_experts=False, items=None):
+    def _information_score(self, dm_settings, experts, bounds_for_experts=False, items=None):
         """
         Calculate the information score for the given experts
 
@@ -367,9 +385,11 @@ class Experts:
 
         # Get bounds for both seed and target questions
         if bounds_for_experts:
-            lower, upper = self.project.assessments.get_bounds("both", overshoot=overshoot, experts=experts)
+            lower, upper = self.project.assessments.get_bounds(
+                "both", overshoot=dm_settings.overshoot, experts=experts
+            )
         else:
-            lower, upper = self.project.assessments.get_bounds("both", overshoot=overshoot)
+            lower, upper = self.project.assessments.get_bounds("both", overshoot=dm_settings.overshoot)
 
         # Get assessments
         values = self.project.assessments.get_array(experts=experts)
@@ -391,25 +411,42 @@ class Experts:
             if scale[iq] == "log":
                 values[:, use, iq] = np.log(values[:, use, iq])
 
-        for iq in range(len(self.project.items.ids)):
+        for iq, itemid in enumerate(self.project.items.ids):
             use = self.project.items.use_quantiles[iq]
             percentiles = np.concatenate([[0.0], np.array(self.project.assessments.quantiles)[use], [1.0]])
             p = percentiles[1:] - percentiles[:-1]
 
             # Initialize bounds and fill limits
+            # Note that the bounds are already transformed to log if needed
             bounds = np.zeros(len(percentiles))
             bounds[0] = lower[iq]
             bounds[-1] = upper[iq]
 
-            for iexp, idx in enumerate(expidxs):
+            for iexp, (idx, expertid) in enumerate(zip(expidxs, experts)):
                 if not valid[iexp, iq]:
                     self.info_per_var[iexp, iq] = 0.0
                     continue
-                bounds[1:-1] = values[iexp, use, iq]
                 # Calculate info per variable
-                self.info_per_var[idx, iq] = np.log(upper[iq] - lower[iq]) + np.sum(
-                    p * np.log(p / (bounds[1:] - bounds[:-1]))
-                )
+                if dm_settings.distribution == Distribution.METALOG:
+                    cdvs = np.linspace(0.005, 0.995, 100)
+                    ppvs = self.project.assessments.estimates[expertid][itemid].ppf(cdvs)
+                    if scale[iq] == "log":
+                        ppvs = np.log(ppvs)
+                    midpoints = np.concatenate([[ppvs[0]], (ppvs[1:] + ppvs[:-1]) / 2, [ppvs[-1]]])
+                    s = midpoints[1:] - midpoints[:-1]
+                    s[0] *= 2
+                    s[-1] *= 2
+                    p = np.full(len(s), 0.01)
+                    inrange = (ppvs > lower[iq]) & (ppvs < upper[iq])
+                    self.info_per_var[idx, iq] = np.log(upper[iq] - lower[iq]) + np.sum(
+                        p[inrange] * np.log(p[inrange] / s[inrange])
+                    )
+
+                else:
+                    bounds[1:-1] = values[iexp, use, iq]
+                    self.info_per_var[idx, iq] = np.log(upper[iq] - lower[iq]) + np.sum(
+                        p * np.log(p / (bounds[1:] - bounds[:-1]))
+                    )
 
         # Calculate calibration score for seed (realizations) and total item set
         ridx = self.project.items.get_idx("seed")
@@ -428,9 +465,7 @@ class Experts:
             self.info_per_var[np.ix_(expidxs, tidx)] != 0.0
         ).sum(axis=1)
 
-        # print('Na berekenen:', self.info_per_var)
-
-    def calibration_score(self, counts, Nmin, calpower):
+    def calibration_score(self, counts, Nmin, dm_settings):
         """
         Calculate calbration score
 
@@ -441,8 +476,10 @@ class Experts:
         Nmin : int
             Minimum number of answered questions for All experts
         """
-        if USE_METALOG:
-            return self.metalog_calibration_score(counts, Nmin, calpower)
+        if dm_settings.distribution == Distribution.METALOG:
+            return self.metalog_calibration_score(counts)
+        elif dm_settings.distribution == Distribution.PWL_CONTINUOUS:
+            return self.pwl_calibration_score(counts, Nmin, dm_settings)
 
         # Get used percentiles
         idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
@@ -461,7 +498,7 @@ class Experts:
             idx = s > 0.0
             # Calculate information score
             MI = np.sum(s[idx] * np.log(s[idx] / p[idx]))
-            E = 2 * Nmin * MI * calpower
+            E = 2 * Nmin * MI * dm_settings.calpower
             # Test with chi squared
             cal[i] = 1 - chi2cdf(x=E, df=len(s) - 1)
 
@@ -479,7 +516,7 @@ class Experts:
     #     # avoid small negative values that can occur due to the approximation
     #     p = max(0, 1. - _cdf_cvm(w, n))
 
-    def metalog_calibration_score(self, counts, Nmin, calpower):
+    def metalog_calibration_score(self, counts):
         """
         Calculate calbration score
 
@@ -509,21 +546,21 @@ class Experts:
 
                 # Get estimated values
                 values = self.project.assessments.array[self.project.experts.get_idx(expert), :, iq]
+                realization = self.project.items.realizations[iq]
                 if np.isnan(values).any():
                     continue
 
-                # Create metalog distribution
-                valid_metalog = metalog.get_valid_metalog(ps=quantiles, xs=values)
-
-                # Get log-likelihood of realization in metalog and
-                # add to total log-likelihood (this methods calibration score)
-                # cal[ie] += np.log(max(1e-20, valid_metalog.pdf(x=self.project.items.realizations[iq])))
-
                 # Get the realization on a uniform scale
-                cdf_val = valid_metalog.cdf(x=self.project.items.realizations[iq])
-                # print(iq, ie, values, )
+                estimates = self.project.assessments.estimates[expert][self.project.items.ids[iq]]
+                cdf_val = estimates.cdf(x=realization)
+                # if isinstance(estimates, EmpiricalAssessment):
+                # print(realization, cdf_val)
 
                 cdfvals.append(cdf_val)
+
+            # Test with chi squared
+            # E = empirical_entropy(cdfvals, Nmin, calpower)
+            # cal[ie] = 1 - chi2cdf(x=E, df=len(quantiles))
 
             cal[ie] = metalog.cramervonmises(rvs=cdfvals, cdf=lambda x: x).pvalue
 
@@ -540,7 +577,60 @@ class Experts:
 
         return cal
 
-    def calculate_weights(self, overshoot, alpha, calpower, experts=None, items=None):
+    def pwl_calibration_score(self, counts, Nmin, dm_settings):
+        """
+        Calculate calbration score
+
+        Parameters
+        ----------
+        M : numpy.ndarray
+            Number of realizations per question in each bin
+        Nmin : int
+            Minimum number of answered questions for All experts
+        """
+        # Get used percentiles
+        idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
+        quantiles = np.array(self.project.assessments.quantiles)[idx]
+        lower, upper = self.project.assessments.get_bounds("both", overshoot=dm_settings.overshoot)
+
+        # Calculate calibration scores for each expert
+        cal = np.zeros(len(counts))
+
+        for ie, expert in enumerate(counts.keys()):
+            cdfvals = []
+
+            for iq in np.where(self.project.items.get_idx("seed"))[0]:
+
+                # Get estimated values
+                values = self.project.assessments.array[self.project.experts.get_idx(expert), :, iq]
+                realization = self.project.items.realizations[iq]
+                if np.isnan(values).any():
+                    continue
+
+                # Map to log scale if needed
+                scale = self.project.items.scales[iq]
+                if scale == "log":
+                    values = np.log(values)
+                    realization = np.log(realization)
+
+                # Get the realization on a uniform scale
+                cdf_val = np.interp(
+                    realization,
+                    np.concatenate([[lower[iq]], values, [upper[iq]]]),
+                    np.concatenate([[0.0], quantiles, [1.0]]),
+                )
+
+                cdfvals.append(cdf_val)
+
+            # Test with chi squared
+            # E = empirical_entropy(cdfvals, Nmin, calpower)
+            # cal[ie] = 1 - chi2cdf(x=E, df=len(quantiles))
+
+            cal[ie] = metalog.cramervonmises(rvs=cdfvals, cdf=lambda x: x).pvalue
+
+        return cal
+
+    def calculate_weights(self, dm_settings, experts=None, items=None):
         """
         Calculate the weights of experts, based on the information score
         and the calibration score.
@@ -567,7 +657,7 @@ class Experts:
             experts = self.ids
 
         # Get information score
-        self._information_score(experts, overshoot, items=items)
+        self._information_score(dm_settings, experts=experts, items=items)
 
         # Count the number of realizations per bin for the given
         # experts and item selection
@@ -579,20 +669,20 @@ class Experts:
 
         # Get calibration score
         idx = self.get_idx(experts)
-        self.calibration[idx] = self.calibration_score(counts, Nmin=Nmin, calpower=calpower)
+        self.calibration[idx] = self.calibration_score(counts, Nmin=Nmin, dm_settings=dm_settings)
         # Get number of answered items (used for GUI only)
         self.nseeds[idx] = np.array([vals.sum() for vals in counts.values()])
         # That's why the number of seed questions for DM's is set to NaN
         self.nseeds[self.decision_makers] = np.nan
 
         # Calculate weights based on realizations and calibration
-        if alpha is not None:
-            above_threshold = (self.calibration[idx] >= alpha).astype(int)
+        if dm_settings.alpha is not None:
+            above_threshold = (self.calibration[idx] >= dm_settings.alpha).astype(int)
             self.comb_score[idx] = self.calibration[idx] * self.info_real[idx] * above_threshold
         else:
             self.comb_score[idx] = self.calibration[idx] * self.info_real[idx]
 
-    def get_weights(self, weight_type, experts, alpha=None, exclude=None, calpower=None):
+    def get_weights(self, dm_settings, experts, exclude=None):
         """
         Get weights excluding given items. Specifically for robustness calculation.
 
@@ -637,24 +727,27 @@ class Experts:
             # Recalculate calibration score for new counts
             Nmin = min(sum(count) for count in count_dct.values())
             cal = self.calibration_score(
-                counts={exp: count_dct[exp] for exp in experts}, Nmin=Nmin, calpower=calpower
+                counts={exp: count_dct[exp] for exp in experts},
+                Nmin=Nmin,
+                calpower=dm_settings.calpower,
+                overshoot=dm_settings.overshoot,
             )
 
         else:
             cal = self.calibration[expidx]
 
         # If alpha is not given, the alphas are retrieved from the calibration values
-        if alpha is None:
+        if dm_settings.alpha is None:
             alphas = np.unique(cal)
         else:
-            alphas = [alpha]
+            alphas = [dm_settings.alpha]
 
         # Initialize weights
         nquestions = len(self.project.items.ids)
         nexperts = len(experts)
         weights = np.zeros((len(alphas), nexperts, nquestions))
 
-        if weight_type == "global":
+        if dm_settings.weight == WeightType.GLOBAL:
 
             if exclude is None:
                 # Get information score for all realizations if nothing to exclude
@@ -675,7 +768,7 @@ class Experts:
                     weights[i, :, :] = (wperexp / sum(wperexp))[:, None]
 
         # Return item weights, calculated for all (calibration and target) questions
-        elif weight_type == "item":
+        elif dm_settings.weight == WeightType.ITEM:
 
             total_idx = np.ones(nquestions, dtype=bool)
             if exclude is not None:
@@ -690,13 +783,13 @@ class Experts:
             weights[:, :, total_idx] /= weights[:, :, total_idx].sum(axis=1)[:, None, :]
 
         # Return equal weights
-        elif weight_type == "equal":
+        elif dm_settings.weight == WeightType.EQUAL:
             # Assign equal weights
             nexp = weights.shape[1]
             weights[:, :, :] = (np.ones(nexp) / nexp)[None, :, None]
 
         # Return user weights
-        elif weight_type == "user":
+        elif dm_settings.weight == WeightType.USER:
             # Check weights
             expert_user_weight, message = self.check_user_weights()
             if expert_user_weight is None:
@@ -705,7 +798,7 @@ class Experts:
             weights[:, :, :] = expert_user_weight[None, :, None]
 
         else:
-            raise NotImplementedError(weight_type)
+            raise NotImplementedError(dm_settings.weight.value)
 
         return weights, alphas
 
@@ -723,7 +816,10 @@ class Experts:
         # Check weights
         expert_user_weight = self.user_weights[self.actual_experts]
         if np.isnan(expert_user_weight).all():
-            return None, f"Assign user weights before calculating a decision maker with this option."
+            return (
+                None,
+                f"Assign user weights before calculating a decision maker with this option.",
+            )
 
         # Check if less than 0.0
         if (expert_user_weight < 0.0).any():
@@ -732,7 +828,10 @@ class Experts:
         # Set nan values to 0.0
         expert_user_weight[np.isnan(expert_user_weight)] = 0.0
         if (expert_user_weight == 0.0).all():
-            return None, f"All assigned user weights are 0.0. At least one weight should be greater than 0.0."
+            return (
+                None,
+                f"All assigned user weights are 0.0. At least one weight should be greater than 0.0.",
+            )
 
         # Check if sum == 0.0
         if expert_user_weight.sum() != 1.0:

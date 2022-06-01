@@ -202,7 +202,7 @@ class ResultOverview(QtWidgets.QScrollArea):
         label_layout.setHorizontalSpacing(20)
 
         # Add results settings
-        label_layout.addWidget(QtWidgets.QLabel(f"Weights: {self.settings.weight}"), 0, 0)
+        label_layout.addWidget(QtWidgets.QLabel(f"Weights: {self.settings.weight.value}"), 0, 0)
         label_layout.addWidget(
             QtWidgets.QLabel(f"Optimisation: {'yes' if self.settings.optimisation else 'no'}"), 0, 1
         )
@@ -725,7 +725,7 @@ class PlotExcludedDialog(QtWidgets.QDialog):
             func(
                 min_exclude=min_exclude,
                 max_exclude=self.number_of_items.value(),
-                weight_type=self.settings.weight.lower(),
+                weight_type=self.settings.weight,
                 overshoot=self.settings.overshoot,
                 alpha=self.settings.alpha,
                 calpower=self.settings.calpower,
@@ -794,6 +794,46 @@ class CustomNavigationToolbar(NavigationToolbar2QT):
             self.qtdialog.legend.setItem(i, 0, item)
 
 
+class PlotDistributionSignals(QtCore.QObject):
+    """Signal class. Contains all signals that are called
+    to update the GUI after changes.
+    """
+
+    clear_axis = QtCore.pyqtSignal()
+
+    def __init__(self, parent):
+        super().__init__()
+        self.parent = parent
+
+    def connect_signals(self):
+        self.clear_axis.connect(self._clear_axis)
+
+    def _clear_axis(self):
+        # Clear axis
+        self.parent.ax.clear()
+        self.parent.lines.clear()
+        self.parent.markers.clear()
+        # self.parent.ax.grid()
+
+    def connect_update_signals(self):
+        """
+        Connects the signals (again). This function and "disconnect_signals" are
+        used to be able to change the dialog settings without updating all the figures.
+        """
+        self.parent.plotby_cbox.combobox.currentIndexChanged.connect(self.parent.update_plotby)
+        self.parent.item_cbox.combobox.currentIndexChanged.connect(self.parent.update_plot)
+        self.parent.plottype_cbox.combobox.currentIndexChanged.connect(self.parent.init_plot)
+
+    def disconnect_update_signals(self):
+        """
+        Disconnects the signals (again). This function and "connect_signals" are
+        used to be able to change the dialog settings without updating all the figures.
+        """
+        self.parent.plotby_cbox.combobox.currentIndexChanged.disconnect()
+        self.parent.item_cbox.combobox.currentIndexChanged.disconnect()
+        self.parent.plottype_cbox.combobox.currentIndexChanged.disconnect()
+
+
 class PlotDistributionsDialog(QtWidgets.QDialog):
     """
     Dialog in which the assessments of all experts, the result
@@ -847,6 +887,12 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.colorcount = {"expert": 0, "dm": 0, "item": 0}
         self._prep_colors()
 
+        self.signals = PlotDistributionSignals(self)
+        self.construct_widget()
+        self.signals.connect_signals()
+
+        self.init_plot()
+
     def _prep_colors(self):
 
         # Create color cycle
@@ -878,10 +924,6 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         for i, item in enumerate(self.results.items.ids):
             self._add_color(name=item, itemtype="item")
-
-        self.construct_widget()
-
-        self.init_plot()
 
     def _add_color(self, name, itemtype):
         assert itemtype in ["expert", "dm", "item"]
@@ -989,7 +1031,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         )
         self.plottype_cbox.combobox.setCurrentIndex(0)
 
-        self.connect_signals()
+        self.signals.connect_update_signals()
 
         leftlayout = widgets.VLayout([self.title, self.canvas])
 
@@ -1105,24 +1147,6 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.figure.set_size_inches(*(current_size * current_dpi / new_dpi))
         self.canvas.draw_idle()
 
-    def connect_signals(self):
-        """
-        Connects the signals (again). This function and "disconnect_signals" are
-        used to be able to change the dialog settings without updating all the figures.
-        """
-        self.plotby_cbox.combobox.currentIndexChanged.connect(self.update_plotby)
-        self.item_cbox.combobox.currentIndexChanged.connect(self.update_plot)
-        self.plottype_cbox.combobox.currentIndexChanged.connect(self.init_plot)
-
-    def disconnect_signals(self):
-        """
-        Disconnects the signals (again). This function and "connect_signals" are
-        used to be able to change the dialog settings without updating all the figures.
-        """
-        self.plotby_cbox.combobox.currentIndexChanged.disconnect()
-        self.item_cbox.combobox.currentIndexChanged.disconnect()
-        self.plottype_cbox.combobox.currentIndexChanged.disconnect()
-
     def init_plot(self):
         """
         Initialize the expert or items plot. Called after constructing the widget
@@ -1143,10 +1167,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         """
         Method to initiate expert plot
         """
-        # Clear axis
-        self.ax.clear()
-        self.lines.clear()
-        self.markers.clear()
+        self.signals.clear_axis.emit()
 
         self.ax.grid()
 
@@ -1160,6 +1181,10 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             self.markers[item] = {}
             for quantile, marker in zip(self.results.assessments.quantiles, selection):
                 (self.markers[item][quantile],) = self.ax.plot([], [], c=c, marker=marker, lw=0.0)
+
+        # Add markers for realizations
+        (self.lines["realization"],) = self.ax.plot([], [], c="k", marker="x", ls="", mew=2)
+
         # An extra draw is necessary for plotting the markers
         self.canvas.draw_idle()
 
@@ -1173,11 +1198,8 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         self.plottype = self.plottype_cbox.combobox.currentText().lower()
 
         # Clear axis
-        self.ax.clear()
-        self.lines.clear()
-        self.markers.clear()
+        self.signals.clear_axis.emit()
 
-        self.ax.grid()
         # Add line for realization (only once)
         self.lines["realization"] = self.ax.axvline(np.nan, color="0.3", linestyle="--", linewidth=1.5)
 
@@ -1218,7 +1240,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         """
 
         self.plotby = self.plotby_cbox.combobox.currentText().lower()
-        self.disconnect_signals()
+        self.signals.disconnect_update_signals()
 
         # Remove current items
         for _ in range(self.plottype_cbox.combobox.count()):
@@ -1242,7 +1264,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         self.item_cbox.combobox.setCurrentIndex(0)
         self.plottype = self.plottype_cbox.combobox.currentText().lower()
-        self.connect_signals()
+        self.signals.connect_update_signals()
 
         # Update legend rows
         self.legend.set_rows()
@@ -1264,7 +1286,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         Method to update the expert plot after changes are made to the data selection.
         """
         # Get item data
-        assessments = self.get_expert_data()
+        assessments_normed, realizations_normed = self.get_expert_data()
         # Set title
         self.set_title_xlabel()
 
@@ -1281,9 +1303,11 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         # Set expert lines
         for i, (idx, item) in enumerate(zip(selected, items)):
             use = self.results.items.use_quantiles[idx]
-            self.lines[item].set_data(assessments[idx][use], i)
+            self.lines[item].set_data(assessments_normed[idx][use], i)
             for j, quantile in enumerate(self.results.assessments.quantiles):
-                self.markers[item][quantile].set_data(assessments[idx][j], i)
+                self.markers[item][quantile].set_data(assessments_normed[idx][j], i)
+
+        self.lines["realization"].set_data(realizations_normed[selected], np.arange(len(selected)) - 0.1)
 
         # self.figure.tight_layout()
         self.canvas.draw_idle()
@@ -1402,6 +1426,7 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         Set realization as line in plot.
         If target question, hide the line
         """
+
         # Set realization
         itemid = self.item_cbox.combobox.currentIndex()
         value = self.results.items.realizations[itemid]
@@ -1447,19 +1472,25 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
 
         # Get expert assessments and bounds (no overshoot) for question
         assessments = self.results.assessments.array[expertid, :, :].T
+        realizations = self.results.items.realizations.copy()
         lower = self.results.lower
         upper = self.results.upper
 
         # Convert bounds form log scale to uniform scale in case of log background
         for i, scale in enumerate(self.results.items.scales):
             if scale == "log":
-                lower[i] = np.exp(lower[i])
-                upper[i] = np.exp(upper[i])
+                assessments[i, :] = np.log(assessments[i, :])
+                realizations[i] = np.log(realizations[i])
+                lower[i] = np.log(lower[i])
+                upper[i] = np.log(upper[i])
 
-        # Normalize data
+        # Normalize assessments
         assessments = (assessments - lower[:, None]) / (upper - lower)[:, None]
 
-        return assessments
+        # Normalize realizations
+        realizations = (realizations - lower) / (upper - lower)
+
+        return assessments, realizations
 
     def format_axis(self, xmin, xmax, ymin, ymax):
         """
@@ -1730,6 +1761,7 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
         self.enable_figure_options()
         self.load_from_settings()
 
+        # self.signals.connect_update_signals()
         self.connect_signals()
 
         self.input_elements["grid_layout"]["n_axes_cols"].set_value(int(np.ceil(self.ncurrent ** 0.5)))

@@ -1,6 +1,7 @@
 from pydantic import confloat
 from typing import Tuple, Union
 from pathlib import Path
+from enum import Enum
 
 from pydantic import BaseModel as PydanticBaseModel
 
@@ -64,12 +65,26 @@ class SaveFigureSettings(BaseModel):
 #         return v
 
 
+class WeightType(Enum):
+    GLOBAL = "Global"
+    ITEM = "Item"
+    USER = "User"
+    EQUAL = "Equal"
+
+
+class Distribution(Enum):
+    PWL = "PWL"
+    METALOG = "Metalog"
+    PWL_CONTINUOUS = "PWL continuous"
+
+
 class CalculationSettings(BaseModel):
     id: str  # = "DM"
     name: str  # = "Decision Maker"
-    weight: str  # = "Global"
+    weight: WeightType  # = "Global"
     overshoot: confloat(ge=0.0)  # = 0.1
     alpha: Union[confloat(ge=0.0), None]  # = 0.0
-    optimisation: bool  # = True
+    # optimisation: bool  # = True
     robustness: bool  # = True
     calpower: confloat(ge=0.0)  # = 1.0
+    distribution: Distribution = "PWL"

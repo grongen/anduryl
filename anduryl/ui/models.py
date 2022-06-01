@@ -270,6 +270,7 @@ class AssessmentArrayModel(ArrayModel):
             selector=Selector(project.assessments.array),
         )
         self.project = project
+        self.estimates = project.assessments.estimates
         self.cmap = cm.get_cmap("RdBu")
 
         self.signals = signals
@@ -333,8 +334,13 @@ class AssessmentArrayModel(ArrayModel):
         col = index.column()
         row = index.row()
 
+        expertid = self.get_list_label(row, 0)
+        itemid = self.get_list_label(row, 1)
+
         if value == "":
-            self.array[self.get_array_index(row, col)] = np.nan
+            # self.array[self.get_array_index(row, col)] = np.nan
+            i = col - self.nrowdim
+            self.estimates[expertid][itemid].set_value(self.labels[self.coldim][i], np.nan)
             return True
 
         # Check if the value is between the percentiles
@@ -346,8 +352,11 @@ class AssessmentArrayModel(ArrayModel):
             if not valid:
                 return True
 
+        # If it concerns one of the data columns
         if col >= self.nrowdim:
-            self.array[idx] = float(value)
+            i = col - self.nrowdim
+            self.estimates[expertid][itemid].set_value(self.labels[self.coldim][i], float(value))
+            # self.array[idx] = float(value)
 
         # Update range if value has changed
         self.update_range()

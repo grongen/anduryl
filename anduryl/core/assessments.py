@@ -7,8 +7,11 @@ Created on Tue Nov 27 15:21:11 2018
 
 import numpy as np
 
+np.seterr("raise")
+from anduryl.model.assessment import EmpiricalAssessment, MetalogAssessment
 
-class Assessment:
+
+class Assessments:
     """
     Assessment class. Contains the assessments for all experts and all items.
     """
@@ -22,6 +25,7 @@ class Assessment:
         self.array = np.zeros((0, len(self.quantiles), 0))
         self.calculate_binprobs()
         self.full_cdf = {}
+        self.estimates = {}
 
     def calculate_binprobs(self):
         """
@@ -33,6 +37,76 @@ class Assessment:
             )
         else:
             self.binprobs = None
+
+    def add_experts_assessments(
+        self, expertid: str, assessment: np.ndarray = None, empirical_cdf: dict = None
+    ) -> None:
+        # Get current shape
+        shape = self.project.assessments.array.shape
+        # Add +1 to expert dimension
+        self.project.assessments.array.resize((shape[0] + 1, shape[1], shape[2]), refcheck=False)
+        # If an assessment is given, add it
+        if assessment is not None:
+            if len(self.project.assessments.quantiles) == assessment.shape[1]:
+                self.project.assessments.array[-1, :, :] = assessment.T[None, :, :]
+            elif len(self.project.assessments.quantiles) == assessment.shape[1] - 2:
+                self.project.assessments.array[-1, :, :] = assessment.T[None, 1:-1, :]
+            else:
+                raise ValueError()
+        # Else, fill with NaN's
+        else:
+            self.project.assessments.array[-1, :, :] = np.nan
+
+        # Add estimates
+        quantiles_arr = np.array(self.quantiles)
+        self.estimates[expertid] = {}
+        for iq, (itemid, estimates) in enumerate(
+            zip(self.project.items.ids, self.project.assessments.array[-1, :, :].T)
+        ):
+            if empirical_cdf is None:
+                assessment = MetalogAssessment(
+                    quantiles=quantiles_arr[self.project.items.use_quantiles[iq]],
+                    values=estimates,
+                    expertid=expertid,
+                    itemid=itemid,
+                    scale=self.project.items.scales[iq],
+                    observer=self.project.assessments.update_array_value,
+                )
+            else:
+
+                # import matplotlib.pyplot as plt
+                # plt.plot(*empirical_cdf[iq].T)
+                # plt.xscale('log')
+                assessment = EmpiricalAssessment(
+                    quantiles=empirical_cdf[iq][:, 1],
+                    values=empirical_cdf[iq][:, 0],
+                    expertid=expertid,
+                    itemid=itemid,
+                    scale=self.project.items.scales[iq],
+                    observer=self.project.assessments.update_array_value,
+                )
+
+            self.estimates[expertid][itemid] = assessment
+
+        # self.estimates[expertid] = {
+        #     itemid: MetalogAssessment(
+        #         quantiles=quantiles_arr[self.project.items.use_quantiles[iq]],
+        #         values=estimates,
+        #         expertid=expertid,
+        #         itemid=itemid,
+        #         scale=self.project.items.scales[iq],
+        #         observer=self.project.assessments.update_array_value,
+        #     )
+        #     for iq, (itemid, estimates) in enumerate(
+        #         zip(self.project.items.ids, self.project.assessments.array[-1, :, :].T)
+        #     )
+        # }
+
+    def update_array_value(self, dct):
+        iexp = self.project.experts.ids.index(dct["expertid"])
+        iitem = self.project.items.ids.index(dct["itemid"])
+        ip = self.quantiles.index(dct["quantile"])
+        self.array[iexp, ip, iitem] = dct["value"]
 
     def add_quantile(self, quantile):
         """
@@ -112,7 +186,8 @@ class Assessment:
         Deletes all quantiles
         """
         # Empty the quantiles list
-        del self.quantiles[:]
+        self.quantiles.clear()
+        self.estimates.clear()
 
         # Reshape the assessments array
         shape = list(self.array.shape)

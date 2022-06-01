@@ -103,7 +103,7 @@ class TestCompareAllCases(unittest.TestCase):
 
             # Global weights optimized
             project.calculate_decision_maker(
-                weight_type="global",
+                weight_type=WeightType.GLOBAL,
                 overshoot=0.1,
                 exp_id="DM2",
                 exp_name="Global opt.",
@@ -119,7 +119,7 @@ class TestCompareAllCases(unittest.TestCase):
 
             # Global weights non-optimized
             project.calculate_decision_maker(
-                weight_type="global",
+                weight_type=WeightType.GLOBAL,
                 alpha=0.0,
                 overshoot=0.1,
                 exp_id="DM3",
