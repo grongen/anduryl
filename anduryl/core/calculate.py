@@ -1,11 +1,11 @@
 from itertools import combinations
 
 import numpy as np
-from anduryl.io.settings import Distribution, WeightType
+from anduryl.io.settings import Distribution, WeightType, CalculationSettings, CalibrationMethod
 from numpy.core.multiarray import interp as compiled_interp
 
 
-def decision_maker(experts, items, assessments, dm_settings):
+def decision_maker(experts, items, assessments, dm_settings: CalculationSettings):
     """
     Calculate decision maker (DM).
 
@@ -182,6 +182,11 @@ def get_expert_metalog_CDFs(estimates, experts, scales):
         all_answers[iq] = np.unique(
             np.concatenate([estimates[expert][item].metalog.pps for expert in experts])
         )
+        # And remove values that are too close together
+        diff = all_answers[iq][1:] - all_answers[iq][:-1]
+        idx = np.concatenate([[True], diff > (all_answers[iq][-1] - all_answers[iq][0]) * 1e-4])
+        all_answers[iq] = all_answers[iq][idx]
+        # all_answers[iq] = np.linspace(all_answers[iq][0], all_answers[iq][-1], 1001)
 
         # Initialize
         F_ex[iq] = np.zeros((len(all_answers[iq]), len(experts)))
@@ -195,7 +200,8 @@ def get_expert_metalog_CDFs(estimates, experts, scales):
             dist = estimates[expert][item].metalog
             if dist.pps.size == 0:
                 continue
-            F_ex[iq][:, iex] = compiled_interp(all_answers[iq], dist.pps, dist.prange, left=0.0, right=1.0)
+            # F_ex[iq][:, iex] = compiled_interp(all_answers[iq], dist.pps, dist.prange, left=0.0, right=1.0)
+            F_ex[iq][:, iex] = np.clip(inextrp1d(all_answers[iq], dist.pps, dist.prange), 0.0, 1.0)
             # F_ex[iq][:, iex] = dist.cdf(all_answers[iq])
 
         if scales[iq] == "log":
@@ -317,10 +323,11 @@ def item_robustness(
     experts,
     items,
     assessments,
-    weight_type,
-    overshoot,
-    alpha=None,
-    calpower=1.0,
+    # weight_type,
+    # overshoot,
+    # alpha=None,
+    # calpower=1.0,
+    dm_settings: CalculationSettings,
     progress_func=None,
 ):
     """
@@ -355,12 +362,12 @@ def item_robustness(
     progress_func : function, optional
         Function to which the progress can be passed, for the GUI, by default None
     """
-    if weight_type not in [WeightType.GLOBAL, WeightType.ITEM]:
+    if dm_settings.weight not in [WeightType.GLOBAL, WeightType.ITEM]:
         raise KeyError("Robustness table can only be calculated for item of global weight.")
 
     # Calculate information score per item and expert on beforehand
     actual_experts = experts.get_exp("actual")
-    experts._information_score(actual_experts, overshoot)
+    experts._information_score(dm_settings=dm_settings, experts=actual_experts)
     # Calculate counts, since Nmin is required later in the calculation
     experts.M.update(experts.count_realizations_per_bin(actual_experts))
 
@@ -381,7 +388,7 @@ def item_robustness(
             values[:, use, iq] = np.log(values[:, use, iq])
 
     # Get bounds for both seed and target questions
-    qlower, qupper = assessments.get_bounds("both", overshoot=overshoot)
+    qlower, qupper = assessments.get_bounds("both", overshoot=dm_settings.overshoot)
 
     # Get the expert CDF's and distinct answers
     F_ex, all_answers = get_expert_CDFs(
@@ -399,7 +406,9 @@ def item_robustness(
 
         # Get the weights and thresholds for exluding some of the items
         weights, alphas = experts.get_weights(
-            experts=actual_experts, weight_type=weight_type, alpha=alpha, exclude=comb, calpower=calpower
+            experts=actual_experts,
+            dm_settings=dm_settings,
+            exclude=comb,
         )
 
         # Collect CDF
@@ -452,7 +461,7 @@ def item_robustness(
         # oldM = experts.M.copy()
 
         # In case of optimisation, find the optimal alpha
-        if alpha is None:
+        if dm_settings.alpha is None:
             # Now the DM is known for each question and weight threshold, find the optimal threshols
             # Get weight for each decision maker
             exps = [f"tmp{i}" for i in range(len(alphas))]
@@ -468,7 +477,9 @@ def item_robustness(
 
             # Calculate weights
             experts.calculate_weights(
-                overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower, items=itembool
+                experts=exps,
+                dm_settings=dm_settings,
+                items=itembool,
             )
             # Get the alpha for the highest weight
             imax = np.argmax(experts.comb_score[experts.get_idx(exps)])
@@ -487,7 +498,9 @@ def item_robustness(
             # Update actual expert item count
             experts.M.update(experts.count_realizations_per_bin(experts.get_exp("actual"), items=itembool))
             experts.calculate_weights(
-                overshoot=overshoot, experts=exps, alpha=alphas[imax], calpower=calpower, items=itembool
+                dm_settings=dm_settings,
+                experts=exps,
+                items=itembool,
             )
 
         # Get the scores for the final DM
@@ -502,7 +515,10 @@ def item_robustness(
 
         # Remove expert and recalculate scores
         # TODO: For performance, check if this step can be skipped. For now it is needed for consistency. If skipped, the commented rows below should be added
-        experts.calculate_weights(overshoot=overshoot, alpha=alpha, calpower=calpower, experts=actual_experts)
+        experts.calculate_weights(
+            dm_settings=dm_settings,
+            experts=actual_experts,
+        )
 
     # Remove all experts
     for exp in totexps:
@@ -525,10 +541,7 @@ def expert_robustness(
     experts,
     items,
     assessments,
-    weight_type,
-    overshoot,
-    alpha=None,
-    calpower=1.0,
+    dm_settings: CalculationSettings,
     progress_func=None,
 ):
     """
@@ -561,9 +574,9 @@ def expert_robustness(
         Function to which the progress can be passed, for the GUI, by default None
     """
 
-    if weight_type not in [WeightType.GLOBAL, "item"]:
+    if dm_settings.weight not in [WeightType.GLOBAL, WeightType.ITEM]:
         raise KeyError(
-            f"Robustness table can only be calculated for item or global weight (weight_type = '{weight_type}')."
+            f"Robustness table can only be calculated for item or global weight (weight_type = '{dm_settings.weight}')."
         )
 
     # Calculate information score per item and expert on beforehand
@@ -574,7 +587,10 @@ def expert_robustness(
         )
 
     # Calculate original weights for actual experts
-    experts.calculate_weights(overshoot=overshoot, alpha=alpha, calpower=calpower, experts=actual_experts)
+    experts.calculate_weights(
+        dm_settings=dm_settings,
+        experts=actual_experts,
+    )
 
     # Get the values for the items
     values = assessments.get_array(question_type="both", experts="actual")
@@ -606,7 +622,9 @@ def expert_robustness(
         exp_selection = [exp for i, exp in enumerate(actual_experts) if expidx[i]]
 
         # Get bounds for both seed and target questions
-        qlower, qupper = assessments.get_bounds("both", overshoot=overshoot, experts=exp_selection)
+        qlower, qupper = assessments.get_bounds(
+            "both", overshoot=dm_settings.overshoot, experts=exp_selection
+        )
         # Get CDF for selection of experts (and selected expert bounds)
         # shape F_ex: {Nitems, [Nanswers(item), Nexperts]}
         F_ex, all_answers = get_expert_CDFs(
@@ -614,11 +632,11 @@ def expert_robustness(
         )
 
         # Recalculate the information score, since selecting experts might change the bounds
-        experts._information_score(exp_selection, overshoot=overshoot, bounds_for_experts=True)
+        experts._information_score(experts=exp_selection, dm_settings=dm_settings, bounds_for_experts=True)
 
         # Get weights for expert selection (based on newly calculated information scores)
         # shape weights: [Nalphas, Nexperts, Nitems]
-        weights, alphas = experts.get_weights(weight_type=weight_type, experts=exp_selection, alpha=alpha)
+        weights, alphas = experts.get_weights(dm_settings=dm_settings, experts=exp_selection)
 
         # Collect CDF
         DM = np.full((len(alphas), nitems, npercentiles + 2), np.nan)
@@ -662,7 +680,7 @@ def expert_robustness(
                 #     DM[ialpha, iq, use] = np.nan
 
         # In case of optimisation, find the optimal alpha
-        if alpha is None:
+        if dm_settings.alpha is None:
             # Now the DM is known for each question and weight threshold, find the optimal threshols
             # Get weight for each decision maker
             exps = [f"tmp{i}" for i in range(len(alphas))]
@@ -673,7 +691,10 @@ def expert_robustness(
                     exp_id=tmp_id, exp_name=tmp_id, assessment=DMassessment, exp_type="dm", overwrite=True
                 )
             # Calculate weights
-            experts.calculate_weights(overshoot=overshoot, experts=exps, alpha=alphas, calpower=calpower)
+            experts.calculate_weights(
+                dm_settings=dm_settings,
+                experts=exps,
+            )
             # Get the alpha for the highest weight
             imax = np.argmax(experts.comb_score[experts.get_idx(exps)])
             tmp_id = exps[imax]
@@ -688,13 +709,14 @@ def expert_robustness(
                 exp_id=tmp_id, exp_name=tmp_id, assessment=DM[imax], exp_type="dm", overwrite=True
             )
             experts.calculate_weights(
-                overshoot=overshoot, experts=[tmp_id], alpha=alphas[imax], calpower=calpower
+                dm_settings=dm_settings,
+                experts=[tmp_id],
             )
 
         # Calculate the scores for the final DM
         dmidx = experts.get_idx(tmp_id)
         experts._information_score(
-            experts=exp_selection + [tmp_id], overshoot=overshoot, bounds_for_experts=True
+            experts=exp_selection + [tmp_id], dm_settings=dm_settings, bounds_for_experts=True
         )
         results[tuple(actual_experts[i] for i in comb)] = (
             experts.info_total[dmidx],
@@ -707,6 +729,38 @@ def expert_robustness(
         experts.remove_expert(exp)
 
     # Recalculate original weights for actual experts
-    experts.calculate_weights(overshoot=overshoot, alpha=alpha, calpower=calpower, experts=actual_experts)
+    experts.calculate_weights(
+        dm_settings=dm_settings,
+        experts=actual_experts,
+    )
 
     return results
+
+
+def inextrp1d(x, xp, fp):
+    """
+    Interpolate an array along the given axis.
+    Similar to np.interp, but with extrapolation outside range.
+
+    Parameters
+    ----------
+    x : np.array
+        Array with positions to interpolate at
+    xp : np.array
+        Array with positions of known values
+    fp : np.array
+        Array with values as known positions to interpolate between
+
+    Returns
+    -------
+    np.array
+        interpolated array
+    """
+    # Determine lower bounds
+    intidx = np.minimum(np.maximum(0, np.searchsorted(xp, x) - 1), len(xp) - 2)
+    # Determine interpolation fractions
+    fracs = (x - xp[intidx]) / (xp[intidx + 1] - xp[intidx])
+    # Interpolate (1-frac) * f_low + frac * f_up
+    f = (1 - fracs) * fp[intidx] + fp[intidx + 1] * fracs
+
+    return f

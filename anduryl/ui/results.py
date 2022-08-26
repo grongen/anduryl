@@ -1,4 +1,4 @@
-from email.policy import default
+import json
 import textwrap
 from math import factorial
 from pathlib import Path
@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from anduryl import io
 from anduryl.io.settings import SaveFigureSettings
+from anduryl.model.results import PlotData
 from anduryl.ui import menus, widgets
 from anduryl.ui.models import ArrayModel, ListsModel
-from matplotlib import cm
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 
@@ -723,12 +723,9 @@ class PlotExcludedDialog(QtWidgets.QDialog):
             remaining = self.ncombs[self.exclude_type][self.number_of_items.value() - 1] - done
             self.progress_bar.setMaximum(remaining)
             func(
+                dm_settings=self.settings,
                 min_exclude=min_exclude,
                 max_exclude=self.number_of_items.value(),
-                weight_type=self.settings.weight,
-                overshoot=self.settings.overshoot,
-                alpha=self.settings.alpha,
-                calpower=self.settings.calpower,
                 progress_func=self.update_progressbar,
             )
         else:
@@ -813,7 +810,7 @@ class PlotDistributionSignals(QtCore.QObject):
         self.parent.ax.clear()
         self.parent.lines.clear()
         self.parent.markers.clear()
-        # self.parent.ax.grid()
+        self.parent.ax.grid()
 
     def connect_update_signals(self):
         """
@@ -1319,79 +1316,33 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         # Set title
         self.set_title_xlabel()
 
-        if self.plottype == "cdf":
+        if self.plottype in ["cdf", "exc prob", "pdf"]:
             # Get item data
-            lower, upper, assessments = self.get_item_data(full_dm_cdf=True)
+            assessments = self.get_item_data(full_dm_cdf=True)
 
             # Set expert lines
             quants = np.r_[0.0, self.results.assessments.quantiles, 1.0]
+            ymax = 0
             for expert in self.results.experts.ids:
-                row = assessments[expert]
-                use = ~np.isnan(row)
-                if row.ndim == 1:
-                    use = ~np.isnan(row)
-                    self.lines[expert].set_data(np.r_[lower, row[use], upper], quants[np.r_[True, use, True]])
-                else:
-                    xdata, ydata = row.T
-                    self.lines[expert].set_data(np.r_[lower, xdata, upper], np.r_[0.0, ydata, 1.0])
+                plotdata = assessments[expert]
+                # Plot the CDFs
+                if self.plottype == "cdf":
+                    ymax = 1
+                    self.lines[expert].set_data(plotdata.cdf_x, plotdata.cdf_y)
+                elif self.plottype == "exc prob":
+                    ymax = 1
+                    self.lines[expert].set_data(plotdata.cdf_x, 1 - plotdata.cdf_y)
+                elif self.plottype == "pdf":
+                    ymax = max(ymax, 1.1 * max(plotdata.pdf_y))
+                    self.lines[expert].set_data(plotdata.pdf_x, plotdata.pdf_y)
 
             # Format axis
-            self.format_axis(lower, upper, 0, 1)
-            self._set_data_visible()
-
-        if self.plottype == "exc prob":
-            # Get item data
-            lower, upper, assessments = self.get_item_data(full_dm_cdf=True)
-
-            # Set expert lines
-            quants = np.r_[0.0, self.results.assessments.quantiles, 1.0]
-            for expert in self.results.experts.ids:
-                row = assessments[expert]
-                if row.ndim == 1:
-                    use = ~np.isnan(row)
-                    self.lines[expert].set_data(
-                        np.r_[lower, row[use], upper], 1.0 - quants[np.r_[True, use, True]]
-                    )
-                else:
-                    xdata, ydata = row.T
-                    self.lines[expert].set_data(np.r_[lower, xdata, upper], 1.0 - np.r_[0.0, ydata, 1.0])
-
-            # Format axis
-            self.format_axis(lower, upper, 0, 1)
-            self._set_data_visible()
-
-        elif self.plottype == "pdf":
-            # Get item data
-            lower, upper, assessments = self.get_item_data(full_dm_cdf=True)
-
-            # Set expert lines
-            maxdensity = 0
-            for expert in self.results.experts.ids:
-                row = assessments[expert]
-                if row.ndim == 1:
-                    use = ~np.isnan(row)
-                    binedges = np.r_[lower, row[use], upper]
-                    xdata = np.repeat(binedges, 2)
-                    binprobs = np.diff(np.r_[0.0, np.array(self.results.assessments.quantiles)[use], 1.0])
-                    pdensity = binprobs / (binedges[1:] - binedges[:-1])
-                    ydata = np.r_[0, np.repeat(pdensity, 2), 0.0]
-                else:
-                    binedges, binprobs = row.T
-                    xdata = np.repeat(binedges, 2)
-                    binprobs = np.diff(binprobs)
-                    pdensity = binprobs / (binedges[1:] - binedges[:-1])
-                    ydata = np.r_[0, np.repeat(pdensity, 2), 0.0]
-
-                self.lines[expert].set_data(xdata, ydata)
-                maxdensity = max(maxdensity, max(pdensity))
-
-            # Format axis
-            self.format_axis(lower, upper, 0, 1.1 * maxdensity)
+            self.format_axis(plotdata.lower, plotdata.upper, 0, ymax)
             self._set_data_visible()
 
         elif self.plottype == "range":
             # Get item data
-            lower, upper, assessments = self.get_item_data(full_dm_cdf=False)
+            assessments = self.get_item_data(full_dm_cdf=False)
 
             selected = np.unique([idx.row() for idx in self.legend.selectedIndexes()])
             experts = [self.results.experts.ids[i] for i in selected]
@@ -1399,20 +1350,23 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             yrange = list(range(nexp))
 
             # Format axis
-            self.format_axis(lower, upper, nexp - 0.5, -0.5)
             self.ax.set_yticks(yrange)
             self.ax.set_yticklabels(experts)
 
             # Set expert lines
             for i, expert in enumerate(experts):
-                use = ~np.isnan(assessments[expert])
-                self.lines[expert].set_data(assessments[expert][use], i)
+                plotdata = assessments[expert]
+                self.lines[expert].set_data(list(plotdata.estimates.values()), i)
                 if expert in self.markers:
-                    for j, quantile in enumerate(self.results.assessments.quantiles):
-                        if use[j]:
-                            self.markers[expert][quantile].set_data(assessments[expert][j], i)
+
+                    for quantile in self.results.assessments.quantiles:
+                        if quantile in plotdata.estimates:
+                            self.markers[expert][quantile].set_data(plotdata.estimates[quantile], i)
                         else:
                             self.markers[expert][quantile].set_data([], [])
+
+            # Set axis limits for included experts
+            self.format_axis(plotdata.lower, plotdata.upper, nexp - 0.5, -0.5)
 
         # Realization
         self.update_realization()
@@ -1443,15 +1397,6 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
         # Get item id
         itemid = self.item_cbox.combobox.currentIndex()
 
-        # Get expert assessments and bounds for question
-        assessments = {}
-        for i, exp in enumerate(self.results.experts.ids):
-            if i in self.results.experts.decision_makers and full_dm_cdf:
-                assessments[exp] = self.results.assessments.full_cdf[exp][itemid]
-
-            else:
-                assessments[exp] = self.results.assessments.array[i, :, itemid]
-
         # Get the item bounds
         lower = self.results.lower_k[itemid]
         upper = self.results.upper_k[itemid]
@@ -1461,7 +1406,20 @@ class PlotDistributionsDialog(QtWidgets.QDialog):
             lower = np.exp(lower)
             upper = np.exp(upper)
 
-        return lower, upper, assessments
+        # Get expert assessments and bounds for question
+        assessments = {}
+        for i, exp in enumerate(self.results.experts.ids):
+            item = self.results.items.ids[itemid]
+            assessments[exp] = PlotData(
+                assessment=self.results.assessments.estimates[exp][item],
+                quantiles=self.results.assessments.quantiles,
+                distribution=self.results.settings.distribution,
+                lower=lower,
+                upper=upper,
+                full_dm_cdf=full_dm_cdf,
+            )
+
+        return assessments
 
     def get_expert_data(self):
         """
@@ -1754,7 +1712,14 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
             self.nmax = len(self.results.experts.ids)
             self.ncurrent = self.nmax
 
-        self.input_elements = {"figure": {}, "grid_layout": {}, "title": {}, "saving": {}, "legend": {}}
+        self.input_elements = {
+            "figure": {},
+            "grid_layout": {},
+            "title": {},
+            "saving": {},
+            "legend": {},
+            "exportimport": {},
+        }
 
         self.init_ui()
         self.update_nitems()
@@ -1764,7 +1729,7 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
         # self.signals.connect_update_signals()
         self.connect_signals()
 
-        self.input_elements["grid_layout"]["n_axes_cols"].set_value(int(np.ceil(self.ncurrent ** 0.5)))
+        self.input_elements["grid_layout"]["n_axes_cols"].set_value(int(np.ceil(self.ncurrent**0.5)))
 
     def accept(self):
         self.save_to_settings()
@@ -1851,7 +1816,7 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
             labelwidth=width,
         )
         self.input_elements["figure"]["figure_type"].group.buttonClicked.connect(self.enable_figure_options)
-        self.input_elements["figure"]["figure_type"].group.buttonClicked.connect(self.adjust_figure_sizes)
+        # self.input_elements["figure"]["figure_type"].group.buttonClicked.connect(self.adjust_figure_sizes)
 
         self.input_elements["grid_layout"]["n_axes_cols"] = widgets.ParameterInputLine(
             label="N columns", labelwidth=width, default=self.save_figure_settings.n_axes_cols
@@ -1941,12 +1906,20 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
             default2=str(v2) if v2 is not None else "",
         )
 
+        self.input_elements["exportimport"]["save_settings"] = QtWidgets.QPushButton(
+            "Export settings", clicked=self._export_settings
+        )
+        self.input_elements["exportimport"]["load_settings"] = QtWidgets.QPushButton(
+            "Import settings", clicked=self._import_settings
+        )
+
         titles = {
             "figure": "Figure options",
             "legend": "Legend settings",
             "saving": "Save options",
             "grid_layout": "Grid layout",
             "title": "Title options",
+            "exportimport": "Settings export/import",
         }
 
         for i, (key, dct) in enumerate(self.input_elements.items()):
@@ -1985,9 +1958,9 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
         vwidget = self.input_elements["saving"]["figsize_vertical"]
 
         figure_type = self.input_elements["figure"]["figure_type"].get_value(as_index=False)
-        if figure_type == "Gridded overview":
-            hwidget.set_value(float(hwidget.get_value()) * (self.ncols / ncols_old))
-            vwidget.set_value(float(vwidget.get_value()) * (self.nrows / nrows_old))
+        # if figure_type == "Gridded overview":
+        #     hwidget.set_value(float(hwidget.get_value()) * (self.ncols / ncols_old))
+        #     vwidget.set_value(float(vwidget.get_value()) * (self.nrows / nrows_old))
 
     def _get_path(self):
 
@@ -2026,6 +1999,62 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
             self.input_elements["saving"]["save_directory_single_figures"].set_value(fname)
             self.input_elements["saving"]["figure_extension"].set_value(ext)
 
+    def _export_settings(self):
+
+        self.save_to_settings()
+
+        # Set open file dialog settings
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        # options |= QtWidgets.QFileDialog.DirectoryOnly
+
+        # Set current dir
+        currentdir = self.appsettings.value("currentdir", ".", type=str)
+
+        # Open dialog to select file
+        fname, ext = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            "Anduryl - Select file location for exporting figure settings",
+            currentdir,
+            "JSON (*.json)",
+            options=options,
+        )
+        ext = ext.split("*")[-1][:-1]
+        if not fname.endswith(ext):
+            fname += ext
+
+        if fname == "":
+            return
+
+        with open(fname, "w") as f:
+            f.write(self.save_figure_settings.json(indent=4))
+
+    def _import_settings(self):
+
+        # Set open file dialog settings
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+
+        # Set current dir
+        currentdir = self.appsettings.value("currentdir", ".", type=str)
+
+        # Open dialog to select file
+        fname, _ = QtWidgets.QFileDialog.getOpenFileName(
+            parent=self,
+            caption="Anduryl - Select file location with figure settings to import",
+            directory=currentdir,
+            filter="JSON (*.json)",
+            options=options,
+        )
+
+        if fname == "":
+            return
+
+        with open(fname) as f:
+            for key, value in json.load(f).items():
+                setattr(self.save_figure_settings, key, value)
+            self.load_from_settings()
+
     def _change_ext(self):
 
         # Check if savetype is gridded overview
@@ -2042,17 +2071,18 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
         """
         for _, group in self.input_elements.items():
             for param, widget in group.items():
-                val = widget.get_value()
-                if param == "save_path_overview":
-                    if self.save_figure_settings.figure_type == "Gridded overview":
-                        self.save_figure_settings.save_path_overview = val
+                if hasattr(widget, "get_value"):
+                    val = widget.get_value()
+                    if param == "save_path_overview":
+                        if self.save_figure_settings.figure_type == "Gridded overview":
+                            self.save_figure_settings.save_path_overview = val
 
-                elif param == "save_directory_single_figures":
-                    if self.save_figure_settings.figure_type == "Single figures":
-                        self.save_figure_settings.save_directory_single_figures = val
+                    elif param == "save_directory_single_figures":
+                        if self.save_figure_settings.figure_type == "Single figures":
+                            self.save_figure_settings.save_directory_single_figures = val
 
-                else:
-                    setattr(self.save_figure_settings, param, val)
+                    else:
+                        setattr(self.save_figure_settings, param, val)
 
     def load_from_settings(self):
         """
@@ -2064,16 +2094,15 @@ class OverviewSettingsDialog(QtWidgets.QDialog):
             assert len(groups) == 1
             group_name = groups[0]
 
-            if self.save_figure_settings.figure_type == "Gridded overview":
-                if param == "save_path_overview":
-                    self.input_elements[group_name][param].set_value(
-                        self.save_figure_settings.save_path_overview
-                    )
-            elif self.save_figure_settings.figure_type == "Single figures":
-                if param == "save_directory_single_figures":
-                    self.input_elements[group_name][param].set_value(
-                        self.save_figure_settings.save_directory_single_figures
-                    )
+            if self.save_figure_settings.figure_type == "Gridded overview" and param == "save_path_overview":
+                self.input_elements[group_name][param].set_value(self.save_figure_settings.save_path_overview)
+            elif (
+                self.save_figure_settings.figure_type == "Single figures"
+                and param == "save_directory_single_figures"
+            ):
+                self.input_elements[group_name][param].set_value(
+                    self.save_figure_settings.save_directory_single_figures
+                )
             else:
                 self.input_elements[group_name][param].set_value(value)
 

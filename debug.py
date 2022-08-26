@@ -20,19 +20,52 @@ if __name__ == "__main__":
     # Import GUI
     from anduryl.core.main import Project
     from anduryl.ui.main import MainWindow
+    from anduryl.io.settings import CalculationSettings
 
     # Create main window
     ex = MainWindow(app)
     splash.close()
 
     # Open project
-    projectfile = sys.argv[1]
-    projectfile = r"d:\TUD\P03 - Length effects\faalkansen_rijntakken_update.json"
+    # projectfile = sys.argv[1]
+    # projectfile = r"d:\TUD\P03 - Length effects\faalkansen_rijntakken_update.json"
     # projectfile = r"d:\TUD\P03 - Length effects\faalkansen_rijntakken_update_excalibur.dtt"
     # projectfile = r"d:\TUD\P03 - Length effects\tst.json"
-    # projectfile = r"d:\Documents\GitHub\anduryl\cases\puig-oil.dtt"
+    # projectfile = r"d:\Documents\GitHub\anduryl\cases\CWD.dtt"
+    # projectfile = r"d:\Documents\GitHub\anduryl\ca ses\Arsenic D-R.dtt"
+    # projectfile = r"d:\Documents\GitHub\anduryl\cases\Arkansas.dtt"
+    projectfile = r"d:\TUD\P08 - Afvoerstatistiek EJ\Data\Elicitation\meuse_discharges_expertsessie.json"
+    # projectfile = r"d:\Documents\GitHub\anduryl\cases\ebbp.dtt"
+    # projectfile = r"d:\Documents\GitHub\anduryl\cases\Biol agents.dtt"
+    # projectfile = r"d:\Documents\GitHub\anduryl\cases\ATCEP error.dtt"
 
     ex.open_project(fname=projectfile)
+
+    # itemopt_settings = CalculationSettings(
+    #     id="DM1",
+    #     name="Item opt.",
+    #     weight="Item",
+    #     overshoot=0.1,
+    #     optimisation=True,
+    #     robustness=False,
+    #     calpower=1.0,
+    #     distribution="Metalog",
+    # )
+
+    # globalnonopt_settings = CalculationSettings(
+    #     id="DM1",
+    #     name="Global no opt.",
+    #     weight="Global",
+    #     overshoot=0.1,
+    #     alpha=0.0,
+    #     robustness=False,
+    #     calpower=1.0,
+    #     distribution="Metalog",
+    # )
+
+    # ex.project.experts.remove_expert("AR03")
+
+    # ex.project.calculate_decision_maker(globalnonopt_settings)
 
     # ex.expertswidget.add_decision_maker()
 

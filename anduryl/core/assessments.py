@@ -8,7 +8,7 @@ Created on Tue Nov 27 15:21:11 2018
 import numpy as np
 
 np.seterr("raise")
-from anduryl.model.assessment import EmpiricalAssessment, MetalogAssessment
+from anduryl.model.assessment import EmpiricalAssessment, ExpertAssessment
 
 
 class Assessments:
@@ -63,14 +63,21 @@ class Assessments:
         for iq, (itemid, estimates) in enumerate(
             zip(self.project.items.ids, self.project.assessments.array[-1, :, :].T)
         ):
+
+            bounds = self.project.items.bounds[iq]
+            lbound = bounds[0] if not np.isnan(bounds[0]) else None
+            ubound = bounds[1] if not np.isnan(bounds[1]) else None
+
             if empirical_cdf is None:
-                assessment = MetalogAssessment(
+                assessment = ExpertAssessment(
                     quantiles=quantiles_arr[self.project.items.use_quantiles[iq]],
                     values=estimates,
                     expertid=expertid,
                     itemid=itemid,
                     scale=self.project.items.scales[iq],
                     observer=self.project.assessments.update_array_value,
+                    item_lbound=lbound,
+                    item_ubound=ubound,
                 )
             else:
 
@@ -84,12 +91,14 @@ class Assessments:
                     itemid=itemid,
                     scale=self.project.items.scales[iq],
                     observer=self.project.assessments.update_array_value,
+                    item_lbound=lbound,
+                    item_ubound=ubound,
                 )
 
             self.estimates[expertid][itemid] = assessment
 
         # self.estimates[expertid] = {
-        #     itemid: MetalogAssessment(
+        #     itemid: ExpertAssessment(
         #         quantiles=quantiles_arr[self.project.items.use_quantiles[iq]],
         #         values=estimates,
         #         expertid=expertid,

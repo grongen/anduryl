@@ -78,13 +78,20 @@ class Distribution(Enum):
     PWL_CONTINUOUS = "PWL continuous"
 
 
+class CalibrationMethod(Enum):
+    LR = "Likelihood Ratio"
+    CVM = "Cramer-von Mises"
+    KS = "Kolmogorov-Smirnov"
+
+
 class CalculationSettings(BaseModel):
     id: str  # = "DM"
     name: str  # = "Decision Maker"
     weight: WeightType  # = "Global"
     overshoot: confloat(ge=0.0)  # = 0.1
     alpha: Union[confloat(ge=0.0), None]  # = 0.0
-    # optimisation: bool  # = True
+    optimisation: bool  # = True
     robustness: bool  # = True
     calpower: confloat(ge=0.0)  # = 1.0
-    distribution: Distribution = "PWL"
+    distribution: Distribution = Distribution.METALOG
+    calibration_method: CalibrationMethod = CalibrationMethod.LR

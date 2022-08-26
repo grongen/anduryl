@@ -1,9 +1,10 @@
 from math import e, gamma
 from typing import Union
+import re
 
 import numpy as np
 from anduryl.core import metalog
-from anduryl.io.settings import Distribution, WeightType
+from anduryl.io.settings import CalibrationMethod, Distribution, WeightType
 from anduryl.model.assessment import EmpiricalAssessment
 
 
@@ -275,7 +276,7 @@ class Experts:
             if idx in lst:
                 lst.remove(idx)
 
-        # Adjust other indexes of they where larger
+        # Adjust other indexes if they where larger
         for lst in [self.actual_experts, self.decision_makers]:
             for i, item in enumerate(lst):
                 if item > idx:
@@ -428,19 +429,9 @@ class Experts:
                     continue
                 # Calculate info per variable
                 if dm_settings.distribution == Distribution.METALOG:
-                    cdvs = np.linspace(0.005, 0.995, 100)
-                    ppvs = self.project.assessments.estimates[expertid][itemid].ppf(cdvs)
-                    if scale[iq] == "log":
-                        ppvs = np.log(ppvs)
-                    midpoints = np.concatenate([[ppvs[0]], (ppvs[1:] + ppvs[:-1]) / 2, [ppvs[-1]]])
-                    s = midpoints[1:] - midpoints[:-1]
-                    s[0] *= 2
-                    s[-1] *= 2
-                    p = np.full(len(s), 0.01)
-                    inrange = (ppvs > lower[iq]) & (ppvs < upper[iq])
-                    self.info_per_var[idx, iq] = np.log(upper[iq] - lower[iq]) + np.sum(
-                        p[inrange] * np.log(p[inrange] / s[inrange])
-                    )
+                    self.info_per_var[idx, iq] = self.project.assessments.estimates[expertid][
+                        itemid
+                    ].information(lower=lower[iq], upper=upper[iq], distribution=dm_settings.distribution)
 
                 else:
                     bounds[1:-1] = values[iexp, use, iq]
@@ -466,6 +457,12 @@ class Experts:
         ).sum(axis=1)
 
     def calibration_score(self, counts, Nmin, dm_settings):
+        if dm_settings.calibration_method == CalibrationMethod.LR:
+            return self.calibration_score_likelihoodratio(counts, Nmin, dm_settings)
+        else:
+            return self.calibration_score_continuous(counts, dm_settings)
+
+    def calibration_score_likelihoodratio(self, counts, Nmin, dm_settings):
         """
         Calculate calbration score
 
@@ -476,11 +473,6 @@ class Experts:
         Nmin : int
             Minimum number of answered questions for All experts
         """
-        if dm_settings.distribution == Distribution.METALOG:
-            return self.metalog_calibration_score(counts)
-        elif dm_settings.distribution == Distribution.PWL_CONTINUOUS:
-            return self.pwl_calibration_score(counts, Nmin, dm_settings)
-
         # Get used percentiles
         idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
         quantiles = np.array(self.project.assessments.quantiles)[idx]
@@ -516,7 +508,7 @@ class Experts:
     #     # avoid small negative values that can occur due to the approximation
     #     p = max(0, 1. - _cdf_cvm(w, n))
 
-    def metalog_calibration_score(self, counts):
+    def calibration_score_continuous(self, counts, dm_settings):
         """
         Calculate calbration score
 
@@ -529,68 +521,6 @@ class Experts:
         """
         # Get used percentiles
         idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
-        quantiles = np.array(self.project.assessments.quantiles)[idx]
-
-        # Calculate calibration scores for each expert
-        cal = np.zeros(len(counts))
-
-        # import cProfile, pstats, io
-        # from pstats import SortKey
-
-        # pr = cProfile.Profile()
-        # pr.enable()
-        for ie, expert in enumerate(counts.keys()):
-            cdfvals = []
-
-            for iq in np.where(self.project.items.get_idx("seed"))[0]:
-
-                # Get estimated values
-                values = self.project.assessments.array[self.project.experts.get_idx(expert), :, iq]
-                realization = self.project.items.realizations[iq]
-                if np.isnan(values).any():
-                    continue
-
-                # Get the realization on a uniform scale
-                estimates = self.project.assessments.estimates[expert][self.project.items.ids[iq]]
-                cdf_val = estimates.cdf(x=realization)
-                # if isinstance(estimates, EmpiricalAssessment):
-                # print(realization, cdf_val)
-
-                cdfvals.append(cdf_val)
-
-            # Test with chi squared
-            # E = empirical_entropy(cdfvals, Nmin, calpower)
-            # cal[ie] = 1 - chi2cdf(x=E, df=len(quantiles))
-
-            cal[ie] = metalog.cramervonmises(rvs=cdfvals, cdf=lambda x: x).pvalue
-
-        # From log-likelhood back to likelihood
-        # cal = np.exp(cal)
-
-        # pr.disable()
-        # s = io.StringIO()
-        # sortby = SortKey.CUMULATIVE
-        # ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-        # ps.print_stats()
-        # with open("D:/Documents/profile.txt", "w") as f:
-        #     f.write(s.getvalue())
-
-        return cal
-
-    def pwl_calibration_score(self, counts, Nmin, dm_settings):
-        """
-        Calculate calbration score
-
-        Parameters
-        ----------
-        M : numpy.ndarray
-            Number of realizations per question in each bin
-        Nmin : int
-            Minimum number of answered questions for All experts
-        """
-        # Get used percentiles
-        idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
-        quantiles = np.array(self.project.assessments.quantiles)[idx]
         lower, upper = self.project.assessments.get_bounds("both", overshoot=dm_settings.overshoot)
 
         # Calculate calibration scores for each expert
@@ -607,26 +537,18 @@ class Experts:
                 if np.isnan(values).any():
                     continue
 
-                # Map to log scale if needed
-                scale = self.project.items.scales[iq]
-                if scale == "log":
-                    values = np.log(values)
-                    realization = np.log(realization)
-
                 # Get the realization on a uniform scale
-                cdf_val = np.interp(
-                    realization,
-                    np.concatenate([[lower[iq]], values, [upper[iq]]]),
-                    np.concatenate([[0.0], quantiles, [1.0]]),
+                estimates = self.project.assessments.estimates[expert][self.project.items.ids[iq]]
+                cdf_val = estimates.cdf(
+                    x=realization, lower=lower[iq], upper=upper[iq], distribution=dm_settings.distribution
                 )
 
                 cdfvals.append(cdf_val)
 
-            # Test with chi squared
-            # E = empirical_entropy(cdfvals, Nmin, calpower)
-            # cal[ie] = 1 - chi2cdf(x=E, df=len(quantiles))
-
-            cal[ie] = metalog.cramervonmises(rvs=cdfvals, cdf=lambda x: x).pvalue
+            if dm_settings.calibration_method == CalibrationMethod.CVM:
+                cal[ie] = metalog.cramervonmises(rvs=cdfvals, cdf=lambda x: x).pvalue
+            elif dm_settings.calibration_method == CalibrationMethod.KS:
+                cal[ie] = metalog.kstest(rvs=cdfvals, cdf=lambda x: x).pvalue
 
         return cal
 
@@ -729,8 +651,7 @@ class Experts:
             cal = self.calibration_score(
                 counts={exp: count_dct[exp] for exp in experts},
                 Nmin=Nmin,
-                calpower=dm_settings.calpower,
-                overshoot=dm_settings.overshoot,
+                dm_settings=dm_settings,
             )
 
         else:
@@ -901,7 +822,7 @@ class Experts:
         lines = [
             r"\begin{tabularx}{\linewidth}{XXXXX}",
             r"\toprule",
-            r"{}                      & Calibration score            & \multicolumn{2}{c}{Information score} & Weight               \\",
+            r"{}                      & Calibration score            & \multicolumn{2}{c}{Information score} & Combined score               \\",
             r"\cmidrule(lr){3-4}",
             r"{} &                      & All   & Calibr.                 &                      \\ \midrule",
         ]
@@ -917,9 +838,13 @@ class Experts:
         for i, (exp_id, infotot, inforeal, cal, weight) in enumerate(zip(*lists)):
             if i == self.decision_makers[0]:
                 lines[-1] = rf"{lines[-1]} \midrule"
-            lines.append(rf"{exp_id} & {cal:.3f} & {infotot:.3f} & {inforeal:.3f} & {weight:.3f} \\")
+            lines.append(rf"{exp_id} & {cal:5.3g} & {infotot:.3f} & {inforeal:.3f} & {weight:5.3g} \\")
 
         lines.append(r"\bottomrule")
         lines.append(r"\end{tabularx}")
 
-        return "\n".join(lines)
+        text = "\n".join(lines)
+
+        text = re.sub("\de([+-]?)0?(\d+)", r"\\cdot 10 \\textsuperscript{\1\2}", text)
+
+        return text

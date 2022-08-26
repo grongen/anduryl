@@ -7,8 +7,10 @@ from anduryl.core.assessments import Assessments
 from anduryl.core.experts import Experts
 from anduryl.core.items import Items
 from anduryl.io.project import ProjectIO
+from anduryl.io.settings import CalculationSettings, WeightType
+from anduryl.model.results import PlotData
 from anduryl.ui.dialogs import NotificationDialog
-from anduryl.io.settings import WeightType
+
 
 class Project:
     """
@@ -127,7 +129,7 @@ class Project:
             overwrite=overwrite
         )
 
-    def calculate_item_robustness(self, weight_type, overshoot, max_exclude, min_exclude=0, calpower=1.0, alpha=None):
+    def calculate_item_robustness(self, dm_settings, max_exclude, min_exclude=0):
         """
         Convenience function for calculating the item robustness for the main results.
         For parameters see the method calculate_item_robustness in the Result class.
@@ -135,13 +137,10 @@ class Project:
         self.main_results.calculate_item_robustness(
             min_exclude=min_exclude,
             max_exclude=max_exclude,
-            weight_type=weight_type,
-            overshoot=overshoot,
-            calpower=calpower,
-            alpha=alpha
+            dm_settings=dm_settings,
         )
 
-    def calculate_expert_robustness(self, weight_type, overshoot, max_exclude, min_exclude=0, calpower=1.0, alpha=None):
+    def calculate_expert_robustness(self, dm_settings, max_exclude, min_exclude=0):
         """
         Convenience function for calculating the expert robustness for the main results.
         For parameters see the method calculate_expert_robustness in the Result class.
@@ -149,21 +148,18 @@ class Project:
         self.main_results.calculate_expert_robustness(
             min_exclude=min_exclude,
             max_exclude=max_exclude,
-            weight_type=weight_type,
-            overshoot=overshoot,
-            calpower=calpower,
-            alpha=alpha
+            dm_settings=dm_settings,
         )
 
-    def add_results_from_settings(self, calc_settings):
+    def add_results_from_settings(self, calc_settings: CalculationSettings) -> bool:
         """
         Method to add the results from settings. The settings contain
         all the information to (re-)calculate the results.
         
         Parameters
         ----------
-        calc_settings : dict
-            Dictionary with calculation settings
+        calc_settings : CalculationSettings
+            CalculationSettings object
         """
 
         # Freeze the results
@@ -199,10 +195,10 @@ class Project:
                 NotificationDialog(f'Experts {exps} have not answered any questions, and are excluded from the calculation.')
 
         # Exclude experts and items that are unchecked
-        for exp in results.experts.excluded:
+        for exp in results.experts.excluded[:]:
             if exp in results.experts.ids:
                 results.experts.remove_expert(exp)
-        for item in results.items.excluded:
+        for item in results.items.excluded[:]:
             results.items.remove_item(item)
 
         # Check if there are any experts and items left
@@ -235,20 +231,12 @@ class Project:
         # Calculate robustness tables for excluding a single item
         if calc_settings.robustness and results.items.get_idx('seed').sum() > 1:
             results.calculate_item_robustness(
-                max_exclude=1,
-                weight_type=calc_settings.weight,
-                overshoot=calc_settings.overshoot,
-                alpha=calc_settings.alpha,
-                calpower=calc_settings.calpower,
+                max_exclude=1, dm_settings=calc_settings
             )
 
         if calc_settings.robustness and len(results.experts.actual_experts) > 1:
             results.calculate_expert_robustness(
-                max_exclude=1,
-                weight_type=calc_settings.weight,
-                overshoot=calc_settings.overshoot,
-                alpha=calc_settings.alpha,
-                calpower=calc_settings.calpower,
+                max_exclude=1, dm_settings=calc_settings
             )
 
         results.experts.weights = results.get_weight_in_dm()
@@ -382,7 +370,7 @@ class Results:
                 arr = getattr(main_results.experts, name)
                 arr[main_idx] = getattr(self.experts, name)
 
-    def calculate_item_robustness(self, weight_type, overshoot, max_exclude, min_exclude=0, calpower=1.0, alpha=None, progress_func=None):
+    def calculate_item_robustness(self, dm_settings, max_exclude, min_exclude=0, progress_func=None):
         """
         Calculate calibration and information scores by excluding items.
         This gives a measure for the robustness of the results
@@ -412,14 +400,11 @@ class Results:
             assessments=self.assessments,
             min_exclude=min_exclude,
             max_exclude=max_exclude,
-            weight_type=weight_type,
-            alpha=alpha,
-            overshoot=overshoot,
-            calpower=calpower,
+            dm_settings=dm_settings,
             progress_func=progress_func
         ))
 
-    def calculate_expert_robustness(self, weight_type, overshoot, max_exclude, min_exclude=0, calpower=1.0, alpha=None, progress_func=None):
+    def calculate_expert_robustness(self, dm_settings, max_exclude, min_exclude=0, progress_func=None):
         """
         Calculate calibration and information scores by excluding experts.
         This gives a measure for the robustness of the results
@@ -449,14 +434,11 @@ class Results:
             assessments=self.assessments,
             min_exclude=min_exclude,
             max_exclude=max_exclude,
-            weight_type=weight_type,
-            alpha=alpha,
-            overshoot=overshoot,
-            calpower=calpower,
+            dm_settings=dm_settings,
             progress_func=progress_func
         ))
 
-    def get_plot_data(self, experts=None, items=None, plottype='cdf', full_dm_cdf=True):
+    def get_plot_data(self, experts=None, items=None, full_dm_cdf=True):
         """
         Get data in overview, convenient for plotting.
 
@@ -470,9 +452,6 @@ class Results:
             [description], by default True
         """
 
-        if plottype not in ['cdf', 'pdf', 'range', 'exc prob']:
-            raise KeyError(f'Plottype: {plottype} not understood.')
-
         # Get expert assessments and bounds for question
         assessments = {}
 
@@ -482,38 +461,35 @@ class Results:
         if items is None:
             items = self.items.ids[:]
 
+        # Get bounds
+        lowerbounds, upperbounds = self.assessments.get_bounds(
+            overshoot=self.settings.overshoot
+        )
+
         # For each item
         for item in items:
             # Get the item position in the items list
             iitem = self.items.ids.index(item)
-            # self.get_bounds(experts=experts, overshoot)
-            # lower = self.lower_k[iitem]
-            # upper = self.upper_k[iitem]
+            lower = lowerbounds[iitem]
+            upper = upperbounds[iitem]
 
             # For each expert 
             for expert in experts:
-                # Get position of expert in the lists
-                iexp = self.experts.ids.index(expert)
                 # Check if expert is a decision maker, and if the full cdf's are expected
-                if iexp in self.experts.decision_makers and full_dm_cdf:
-                    # If so, add the full experts cdf 
-                    assessments[(item, expert)] = {
-                        'quantile': self.assessments.full_cdf[expert][iitem][:, 1],
-                        'value': self.assessments.full_cdf[expert][iitem][:, 0]
-                    }
-                else:
-                    # Else, just add the percentiles, including the lower and upper bound
-                    values = self.assessments.array[iexp, :, iitem]
-                    idx = ~np.isnan(values)
-                    assessments[(item, expert)] = {
-                        'quantile': np.array(self.assessments.quantiles)[idx],
-                        'value': values[idx]
-                    }
-        
+                assessments[(item, expert)] = PlotData(
+                    assessment=self.assessments.estimates[expert][item],
+                    quantiles=self.assessments.quantiles,
+                    distribution=self.settings.distribution,
+                    lower=lower,
+                    upper=upper,
+                    full_dm_cdf=full_dm_cdf,
+                )
+            
         # # Convert bounds form log scale to uniform scale in case of log background
         # if self.results.items.scales[itemid] == 'log':
         #     lower = np.exp(lower)
         #     upper = np.exp(upper)
 
         return assessments
+        
         

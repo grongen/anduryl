@@ -5,7 +5,7 @@ from typing import Union
 import numpy as np
 from anduryl.io import reader, writer
 from anduryl.io.savemodels import SaveModel
-from anduryl.model.assessment import Assessment, MetalogAssessment
+from anduryl.model.assessment import Assessment, ExpertAssessment
 
 
 class ProjectIO:
@@ -255,13 +255,19 @@ class ProjectIO:
         self.project.assessments.estimates.update(
             {
                 expertid: {
-                    itemid: MetalogAssessment(
+                    itemid: ExpertAssessment(
                         quantiles=savemodel.items[itemid].quantiles,
                         values=estimates,
                         expertid=expertid,
                         itemid=itemid,
                         scale=savemodel.items[itemid].scale,
                         observer=self.project.assessments.update_array_value,
+                        item_lbound=savemodel.items[itemid].bounds[0]
+                        if not np.isnan(savemodel.items[itemid].bounds[0])
+                        else None,
+                        item_ubound=savemodel.items[itemid].bounds[1]
+                        if not np.isnan(savemodel.items[itemid].bounds[1])
+                        else None,
                     )
                     for itemid, estimates in expertestimates.items()
                 }

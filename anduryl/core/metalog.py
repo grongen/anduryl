@@ -4,7 +4,7 @@ from pathlib import Path
 from scipy import optimize
 
 import numpy as np
-from scipy.stats import cramervonmises
+from scipy.stats import cramervonmises, kstest
 
 githubpath = Path("d:/Documents/GitHub/metalogistic")
 if str(githubpath) not in sys.path:
@@ -67,9 +67,9 @@ class CustomMetaLogistic(metalogistic.main._MetaLogisticMonoFit):
         return (x[1:] > x[:-1]).all()
 
 
-def get_valid_metalog(ps, xs):
+def get_valid_metalog(ps, xs, item_lbound=None, item_ubound=None):
     # Check if the unbounded candidate is feasible
-    unbounded = CustomMetaLogistic2(cdf_xs=xs, cdf_ps=ps, term=3)
+    unbounded = CustomMetaLogistic2(cdf_xs=xs, cdf_ps=ps, term=3, lbound=item_lbound, ubound=item_ubound)
     if unbounded.is_feasible():
         dist = unbounded
 
@@ -83,6 +83,8 @@ def get_valid_metalog(ps, xs):
         if lower_interquantile < upper_interquantile:
             steps = xs[0] - (steps * lower_interquantile)
             for lbound in steps[::-1]:
+                if not np.isnan(item_lbound) and (lbound < item_lbound):
+                    continue
                 lowerbounded = CustomMetaLogistic2(cdf_xs=xs, cdf_ps=ps, lbound=lbound, term=3)
                 if lowerbounded.is_feasible():
                     dist = lowerbounded
@@ -93,6 +95,8 @@ def get_valid_metalog(ps, xs):
         else:
             steps = xs[-1] + (steps * upper_interquantile)
             for ubound in steps[::-1]:
+                if not np.isnan(item_ubound) and (ubound > item_ubound):
+                    continue
                 upperbounded = CustomMetaLogistic2(cdf_xs=xs, cdf_ps=ps, ubound=ubound, term=3)
                 if upperbounded.is_feasible():
                     dist = upperbounded
@@ -101,13 +105,20 @@ def get_valid_metalog(ps, xs):
                 raise ValueError(f"Did not find a suitable upper bound for values {xs}.")
 
     # Precalculate some percentile point values
-    dist.prange = np.concatenate([[0.001], np.linspace(0.0, 1.0, 101)[1:-1], [0.999]])
+    tailp = 0.02
+    linspaced = np.linspace(tailp, 1.0 - tailp, 101)[1:-1]
+    logspaced = np.logspace(np.log10(tailp), np.log10(1e-5), 10, base=10)
+    dist.prange = np.concatenate([logspaced[::-1], linspaced, 1 - logspaced])
     dist.pps = dist.ppf(dist.prange)
 
     return dist
 
 
-def get_valid_5p_metalog(ps, xs):
+def get_valid_5p_metalog(ps, xs, item_lbound=None, item_ubound=None):
+    if not np.isnan(item_ubound):
+        raise NotImplementedError()
+    if not np.isnan(item_lbound):
+        raise NotImplementedError()
     # Check if the unbounded candidate is feasible
     unbounded = CustomMetaLogistic2(cdf_xs=xs, cdf_ps=ps)
     if unbounded.is_feasible():
@@ -129,7 +140,6 @@ def get_valid_5p_metalog(ps, xs):
             if dist.is_feasible():
                 break
         else:
-            print(xs)
             return get_valid_metalog(xs=xs, ps=ps)
             # raise ValueError(xs)
 
@@ -161,7 +171,10 @@ def get_valid_5p_metalog(ps, xs):
         dist = CustomMetaLogistic2(cdf_xs=xs, cdf_ps=ps, term=5, lbound=lbound, ubound=ubound)
 
     # Precalculate some percentile point values
-    dist.prange = np.concatenate([[0.001], np.linspace(0.0, 1.0, 101)[1:-1], [0.999]])
+    tailp = 0.02
+    linspaced = np.linspace(tailp, 1.0 - tailp, 101)[1:-1]
+    logspaced = np.logspace(np.log10(tailp), np.log10(1e-5), 10, base=10)
+    dist.prange = np.concatenate([logspaced[::-1], linspaced, 1 - logspaced])
     dist.pps = dist.ppf(dist.prange)
 
     return dist
@@ -626,7 +639,7 @@ class CustomMetaLogistic2:
 
         return density_function
 
-    def get_cumulative_prob(self, x):
+    def get_cumulative_prob(self, x, lowerbound=0.0, upperbound=1.0):
         """
         The metalog is defined in terms of its inverse CDF or quantile function. In order to get probabilities for a given x-value,
         like in a traditional CDF, we invert this quantile function using a numerical equation solver.
@@ -643,7 +656,7 @@ class CustomMetaLogistic2:
         # We need a smaller `xtol` than the default value, in order to ensure correctness when
         # evaluating the CDF or PDF in the extreme tails.
         # todo: consider replacing brent's method with Newton's (or other), and provide the derivative of quantile, since it should be possible to obtain an analytic expression for that
-        return optimize.brentq(f_to_zero, 0, 1, xtol=1e-24, disp=True)
+        return optimize.brentq(f_to_zero, lowerbound, upperbound, xtol=1e-24, disp=True)
 
     def cdf(self, x):
         """

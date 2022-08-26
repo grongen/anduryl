@@ -2,7 +2,7 @@ from itertools import product
 
 import numpy as np
 from anduryl import io
-from anduryl.io.settings import CalculationSettings, Distribution, WeightType
+from anduryl.io.settings import CalculationSettings, CalibrationMethod, Distribution, WeightType
 from anduryl.ui import menus, widgets
 from anduryl.ui.dialogs import NotificationDialog
 from anduryl.ui.models import ExpertsListsModel, ItemDelegate
@@ -329,13 +329,19 @@ class DecisionMakerOptions(QtWidgets.QDialog):
         self.input_elements["distribution"] = widgets.ComboboxInputLine(
             label="Distribution:",
             labelwidth=labelwidth,
+            items=[Distribution.PWL.value, Distribution.METALOG.value],
+        )
+
+        self.input_elements["calibration_method"] = widgets.ComboboxInputLine(
+            label="Calibration method:",
+            labelwidth=labelwidth,
             items=[
-                Distribution.PWL.value,
-                Distribution.METALOG.value,
-                Distribution.PWL_CONTINUOUS.value,
+                CalibrationMethod.LR.value,
+                CalibrationMethod.CVM.value,
+                CalibrationMethod.KS.value,
             ],
         )
-        
+
         # Connect signals
         self.input_elements["id"].LineEdit.editingFinished.connect(self.disable_update_id)
         self.input_elements["name"].LineEdit.editingFinished.connect(self.disable_update_name)

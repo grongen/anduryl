@@ -1,5 +1,5 @@
 import numpy as np
-from anduryl.model.assessment import Assessment, MetalogAssessment
+from anduryl.model.assessment import Assessment, ExpertAssessment
 
 
 class Items:
@@ -138,15 +138,15 @@ class Items:
         # Add estimates
         quantiles_arr = np.array(self.project.assessments.quantiles)
         for expertid in self.project.experts.ids:
-            self.project.assessments.estimates[expertid][item_id] = MetalogAssessment(
-                    quantiles=quantiles_arr[self.use_quantiles[-1, :]],
-                    values=[np.nan] * self.use_quantiles[-1, :].sum(),
-                    expertid=expertid,
-                    itemid=item_id,
-                    scale='uni',
-                    observer=self.project.assessments.update_array_value,
-                )
-                
+            self.project.assessments.estimates[expertid][item_id] = ExpertAssessment(
+                quantiles=quantiles_arr[self.use_quantiles[-1, :]],
+                values=[np.nan] * self.use_quantiles[-1, :].sum(),
+                expertid=expertid,
+                itemid=item_id,
+                scale="uni",
+                observer=self.project.assessments.update_array_value,
+            )
+
     def move_item(self, item_id, newpos):
         """
         Move item to new position in list

@@ -14,3 +14,4 @@ pyinstaller/dist/Anduryl_selection
 __pycache__
 notebooks/.ipynb_checkpoints/*.ipynb
 test/.ipynb_checkpoints/*.ipynb
+pyinstaller/dist/Anduryl.exe

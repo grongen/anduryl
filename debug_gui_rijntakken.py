@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
     # # Note that not specifying alpha results in optimization in case of global or item weights.
     # ex.project.calculate_decision_maker(
-    #     weight_type="global",
+    #     weight_type=WeightType.GLOBAL,
     #     overshoot=0.1,
     #     exp_id="Global",
     #     calpower=1.0,
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     #     overwrite=True,
     # )
 
-    # ex.project.calculate_expert_robustness("global", overshoot=0.1, max_exclude=2, min_exclude=0)
+    # ex.project.calculate_expert_robustness(WeightType.GLOBAL, overshoot=0.1, max_exclude=2, min_exclude=0)
 
     print("Something")
 

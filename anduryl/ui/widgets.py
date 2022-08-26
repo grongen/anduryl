@@ -1,5 +1,5 @@
-from multiprocessing.sharedctypes import Value
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
+from enum import Enum
 
 
 def get_width(text):
@@ -167,7 +167,14 @@ class ParameterInputLine(QtWidgets.QWidget):
 
 class DoubleParameterInputLine(ParameterInputLine):
     def __init__(
-        self, label, labelwidth=None, unitlabel=None, validator1=None, default1=None, validator2=None, default2=None
+        self,
+        label,
+        labelwidth=None,
+        unitlabel=None,
+        validator1=None,
+        default1=None,
+        validator2=None,
+        default2=None,
     ):
         super().__init__(label, labelwidth, unitlabel, validator1, default1)
 
@@ -281,8 +288,11 @@ class ComboboxInputLine(QtWidgets.QWidget):
         """
         Set value to combobox
         """
+        if isinstance(value, Enum):
+            value = value.value
         if not isinstance(value, str):
             value = str(value)
+
         self.combobox.setCurrentText(value)
 
 
@@ -339,13 +349,13 @@ class CheckBoxInput(QtWidgets.QWidget):
 
     def get_value(self):
         """
-        Get value from combobox
+        Get value from checkbox
         """
         return self.checkbox.isChecked()
 
     def set_value(self, value):
         """
-        Set value to combobox
+        Set value to checkbox
         """
         return self.checkbox.setChecked(value)
 

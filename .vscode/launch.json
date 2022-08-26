@@ -8,13 +8,13 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            // "program": "d:/Documents/GitHub/anduryl/debug.py",
+            // "program": "d:/Documents/GitHub/anduryl/debug_metalog_fitting.py",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": false,
-            "args": [
-                "d:/TUD/P08 - Afvoerstatistiek EJ/Data/dummy_project.json"
-            ]
+            // "args": [
+            // "d:/TUD/P08 - Afvoerstatistiek EJ/Data/dummy_project.json"
+            // ]
         }
     ]
 }
