@@ -1,4 +1,3 @@
-from email.policy import default
 import textwrap
 from math import factorial
 from pathlib import Path

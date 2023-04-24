@@ -10,6 +10,7 @@ if __name__ == "__main__":
     from PyQt5 import QtWidgets, QtGui, QtCore
     import sys
     import os
+    from pathlib import Path
 
     QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
     QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
@@ -22,8 +23,11 @@ if __name__ == "__main__":
         splashpath = os.path.join(sys._MEIPASS, "data", "splash_loading.png")
     # In case of regular python
     else:
-        splashpath = os.path.join(os.path.dirname(__file__), "..", "data", "splash_loading.png")
-    splash = QtWidgets.QSplashScreen(QtGui.QPixmap(splashpath), QtCore.Qt.WindowStaysOnTopHint)
+        currentdir = Path(__file__).parent
+        splashpath = currentdir / ".." / "data" / "splash_loading.png"
+        if not splashpath.exists():
+            splashpath = currentdir / "data" / "splash_loading.png"
+    splash = QtWidgets.QSplashScreen(QtGui.QPixmap(str(splashpath)), QtCore.Qt.WindowStaysOnTopHint)
     splash.show()
     app.processEvents()
 

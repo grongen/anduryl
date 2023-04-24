@@ -1,4 +1,3 @@
-from multiprocessing.sharedctypes import Value
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 
 
