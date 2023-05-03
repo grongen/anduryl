@@ -203,12 +203,17 @@ class ResultOverview(QtWidgets.QScrollArea):
 
         # Add results settings
         label_layout.addWidget(QtWidgets.QLabel(f"Weights: {self.settings.weight.value}"), 0, 0)
+        label_layout.addWidget(QtWidgets.QLabel(f"SA method: {self.settings.calibration_method.value}"), 1, 0)
+        
         label_layout.addWidget(
-            QtWidgets.QLabel(f"Optimisation: {'yes' if self.settings.optimisation else 'no'}"), 0, 1
+            QtWidgets.QLabel(f"Optimisation: {'yes' if self.settings.optimisation else 'no'}"), 1, 1
         )
         label_layout.addWidget(QtWidgets.QLabel(f"Intrinsic range: {self.settings.overshoot}"), 0, 2)
-        label_layout.addWidget(QtWidgets.QLabel(f"Significance level: {self.results.alpha_opt:.4g}"), 1, 0)
-        label_layout.addWidget(QtWidgets.QLabel(f"Calibration power: {self.settings.calpower}"), 1, 1)
+        label_layout.addWidget(QtWidgets.QLabel(f"Significance level: {self.results.alpha_opt:.4g}"), 0, 1)
+        label_layout.addWidget(QtWidgets.QLabel(f"Calibration power: {self.settings.calpower}"), 1, 2)
+
+        label_layout.addItem(QtWidgets.QSpacerItem(0, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum), 0, 3)
+        
 
         self.plot_items_button = QtWidgets.QPushButton("Plot results", clicked=self.plot_items)
         self.plot_items_button.setFixedWidth(100)

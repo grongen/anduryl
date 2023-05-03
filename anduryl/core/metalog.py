@@ -4,7 +4,6 @@ from pathlib import Path
 from scipy import optimize
 
 import numpy as np
-from scipy.stats import cramervonmises, kstest
 
 githubpath = Path("d:/Documents/GitHub/metalogistic")
 if str(githubpath) not in sys.path:

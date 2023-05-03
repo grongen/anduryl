@@ -335,11 +335,7 @@ class DecisionMakerOptions(QtWidgets.QDialog):
         self.input_elements["calibration_method"] = widgets.ComboboxInputLine(
             label="Calibration method:",
             labelwidth=labelwidth,
-            items=[
-                CalibrationMethod.LR.value,
-                CalibrationMethod.CVM.value,
-                CalibrationMethod.KS.value,
-            ],
+            items=[item.value for item in CalibrationMethod.__members__.values()],
         )
 
         # Connect signals

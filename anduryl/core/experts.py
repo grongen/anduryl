@@ -3,10 +3,10 @@ from typing import Union
 import re
 
 import numpy as np
-from anduryl.core import metalog
+from anduryl.core import metalog, crps
 from anduryl.io.settings import CalibrationMethod, Distribution, WeightType
-from anduryl.model.assessment import EmpiricalAssessment
 
+from scipy.stats import cramervonmises, kstest
 
 def upper_incomplete_gamma(a, x, iterations):
     """
@@ -525,9 +525,10 @@ class Experts:
 
         # Calculate calibration scores for each expert
         cal = np.zeros(len(counts))
+        nitems = self.project.items.get_idx("seed").sum()
 
         for ie, expert in enumerate(counts.keys()):
-            cdfvals = []
+            quantiles = []
 
             for iq in np.where(self.project.items.get_idx("seed"))[0]:
 
@@ -539,16 +540,21 @@ class Experts:
 
                 # Get the realization on a uniform scale
                 estimates = self.project.assessments.estimates[expert][self.project.items.ids[iq]]
-                cdf_val = estimates.cdf(
+                quantile = estimates.cdf(
                     x=realization, lower=lower[iq], upper=upper[iq], distribution=dm_settings.distribution
                 )
 
-                cdfvals.append(cdf_val)
+                quantiles.append(quantile)
 
             if dm_settings.calibration_method == CalibrationMethod.CVM:
-                cal[ie] = metalog.cramervonmises(rvs=cdfvals, cdf=lambda x: x).pvalue
+                cal[ie] = cramervonmises(rvs=quantiles, cdf=lambda x: x).pvalue
             elif dm_settings.calibration_method == CalibrationMethod.KS:
-                cal[ie] = metalog.kstest(rvs=cdfvals, cdf=lambda x: x).pvalue
+                cal[ie] = kstest(rvs=quantiles, cdf=lambda x: x).pvalue
+            elif dm_settings.calibration_method == CalibrationMethod.CRPS:
+                cal[ie] = crps.crps_sa(np.array(quantiles), N=nitems)
+            
+            else:
+                raise NotImplementedError(f'No implementation for {dm_settings.calibration_method} found.')
 
         return cal
 

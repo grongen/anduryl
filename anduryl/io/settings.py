@@ -82,6 +82,7 @@ class CalibrationMethod(Enum):
     LR = "Likelihood Ratio"
     CVM = "Cramer-von Mises"
     KS = "Kolmogorov-Smirnov"
+    CRPS = 'CRPS'
 
 
 class CalculationSettings(BaseModel):

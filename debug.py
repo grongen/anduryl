@@ -20,7 +20,7 @@ if __name__ == "__main__":
     # Import GUI
     from anduryl.core.main import Project
     from anduryl.ui.main import MainWindow
-    from anduryl.io.settings import CalculationSettings
+    from anduryl.io.settings import CalculationSettings, CalibrationMethod
 
     # Create main window
     ex = MainWindow(app)
@@ -52,16 +52,18 @@ if __name__ == "__main__":
     #     distribution="Metalog",
     # )
 
-    # globalnonopt_settings = CalculationSettings(
-    #     id="DM1",
-    #     name="Global no opt.",
-    #     weight="Global",
-    #     overshoot=0.1,
-    #     alpha=0.0,
-    #     robustness=False,
-    #     calpower=1.0,
-    #     distribution="Metalog",
-    # )
+    globalnonopt_settings = CalculationSettings(
+        id="DM1",
+        name="Global no opt.",
+        weight="Global",
+        overshoot=0.1,
+        alpha=None, # TODO: For optimisation, alpha should be None. This is not checked
+        optimisation=True,
+        robustness=False,
+        calpower=1.0,
+        distribution="Metalog",
+        calibration_method=CalibrationMethod.CRPS
+    )
 
     # ex.project.experts.remove_expert("AR03")
 
@@ -82,3 +84,7 @@ if __name__ == "__main__":
     # dialog.save_all_figures()
 
     sys.exit(app.exec_())
+
+
+
+#TODO: CRPS 

@@ -11,7 +11,7 @@
             // "program": "d:/Documents/GitHub/anduryl/debug_metalog_fitting.py",
             "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": false,
+            "justMyCode": true,
             // "args": [
             // "d:/TUD/P08 - Afvoerstatistiek EJ/Data/dummy_project.json"
             // ]
