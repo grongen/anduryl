@@ -3,7 +3,7 @@ from typing import Union
 import re
 
 import numpy as np
-from anduryl.core import metalog, crps
+from anduryl.core import metalog, crps, anderson_darling
 from anduryl.io.settings import CalibrationMethod, Distribution, WeightType
 
 from scipy.stats import cramervonmises, kstest
@@ -435,8 +435,17 @@ class Experts:
 
                 else:
                     bounds[1:-1] = values[iexp, use, iq]
+                    binsize = bounds[1:] - bounds[:-1]
+                    if (binsize == 0.0).any():
+                        if binsize[0] <= 0.0:
+                            print('Lower bound is too high for lowest estimates.')
+                        elif binsize[-1] <= 0.0:
+                            print('Upper bound is too low for highest estimates.')
+                        else:
+                            print('Given percentiles seem invalid')
+                        binsize = np.maximum(1e-20, binsize)
                     self.info_per_var[idx, iq] = np.log(upper[iq] - lower[iq]) + np.sum(
-                        p * np.log(p / (bounds[1:] - bounds[:-1]))
+                        p * np.log(p / binsize)
                     )
 
         # Calculate calibration score for seed (realizations) and total item set
@@ -449,6 +458,7 @@ class Experts:
             ridx[exclude] = False
             tidx[exclude] = False
 
+
         self.info_real[expidxs] = self.info_per_var[np.ix_(expidxs, ridx)].sum(axis=1) / (
             self.info_per_var[np.ix_(expidxs, ridx)] != 0.0
         ).sum(axis=1)
@@ -457,10 +467,10 @@ class Experts:
         ).sum(axis=1)
 
     def calibration_score(self, counts, Nmin, dm_settings):
-        if dm_settings.calibration_method == CalibrationMethod.LR:
+        if dm_settings.calibration_method == CalibrationMethod.Chi2:
             return self.calibration_score_likelihoodratio(counts, Nmin, dm_settings)
         else:
-            return self.calibration_score_continuous(counts, dm_settings)
+            return self.calibration_score_continuous(dm_settings, experts=list(counts.keys()))
 
     def calibration_score_likelihoodratio(self, counts, Nmin, dm_settings):
         """
@@ -508,27 +518,17 @@ class Experts:
     #     # avoid small negative values that can occur due to the approximation
     #     p = max(0, 1. - _cdf_cvm(w, n))
 
-    def calibration_score_continuous(self, counts, dm_settings):
-        """
-        Calculate calbration score
+    def _get_realization_percentiles(self, dm_settings, experts):
 
-        Parameters
-        ----------
-        M : numpy.ndarray
-            Number of realizations per question in each bin
-        Nmin : int
-            Minimum number of answered questions for All experts
-        """
         # Get used percentiles
-        idx = self.project.items.use_quantiles[self.project.items.get_idx("seed"), :].any(axis=0)
         lower, upper = self.project.assessments.get_bounds("both", overshoot=dm_settings.overshoot)
 
         # Calculate calibration scores for each expert
-        cal = np.zeros(len(counts))
-        nitems = self.project.items.get_idx("seed").sum()
+        quantiles = {}
 
-        for ie, expert in enumerate(counts.keys()):
-            quantiles = []
+        for expert in experts:
+
+            quantiles[expert] = []
 
             for iq in np.where(self.project.items.get_idx("seed"))[0]:
 
@@ -544,18 +544,36 @@ class Experts:
                     x=realization, lower=lower[iq], upper=upper[iq], distribution=dm_settings.distribution
                 )
 
-                quantiles.append(quantile)
+                quantiles[expert].append(quantile)
+                
+        return quantiles
 
+    def calibration_score_continuous(self, dm_settings, experts):
+        """
+        Calculate calbration score
+
+        Parameters
+        ----------
+        M : numpy.ndarray
+            Number of realizations per question in each bin
+        Nmin : int
+            Minimum number of answered questions for All experts
+        """
+        quantiles = self._get_realization_percentiles(dm_settings, experts=experts)
+        cal = np.zeros(len(experts))
+
+        for ie, expert in enumerate(experts):
             if dm_settings.calibration_method == CalibrationMethod.CVM:
-                cal[ie] = cramervonmises(rvs=quantiles, cdf=lambda x: x).pvalue
+                cal[ie] = cramervonmises(rvs=quantiles[expert], cdf=lambda x: x).pvalue
             elif dm_settings.calibration_method == CalibrationMethod.KS:
-                cal[ie] = kstest(rvs=quantiles, cdf=lambda x: x).pvalue
+                cal[ie] = kstest(rvs=quantiles[expert], cdf=lambda x: x).pvalue
             elif dm_settings.calibration_method == CalibrationMethod.CRPS:
-                cal[ie] = crps.crps_sa(np.array(quantiles), N=nitems)
-            
+                cal[ie] = crps.crps_sa(np.array(quantiles[expert]))
+            elif dm_settings.calibration_method == CalibrationMethod.AD:
+                cal[ie] = float(anderson_darling.ad_sa(np.array(quantiles[expert])))
             else:
                 raise NotImplementedError(f'No implementation for {dm_settings.calibration_method} found.')
-
+            
         return cal
 
     def calculate_weights(self, dm_settings, experts=None, items=None):
@@ -682,7 +700,6 @@ class Experts:
             else:
                 # Or select only the included realizations
                 ridx = seed_idx[include]
-                # idx = np.ix_(expidx, ridx)
                 info = self.info_per_var[expidx][:, ridx].sum(axis=1) / (
                     self.info_per_var[expidx][:, ridx] != 0.0
                 ).sum(axis=1)
@@ -705,9 +722,20 @@ class Experts:
             info = self.info_per_var[expidx][:, total_idx]
 
             for i, alpha in enumerate(alphas):
-                weights[i][:, total_idx] = info * (cal * (cal >= alpha).astype(int))[:, None]
+                above_threshold = cal >= alpha
+                weights_for_alpha = info * (cal * above_threshold.astype(int))[:, None]
+                # If zeros are present in the weights at this point, this can be the result of
+                # a non-answered question for a single included expert. In that case, increase the weights where 0.0
+                included = np.where(above_threshold)[0]
+                if included.size == 1:
+                    included = included[0]
+                    if (weights_for_alpha[included] == 0).any():
+                        weights_for_alpha[included, weights_for_alpha[included, :] == 0.0] = 1.0
+                weights[i][:, total_idx] = weights_for_alpha
 
+            # Normalize weights
             weights[:, :, total_idx] /= weights[:, :, total_idx].sum(axis=1)[:, None, :]
+            
 
         # Return equal weights
         elif dm_settings.weight == WeightType.EQUAL:

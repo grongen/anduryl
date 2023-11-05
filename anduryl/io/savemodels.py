@@ -1,7 +1,7 @@
 from typing import Dict, List, Tuple
 import numpy as np
 from pydantic import BaseModel as PydanticBaseModel
-from pydantic import validator
+from pydantic import field_validator
 from anduryl import __version__
 
 
@@ -14,7 +14,7 @@ class BaseModel(PydanticBaseModel):
         arbitrary_types_allowed = True
         validate_assignment = True
         extra = "forbid"  # will throw errors so we can fix our models
-        allow_population_by_field_name = True
+        populate_by_name = True
         alias_generator = underscore_to_space
 
 
@@ -22,6 +22,13 @@ class Expert(BaseModel):
     name: str = ""
     user_weight: float = np.nan
 
+    @field_validator("user_weight", mode='before')
+    @classmethod
+    def null_to_nan(cls, v):
+        if v is None:
+            return np.nan
+        else:
+            return v
 
 class Item(BaseModel):
     realization: float = np.nan
@@ -36,13 +43,26 @@ class Item(BaseModel):
     def is_seed(self):
         return ~np.isnan(self.realization)
 
-    @validator("scale")
+    @field_validator("scale")
+    @classmethod
     def scale_must_by_uni_or_log(cls, v):
         if v.lower() not in ["uni", "log"]:
             raise ValueError(f'Scale must be "uni" or "log", got "{v}".')
         return v.lower()
 
-    # @validator("realization")
+    @field_validator("realization", mode='before')
+    @classmethod
+    def null_to_nan(cls, v):
+        if v is None:
+            return np.nan
+        else:
+            return v
+
+    @field_validator("bounds", "overshoots", mode='before')
+    @classmethod
+    def tuple_null_to_nan(cls, v):
+        return tuple(np.nan if item is None else item for item in v)
+
     # def realization_empty_string_to_nan(cls, v):
     #     if isinstance(v, str) and v.strip() == "":
     #         v = np.nan

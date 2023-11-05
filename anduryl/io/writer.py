@@ -85,7 +85,7 @@ def write_json(project, path: Path):
 
     # Write to json
     with open(path, "w") as f:
-        f.write(json.dumps(savedct, indent=4))
+        f.write(savedct.model_dump_json(indent=4))
 
 
 def write_excalibur(project, dttfile, rlsfile):

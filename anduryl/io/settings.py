@@ -75,14 +75,15 @@ class WeightType(Enum):
 class Distribution(Enum):
     PWL = "PWL"
     METALOG = "Metalog"
-    PWL_CONTINUOUS = "PWL continuous"
 
 
 class CalibrationMethod(Enum):
-    LR = "Likelihood Ratio"
+    Chi2 = "Chi-square"
     CVM = "Cramer-von Mises"
     KS = "Kolmogorov-Smirnov"
     CRPS = 'CRPS'
+    AD = 'Anderson-Darling'
+    SW = 'Shapiro-Wilk'
 
 
 class CalculationSettings(BaseModel):
@@ -95,4 +96,4 @@ class CalculationSettings(BaseModel):
     robustness: bool  # = True
     calpower: confloat(ge=0.0)  # = 1.0
     distribution: Distribution = Distribution.METALOG
-    calibration_method: CalibrationMethod = CalibrationMethod.LR
+    calibration_method: CalibrationMethod = CalibrationMethod.Chi2

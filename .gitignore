@@ -15,3 +15,4 @@ __pycache__
 notebooks/.ipynb_checkpoints/*.ipynb
 test/.ipynb_checkpoints/*.ipynb
 pyinstaller/dist/Anduryl.exe
+anduryl/data/AD_ecdf.pickle

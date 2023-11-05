@@ -17,7 +17,7 @@ def _complex2_arr(k, N, x):
     return z.view(np.complex_)
 
 
-def f_N_distribution(N, x, kmax=5000):
+def f_N_distribution(N, x, kmax=10000):
     k = np.arange(1, kmax)
 
     p1 = _complex1_arr(k, N) ** N
@@ -30,8 +30,9 @@ def f_N_distribution(N, x, kmax=5000):
     return f_N
 
 
-def crps_sa(quantiles, N):
+def crps_sa(quantiles, minscore=1e-20):
 
+    N = len(quantiles)
     crps_real = quantiles**3 / 3 - (quantiles - 1) ** 3 / 3
 
     z_real = crps_real * 4 - 1 / 3
@@ -40,4 +41,6 @@ def crps_sa(quantiles, N):
 
     results = 1 - f_N_distribution(N, np.atleast_1d(z_real.sum()))
 
-    return results
+    # In case of a sum(z) very close to N, the distribution can return a value slightly larger than 1.0,
+    # resulting in a score lower than 0.0. In that case, return 0.0
+    return np.maximum(np.full_like(results, minscore), results)

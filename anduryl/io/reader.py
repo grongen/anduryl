@@ -2,6 +2,7 @@ import json
 import re
 from pathlib import Path
 from typing import Union
+from io import StringIO
 
 import numpy as np
 from anduryl.io.savemodels import SaveModel, Item, Expert
@@ -72,14 +73,19 @@ def read_json(path: Union[str, Path]) -> SaveModel:
     outdct = {}
 
     # Write to json
-    with open(path, "r") as f:
-        dct = json.loads(f.read())
+    if isinstance(path, StringIO):
+        text = path.read()
+    else:
+        with open(path, "r") as f:
+            text = f.read()
+    dct = json.loads(text)
+    # SaveModel.model_validate_json(text)
 
     # Check if a version number is present
     if "version" not in dct:
         savemodel = conv_dct_v1_2_0(dct)
     elif dct["version"] == "1.2.1":
-        savemodel = SaveModel.parse_obj(dct)
+        savemodel = SaveModel.model_validate(dct)
     else:
         raise ValueError(f"Version {dct['version']} not recognized. Expected 1.2.0 or 1.2.1.")
 
@@ -327,15 +333,17 @@ class CSVreader:
 
     def _check_paths(self) -> None:
         # Convert to Path, if not already
-        if not isinstance(self.assessments_csv, Path):
+        if isinstance(self.assessments_csv, str):
             self.assessments_csv = Path(self.assessments_csv)
-        if not isinstance(self.items_csv, Path):
+        if isinstance(self.items_csv, str):
             self.items_csv = Path(self.items_csv)
 
         files = [self.assessments_csv, self.items_csv]
 
         # Check if path exists:
         for file in files:
+            if isinstance(file, StringIO):
+                continue
             if not file.exists():
                 raise OSError(f'Path "{file.resolve()}" does not exist.')
 
@@ -343,8 +351,9 @@ class CSVreader:
     def read_items(self) -> None:
 
         # Read items
-        with self.items_csv.open("r") as f:
-            itemlines = [line.strip() for line in f.readlines()[self.items_skiprows :]]
+        f = self.items_csv if isinstance(self.items_csv, StringIO) else self.items_csv.open("r")
+        itemlines = [line.strip() for line in f.readlines()[self.items_skiprows :]]
+        if not isinstance(self.items_csv, StringIO): f.close()
 
         # Read header
         header = [key.lower() for key in itemlines.pop(0).split(self.items_sep)]
@@ -379,8 +388,9 @@ class CSVreader:
             raise ValueError('The items have not been read')
 
         # Read lines
-        with self.assessments_csv.open("r") as f:
-            assessmentlines = [line.strip() for line in f.readlines()[self.assessments_skiprows :]]
+        f = self.assessments_csv if isinstance(self.assessments_csv, StringIO) else self.assessments_csv.open("r")
+        assessmentlines = [line.strip() for line in f.readlines()[self.assessments_skiprows :]]
+        if not isinstance(self.assessments_csv, StringIO): f.close()
 
         # Get the quantiles from the header
         header = [key.lower() for key in assessmentlines.pop(0).split(self.assessments_sep)]

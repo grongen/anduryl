@@ -230,6 +230,10 @@ class Items:
             arr.resize(vals.shape, refcheck=False)
             arr[:] = vals
 
+        # Remove estimates
+        for expertid in self.project.experts.ids:
+            del self.project.assessments.estimates[expertid][item_id]
+
     def as_dict(self, orient="columns", lists=["ids", "scales", "realizations", "questions", "units"]):
         """
         Returns an overview of the item data as a Python dictionary.

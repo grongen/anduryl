@@ -100,7 +100,14 @@ class ExpertAssessment(Assessment):
     def metalog(self):
         if self._metalog is None:
             self._fit_metalog()
-        return self._metalog
+        return self._metalog        
+
+    def plot(self):
+        import matplotlib.pyplot as plt
+        fig, ax = plt.subplots()
+        ax.plot(self._metalog.pps, self._metalog.prange, marker='.')
+        ax.grid()
+        plt.show()
 
     def set_value(self, quantile, estimate):
         super().set_value(quantile, estimate)
@@ -111,28 +118,32 @@ class ExpertAssessment(Assessment):
             self._metalog = NaNDist()
             return
         # print(f"Fitting metalog for {self.itemid} {self.expertid} {xs}")
+        ps = list(self._estimates.keys())
         if self.scale == "log":
             xs = np.log(xs)
+        
+        # If not known, fit a new one    
         if len(xs) == 3:
             self._metalog = get_valid_metalog(
-                ps=list(self._estimates.keys()),
+                ps=ps,
                 xs=xs,
                 item_lbound=self.item_lbound,
                 item_ubound=self.item_ubound,
             )
         elif len(xs) == 5:
             self._metalog = get_valid_5p_metalog(
-                ps=list(self._estimates.keys()),
+                ps=ps,
                 xs=xs,
                 item_lbound=self.item_lbound,
                 item_ubound=self.item_ubound,
             )
         else:
-            raise NotImplementedError()
-
-    def ppf(self, p: float, distribution: Distribution):
+            raise NotImplementedError('A different number of percentiles than 3 or 5 is not Implemented')
+        
+            
+    def ppf(self, p: float, distribution: Distribution, lower: bool=None, upper: bool=None):
         if distribution == Distribution.PWL:
-            return self._ppf_pwl(p)
+            return self._ppf_pwl(p, lower, upper)
         elif distribution == Distribution.METALOG:
             return self._ppf_metalog(p)
 
@@ -149,10 +160,26 @@ class ExpertAssessment(Assessment):
             return self._information_metalog(lower, upper)
 
     def _cdf_pwl(self, x, lower, upper):
+        values = list(self._estimates.values())
+        if self.scale == 'log':
+            values = np.log(values)
+            x = np.log(x)
+        
         return np.interp(
             x,
-            np.concatenate([[lower], list(self._estimates.values()), [upper]]),
+            np.concatenate([[lower], values, [upper]]),
             np.concatenate([[0.0], list(self._estimates.keys()), [1.0]]),
+        )
+
+    def _ppf_pwl(self, p, lower, upper):
+        values = list(self._estimates.values())
+        if self.scale == 'log':
+            values = np.log(values)
+            
+        return np.interp(
+            p,
+            np.concatenate([[0.0], list(self._estimates.keys()), [1.0]]),
+            np.concatenate([[lower], values, [upper]]),
         )
 
     def _ppf_metalog(self, p):
@@ -167,25 +194,86 @@ class ExpertAssessment(Assessment):
         return self.metalog.cdf(x)
 
     def _information_metalog(self, lower, upper):
-        # TODO: Use the bounds in a neater way
+        # TODO: Use the bounds in a neater way?
+        # cdvs = self.metalog.prange
+        # pps = self.metalog.pps
+        # # Get the percentile points in between the pre-calculated values
+        # # midpoints = np.concatenate([[pps[0]], (pps[1:] + pps[:-1]) / 2, [pps[-1]]])
+
+        # # Calculate the expected probability (p)
+        # # From the midpoint of the percentile range, encapsulated by 0 and 1
+        # mp = np.concatenate([[0.0], (cdvs[1:] + cdvs[:-1]) / 2, [1.0]])
+        # # Get the difference to get probability masss
+        # p = mp[1:] - mp[:-1]
+
+        # # Calculate the observed probabilities for the same bins
+        # # by interpolating the minpoints in the 
+        # s = inextrp1d(x=mp, xp=cdvs, fp=pps)
+        # s = s[1:] - s[:-1]
+
+        # # The information score is only calculated for the part within the intrinsic range
+        # inrange = (pps > lower) & (pps < upper)
+        # info1 = np.log(upper - lower) + np.sum(p[inrange] * np.log(p[inrange] / s[inrange]))
+
         cdvs = self.metalog.prange
         pps = self.metalog.pps
-        # Get the percentile points in between the pre-calculated values
-        # midpoints = np.concatenate([[pps[0]], (pps[1:] + pps[:-1]) / 2, [pps[-1]]])
-
-        # Calculate the expected probability (p)
-        mp = np.concatenate([[0.0], (cdvs[1:] + cdvs[:-1]) / 2, [1.0]])
-        p = mp[1:] - mp[:-1]
-
-        # Calculate the observed probabilities for the same bins
-        s = inextrp1d(x=mp, xp=cdvs, fp=pps)
-        s = s[1:] - s[:-1]
+        
+        # Modify the pps such that they span the full bounds
+        _cdvs = np.unique(np.concatenate([[self.metalog.cdf(lower), self.metalog.cdf(upper)], cdvs]))
+        _pps = np.unique(np.concatenate([[lower, upper], pps]))
 
         # The information score is only calculated for the part within the intrinsic range
-        inrange = (pps > lower) & (pps < upper)
-        info = np.log(upper - lower) + np.sum(p[inrange] * np.log(p[inrange] / s[inrange]))
+        inrange = (_pps >= lower) & (_pps <= upper)
+        _cdvs = _cdvs[inrange]
+        _pps = _pps[inrange]
 
-        return info
+        # Calculate the expected (background) probability
+        p = _cdvs[1:] - _cdvs[:-1]
+        # Correct the score for only considering the part between lower and upper
+        p /= p.sum()
+
+        # Calculate the expert assigned range (from metalog)
+        dx = _pps[1:] - _pps[:-1]
+        # Calculate information score
+        info2 = np.log(upper - lower) + np.sum(p * np.log(p / dx))
+
+
+        # BELOW A VALIDATION BASED ON LIMITING A PIECE-WISE UNIFORM DIST
+        # pps = np.array([0, 5, 45, 50, 55, 95, 100])
+        # cdf = np.array([0.0, 0.05, 0.25, 0.5, 0.75, 0.95, 1.0])
+
+        # # _pps = pps
+        # # _cdf = cdf
+
+        # p = cdf [1:] - cdf[:-1]
+        # p /= p.sum()
+        # s = pps [1:] - pps[:-1]
+
+        # I = np.log(pps[-1] - pps[0]) + np.sum(p * np.log(p / s))
+        # print(I)
+
+
+        # _pps = np.concatenate([[2], pps[1:-1], [98]])
+        # _cdf = np.interp(_pps, pps, cdf)
+
+        
+        # p = _cdf [1:] - _cdf[:-1]
+        # p /= p.sum()
+        # s = _pps [1:] - _pps[:-1]
+
+        # I = np.log(_pps[-1] - _pps[0]) + np.sum(p * np.log(p / s))
+        # print(I)
+
+        # import matplotlib.pyplot as plt
+        # fig, ax = plt.subplots()
+        # ax.plot(pps, cdf)
+        # ax.plot(_pps, _cdf)
+        # plt.show()
+        
+
+
+
+        return info2
 
 
 class NaNDist:
@@ -218,11 +306,28 @@ class EmpiricalAssessment(Assessment):
         )
 
         # Prepare arrays for interpolation
-        quantiles, index = np.unique(quantiles, return_index=True)
-        values = values[index]
         values, index = np.unique(values, return_index=True)
         quantiles = quantiles[index]
+        # print(values, quantiles)
+        # Remove out of bound values (inaccuracies)
+        index = ((quantiles >= 0.0) & (quantiles <= 1)) | np.isnan(quantiles)
+        quantiles = quantiles[index]
+        values = values[index]
+        # quantiles = np.clip(quantiles, 0, 1)
+        quantiles, index = np.unique(quantiles, return_index=True)
+        # If values are not in ascending order, 
+        values = values[index]
 
+        neg = (np.diff(values) < 0)
+        k = 0
+        while neg.any():
+            idx = np.concatenate([[True], ~neg])
+            values = values[idx]
+            quantiles = quantiles[idx]
+            neg = (np.diff(values) < 0)
+            k+=1
+            print(k)
+        
         self.fp = np.concatenate(
             [
                 [0.0] if 0.0 not in quantiles else [],
@@ -241,6 +346,21 @@ class EmpiricalAssessment(Assessment):
             ]
         )
 
+        self.s = self.xp[1:] - self.xp[:-1]
+        self.p = self.fp[1:] - self.fp[:-1]
+
+# import matplotlib.pyplot as plt
+# fig, ax = plt.subplots()
+# ax.plot(self.s, self.p)
+# plt.show()
+
+        if (self.s < 0.0).any():
+            raise ValueError()
+        
+        if (self.p < 0.0).any():
+            raise ValueError()
+        
+
     def cdf(self, x: float, distribution: Distribution, lower: float, upper: float):
         if self.scale == "log":
             x = np.log(x)
@@ -258,13 +378,14 @@ class EmpiricalAssessment(Assessment):
     def information(self, lower: float, upper: float, distribution: Distribution):
 
         # Observed and expected
-        s = self.xp[1:] - self.xp[:-1]
-        p = self.fp[1:] - self.fp[:-1]
         mp = (self.xp[1:] + self.xp[:-1]) * 0.5
 
         # The information score is only calculated for the part within the intrinsic range
-        inrange = (mp > lower) & (mp < upper) & (s > 0.0)
-        info = np.log(upper - lower) + np.sum(p[inrange] * np.log(p[inrange] / s[inrange]))
+        inrange = (mp > lower) & (mp < upper) & (self.s > 0)
+        frac = self.p[inrange] / self.s[inrange]
+        # if (frac < 0.0).any():
+            # raise ValueError()
+        info = np.log(upper - lower) + np.sum(self.p[inrange] * np.log(frac))
 
         # cdvs = np.concatenate([[0.001], np.linspace(0.0, 1.0, 301)[1:-1], [0.999]])
         # pps = inextrp1d(x=cdvs, xp=self.fp, fp=self.xp)

@@ -1,8 +1,24 @@
 from itertools import combinations
+import bisect
 
 import numpy as np
 from anduryl.io.settings import Distribution, WeightType, CalculationSettings, CalibrationMethod
 from numpy.core.multiarray import interp as compiled_interp
+
+
+def _get_full_cdf(xp, cdfp, scale):
+    
+    valid = True
+    if (cdfp == 0.0).all():
+        cdfp = np.full_like(xp, np.nan)
+        valid = False
+                
+    if (scale == "log"):
+        full_cdf = np.stack([np.exp(np.clip(xp, -708, 709)), cdfp], axis=1)
+    else:
+        full_cdf = np.stack([xp, cdfp], axis=1)
+
+    return full_cdf, valid
 
 
 def decision_maker(experts, items, assessments, dm_settings: CalculationSettings):
@@ -81,10 +97,12 @@ def decision_maker(experts, items, assessments, dm_settings: CalculationSettings
         F_ex, all_answers = get_expert_metalog_CDFs(
             assessments.estimates, experts=experts.get_exp("actual"), scales=items.scales
         )
-    else:
+    elif dm_settings.distribution == Distribution.PWL:
         F_ex, all_answers = get_expert_CDFs(
             np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper
         )
+    else:
+        raise KeyError(dm_settings.distribution)
 
     # Collect CDF
     DM = np.full((len(alphas), nitems, npercentiles + 2), np.nan)
@@ -102,8 +120,10 @@ def decision_maker(experts, items, assessments, dm_settings: CalculationSettings
         # Re-normalize weights without experts that have not answered
         if no_answer.any():
             weights[:, no_answer, iq] = 0.0
-            numerator = weights[:, :, iq].sum(axis=1)[:, None]
-            weights[:, :, iq] /= numerator
+            denominator = weights[:, :, iq].sum(axis=1)[:, None]
+            valid = ~np.isnan(denominator) & (denominator > 0.0)
+            np.divide(weights[:, :, iq], denominator, out=weights[:, :, iq], where=valid)
+                
 
         # Weight the experts, by getting the weighted sum (in product) of the quantiles
         F_DM[iq] = np.dot(F_ex[iq], weights[:, :, iq].T)
@@ -119,7 +139,7 @@ def decision_maker(experts, items, assessments, dm_settings: CalculationSettings
             # If background scale is logaritmic, the values have to be converted back to their
             # original scale, so take the exponent.
             if scale[iq] == "log":
-                DM[ialpha, iq, use] = np.exp(DM[ialpha, iq, use])
+                DM[ialpha, iq, use] = np.exp(np.clip(DM[ialpha, iq, use], -708, 709))
 
     # In case of optimisation, find the optimal alpha
     if dm_settings.alpha is None:
@@ -127,6 +147,13 @@ def decision_maker(experts, items, assessments, dm_settings: CalculationSettings
         # Get weight for each decision maker
         exps = [f"tmp{i}" for i in range(len(alphas))]
         for i, (tmp_id, DMassessment) in enumerate(zip(exps, DM)):
+            
+            full_cdf = {}
+            for iq in range(nitems):
+                full_cdf[iq], valid  = _get_full_cdf(xp=all_answers[iq], cdfp=F_DM[iq][:, i], scale=scale[iq])
+                if not valid:
+                    DMassessment[iq] = np.nan
+
             # Calculate weight of DM
             experts.add_expert(
                 exp_id=tmp_id,
@@ -134,14 +161,7 @@ def decision_maker(experts, items, assessments, dm_settings: CalculationSettings
                 assessment=DMassessment,
                 exp_type="dm",
                 overwrite=True,
-                full_cdf={
-                    iq: (
-                        np.c_[np.exp(np.clip(all_answers[iq], -708, 709)), F_DM[iq][:, i]]
-                        if (scale[iq] == "log")
-                        else np.c_[all_answers[iq], F_DM[iq][:, i]]
-                    )
-                    for iq in range(nitems)
-                },
+                full_cdf=full_cdf
             )
         # Calculate weights for all temporary experts
         experts.calculate_weights(dm_settings=dm_settings)
@@ -159,13 +179,38 @@ def decision_maker(experts, items, assessments, dm_settings: CalculationSettings
 
     # Get full expert CDF
     for iq in range(nitems):
-        if scale[iq] == "log":
-            # Note: the clip(709, answers) is to avoid underflow or overflow errors around 1e308, causes by metalog tails
-            F_DM[iq] = np.c_[np.exp(np.clip(all_answers[iq], -708, 709)), F_DM[iq][:, imax]]
-        else:
-            F_DM[iq] = np.c_[all_answers[iq], F_DM[iq][:, imax]]
+        full_cdf, valid = _get_full_cdf(xp=all_answers[iq], cdfp=F_DM[iq][:, imax], scale=scale[iq])
+        F_DM[iq] = full_cdf
+        
 
     return DM[imax], F_DM, alphas[imax]
+
+
+def _linspace(start, stop, N):
+    step = (stop - start) / (N - 1)
+    return np.arange(start, stop + 0.5 * step, step)
+
+def is_monotone(arr):
+    return ((arr[1:] - arr[:-1]) >= 0.0).all()
+
+def get_covering_range(grid, minpoints, ranges):
+    
+    while len(ranges) > 0:
+        for rng in ranges:
+            # Find where the range is positioned in the total grid
+            imin, imax = bisect.bisect(grid, rng[0]), bisect.bisect(grid, rng[1])
+            if (imax - imin) < minpoints:
+                # Refine one step
+                npts = (imax - imin + 1) * 2 + 1
+                idximin = max(0, imin - 1)
+                idximax = min(imax, len(grid)-1)
+                grid = np.concatenate(
+                    [grid[:idximin], _linspace(grid[idximin], grid[idximax], npts), grid[(idximax + 1) :]]
+                )
+            # If sufficiently covered, remove
+            else:
+                ranges.remove(rng)
+    return grid
 
 
 def get_expert_metalog_CDFs(estimates, experts, scales):
@@ -176,18 +221,30 @@ def get_expert_metalog_CDFs(estimates, experts, scales):
 
     for iq, item in enumerate(items):
 
-        # Collect all experts and quantiles for the question
-        # Get a suitable range for interpolating the CDF on
-        # For now by gathering all 100 precalculated values
-        all_answers[iq] = np.unique(
-            np.concatenate([estimates[expert][item].metalog.pps for expert in experts])
-        )
-        # And remove values that are too close together
-        diff = all_answers[iq][1:] - all_answers[iq][:-1]
-        idx = np.concatenate([[True], diff > (all_answers[iq][-1] - all_answers[iq][0]) * 1e-4])
-        all_answers[iq] = all_answers[iq][idx]
-        # all_answers[iq] = np.linspace(all_answers[iq][0], all_answers[iq][-1], 1001)
+        # Get a suitable range for interpolating the CDF on (equal to the 'all answers' in the PWL approach)
+        ranges = [
+            compiled_interp(
+                [0, 0.01, 0.3, 0.7, 0.99, 1.0], estimates[expert][item].metalog.prange, estimates[expert][item].metalog.pps
+            )
+            for expert in experts if not np.isnan(list(estimates[expert][item].estimates.values())).any()
+        ]
+        # First, get the max range
+        minr, maxr = min([r[0] for r in ranges]), max([r[-1] for r in ranges])
+        n = 51
+        grid = _linspace(minr, maxr, n)
+        grid = get_covering_range(grid, minpoints=n, ranges=[(rng[0], rng[-1]) for rng in ranges])
+        grid = get_covering_range(grid, minpoints=n, ranges=[(rng[1], rng[-2]) for rng in ranges])
+        all_answers[iq] = get_covering_range(grid, minpoints=n, ranges=[(rng[2], rng[-3]) for rng in ranges])
 
+        # all_answers[iq] = np.unique(
+        #     np.concatenate([estimates[expert][item].metalog.pps for expert in experts])
+        # )
+        # # Remove values that are too close together
+        # diff = all_answers[iq][1:] - all_answers[iq][:-1]
+        # # total_range = (all_answers[iq][-1] - all_answers[iq][0])
+        # idx = np.concatenate([[True], (diff > minrange * 1e-3)[:-1], [True]])
+        # all_answers[iq] = all_answers[iq][idx]
+        
         # Initialize
         F_ex[iq] = np.zeros((len(all_answers[iq]), len(experts)))
 
@@ -201,8 +258,16 @@ def get_expert_metalog_CDFs(estimates, experts, scales):
             if dist.pps.size == 0:
                 continue
             # F_ex[iq][:, iex] = compiled_interp(all_answers[iq], dist.pps, dist.prange, left=0.0, right=1.0)
-            F_ex[iq][:, iex] = np.clip(inextrp1d(all_answers[iq], dist.pps, dist.prange), 0.0, 1.0)
-            # F_ex[iq][:, iex] = dist.cdf(all_answers[iq])
+            # Interpolate the experts percentiles, for all the answers in the assessment.
+            # If these answers are more concentrated than the total range, they are (far) outside the [0, 1] range.
+            # Therefore, clip to [0, 1]
+
+            # TODO: SPEED UP BY INTERPOLATING RATHER THAN CALCULATING ALL CDF VALUES \/  \/  \/  \/ 
+            cdf_vals = np.clip(inextrp1d(all_answers[iq], dist.pps, dist.prange), 0.0, 1.0)
+            
+            # TODO: GENERATE SMOOT CURVES BY CALCULATING THE FULL CDF
+            # cdf_vals = [dist.cdf(x, interp_tol=None) for x in all_answers[iq]]
+            F_ex[iq][:, iex] = cdf_vals
 
         if scales[iq] == "log":
             F_ex[iq] = np.clip(F_ex[iq], -708, 709)
@@ -391,9 +456,7 @@ def item_robustness(
     qlower, qupper = assessments.get_bounds("both", overshoot=dm_settings.overshoot)
 
     # Get the expert CDF's and distinct answers
-    F_ex, all_answers = get_expert_CDFs(
-        np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper
-    )
+    F_ex, all_answers = get_expert_CDFs(np.array(assessments.quantiles), items.use_quantiles, values, qlower, qupper)
 
     results = {}
     totexps = set()
@@ -437,8 +500,10 @@ def item_robustness(
             # Re-normalize weights without experts that have not answered
             if no_answer.any():
                 weights[:, no_answer, iq] = 0.0
-                weights[:, :, iq] /= weights[:, :, iq].sum(axis=1)[:, None]
-
+                denominator = weights[:, :, iq].sum(axis=1)[:, None]
+                valid = ~np.isnan(denominator) & (denominator > 0.0)
+                np.divide(weights[:, :, iq], denominator, out=weights[:, :, iq], where=valid)
+                
             # Weight the experts, by getting the weighted sum (in product) of the quantiles
             F_DM = np.dot(F_ex[iq], weights[:, :, iq].T)
 
@@ -491,9 +556,7 @@ def item_robustness(
             totexps = exps
             # Add final expert and calculate weight
             # Add expert as decision maker, so that the (reduced) number of valid answers is used in calculating the calibration score
-            experts.add_expert(
-                exp_id="tmp0", exp_name="tmp0", assessment=DM[imax], exp_type="dm", overwrite=True
-            )
+            experts.add_expert(exp_id="tmp0", exp_name="tmp0", assessment=DM[imax], exp_type="dm", overwrite=True)
             # Calculate Nmin including DM
             # Update actual expert item count
             experts.M.update(experts.count_realizations_per_bin(experts.get_exp("actual"), items=itembool))
@@ -622,9 +685,7 @@ def expert_robustness(
         exp_selection = [exp for i, exp in enumerate(actual_experts) if expidx[i]]
 
         # Get bounds for both seed and target questions
-        qlower, qupper = assessments.get_bounds(
-            "both", overshoot=dm_settings.overshoot, experts=exp_selection
-        )
+        qlower, qupper = assessments.get_bounds("both", overshoot=dm_settings.overshoot, experts=exp_selection)
         # Get CDF for selection of experts (and selected expert bounds)
         # shape F_ex: {Nitems, [Nanswers(item), Nexperts]}
         F_ex, all_answers = get_expert_CDFs(
@@ -705,9 +766,7 @@ def expert_robustness(
             tmp_id = "tmp0"
             totexps = [tmp_id]
             # Add final expert and calculate weight
-            experts.add_expert(
-                exp_id=tmp_id, exp_name=tmp_id, assessment=DM[imax], exp_type="dm", overwrite=True
-            )
+            experts.add_expert(exp_id=tmp_id, exp_name=tmp_id, assessment=DM[imax], exp_type="dm", overwrite=True)
             experts.calculate_weights(
                 dm_settings=dm_settings,
                 experts=[tmp_id],
@@ -715,9 +774,7 @@ def expert_robustness(
 
         # Calculate the scores for the final DM
         dmidx = experts.get_idx(tmp_id)
-        experts._information_score(
-            experts=exp_selection + [tmp_id], dm_settings=dm_settings, bounds_for_experts=True
-        )
+        experts._information_score(experts=exp_selection + [tmp_id], dm_settings=dm_settings, bounds_for_experts=True)
         results[tuple(actual_experts[i] for i in comb)] = (
             experts.info_total[dmidx],
             experts.info_real[dmidx],

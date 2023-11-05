@@ -80,10 +80,6 @@ class Assessments:
                     item_ubound=ubound,
                 )
             else:
-
-                # import matplotlib.pyplot as plt
-                # plt.plot(*empirical_cdf[iq].T)
-                # plt.xscale('log')
                 assessment = EmpiricalAssessment(
                     quantiles=empirical_cdf[iq][:, 1],
                     values=empirical_cdf[iq][:, 0],
@@ -329,6 +325,10 @@ class Assessments:
             maxrange = upper - lower
             lower -= overshoot[:, 0] * maxrange
             upper += overshoot[:, 1] * maxrange
+
+            # # Transform back
+            # lower[islog] = np.exp(lower[islog])
+            # upper[islog] = np.exp(upper[islog])
 
         # Check if some bounds need to be overwritten with custom bounds
         user_lower = self.project.items.bounds[qidx, 0]

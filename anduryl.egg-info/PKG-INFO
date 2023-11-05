@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: anduryl
+Version: 1.2.2
+Summary: A Python module and GUI for expert elicitation based on Cooke's classical method.
+Home-page: https://github.com/grongen/anduryl
+Author: Guus Rongen, Marcel 't Hart, Georgios Leontaris, Oswaldo Morales Nápoles
+Author-email: g.w.f.rongen@tudelft.nl
+License: GNU license
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: numpy
+Requires-Dist: PyQt5
+Requires-Dist: matplotlib

@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 from typing import Union
+from io import StringIO
 
 import numpy as np
 from anduryl.io import reader, writer
@@ -110,7 +111,7 @@ class ProjectIO:
             # "results": {key: project.results[key].settings for key in project.results.keys()},
         }
 
-        return SaveModel.parse_obj(project_dct)
+        return SaveModel.model_validate(project_dct)
 
     def to_json(self, path: Union[str, Path]) -> None:
         """
@@ -132,7 +133,7 @@ class ProjectIO:
 
         # Save
         with path.open("w") as f:
-            text = savemodel.json(indent=4)
+            text = savemodel.model_dump_json(indent=4)
             # Remove line breaks inside lists (last level of json-file) to make the json easier to read
             for match in re.findall("\[[\s\S]*?\]", text):
                 text = text.replace(match, "[" + " ".join(match[1:-1].split()) + "]")
@@ -202,9 +203,9 @@ class ProjectIO:
 
     def import_csv(
         self,
-        assessments_csv: Union[Path, str],
+        assessments_csv: Union[Path, str, StringIO],
         assessments_sep: str,
-        items_csv: Union[Path, str],
+        items_csv: Union[Path, str, StringIO],
         items_sep: str,
         assessments_skiprows: int = 0,
         items_skiprows: int = 0,
