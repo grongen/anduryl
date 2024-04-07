@@ -104,12 +104,17 @@ def get_table_text(model, newline="\n", delimiter="\t"):
     str
         Text that can be exported or pasted
     """
+
+    ncols, nrows  =model.columnCount(None), model.rowCount(None)
     # Get header
-    header = [model.headerData(i, QtCore.Qt.Horizontal, QtCore.Qt.DisplayRole) for i in range(model.columnCount(None))]
+    header = [model.headerData(i, QtCore.Qt.Horizontal, QtCore.Qt.DisplayRole) for i in range(ncols)]
     if header[0] == "ID":
         header[0] = "Id"
+    
+    # Get row index
+    # row_index = [model.headerData(i, QtCore.Qt.Vertical, QtCore.Qt.DisplayRole) for i in range(nrows)]
+        
     # Get data text
-    selection = [
-        model.createIndex(i, j) for i, j in product(range(model.rowCount(None)), range(model.columnCount(None)))
-    ]
+    selection = [model.createIndex(i, j) for i, j in product(range(nrows), range(ncols))]
+
     return delimiter.join(header) + newline + selection_to_text(selection, newline, delimiter) + newline

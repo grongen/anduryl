@@ -11,9 +11,10 @@ from pathlib import Path
 from typing import Union
 
 import numpy as np
-from anduryl import io, __version__
+from anduryl import __version__
 from anduryl.core.main import Project
 from anduryl.ui import widgets
+from anduryl.io.writer import table_to_csv
 from anduryl.ui.assessments import AssessmentsWidget
 from anduryl.ui.dialogs import NotificationDialog, get_icon, ImportCSVDialog
 from anduryl.ui.experts import ExpertsWidget
@@ -393,18 +394,22 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Add export Expert scores
         export_scores_action = QtWidgets.QAction(QtGui.QIcon(), "Expert scores", self)
-        export_scores_action.triggered.connect(lambda: io.table_to_csv(resultsoverview.scores_model, self))
+        export_scores_action.triggered.connect(lambda: table_to_csv(resultsoverview.scores_model, self))
         self.subresultsmenu[dm_id].addAction(export_scores_action)
 
+        def items_robustness_to_table():
+            table_to_csv(model=resultsoverview.robustness_model["Items"], mainwindow=self)
+
+        def experts_robustness_to_table():
+            table_to_csv(model=resultsoverview.robustness_model["Experts"], mainwindow=self)
+
         # Add export robustness
-        for key in ["Items", "Experts"]:
+        for key, func in zip(["Items", "Experts"], [items_robustness_to_table, experts_robustness_to_table]):
             if key in resultsoverview.robustness_model:
                 robustness_action = QtWidgets.QAction(
                     QtGui.QIcon(), f"Robustness per {key[:-1].lower()}", self
                 )
-                robustness_action.triggered.connect(
-                    lambda: io.table_to_csv(resultsoverview.robustness_model[key], self)
-                )
+                robustness_action.triggered.connect(func)
                 self.subresultsmenu[dm_id].addAction(robustness_action)
 
         # Add export Expert CDF

@@ -30,15 +30,18 @@ def table_to_csv(model, mainwindow, path: Path = None):
 
     if not path:
         return None
+    
+    # Make sure path is Path object (and not a string)
+    path = Path(path)
 
     if not path.parent.exists():
         raise OSError(f'Save path "{path.parent}" does not exists.')
 
-    if not path.endswith(".csv"):
-        path += ".csv"
+    if not path.suffix == ".csv":
+        path = Path(str(path)+".csv")
 
     with open(path, "w") as f:
-        f.write(get_table_text(model, newline="\n", delimiter=";"))
+        f.write(get_table_text(model, newline="\n", delimiter=","))
 
 
 def write_json(project, path: Path):
